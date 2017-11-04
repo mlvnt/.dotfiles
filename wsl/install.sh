@@ -3,6 +3,7 @@ dpkg -l | grep -qw git || apt-get install -yyq git
 git config --global user.email "malvintodorov@gmail.com"
 git config --global user.name "mlvnt"
 git config --global color.ui auto
+git config --global push.default matching
 
 # DOTFILES
 cd /mnt/d/Workspace/General/Tech/Reference/OSs/Unix/dotfiles/dotfiles/wsl
