@@ -12,9 +12,6 @@ cd ~/
 sudo dos2unix install.sh .bashrc .vimrc .zshrc run.sh
 source install.sh .bashrc .vimrc .zshrc run.sh
 
-# Logs
-mkdir -p ~/software/install_logs/
-
 # Update Package Repos
 sudo apt-get update
 sudo apt-get upgrade
@@ -51,6 +48,8 @@ dpkg -l | grep -qw graphviz || apt-get install -yyq graphviz
 dpkg -l | grep -qw dos2unix || apt-get install -yyq dos2unix
 dpkg -l | grep -qw tee || apt-get install -yyq tee
 dpkg -l | grep -qw expect || apt-get install -yyq expect
+dpkg -l | grep -qw tmux || apt-get install -yyq tmux
+dpkg -l | grep -qw emacs || apt-get install -yyq emacs
 # Tools-GUI
 
 # Jupyter
@@ -64,8 +63,18 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 # Oh My ZSH
 # sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
+# zsh-autosuggestions
+git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+
 # Powerlevel9k
 git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
+
+# dircolors-solarized
+mkdir -p ~/.dir_colors
+cd .dir_colors/
+git clone https://github.com/seebi/dircolors-solarized.git
+mv dircolors-solarized/dircolors.256dark ./
+cd ~/
 
 # Vim 
 dpkg -l | grep -qw vim || apt-get install -yyq vim

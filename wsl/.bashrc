@@ -125,16 +125,26 @@ export HISTCONTROL=erasedups
 
 # ALIASES
 
-# Universial
+# Directories
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+alias ls="ls --color=auto"
 alias lsa="ls -al --color=auto"
 alias home="cd ~"
 alias root="cd /"
+alias ..="cd .."
+alias cd..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
 alias temp="cd /mnt/d/Workspace/_TEMP/"
+alias work="cd /mnt/d/Workspace/"
+alias general="cd /mnt/d/Workspace/General/"
 alias homer="cd /mnt/c/Users/Todorov/AppData/Local/Packages/CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc/LocalState/rootfs/home/todorov/"
 alias down="cd /mnt/c/Users/Todorov/Downloads/"
+
+# Universial
 alias m3u="ls >> tracklist.m3u"
 alias brc="vim ~/.bashrc"
 alias zrc="vim ~/.zshrc"
@@ -148,10 +158,10 @@ alias blog="cd /mnt/d/Workspace/General/Personal\ Development/My\ Blog/Blog/mlvn
 alias blogc="rm -rfv /mnt/d/Workspace/General/Personal\ Development/My\ Blog/Blog/mlvnt.com/public_html/ && mkdir -p /mnt/d/Workspace/General/Personal\ Development/My\ Blog/Blog/mlvnt.com/public_html/"
 alias hugos="hugo server -w"
 alias tarbackup='tar -zcvf "backup-$(date "+%Y-%m-%d-%H-%M").tar.gz"'
-# alias ..="cd .."
-# alias ...="cd ../.."
-# alias ....="cd ../../.."
 alias dots="cd /mnt/d/Workspace/General/Tech/Reference/OSs/Unix/dotfiles/dotfiles/wsl && sudo cp install.sh .bashrc .vimrc .zshrc run.sh ~/ && cd ~ && sudo dos2unix install.sh .bashrc .vimrc .zshrc run.sh"
+alias dotfiles="cd /mnt/d/Workspace/General/Tech/Reference/OSs/Unix/dotfiles/dotfiles/wsl"
+alias v="vim"
+alias x+="chmod +x"
 
 # Git
 alias g="git"
