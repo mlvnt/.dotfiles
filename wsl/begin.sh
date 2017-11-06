@@ -23,5 +23,5 @@ cd .dotfiles/wsl/
 sudo dos2unix ./.* ./*.* ./shell/.* ./shell/*.* ./editors/.* ./editors/*.* ./git/.* ./git/*.* ./bin/*
 sudo chmod +x install.sh run.sh symblinks.sh begin.sh
 sleep 10s
-sudo ./run.sh
+sudo ~/.dotfiles/wsl/run.sh
 printf "\n“-----------------------\n\n    Install Complete!   \n\n-----------------------”\n\n"
