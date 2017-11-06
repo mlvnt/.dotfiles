@@ -88,7 +88,6 @@ sudo apt-get install -yyq xclip
 echo 'Installing xfce4....'
 sudo apt-get install xfce4
 sudo apt-get install xfce4-goodies
-# xfce4-session
 ##### I3-WM #####
 echo 'Installing i3-wm....'
 sudo apt-get install i3-wm
@@ -101,7 +100,6 @@ sudo apt-get install apt-transport-https
 echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
 sudo apt-get update
 sudo apt-get install sublime-text
-# i3
 #   -------------------------------
 #   4.  INSTALL TRASH-CLI
 #   -------------------------------

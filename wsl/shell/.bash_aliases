@@ -47,7 +47,11 @@ alias tarbackup='tar -zcvf "backup-$(date "+%Y-%m-%d-%H-%M").tar.gz"'
 #   -------------------------------
 alias sudo="sudo "
 alias update="sudo apt-get update && sudo apt-get upgrade"
-alias m3u="ls >> tracklist.m3u"
+
+DOTFILES_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+src="$DOTFILES_ROOT/"
+alias m3u='ls >> "tracklist-$("$(basename "$src")").m3u" && sudo vim "tracklist-$("$(basename "$src")").m3u"'
+
 alias brc="sudo vim ~/.bashrc"
 alias zrc="sudo vim ~/.zshrc"
 alias vrc="sudo vim ~/.vimrc"
@@ -105,4 +109,6 @@ alias uni="cd /mnt/d/Workspace/University/Course/Year\ 2\ -\ 2017-2018/"
 #   -------------------------------
 alias open="explorer.exe"
 alias 4k="cmd.exe /c start /D 'C:\Program Files (x86)\4KDownload\4kvideodownloader' 4kvideodownloader.exe"
+alias xfce="xfce4-session"
+alias i3="i3"
 #=============================================================================================================
