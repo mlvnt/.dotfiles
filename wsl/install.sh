@@ -14,11 +14,19 @@ sudo pip3 install setuptools
 echo 'Installing ruby....'
 dpkg -l | grep -qw ruby || sudo apt-get install -yyq ruby
 dpkg -l | grep -qw ruby-bundler || sudo apt-get install -yyq ruby-bundler
+##### NODEJS #####
+echo 'Installing nodejs....'
+dpkg -l | grep -qw nodejs || sudo apt-get install -yyq nodejs
+echo 'Installing npm....'
+dpkg -l | grep -qw npm || sudo apt-get install -yyq npm
+echo 'Installing npm packages....'
+# which http-server
+# sudo vim /usr/local/bin/http-server
+# change node with nodejs
+sudo npm -g install http-server
 ##### OTHER #####
 echo 'Installing haskell....'
 dpkg -l | grep -qw ghc || sudo apt-get install -yyq ghc
-echo 'Installing nodejs....'
-dpkg -l | grep -qw nodejs || sudo apt-get install -yyq nodejs
 echo 'Installing php7.0-cli....'
 dpkg -l | grep -qw php7.0-cli || sudo apt-get install -yyq php7.0-cli
 echo 'Installing openjdk-9-jre-headless....'
@@ -44,8 +52,6 @@ echo 'Installing gparted....'
 dpkg -l | grep -qw gparted || sudo apt-get install -yyq gparted
 echo 'Installing nano....'
 dpkg -l | grep -qw nano || sudo apt-get install -yyq nano
-echo 'Installing npm....'
-dpkg -l | grep -qw npm || sudo apt-get install -yyq npm
 echo 'Installing tar....'
 dpkg -l | grep -qw tar || sudo apt-get install -yyq tar
 echo 'Installing man....'
