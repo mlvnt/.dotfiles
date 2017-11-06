@@ -18,4 +18,5 @@ sudo unbuffer ~/.dotfiles/wsl/symblinks.sh 2>&1 | tee -a log_symblinks.sh-$(date
 # SOURCE CONFIG                                                               #
 ###############################################################################
 cd ~/
+sudo rm ~/.begin.sh
 source ~/.*rc ~/.bash*

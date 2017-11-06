@@ -66,6 +66,7 @@ alias v="vim"
 alias c='clear'
 alias rm="rm -v"
 alias cp='cp -iv'                           # Preferred 'cp' implementation
+alias cpd='cp -ri'
 alias mv='mv -iv'                           # Preferred 'mv' implementation
 alias mkdir='mkdir -pv'
 alias x+="chmod +x"
@@ -100,5 +101,5 @@ alias uni="cd /mnt/d/Workspace/University/Course/Year\ 2\ -\ 2017-2018/"
 #   7.  WINDOWS
 #   -------------------------------
 alias open="explorer.exe"
-alias 4k="cmd.exe /c start /D "C:\Program Files (x86)\4KDownload\4kvideodownloader" 4kvideodownloader.exe"
+alias 4k="cmd.exe /c start /D 'C:\Program Files (x86)\4KDownload\4kvideodownloader' 4kvideodownloader.exe"
 #=============================================================================================================
