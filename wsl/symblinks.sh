@@ -146,7 +146,7 @@ install_bin () {
 
 install_config () {
     info 'installing config'
-    local overwrite_all=false backup_all=false skip_all=false
+    local overwrite_all=true backup_all=false skip_all=false
     src="$DOTFILES_ROOT/.config"
     dst="$HOME/$(basename "$src")"
     link_file "$src" "$dst"
@@ -154,7 +154,7 @@ install_config () {
 
 install_dir_colors () {
     info 'installing dir_colors'
-    local overwrite_all=false backup_all=false skip_all=false
+    local overwrite_all=true backup_all=false skip_all=false
     src="$DOTFILES_ROOT/.dir_colors"
     dst="$HOME/$(basename "$src")"
     link_file "$src" "$dst"
@@ -162,7 +162,7 @@ install_dir_colors () {
 
 install_fonts () {
     info 'installing fonts'
-    local overwrite_all=false backup_all=false skip_all=false
+    local overwrite_all=true backup_all=false skip_all=false
     src="$DOTFILES_ROOT/.fonts"
     dst="$HOME/$(basename "$src")"
     link_file "$src" "$dst"
