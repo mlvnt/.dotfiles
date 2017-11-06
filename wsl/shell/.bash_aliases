@@ -4,10 +4,9 @@
 #   -------------------------------
 #   1.  DIRECTORIES
 #   -------------------------------
-alias ls='ls -GFhl --color=auto'
-alias ll='ls -FGlAhp --color=auto'
-alias la='ls -AF'
-alias l='ls -CF'
+alias ls='ls -GFshlA --color=auto'
+alias ll='ls -FGlAshp --color=auto'
+alias l='ls -CAFshG'
 alias home="cd ~"
 alias root="cd /"
 cd() { builtin cd "$@"; ll; }               # Always list directory contents upon 'cd'
@@ -36,6 +35,8 @@ alias trashcan="cd /.local/share/Trash"
 #   -------------------------------
 #   2.  UNIVERSIAL
 #   -------------------------------
+alias sudo="sudo "
+alias update="sudo apt-get update && sudo apt-get upgrade"
 alias m3u="ls >> tracklist.m3u"
 alias brc="sudo vim ~/.bashrc"
 alias zrc="sudo vim ~/.zshrc"
@@ -49,6 +50,7 @@ alias blog="cd /mnt/d/Workspace/General/Personal\ Development/My\ Blog/Blog/mlvn
 alias blogc="rm -rfv /mnt/d/Workspace/General/Personal\ Development/My\ Blog/Blog/mlvnt.com/public_html/ && mkdir -p /mnt/d/Workspace/General/Personal\ Development/My\ Blog/Blog/mlvnt.com/public_html/"
 alias hugos="hugo server -w"
 alias tarbackup='tar -zcvf "backup-$(date "+%Y-%m-%d-%H-%M").tar.gz"'
+alias dotfiles="cd /mnt/d/Workspace/General/Tech/Reference/OSs/Unix/dotfiles/.dotfiles/wsl"
 alias dots="git pull /mnt/d/Workspace/General/Tech/Reference/OSs/Unix/dotfiles/.dotfiles/wsl && sudo dos2unix ~/.dotfiles/wsl/.* ~/.dotfiles/wsl/*.* && sca"
 alias v="vim"
 alias c='clear'
@@ -68,11 +70,11 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 #   -------------------------------
 alias g="git"
 alias gf="git fetch"
-alias gac='git add -A && git commit -m'
+alias gac='git add -A && git commit'
 alias gp='git push'
 alias gl='git pull'
 alias gs='git status'
-alias gc='git commit -m'
+alias gc='git commit'
 alias gcl='git clone'
 alias ga='git add -A'
 alias gd='git diff'

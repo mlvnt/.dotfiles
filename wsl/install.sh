@@ -1,70 +1,96 @@
 #   -------------------------------
-#   1.  REMOVE EXISTING CONFIG
-#   -------------------------------
-sudo rm ~/.bashrc ~/.zshrc ~/.bash_profile ~/.profile ~/.bash_logout
-#   -------------------------------
-#   2.  INSTALL RUNTIMES
+#   1.  INSTALL RUNTIMES
 #   -------------------------------
 ##### PYTHON #####
+echo 'Installing python3....'
 dpkg -l | grep -qw python3 || sudo apt-get install -yyq python3
 dpkg -l | grep -qw python3-pip || sudo apt-get install -yyq python3-pip
 # MODULES
+echo 'Installing python modules....'
 sudo pip3 install matplotlib
 sudo pip3 install scipy
 sudo pip3 install setuptools
 ##### RUBY #####
+echo 'Installing ruby....'
 dpkg -l | grep -qw ruby || sudo apt-get install -yyq ruby
 dpkg -l | grep -qw ruby-bundler || sudo apt-get install -yyq ruby-bundler
 ##### OTHER #####
+echo 'Installing haskell....'
 dpkg -l | grep -qw ghc || sudo apt-get install -yyq ghc
+echo 'Installing nodejs....'
 dpkg -l | grep -qw nodejs || sudo apt-get install -yyq nodejs
+echo 'Installing php7.0-cli....'
 dpkg -l | grep -qw php7.0-cli || sudo apt-get install -yyq php7.0-cli
+echo 'Installing openjdk-9-jre-headless....'
 dpkg -l | grep -qw openjdk-9-jre-headless || sudo apt-get install -yyq openjdk-9-jre-headless
+echo 'Installing sqlite3....'
 dpkg -l | grep -qw sqlite3 || sudo apt-get install -yyq sqlite3
 #   -------------------------------
-#   3.  INSTALL TOOLS-NON-GUI
+#   2.  INSTALL TOOLS-NON-GUI
 #   -------------------------------
+echo 'Installing fontconfig....'
 dpkg -l | grep -qw fontconfig || sudo apt-get install -yyq fontconfig
+echo 'Installing htop....'
 dpkg -l | grep -qw htop || sudo apt-get install -yyq htop
+echo 'Installing whois....'
 dpkg -l | grep -qw whois || sudo apt-get install -yyq whois
+echo 'Installing tree....'
 dpkg -l | grep -qw tree || sudo apt-get install -yyq tree
+echo 'Installing pandoc....'
 dpkg -l | grep -qw pandoc || sudo apt-get install -yyq pandoc
+echo 'Installing curl....'
 dpkg -l | grep -qw curl || sudo apt-get install -yyq curl
+echo 'Installing gparted....'
 dpkg -l | grep -qw gparted || sudo apt-get install -yyq gparted
+echo 'Installing nano....'
 dpkg -l | grep -qw nano || sudo apt-get install -yyq nano
+echo 'Installing npm....'
 dpkg -l | grep -qw npm || sudo apt-get install -yyq npm
+echo 'Installing tar....'
 dpkg -l | grep -qw tar || sudo apt-get install -yyq tar
+echo 'Installing man....'
 dpkg -l | grep -qw man || sudo apt-get install -yyq man
+echo 'Installing inxi....'
 dpkg -l | grep -qw inxi || sudo apt-get install -yyq inxi
+echo 'Installing ffmpeg....'
 dpkg -l | grep -qw ffmpeg || sudo apt-get install -yyq ffmpeg
+echo 'Installing wget....'
 dpkg -l | grep -qw wget || sudo apt-get install -yyq wget
+echo 'Installing mc....'
 dpkg -l | grep -qw mc || sudo apt-get install -yyq mc
+echo 'Installing make....'
 dpkg -l | grep -qw make || sudo apt-get install -yyq make
+echo 'Installing graphviz....'
 dpkg -l | grep -qw graphviz || sudo apt-get install -yyq graphviz
+echo 'Installing tee....'
 dpkg -l | grep -qw tee || sudo apt-get install -yyq tee
-dpkg -l | grep -qw expect || sudo apt-get install -yyq expect
+echo 'Installing tmux....'
 dpkg -l | grep -qw tmux || sudo apt-get install -yyq tmux
+echo 'Installing emacs....'
 dpkg -l | grep -qw emacs || sudo apt-get install -yyq emacs
 #   -------------------------------
-#   4.  INSTALL TOOLS-GUI
+#   3.  INSTALL TOOLS-GUI
 #   -------------------------------
 
 #   -------------------------------
-#   5.  INSTALL TRASH-CLI
+#   4.  INSTALL TRASH-CLI
 #   -------------------------------
+echo 'Installing trash-cli....'
 git clone https://github.com/andreafrancia/trash-cli.git
 cd trash-cli
 sudo python3 setup.py install
 cd ~/
 sudo rm -rfv trash-cli/
 #   -------------------------------
-#   6.  INSTALL JUPYTER
+#   5.  INSTALL JUPYTER
 #   -------------------------------
+echo 'Installing jupyter....'
 sudo python3 -m pip install --upgrade pip
 sudo python3 -m pip install jupyter
 #   -------------------------------
-#   7.  INSTALL ZSH
+#   6.  INSTALL ZSH
 #   -------------------------------
+echo 'Installing zsh....'
 dpkg -l | grep -qw zsh || sudo apt-get install -yyq zsh
 # git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 ##### OH MY ZSH #####
@@ -83,8 +109,9 @@ dpkg -l | grep -qw zsh || sudo apt-get install -yyq zsh
 # mv dircolors-solarized/dircolors.256dark ./
 # cd ~/
 #   -------------------------------
-#   8.  INSTALL VIM
+#   7.  INSTALL VIM
 #   ------------------------------- 
+echo 'Installing vim....'
 dpkg -l | grep -qw vim || sudo apt-get install -yyq vim
 # mkdir -p ~/.vim/colors/
 ##### ZENBURN THEME #####
@@ -105,21 +132,24 @@ dpkg -l | grep -qw vim || sudo apt-get install -yyq vim
 # sudo wget https://github.com/tpope/vim-speeddating.git
 # cd ~/
 #   -------------------------------
-#   9.  INSTALL HUGO
+#   8.  INSTALL HUGO
 #   -------------------------------
+echo 'Installing hugo....'
 wget https://github.com/gohugoio/hugo/releases/download/v0.30.2/hugo_0.30.2_Linux-64bit.deb
 sudo apt install ./hugo*.deb
 mv hugo*.deb ~/software/
 #   -------------------------------
-#   10.  INSTALL CADDY
+#   9.  INSTALL CADDY
 #   -------------------------------
+echo 'Installing caddy....'
 wget https://github.com/mholt/caddy/releases/download/v0.10.10/caddy_v0.10.10_linux_amd64.tar.gz
 tar -xzf caddy*.tar.gz caddy
 mv ./caddy /usr/local/bin
 mv caddy*.tar.gz ~/software/
 #   -------------------------------
-#   11.  INSTALL IPFS
+#   10.  INSTALL IPFS
 #   -------------------------------
+echo 'Installing ipfs....'
 wget https://dist.ipfs.io/go-ipfs/v0.4.11/go-ipfs_v0.4.11_linux-amd64.tar.gz
 tar -xzf go-ipfs*.tar.gz
 sudo cp ~/go-ipfs/ipfs /usr/bin/
@@ -129,8 +159,9 @@ mv go-ipfs*.tar.gz ~/software/
 ipfs init
 # ipfs daemon
 #   -------------------------------
-#   12.  INSTALL POWERLINE
+#   11.  INSTALL POWERLINE
 #   -------------------------------
+echo 'Installing powerline....'
 sudo pip3 install --user powerline-status
 # sudo rm PowerlineSymbols*
 # sudo rm 10-powerline-symbols*
@@ -152,15 +183,22 @@ sudo pip3 install --user powerline-status
 # cd ..
 # rm -rf fonts
 #   -------------------------------
-#   13.  SSH
+#   12.  SSH
 #   -------------------------------
+echo 'Setting up SSH configuraion....'
 sudo cp -r /mnt/d/Workspace/General/Personal\ Development/My\ Blog/Resourses/SSH/Backup/Server\ Login\ ~/
 sudo chmod 600 ~/.ssh/id_rsa
 sudo chmod 600 ~/.ssh/id_rsa.pub
 sudo chmod 644 ~/.ssh/known_hosts
 sudo chmod 755 ~/.ssh
 #   -------------------------------
+#   13.  REMOVE EXISTING CONFIG
+#   -------------------------------
+echo 'Removing existing configuraion....'
+sudo rm -rfv ~/.bashrc ~/.zshrc ~/.bash_profile ~/.profile ~/.bash_logout ~/.local
+#   -------------------------------
 #   FINISH
 #   -------------------------------
 sudo apt-get autoremove
 printf "\n“-----------------------\n\n    Install Complete!   \n\n-----------------------”\n\n"
+#=============================================================================================================

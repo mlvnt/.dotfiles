@@ -170,7 +170,7 @@ install_fonts () {
 
 install_local () {
     info 'installing local'
-    local overwrite_all=false backup_all=false skip_all=false
+    local overwrite_all=true backup_all=false skip_all=false
     src="$DOTFILES_ROOT/.local"
     dst="$HOME/$(basename "$src")"
     link_file "$src" "$dst"
@@ -249,11 +249,7 @@ install_git () {
 
     src="$DOTFILES_ROOT/git/.gitignore"
     dst="$HOME/$(basename "$src")"
-    link_file "$src" "$dst"
-
-    src="$DOTFILES_ROOT/git/.gitconfig.local"
-    dst="$HOME/$(basename "$src")"
-    link_file "$src" "$dst"       
+    link_file "$src" "$dst"     
 }
 
 # install_emacs () {
