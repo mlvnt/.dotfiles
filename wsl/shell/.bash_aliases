@@ -4,7 +4,7 @@
 #   -------------------------------
 #   1.  DIRECTORIES
 #   -------------------------------
-alias ls='ls -GFshlA --color=auto'
+alias ls='ls -GFshl --color=auto'
 alias ll='ls -FGlAshp --color=auto'
 alias l='ls -CAFshG'
 alias home="cd ~"
