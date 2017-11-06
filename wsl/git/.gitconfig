@@ -7,3 +7,12 @@
 [credential]
     helper = store --file ~/.git-credentials
     helper = cache --timeout 30000
+[core]
+    autocrlf = false
+    eol = lf 
+[filter "spaces2tabs"]
+    clean = unexpand --tabs=4 --first-only
+    smudge = expand --tabs=4 --initial  
+[filter "tabs2spaces"]
+    clean = expand --tabs=4 --initial
+    smudge = unexpand --tabs=4 --first-only           

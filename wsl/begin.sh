@@ -15,12 +15,13 @@ dpkg -l | grep -qw git || sudo apt-get install -yyq git
 ###############################################################################
 # DOTFILES                                                                    #
 ###############################################################################
-# cp /mnt/d/Workspace/General/Tech/Reference/OSs/Unix/dotfiles/.dotfiles/wsl/begin.sh
+# cp /mnt/d/Workspace/General/Tech/Reference/OSs/Unix/dotfiles/.dotfiles/wsl/begin.sh ~/
+# sudo chmod +x begin.sh
 # git clone /mnt/d/Workspace/General/Tech/Reference/OSs/Unix/dotfiles/.dotfiles
 git clone https://github.com/mlvnt/.dotfiles.git ~/.dotfiles
 cd .dotfiles/wsl/
-sudo dos2unix ./.* ./*.*
-sudo chmod +x install.sh run.sh symblinks.sh
+sudo dos2unix ./.* ./*.* ./shell/.* ./shell/*.* ./editors/.* ./editors/*.* ./git/.* ./git/*.* ./bin/*
+sudo chmod +x install.sh run.sh symblinks.sh begin.sh
 sleep 10s
 sudo ./run.sh
 printf "\n“-----------------------\n\n    Install Complete!   \n\n-----------------------”\n\n"
