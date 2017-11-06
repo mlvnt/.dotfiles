@@ -17,4 +17,3 @@ if [ -n "$BASH_VERSION" ]; then
 fi
 
 source ~/.bashrc
-source ~/.bash_aliases
