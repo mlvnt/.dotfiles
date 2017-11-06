@@ -14,6 +14,7 @@ echo 'Installing git....'
 dpkg -l | grep -qw git || sudo apt-get install -yyq git
 cp /mnt/d/Workspace/General/Tech/Reference/OSs/Unix/dotfiles/.dotfiles/wsl/git/.git-credentials ~/
 cp /mnt/d/Workspace/General/Tech/Reference/OSs/Unix/dotfiles/.dotfiles/wsl/git/.gitconfig-local ~/
+cp /mnt/d/Workspace/General/Tech/Reference/OSs/Unix/dotfiles/.dotfiles/wsl/git/.gitconfig ~/
 # git config --global user.email "malvintodorov@gmail.com"
 # git config --global user.name "mlvnt"
 # git config --global color.ui auto
