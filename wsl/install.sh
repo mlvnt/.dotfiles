@@ -80,11 +80,9 @@ dpkg -l | grep -qw unzip || sudo apt-get install -yyq unzip
 #   4.  INSTALL TRASH-CLI
 #   -------------------------------
 echo 'Installing trash-cli....'
-git clone https://github.com/andreafrancia/trash-cli.git
-cd trash-cli
-sudo python3 setup.py install
-cd ~/
-sudo rm -rfv trash-cli/
+git clone https://github.com/andreafrancia/trash-cli.git ~/trash-cli/
+sudo python3 ~/trash-cli/setup.py install
+sudo rm -rfv ~/trash-cli/
 #   -------------------------------
 #   5.  INSTALL JUPYTER
 #   -------------------------------
