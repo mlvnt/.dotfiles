@@ -78,6 +78,9 @@ echo 'Installing zip....'
 dpkg -l | grep -qw zip || sudo apt-get install -yyq zip
 echo 'Installing unzip....'
 dpkg -l | grep -qw unzip || sudo apt-get install -yyq unzip
+##### XCLIP #####
+echo 'Installing xclip....'
+sudo apt-get install -yyq xclip
 #   -------------------------------
 #   3.  INSTALL TOOLS-GUI
 #   -------------------------------

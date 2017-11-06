@@ -1,0 +1,845 @@
+{
+	"folder_history":
+	[
+	],
+	"last_version": 3143,
+	"last_window_id": 9,
+	"log_indexing": false,
+	"settings":
+	{
+		"new_window_height": 615.0,
+		"new_window_settings":
+		{
+			"auto_complete":
+			{
+				"selected_items":
+				[
+				]
+			},
+			"build_system_choices":
+			[
+			],
+			"build_varint": "",
+			"command_palette":
+			{
+				"height": 354.0,
+				"last_filter": "colo",
+				"selected_items":
+				[
+					[
+						"colo",
+						"Color Picker"
+					],
+					[
+						"in",
+						"Package Control: Install Package"
+					],
+					[
+						"pa",
+						"Package Control: Install Package"
+					],
+					[
+						"inst",
+						"Package Control: Install Package"
+					],
+					[
+						"inaall",
+						"Package Control: Install Local Dependency"
+					],
+					[
+						"packa",
+						"Install Package Control"
+					]
+				],
+				"width": 346.0
+			},
+			"console":
+			{
+				"height": 0.0,
+				"history":
+				[
+				]
+			},
+			"distraction_free":
+			{
+				"menu_visible": true,
+				"show_minimap": false,
+				"show_open_files": false,
+				"show_tabs": false,
+				"side_bar_visible": false,
+				"status_bar_visible": false
+			},
+			"file_history":
+			[
+				"/home/todorov/.dotfiles/wsl/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
+				"/home/todorov/.dotfiles/wsl/.config/sublime-text-3/Packages/Default/Preferences.sublime-settings"
+			],
+			"find":
+			{
+				"height": 0.0
+			},
+			"find_in_files":
+			{
+				"height": 0.0,
+				"where_history":
+				[
+				]
+			},
+			"find_state":
+			{
+				"case_sensitive": false,
+				"find_history":
+				[
+				],
+				"highlight": true,
+				"in_selection": false,
+				"preserve_case": false,
+				"regex": false,
+				"replace_history":
+				[
+				],
+				"reverse": false,
+				"show_context": true,
+				"use_buffer2": true,
+				"whole_word": false,
+				"wrap": true
+			},
+			"incremental_find":
+			{
+				"height": 0.0
+			},
+			"input":
+			{
+				"height": 0.0
+			},
+			"menu_visible": true,
+			"output.find_results":
+			{
+				"height": 0.0
+			},
+			"pinned_build_system": "",
+			"replace":
+			{
+				"height": 0.0
+			},
+			"save_all_on_build": true,
+			"select_file":
+			{
+				"height": 0.0,
+				"last_filter": "",
+				"selected_items":
+				[
+				],
+				"width": 0.0
+			},
+			"select_project":
+			{
+				"height": 0.0,
+				"last_filter": "",
+				"selected_items":
+				[
+				],
+				"width": 0.0
+			},
+			"select_symbol":
+			{
+				"height": 0.0,
+				"last_filter": "",
+				"selected_items":
+				[
+				],
+				"width": 0.0
+			},
+			"show_minimap": true,
+			"show_open_files": true,
+			"show_tabs": true,
+			"side_bar_visible": true,
+			"side_bar_width": 150.0,
+			"status_bar_visible": true,
+			"template_settings":
+			{
+			}
+		},
+		"new_window_width": 616.0
+	},
+	"windows":
+	[
+		{
+			"auto_complete":
+			{
+				"selected_items":
+				[
+				]
+			},
+			"buffers":
+			[
+				{
+					"settings":
+					{
+						"buffer_size": 0,
+						"line_ending": "Unix"
+					}
+				}
+			],
+			"build_system": "",
+			"build_system_choices":
+			[
+			],
+			"build_varint": "",
+			"command_palette":
+			{
+				"height": 354.0,
+				"last_filter": "colo",
+				"selected_items":
+				[
+					[
+						"colo",
+						"Color Picker"
+					],
+					[
+						"in",
+						"Package Control: Install Package"
+					],
+					[
+						"pa",
+						"Package Control: Install Package"
+					],
+					[
+						"inst",
+						"Package Control: Install Package"
+					],
+					[
+						"inaall",
+						"Package Control: Install Local Dependency"
+					],
+					[
+						"packa",
+						"Install Package Control"
+					]
+				],
+				"width": 346.0
+			},
+			"console":
+			{
+				"height": 0.0,
+				"history":
+				[
+				]
+			},
+			"distraction_free":
+			{
+				"menu_visible": true,
+				"show_minimap": false,
+				"show_open_files": false,
+				"show_tabs": false,
+				"side_bar_visible": false,
+				"status_bar_visible": false
+			},
+			"file_history":
+			[
+				"/home/todorov/.dotfiles/wsl/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
+				"/home/todorov/.dotfiles/wsl/.config/sublime-text-3/Packages/Default/Preferences.sublime-settings"
+			],
+			"find":
+			{
+				"height": 0.0
+			},
+			"find_in_files":
+			{
+				"height": 0.0,
+				"where_history":
+				[
+				]
+			},
+			"find_state":
+			{
+				"case_sensitive": false,
+				"find_history":
+				[
+				],
+				"highlight": true,
+				"in_selection": false,
+				"preserve_case": false,
+				"regex": false,
+				"replace_history":
+				[
+				],
+				"reverse": false,
+				"show_context": true,
+				"use_buffer2": true,
+				"whole_word": false,
+				"wrap": true
+			},
+			"groups":
+			[
+				{
+					"selected": 0,
+					"sheets":
+					[
+						{
+							"buffer": 0,
+							"semi_transient": false,
+							"settings":
+							{
+								"buffer_size": 0,
+								"regions":
+								{
+								},
+								"selection":
+								[
+									[
+										0,
+										0
+									]
+								],
+								"settings":
+								{
+									"bracket_highlighter.busy": false,
+									"bracket_highlighter.locations":
+									{
+										"close":
+										{
+										},
+										"icon":
+										{
+										},
+										"open":
+										{
+										},
+										"unmatched":
+										{
+										}
+									},
+									"bracket_highlighter.regions":
+									[
+										"bh_regex",
+										"bh_regex_center",
+										"bh_regex_open",
+										"bh_regex_close",
+										"bh_regex_content",
+										"bh_square",
+										"bh_square_center",
+										"bh_square_open",
+										"bh_square_close",
+										"bh_square_content",
+										"bh_unmatched",
+										"bh_unmatched_center",
+										"bh_unmatched_open",
+										"bh_unmatched_close",
+										"bh_unmatched_content",
+										"bh_single_quote",
+										"bh_single_quote_center",
+										"bh_single_quote_open",
+										"bh_single_quote_close",
+										"bh_single_quote_content",
+										"bh_c_define",
+										"bh_c_define_center",
+										"bh_c_define_open",
+										"bh_c_define_close",
+										"bh_c_define_content",
+										"bh_default",
+										"bh_default_center",
+										"bh_default_open",
+										"bh_default_close",
+										"bh_default_content",
+										"bh_tag",
+										"bh_tag_center",
+										"bh_tag_open",
+										"bh_tag_close",
+										"bh_tag_content",
+										"bh_double_quote",
+										"bh_double_quote_center",
+										"bh_double_quote_open",
+										"bh_double_quote_close",
+										"bh_double_quote_content",
+										"bh_round",
+										"bh_round_center",
+										"bh_round_open",
+										"bh_round_close",
+										"bh_round_content",
+										"bh_curly",
+										"bh_curly_center",
+										"bh_curly_open",
+										"bh_curly_close",
+										"bh_curly_content",
+										"bh_angle",
+										"bh_angle_center",
+										"bh_angle_open",
+										"bh_angle_close",
+										"bh_angle_content"
+									],
+									"git_gutter_is_enabled": false,
+									"syntax": "Packages/Text/Plain text.tmLanguage"
+								},
+								"translation.x": 0.0,
+								"translation.y": 0.0,
+								"zoom_level": 1.0
+							},
+							"stack_index": 0,
+							"type": "text"
+						}
+					]
+				}
+			],
+			"incremental_find":
+			{
+				"height": 0.0
+			},
+			"input":
+			{
+				"height": 0.0
+			},
+			"layout":
+			{
+				"cells":
+				[
+					[
+						0,
+						0,
+						1,
+						1
+					]
+				],
+				"cols":
+				[
+					0.0,
+					1.0
+				],
+				"rows":
+				[
+					0.0,
+					1.0
+				]
+			},
+			"menu_visible": true,
+			"output.find_results":
+			{
+				"height": 0.0
+			},
+			"pinned_build_system": "",
+			"position": "0,0,0,0,0,522,51,1138,666,1563,1042",
+			"project": "",
+			"replace":
+			{
+				"height": 0.0
+			},
+			"save_all_on_build": true,
+			"select_file":
+			{
+				"height": 0.0,
+				"last_filter": "",
+				"selected_items":
+				[
+				],
+				"width": 0.0
+			},
+			"select_project":
+			{
+				"height": 0.0,
+				"last_filter": "",
+				"selected_items":
+				[
+				],
+				"width": 0.0
+			},
+			"select_symbol":
+			{
+				"height": 0.0,
+				"last_filter": "",
+				"selected_items":
+				[
+				],
+				"width": 0.0
+			},
+			"selected_group": 0,
+			"settings":
+			{
+			},
+			"show_minimap": true,
+			"show_open_files": true,
+			"show_tabs": true,
+			"side_bar_visible": true,
+			"side_bar_width": 150.0,
+			"status_bar_visible": true,
+			"template_settings":
+			{
+			},
+			"window_id": 7,
+			"workspace_name": ""
+		},
+		{
+			"auto_complete":
+			{
+				"selected_items":
+				[
+				]
+			},
+			"buffers":
+			[
+				{
+					"contents": "{\n    // Debug logging\n    \"debug_enable\": false,\n\n    // When only either the left or right bracket can be found\n    // this defines if the unmatched bracket should be shown.\n    \"show_unmatched\": true,\n\n    // Do the opposite of \"show_unmatched\" for the languages listed below\n    \"show_unmatched_exceptions\": [],\n\n    // Enable high visibility by default when sublime starts up\n    // If sublime is already running and this gets changed,\n    // you will not see any changes (restart required to see change)\n    \"high_visibility_enabled_by_default\": false,\n\n    // Experimental: Creates a visible bar at the beginning of all lines between\n    // multiline bracket spans.\n    \"content_highlight_bar\": false,\n\n    // Show hover popup\n    // This will show a hover popup when mousing over\n    // the visible bracket if the other\n    // highlighted matching bracket is off screen.\n    // It will show line text of the off screen bracket -/+ 128 chars\n    // from the bracket start and end points.\n    // A link will be available allowing the user to click and jump to\n    // the other bracket.\n    \"show_offscreen_bracket_popup\": true,\n\n    // Adjust char per line context of bracket popup.\n    \"popup_char_context\": 120,\n\n    // Adjust number of lines of additional context\n    // that are shown when brackets are vertically off screen.\n    // Specified line count is split to context before and after the target line.\n    // So a value of 4 would give you two lines of context before and two lines after.\n    \"popup_line_context\": 2,\n\n    // Experimental: Use 'popup_bracket_emphasis' to customize the popup's bracket emphasis color\n    \"use_custom_popup_bracket_emphasis\": false,\n\n    // Experimental: Specify the scope (to get color) to emphasize the off screen bracket\n    // in popups.  Alternatively you can use a hex value in the form '#rgb' or '#rrggbb'.\n    \"popup_bracket_emphasis\": \"keyword\",\n\n    // Experimental: Align the content highlight bar at the bracket indent level\n    \"align_content_highlight_bar\": false,\n\n    // Experimental: Allow bracket highlighter to search in widgets.\n    // Most widgets use Plain Text which BH should ignore,\n    // But regex find views views are usually regular expression\n    // Which should be the only views to trigger BH.\n    \"search_in_widgets\": false,\n\n    // Show brackets in the minimap.\n    // Depending on your highlight style, regions may not be visible in minimap.\n    // \"underline\" won't show up due to it being a style consisting of\n    // multiple zero width selections to create a fat underline.\n    // But the following styles should show up fine as they are normal regions styles:\n    //     - thin_underline\n    //     - solid\n    //     - outline\n    //     - squiggly\n    //     - stippled\n    \"show_in_minimap\": false,\n\n    // High visibility style and color for high visibility mode\n    // (solid|outline|underline)\n    // ST3 has additional options of (thin_underline|squiggly|stippled)\n    \"high_visibility_style\": \"outline\",\n\n    // (scope|__default__|__bracket__)\n    \"high_visibility_color\": \"__bracket__\",\n\n    // Match brackets only when the cursor is touching the inside of the bracket\n    \"match_only_adjacent\": false,\n\n    // Outside adjacent bracket matching\n    \"bracket_outside_adjacent\": true,\n\n    // Experimental: Special matching mode for block cursor.\n    // Essentially, this provides a matching mode that makes a little more\n    // sense to some in regards to the visual representation of block cursors.\n    // This will ignore \"bracket_outside_adjacent\".\n    \"block_cursor_mode\": false,\n\n    // When \"bracket_outside_adjacet\" is set, and a plugin command explicitly sets\n    // \"no_outside_adj\" to \"None\" instead of \"true\" or the default \"false\",\n    // this value will be used.\n    \"ignore_outside_adjacent_in_plugin\": true,\n\n    // When \"block_cursor_mode\" is set, and a plugin command explicitly sets\n    // \"no_block_mode\" to \"None\" instead of \"true\" or the default \"false\",\n    // this value will be used.\n    \"ignore_block_mode_in_plugin\": true,\n\n    // Character threshold to search\n    \"search_threshold\": 5000,\n\n    // Ignore threshold\n    \"ignore_threshold\": false,\n\n    // Set mode for string escapes to ignore (regex|string)\n    \"bracket_string_escape_mode\": \"string\",\n\n    // Set max number of multi-select brackets that will be searched automatically\n    \"auto_selection_threshold\" : 10,\n\n    // Enable this to completely kill highlighting if \"auto_selection_threshold\"\n    // is exceeded.  Default is to highlight up to the \"auto_selection_threshold\".\n    \"kill_highlight_on_threshold\": true,\n\n    // Disable gutter icons when doing multi-select\n    \"no_multi_select_icons\": false,\n\n    // Rules that define the finding and matching of brackets\n    // that are contained in a common scope.\n    // Useful for bracket pairs that are the same but\n    // share a common scope.  Brackets are found by\n    // Finding the extent of the scope and using regex\n    // to look at the beginning and end to identify bracket.\n    // Use only if they cannot be targeted with traditional bracket\n    // rules.\n    \"scope_brackets\": [\n        // Quotes\n        {\n            \"name\": \"py_single_quote\",\n            \"open\": \"(?:u|b|f)?r?((?:'')?')\",\n            \"close\": \"((?:'')?')\",\n            \"style\": \"single_quote\",\n            \"scopes\": [\"string\", \"meta.string\"],\n            \"language_filter\": \"whitelist\",\n            \"language_list\": [\n                \"Python\",\n                \"PythonImproved\",\n                \"MagicPython\"\n            ],\n            \"sub_bracket_search\": \"true\",\n            \"plugin_library\": \"bh_modules.pyquotes\",\n            \"enabled\": true\n        },\n        {\n            \"name\": \"py_double_quote\",\n            \"open\": \"(?:u|b|f)?r?((?:\\\"\\\")?\\\")\",\n            \"close\": \"((?:\\\"\\\")?\\\")\",\n            \"style\": \"double_quote\",\n            \"scopes\": [\"string\", \"meta.string\"],\n            \"language_filter\": \"whitelist\",\n            \"language_list\": [\n                \"Python\",\n                \"PythonImproved\",\n                \"MagicPython\"\n            ],\n            \"sub_bracket_search\": \"true\",\n            \"plugin_library\": \"bh_modules.pyquotes\",\n            \"enabled\": true\n        },\n        {\n            \"name\": \"single_quote\",\n            \"open\": \"(')\",\n            \"close\": \"(')\",\n            \"style\": \"single_quote\",\n            \"scopes\": [\"string\", \"string.quoted\"],\n            \"language_filter\": \"blacklist\",\n            \"language_list\": [\"Plain text\", \"Hex\"],\n            \"sub_bracket_search\": \"true\",\n            \"enabled\": true\n        },\n        {\n            \"name\": \"double_quote\",\n            \"open\": \"(\\\")\",\n            \"close\": \"(\\\")\",\n            \"style\": \"double_quote\",\n            \"scopes\": [\"string\", \"string.quoted\"],\n            \"language_filter\": \"blacklist\",\n            \"language_list\": [\"Plain text\", \"Hex\"],\n            \"sub_bracket_search\": \"true\",\n            \"enabled\": true\n        },\n        {\n            \"name\": \"backtick_quote\",\n            \"open\": \"(`)\",\n            \"close\": \"(`)\",\n            \"style\": \"single_quote\",\n            \"scopes\": [\"string.interpolated.ruby\", \"string.interpolated.backtick.shell\"],\n            \"language_filter\": \"whitelist\",\n            \"language_list\": [\"Ruby\", \"Shell-Unix-Generic\"],\n            \"sub_bracket_search\": \"true\",\n            \"enabled\": true\n        },\n        // Regex for different Languages\n        {\n            \"name\": \"jsregex\",\n            \"open\": \" *(/)\",\n            \"close\": \"(/)[igm]*\",\n            \"style\": \"regex\",\n            \"scopes\": [\"string\"],\n            \"language_filter\": \"whitelist\",\n            \"language_list\": [\"JavaScript\"],\n            \"sub_bracket_search\": \"true\",\n            \"enabled\": true\n        },\n        {\n            \"name\": \"perlregex\",\n            \"open\": \"(?:m|s|tr)(.|\\n)\",\n            \"close\": \"(.|\\n)(?:[igmos]*)\",\n            \"style\": \"regex\",\n            \"scopes\": [\"string.regexp\"],\n            \"language_filter\": \"whitelist\",\n            \"language_list\": [\"Perl\"],\n            \"sub_bracket_search\": \"true\",\n            \"enabled\": true\n        },\n        {\n            \"name\": \"rubyregex\",\n            \"open\": \" *(/)\",\n            \"close\": \"(/)[imxo]*\",\n            \"style\": \"regex\",\n            \"scopes\": [\"string\"],\n            \"language_filter\": \"whitelist\",\n            \"language_list\": [\"Ruby\", \"RSpec\", \"Better RSpec\"],\n            \"sub_bracket_search\": \"true\",\n            \"enabled\": true\n        },\n        // Markdown\n        {\n            \"name\": \"mditalic\",\n            \"open\": \"(\\\\*|_)\",\n            \"close\": \"(\\\\*|_)\",\n            \"style\": \"default\",\n            \"scopes\": [\"markup.italic\"],\n            \"language_filter\": \"whitelist\",\n            \"language_list\": [\"Markdown\", \"Multimarkdown\", \"GithubFlavoredMarkdown\", \"Markdown Extended\"],\n            \"sub_bracket_search\": \"true\",\n            \"enabled\": true\n        },\n        {\n            \"name\": \"mdbold\",\n            \"open\": \"(\\\\*\\\\*|__)\",\n            \"close\": \"(\\\\*\\\\*|__)\",\n            \"style\": \"default\",\n            \"scopes\": [\"markup.bold\"],\n            \"language_filter\": \"whitelist\",\n            \"language_list\": [\"Markdown\", \"Multimarkdown\", \"GithubFlavoredMarkdown\", \"Markdown Extended\"],\n            \"sub_bracket_search\": \"true\",\n            \"enabled\": true\n        },\n        {\n            \"name\": \"mdcodeinline\",\n            \"open\": \"(`+)\",\n            \"close\": \"(`+)\",\n            \"style\": \"default\",\n            \"scopes\": [\"markup.raw.inline.markdown\"],\n            \"language_filter\": \"whitelist\",\n            \"language_list\": [\"Markdown\", \"Multimarkdown\", \"GithubFlavoredMarkdown\", \"Markdown Extended\"],\n            \"sub_bracket_search\": \"true\",\n            \"plugin_library\": \"bh_modules.mdcode\",\n            \"enabled\": true\n        },\n        {\n            \"name\": \"mdcodeblock\",\n            \"open\": \"\\\\s*(`{3,}|~{3,})\",\n            \"close\": \"(`{3,}|~{3,})\\\\n?\",\n            \"style\": \"default\",\n            \"scopes\": [\"markup.raw.block.fenced.markdown, markup.raw.block.markdown.fenced\"],\n            \"language_filter\": \"whitelist\",\n            \"language_list\": [\"Markdown\", \"Multimarkdown\", \"GithubFlavoredMarkdown\", \"Markdown Extended\"],\n            \"plugin_library\": \"bh_modules.mdcode\",\n            \"sub_bracket_search\": \"true\",\n            \"enabled\": true\n        },\n        // LaTeX\n        {\n            \"name\": \"latexmath_inline\",\n            \"open\": \"(\\\\$)\",\n            \"close\": \"(\\\\$)\",\n            \"style\": \"default\",\n            \"scopes\": [\"string.other.math.tex\", \"meta.environment.math.inline.dollar.latex\"],\n            \"language_filter\": \"whitelist\",\n            \"language_list\": [\"LaTeX\", \"LaTeX (TikZ)\", \"knitr (Rnw)\"],\n            \"sub_bracket_search\": \"true\",\n            \"enabled\": true\n        }\n    ],\n\n    // Rule definitions for finding and matching brackets.\n    // Brackets are found by using regex and can use scope\n    // qualifiers exclude certain matches.\n    // Once all matches are found, the closest pair surrounding\n    // the cursor are selected.\n    \"brackets\": [\n        // Basic brackets\n        {\n            \"name\": \"curly\",\n            \"open\": \"(\\\\{)\",\n            \"close\": \"(\\\\})\",\n            \"style\": \"curly\",\n            \"scope_exclude\": [\n                \"string\",\n                \"comment\",\n                \"source.regexp constant.character.escape\",\n                \"source.yaml-tmlanguage constant.character.escape\"\n            ],\n            \"scope_exclude_exceptions\": [\"text.tex string.other.math\"],\n            \"language_filter\": \"blacklist\",\n            \"language_list\": [\"Plain text\", \"Hex\"],\n            \"find_in_sub_search\": \"true\",\n            \"ignore_string_escape\": true,\n            \"enabled\": true\n        },\n        {\n            \"name\": \"round\",\n            \"open\": \"(\\\\()\",\n            \"close\": \"(\\\\))\",\n            \"style\": \"round\",\n            \"scope_exclude_exceptions\": [\n                \"text.tex string.other.math\",\n                \"punctuation.definition.string.begin.shell\",\n                \"punctuation.definition.string.end.shell\"\n            ],\n            \"scope_exclude\": [\n                \"string\",\n                \"comment\",\n                \"source.regexp constant.character.escape\",\n                \"punctuation.definition.case-pattern.shell\",\n                \"source.yaml-tmlanguage constant.character.escape\"\n            ],\n            \"language_filter\": \"blacklist\",\n            \"language_list\": [\"Plain text\", \"Hex\", \"RTF\"],\n            \"find_in_sub_search\": \"true\",\n            \"ignore_string_escape\": true,\n            \"enabled\": true\n        },\n        {\n            \"name\": \"square\",\n            \"open\": \"(\\\\[)\",\n            \"close\": \"(\\\\])\",\n            \"style\": \"square\",\n            \"scope_exclude\": [\n                \"string\",\n                \"source.regexp constant.character.escape\",\n                \"comment\"\n            ],\n            \"scope_exclude_exceptions\": [\"text.tex string.other.math\", \"source.yaml-tmlanguage meta.value -constant.character.escape\"],\n            \"language_filter\": \"blacklist\",\n            \"language_list\": [\"Plain text\", \"Hex\", \"RTF\"],\n            \"find_in_sub_search\": \"true\",\n            \"ignore_string_escape\": true,\n            \"enabled\": true\n        },\n        // PHP Angle\n        {\n            \"name\": \"php_angle\",\n            \"open\": \"(<\\\\?)(?:php)?\",\n            \"close\": \"(\\\\?>)\",\n            \"style\": \"angle\",\n            \"scope_exclude\": [\"string\", \"comment\", \"keyword.operator\"],\n            \"language_filter\": \"whitelist\",\n            \"language_list\": [\"HTML\", \"HTML 5\"],\n            \"enabled\": true\n        },\n        // Angle\n        {\n            \"name\": \"angle\",\n            \"open\": \"(<)(?=[^?%]|$)\",\n            \"close\": \"(?:(?<=[^?%])|(?<=^))(>)\",\n            \"style\": \"angle\",\n            \"scope_exclude\": [\n                \"string\",\n                \"comment\",\n                \"keyword.operator\",\n                \"source.ruby.rails.embedded.html\",\n                \"source.ruby.embedded.html\",\n                \"storage.type.function.arrow.js\",\n                \"punctuation.accessor.php\",\n                \"punctuation.accessor.arrow.php\"\n            ],\n            \"language_filter\": \"whitelist\",\n            \"language_list\": [\n                \"HTML\",\n                \"HTML 5\",\n                \"XML\",\n                \"PHP\",\n                \"HTML (Rails)\",\n                \"HTML (Jinja Templates)\",\n                \"HTML (Jinja2)\",\n                \"HTML (Twig)\",\n                \"HTML (Django)\",\n                \"HTML+CFML\",\n                \"ColdFusion\",\n                \"ColdFusionCFC\",\n                \"laravel-blade\",\n                \"blade\",\n                \"Handlebars\",\n                \"AngularJS\",\n                \"Java Server Pages (JSP)\"\n            ],\n            \"plugin_library\": \"bh_modules.tags\",\n            \"enabled\": true\n        },\n        // CSSedit groups\n        {\n            \"name\": \"cssedit_groups\",\n            \"open\": \"(/\\\\* *@group .*\\\\*/)\",\n            \"close\": \"(/\\\\* *@end *\\\\*/)\",\n            \"style\": \"default\",\n            \"scope_exclude\": [],\n            \"language_filter\": \"whitelist\",\n            \"language_list\": [\"CSS\"],\n            \"enabled\": true\n        },\n        // Ruby embedded HTML\n        // !!! May conflict with 'php_keywords' if enabled in same file !!!\n        {\n            \"name\": \"ruby_embedded_html\",\n            \"open\": \"((?:(?<=<%)|(?<=^)|(?<==)|(?<=<<)|(?<=return))\\\\s*\\\\b(?:if|begin|case)\\\\b(?!:)|(?:(?<=<%)|(?<=^))\\\\s*(?:(?:private|public|protected)\\\\s*)?def\\\\b[\\\\p{Ll}\\\\p{Lu}]*\\\\b(?!:)|(?:(?<=<%)|(?<=^))\\\\s*\\\\b(?:for|until|unless|while|class|module)\\\\b(?!:)|(?<!:)\\\\bdo\\\\b(?!:))\",\n            \"close\": \"(?<=[\\\\s;])(end)\\\\b(?!:)\",\n            \"style\": \"default\",\n            \"scope_exclude\": [\"text.html\", \"source\", \"comment\", \"string\"],\n            \"scope_exclude_exceptions\": [\n                \"source.ruby.rails.embedded.html -comment -string\",\n                \"source.ruby.embedded.html -comment -string\"\n            ],\n            \"plugin_library\": \"bh_modules.rubykeywords\",\n            \"language_filter\": \"whitelist\",\n            \"language_list\": [\"HTML\", \"HTML 5\", \"HTML (Rails)\"],\n            \"enabled\": true\n        },\n        // Ruby conditional statements\n        {\n            \"name\": \"ruby\",\n            \"open\": \"((?:(?<=^)|(?<==)|(?<=<<)|(?<=return))\\\\s*\\\\b(?:if|begin|case)\\\\b(?!:)|^\\\\s*(?:(?:private|public|protected)\\\\s*)?def\\\\b[\\\\p{Ll}\\\\p{Lu}]*\\\\b(?!:)|^\\\\s*\\\\b(?:for|until|unless|while|class|module)\\\\b(?!:)|(?<!:)\\\\bdo\\\\b(?!:))\",\n            \"close\": \"(?<=[\\\\s;])(end)\\\\b(?!:)\",\n            \"style\": \"default\",\n            \"scope_exclude\": [\"string\", \"comment\"],\n            \"plugin_library\": \"bh_modules.rubykeywords\",\n            \"language_filter\": \"whitelist\",\n            \"language_list\": [\"Ruby\", \"RSpec\", \"Better RSpec\", \"Ruby on Rails\"],\n            \"enabled\": true\n        },\n        // C/C++ compile switches\n        {\n            \"name\": \"c_compile_switch\",\n            \"open\": \"(\\\\#(?:if|ifdef|ifndef))\\\\b\",\n            \"close\": \"(\\\\#endif)\\\\b\",\n            \"style\": \"c_define\",\n            \"scope_exclude\": [\"string\", \"comment\"],\n            \"language_filter\": \"whitelist\",\n            \"language_list\": [\"C++\", \"C\", \"Objective-C\", \"CCpp\", \"C Improved\"],\n            \"enabled\": true\n        },\n        // PHP conditional keywords\n        // !!! May conflict with 'ruby_embedded_html' if enabled in same file !!!\n        {\n            \"name\": \"php_keywords\",\n            \"open\": \"(?:(?<=^)|(?<=<\\\\?php)|(?<=<\\\\?))\\\\s*(if|foreach|for|while|switch)\\\\b(?=.*?\\\\)\\\\s*:\\\\s*(?://.*?|/\\\\*.*?\\\\*/\\\\s*?)?(?:\\\\?>|$))\",\n            \"close\": \"(?:(?<=^)|(?<=<\\\\?php)|(?<=<\\\\?))\\\\s*(endif|endfor|endforeach|endwhile|endswitch)\\\\b(?=\\\\s*(?:;|;?\\\\?>))\",\n            \"style\": \"default\",\n            \"language_filter\": \"whitelist\",\n            \"scope_exclude\": [\"string\", \"comment\", \"text.html\"],\n            \"scope_exclude_exceptions\": [\n                \"source.php -comment -string\"\n            ],\n            \"plugin_library\": \"bh_modules.phpkeywords\",\n            \"language_list\": [\n                \"HTML\",\n                \"HTML 5\",\n                \"PHP\",\n                \"HTML+CFML\",\n                \"ColdFusion\",\n                \"ColdFusionCFC\"\n            ],\n            \"enabled\": true\n        },\n        // Erlang conditional statements\n        {\n            \"name\": \"erlang\",\n            \"open\": \"\\\\s*(\\\\b(?:if|case|begin|try|fun(?=\\\\s*\\\\()|receive)\\\\b)\",\n            \"close\": \"\\\\b(end)\\\\b\",\n            \"style\": \"default\",\n            \"scope_exclude\": [\"string\", \"comment\"],\n            \"language_filter\": \"whitelist\",\n            \"plugin_library\": \"bh_modules.lowercase\",\n            \"language_list\": [\"Erlang\", \"HTML (Erlang)\"],\n            \"enabled\": true\n        },\n        //Bash\n        {\n            \"name\": \"bash\",\n            \"open\": \"(?:(?<!\\\\\\\\\\\\n)(?:;|^|&|\\\\|)\\\\s*)\\\\b(if|case|while|select|until|for)\\\\s\",\n            \"close\": \"(?:(?<!\\\\\\\\\\\\n)(?:;|^)\\\\s*)\\\\b(fi|esac|done)(?=;|\\\\s|$)\",\n            \"style\": \"default\",\n            \"scope_exclude\": [\"string\", \"comment\"],\n            \"plugin_library\": \"bh_modules.bashsupport\",\n            \"language_filter\": \"whitelist\",\n            \"language_list\": [\"Shell-Unix-Generic\"],\n            \"enabled\": true\n        },\n        //Fish shell\n        {\n            \"name\": \"fish\",\n            \"open\": \"(?:(?<!\\\\\\\\\\\\n)(?:;|^|&|\\\\||and|or|not)\\\\s*)\\\\b(begin|if|while|for|switch|function)(?:;|\\\\s)\",\n            \"close\": \"(?:(?<!\\\\\\\\\\\\n)(?:;|^)\\\\s*)\\\\b(end)(?=;|\\\\s|$)\",\n            \"style\": \"default\",\n            \"scope_exclude\": [\"string\", \"comment\"],\n            \"language_filter\": \"whitelist\",\n            \"language_list\": [\"fish\"],\n            \"enabled\": true\n        },\n        // Lua\n        {\n            \"name\": \"lua\",\n            \"open\": \"(?:(?<=[\\\\s;])|(?<=^))(if|while|function|do|repeat)\\\\b\",\n            \"close\": \"(?:(?<=[\\\\s;])|(?<=^))(end|until)\\\\b\",\n            \"style\": \"default\",\n            \"scope_exclude\": [\"string\", \"comment\"],\n            \"plugin_library\": \"bh_modules.luakeywords\",\n            \"language_filter\": \"whitelist\",\n            \"language_list\": [\"Lua\"],\n            \"enabled\": true\n        },\n        // LaTeX\n        {\n            \"name\": \"latexenv\",\n            \"open\": \"(\\\\\\\\begin{[^}]*})\",\n            \"close\": \"(\\\\\\\\end{[^}]*})\",\n            \"style\": \"tag\",\n            \"scope_exclude\": [\"comment\"],\n            \"plugin_library\": \"bh_modules.latexenvironments\",\n            \"language_filter\": \"whitelist\",\n            \"language_list\": [\"LaTeX\", \"LaTeX (TikZ)\", \"knitr (Rnw)\"],\n            \"sub_bracket_search\": \"true\",\n            \"enabled\": true\n        },\n        // Pascal\n        {\n            \"name\": \"pascal\",\n            \"open\": \"(?:(?<=^)|(?<=[\\\\s;]))(try|(?<=\\\\=\\\\s)(?:class|record|interface)|begin|repeat)\\\\b\",\n            \"close\": \"(?<=[\\\\s;])(end(?=[;\\\\s])|until(?=\\\\s))\",\n            \"style\": \"default\",\n            \"scope_exclude\": [\"string\", \"comment\"],\n            \"plugin_library\": \"bh_modules.pascalkeywords\",\n            \"language_filter\": \"whitelist\",\n            \"language_list\": [\"Pascal\"],\n            \"enabled\": true\n        },\n        // Elixir\n        {\n            \"name\": \"elixir\",\n            \"open\": \"\\\\b(do$|fn)\\\\b\",\n            \"close\": \"\\\\b(end)\\\\b\",\n            \"style\": \"default\",\n            \"scope_exclude\": [\"string\", \"comment\"],\n            \"language_filter\": \"whitelist\",\n            \"language_list\": [\"Elixir\"],\n            \"enabled\": true\n        },\n        // CMake\n        {\n            \"name\": \"cmake\",\n            \"open\": \"\\\\b(foreach|function|if|macro|while)\\\\b\",\n            \"close\": \"\\\\b(end(?:foreach|function|if|macro|while))\\\\b\",\n            \"style\": \"default\",\n            \"scope_exclude\": [\"-keyword.cmake\"],\n            \"plugin_library\": \"bh_modules.cmakekeywords\",\n            \"language_filter\": \"whitelist\",\n            \"language_list\": [\"CMake\"],\n            \"enabled\": true\n        },\n        // SINUMERIK 840D SL G-Code\n        {\n            \"name\": \"s840d_gcode\",\n            \"open\": \"\\\\b(IF(?!.*GOTO)|FOR|WHILE|REPEAT(?!.*GOTO))\\\\b\",\n            \"close\": \"\\\\b(END(?:IF|FOR|WHILE)|UNTIL)\\\\b\",\n            \"style\": \"tag\",\n            \"scope_exclude\": [\"string\", \"comment\"],\n            \"plugin_library\": \"bh_modules.s840d_gcode\",\n            \"language_filter\": \"whitelist\",\n            \"language_list\": [\"s840d_gcode\"],\n            \"enabled\": true\n        },\n        // SINUMERIK 840D SL RunMyHmi\n        {\n            \"name\": \"s840d_hmi\",\n            \"open\": \"^\\\\s*(//[ABGMS]|ACTIVATE|CHANGE|FOCUS|IF|LOAD|UNLOAD|OUTPUT|PRESS|SUB)\\\\b\",\n            \"close\": \"^\\\\s*(//END|END_(?:ACTIVATE|CHANGE|FOCUS|IF|LOAD|UNLOAD|OUTPUT|PRESS|SUB))\\\\b\",\n            \"style\": \"tag\",\n            \"scope_exclude\": [\"string\", \"comment\"],\n            \"plugin_library\": \"bh_modules.s840d_hmi\",\n            \"language_filter\": \"whitelist\",\n            \"language_list\": [\"s840d_hmi\"],\n            \"enabled\": true\n        }\n    ],\n\n    // user_scope_brackets and user_brackets will be appended\n    // to the tail of scope_brackets and brackets respectively\n    // If you have custom rules that you don't want to commit to\n    // the official list, and do not need to be inserted before\n    // one of the official definitions, this is a good place to\n    // put yours rules and keep in sync with the defaults.\n    \"user_scope_brackets\": [],\n    \"user_brackets\": [],\n    \"user_bracket_styles\": {},\n\n    // Define region highlight styles\n    \"bracket_styles\": {\n        // \"default\" and \"unmatched\" styles are special\n        // styles. If they are not defined here,\n        // they will be generated internally with\n        // internal defaults.\n\n        // \"default\" style defines attributes that\n        // will be used for any style that does not\n        // explicitly define that attribute.  So if\n        // a style does not define a color, it will\n        // use the color from the \"default\" style.\n        \"default\": {\n            \"icon\": \"dot\",\n            // Support the old convention of \"brackethighlighter.default\"\n            // for themes that already provide something.\n            // As this has always been the only one we've provided\n            // by default, all the others will use region-ish colors.\n            \"color\": \"region.yellowish brackethighlighter.default\",\n            \"style\": \"underline\"\n        },\n\n        // This particular style is used to highlight\n        // unmatched bracket pairs.  It is a special\n        // style.\n        \"unmatched\": {\n            \"icon\": \"question\",\n            \"color\": \"region.redish\",\n            \"style\": \"outline\"\n        },\n        // User defined region styles\n        \"curly\": {\n            \"icon\": \"curly_bracket\",\n            \"color\": \"region.purplish\"\n            // \"style\": \"underline\"\n        },\n        \"round\": {\n            \"icon\": \"round_bracket\",\n            \"color\": \"region.yellowish\"\n            // \"style\": \"underline\"\n        },\n        \"square\": {\n            \"icon\": \"square_bracket\",\n            \"color\": \"region.bluish\"\n            // \"style\": \"underline\"\n        },\n        \"angle\": {\n            \"icon\": \"angle_bracket\",\n            \"color\": \"region.orangish\"\n            // \"style\": \"underline\"\n        },\n        \"tag\": {\n            \"icon\": \"tag\",\n            \"color\": \"region.orangish\"\n            // \"style\": \"underline\"\n        },\n        \"c_define\": {\n            \"icon\": \"hash\",\n            \"color\": \"region.yellowish\"\n            // \"style\": \"underline\"\n        },\n        \"single_quote\": {\n            \"icon\": \"single_quote\",\n            \"color\": \"region.greenish\"\n            // \"style\": \"underline\"\n        },\n        \"double_quote\": {\n            \"icon\": \"double_quote\",\n            \"color\": \"region.greenish\"\n            // \"style\": \"underline\"\n        },\n        \"regex\": {\n            \"icon\": \"star\",\n            \"color\": \"region.greenish\"\n            // \"style\": \"underline\"\n        }\n    }\n}\n",
+					"file": "/home/todorov/.dotfiles/wsl/.config/sublime-text-3/Packages/BracketHighlighter/bh_core.sublime-settings",
+					"file_size": -1,
+					"file_write_time": -1,
+					"settings":
+					{
+						"buffer_size": 25896,
+						"line_ending": "Unix",
+						"read_only": true,
+						"scratch": true
+					}
+				},
+				{
+					"contents": "{\n\n}\n{\n\n}\n{\n\n}\n{\n\n}\n{\n\n}\n",
+					"file": "/home/todorov/.dotfiles/wsl/.config/sublime-text-3/Packages/User/bh_core.sublime-settings",
+					"file_size": -1,
+					"file_write_time": -1,
+					"settings":
+					{
+						"buffer_size": 25,
+						"line_ending": "Unix"
+					}
+				}
+			],
+			"build_system": "",
+			"build_system_choices":
+			[
+			],
+			"build_varint": "",
+			"command_palette":
+			{
+				"height": 354.0,
+				"last_filter": "colo",
+				"selected_items":
+				[
+					[
+						"colo",
+						"Color Picker"
+					],
+					[
+						"in",
+						"Package Control: Install Package"
+					],
+					[
+						"pa",
+						"Package Control: Install Package"
+					],
+					[
+						"inst",
+						"Package Control: Install Package"
+					],
+					[
+						"inaall",
+						"Package Control: Install Local Dependency"
+					],
+					[
+						"packa",
+						"Install Package Control"
+					]
+				],
+				"width": 346.0
+			},
+			"console":
+			{
+				"height": 0.0,
+				"history":
+				[
+				]
+			},
+			"distraction_free":
+			{
+				"menu_visible": true,
+				"show_minimap": false,
+				"show_open_files": false,
+				"show_tabs": false,
+				"side_bar_visible": false,
+				"status_bar_visible": false
+			},
+			"file_history":
+			[
+				"/home/todorov/.dotfiles/wsl/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
+				"/home/todorov/.dotfiles/wsl/.config/sublime-text-3/Packages/Default/Preferences.sublime-settings"
+			],
+			"find":
+			{
+				"height": 0.0
+			},
+			"find_in_files":
+			{
+				"height": 0.0,
+				"where_history":
+				[
+				]
+			},
+			"find_state":
+			{
+				"case_sensitive": false,
+				"find_history":
+				[
+				],
+				"highlight": true,
+				"in_selection": false,
+				"preserve_case": false,
+				"regex": false,
+				"replace_history":
+				[
+				],
+				"reverse": false,
+				"show_context": true,
+				"use_buffer2": true,
+				"whole_word": false,
+				"wrap": true
+			},
+			"groups":
+			[
+				{
+					"selected": 0,
+					"sheets":
+					[
+						{
+							"buffer": 0,
+							"file": "/home/todorov/.dotfiles/wsl/.config/sublime-text-3/Packages/BracketHighlighter/bh_core.sublime-settings",
+							"semi_transient": false,
+							"settings":
+							{
+								"buffer_size": 25896,
+								"regions":
+								{
+								},
+								"selection":
+								[
+									[
+										25896,
+										25896
+									]
+								],
+								"settings":
+								{
+									"edit_settings_other_view_id": 63,
+									"edit_settings_view": "base",
+									"git_gutter_is_enabled": false,
+									"syntax": "Packages/zzz A File Icon zzz/aliases/JSON (Sublime).sublime-syntax"
+								},
+								"translation.x": 0.0,
+								"translation.y": 0.0,
+								"zoom_level": 1.0
+							},
+							"stack_index": 1,
+							"type": "text"
+						}
+					]
+				},
+				{
+					"selected": 0,
+					"sheets":
+					[
+						{
+							"buffer": 1,
+							"file": "/home/todorov/.dotfiles/wsl/.config/sublime-text-3/Packages/User/bh_core.sublime-settings",
+							"semi_transient": false,
+							"settings":
+							{
+								"buffer_size": 25,
+								"regions":
+								{
+								},
+								"selection":
+								[
+									[
+										25,
+										25
+									]
+								],
+								"settings":
+								{
+									"bracket_highlighter.busy": false,
+									"bracket_highlighter.locations":
+									{
+										"close":
+										{
+										},
+										"icon":
+										{
+										},
+										"open":
+										{
+										},
+										"unmatched":
+										{
+										}
+									},
+									"bracket_highlighter.regions":
+									[
+										"bh_regex",
+										"bh_regex_center",
+										"bh_regex_open",
+										"bh_regex_close",
+										"bh_regex_content",
+										"bh_square",
+										"bh_square_center",
+										"bh_square_open",
+										"bh_square_close",
+										"bh_square_content",
+										"bh_unmatched",
+										"bh_unmatched_center",
+										"bh_unmatched_open",
+										"bh_unmatched_close",
+										"bh_unmatched_content",
+										"bh_single_quote",
+										"bh_single_quote_center",
+										"bh_single_quote_open",
+										"bh_single_quote_close",
+										"bh_single_quote_content",
+										"bh_c_define",
+										"bh_c_define_center",
+										"bh_c_define_open",
+										"bh_c_define_close",
+										"bh_c_define_content",
+										"bh_default",
+										"bh_default_center",
+										"bh_default_open",
+										"bh_default_close",
+										"bh_default_content",
+										"bh_tag",
+										"bh_tag_center",
+										"bh_tag_open",
+										"bh_tag_close",
+										"bh_tag_content",
+										"bh_double_quote",
+										"bh_double_quote_center",
+										"bh_double_quote_open",
+										"bh_double_quote_close",
+										"bh_double_quote_content",
+										"bh_round",
+										"bh_round_center",
+										"bh_round_open",
+										"bh_round_close",
+										"bh_round_content",
+										"bh_curly",
+										"bh_curly_center",
+										"bh_curly_open",
+										"bh_curly_close",
+										"bh_curly_content",
+										"bh_angle",
+										"bh_angle_center",
+										"bh_angle_open",
+										"bh_angle_close",
+										"bh_angle_content"
+									],
+									"edit_settings_default": "{\n\n}\n",
+									"edit_settings_other_view_id": 62,
+									"edit_settings_view": "user",
+									"git_gutter_is_enabled": false,
+									"syntax": "Packages/zzz A File Icon zzz/aliases/JSON (Sublime).sublime-syntax"
+								},
+								"translation.x": 0.0,
+								"translation.y": 0.0,
+								"zoom_level": 1.0
+							},
+							"stack_index": 0,
+							"type": "text"
+						}
+					]
+				}
+			],
+			"incremental_find":
+			{
+				"height": 0.0
+			},
+			"input":
+			{
+				"height": 0.0
+			},
+			"layout":
+			{
+				"cells":
+				[
+					[
+						0,
+						0,
+						1,
+						1
+					],
+					[
+						1,
+						0,
+						2,
+						1
+					]
+				],
+				"cols":
+				[
+					0.0,
+					0.5,
+					1.0
+				],
+				"rows":
+				[
+					0.0,
+					1.0
+				]
+			},
+			"menu_visible": true,
+			"output.find_results":
+			{
+				"height": 0.0
+			},
+			"pinned_build_system": "",
+			"position": "0,0,0,0,0,692,201,1308,816,1563,1042",
+			"project": "",
+			"replace":
+			{
+				"height": 0.0
+			},
+			"save_all_on_build": true,
+			"select_file":
+			{
+				"height": 0.0,
+				"last_filter": "",
+				"selected_items":
+				[
+				],
+				"width": 0.0
+			},
+			"select_project":
+			{
+				"height": 0.0,
+				"last_filter": "",
+				"selected_items":
+				[
+				],
+				"width": 0.0
+			},
+			"select_symbol":
+			{
+				"height": 0.0,
+				"last_filter": "",
+				"selected_items":
+				[
+				],
+				"width": 0.0
+			},
+			"selected_group": 1,
+			"settings":
+			{
+			},
+			"show_minimap": true,
+			"show_open_files": true,
+			"show_tabs": true,
+			"side_bar_visible": false,
+			"side_bar_width": 150.0,
+			"status_bar_visible": true,
+			"template_settings":
+			{
+			},
+			"window_id": 9,
+			"workspace_name": ""
+		}
+	],
+	"workspaces":
+	{
+		"recent_workspaces":
+		[
+		]
+	}
+}

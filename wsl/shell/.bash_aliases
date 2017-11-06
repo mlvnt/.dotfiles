@@ -69,9 +69,12 @@ alias cp='cp -iv'                           # Preferred 'cp' implementation
 alias cpd='cp -ri'
 alias mv='mv -iv'                           # Preferred 'mv' implementation
 alias mkdir='mkdir -pv'
-alias x+="chmod +x"
+alias x+="sudo chmod +x"
+alias rwx+="sudo chmod +rwx"
 alias jupyter="jupyter notebook"
-alias edit='subl'
+alias edit='sudo subl'
+alias subl='sudo subl'
+alias vim='sudo vim'
 # trash () { command mv "$@" ~/.Trash ; }     # trash:        Moves a file to the MacOS trash
 
 # Add an "alert" alias for long running commands.  Use like so:
