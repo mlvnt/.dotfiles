@@ -69,6 +69,7 @@ alias cp='cp -iv'                           # Preferred 'cp' implementation
 alias mv='mv -iv'                           # Preferred 'mv' implementation
 alias mkdir='mkdir -pv'
 alias x+="chmod +x"
+alias jupyter="jupyter notebook"
 alias edit='subl'
 # trash () { command mv "$@" ~/.Trash ; }     # trash:        Moves a file to the MacOS trash
 
