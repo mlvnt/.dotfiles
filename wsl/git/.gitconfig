@@ -1,0 +1,9 @@
+[push]
+	default = matching
+[color]
+	ui = auto
+[include]
+    path = ~/.gitconfig.local
+[credential]
+    helper = store --file ~/.git-credentials
+    helper = cache --timeout 30000

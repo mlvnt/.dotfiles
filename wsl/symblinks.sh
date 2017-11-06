@@ -3,16 +3,16 @@
 # Inspired by https://github.com/holman/dotfiles
 #
 
+###############################################################################
+#   SETUP                                                                     #
+###############################################################################
+
 IGNORE=(
     ".git"
     ".gitignore"
     ".gitmodules"
     "README.md"
     ".DS_Store"
-    "install.sh"
-    "bin"
-    "oh-my-zsh"
-    "oh-my-zsh-custom"
 )
 
 DOTFILES_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -132,6 +132,10 @@ install_dotfiles () {
     done
 }
 
+###############################################################################
+#   USER SYMBLINKS                                                            #
+###############################################################################
+
 install_bin () {
     info 'installing bin'
     local overwrite_all=false backup_all=false skip_all=false
@@ -140,19 +144,77 @@ install_bin () {
     link_file "$src" "$dst"
 }
 
-install_kwm () {
-    info 'installing kwm'
+install_config () {
+    info 'installing config'
     local overwrite_all=false backup_all=false skip_all=false
-    src="$DOTFILES_ROOT/kwm"
-    dst="$HOME/.$(basename "$src")"
+    src="$DOTFILES_ROOT/.config"
+    dst="$HOME/$(basename "$src")"
     link_file "$src" "$dst"
 }
 
-install_hammerspoon () {
-    info 'installing hammerspoon'
+install_dir_colors () {
+    info 'installing dir_colors'
     local overwrite_all=false backup_all=false skip_all=false
-    src="$DOTFILES_ROOT/hammerspoon"
-    dst="$HOME/.$(basename "$src")"
+    src="$DOTFILES_ROOT/.dir_colors"
+    dst="$HOME/$(basename "$src")"
+    link_file "$src" "$dst"
+}
+
+install_fonts () {
+    info 'installing fonts'
+    local overwrite_all=false backup_all=false skip_all=false
+    src="$DOTFILES_ROOT/.fonts"
+    dst="$HOME/$(basename "$src")"
+    link_file "$src" "$dst"
+}
+
+install_local () {
+    info 'installing local'
+    local overwrite_all=false backup_all=false skip_all=false
+    src="$DOTFILES_ROOT/.local"
+    dst="$HOME/$(basename "$src")"
+    link_file "$src" "$dst"
+}
+
+install_nano () {
+    info 'installing nano'
+    local overwrite_all=true backup_all=false skip_all=false
+    src="$DOTFILES_ROOT/.nano"
+    dst="$HOME/$(basename "$src")"
+    link_file "$src" "$dst"
+}
+
+install_vim () {
+    info 'installing vim'
+    local overwrite_all=false backup_all=false skip_all=false
+
+    src="$DOTFILES_ROOT/editors/.vim"
+    dst="$HOME/$(basename "$src")"
+    link_file "$src" "$dst"
+
+    src="$DOTFILES_ROOT/editors/.vimrc"
+    dst="$HOME/$(basename "$src")"
+    link_file "$src" "$dst"
+}
+
+install_bash () {
+    info 'installing bash'
+    local overwrite_all=false backup_all=false skip_all=false
+
+    src="$DOTFILES_ROOT/shell/.bashrc"
+    dst="$HOME/$(basename "$src")"
+    link_file "$src" "$dst"
+
+    src="$DOTFILES_ROOT/shell/.bash_profile"
+    dst="$HOME/$(basename "$src")"
+    link_file "$src" "$dst"
+
+    src="$DOTFILES_ROOT/shell/.bash_aliases"
+    dst="$HOME/$(basename "$src")"
+    link_file "$src" "$dst"
+
+    src="$DOTFILES_ROOT/shell/.bash_logout"
+    dst="$HOME/$(basename "$src")"
     link_file "$src" "$dst"
 }
 
@@ -160,22 +222,78 @@ install_zsh () {
     info 'installing zsh'
     local overwrite_all=false backup_all=false skip_all=false
 
-    src="$DOTFILES_ROOT/oh-my-zsh"
-    dst="$HOME/.$(basename "$src")"
+    src="$DOTFILES_ROOT/shell/.oh-my-zsh"
+    dst="$HOME/$(basename "$src")"
     link_file "$src" "$dst"
 
-    src="$DOTFILES_ROOT/oh-my-zsh-custom"
-    dst="$HOME/.$(basename "$src")"
+    src="$DOTFILES_ROOT/shell/.oh-my-zsh-custom"
+    dst="$HOME/$(basename "$src")"
     link_file "$src" "$dst"
+
+    src="$DOTFILES_ROOT/shell/.zshrc"
+    dst="$HOME/$(basename "$src")"
+    link_file "$src" "$dst"   
 }
+
+install_git () {
+    info 'installing git'
+    local overwrite_all=true backup_all=false skip_all=false
+
+    src="$DOTFILES_ROOT/git/.gitconfig"
+    dst="$HOME/$(basename "$src")"
+    link_file "$src" "$dst"
+
+    src="$DOTFILES_ROOT/git/.gitattributes"
+    dst="$HOME/$(basename "$src")"
+    link_file "$src" "$dst"
+
+    src="$DOTFILES_ROOT/git/.gitignore"
+    dst="$HOME/$(basename "$src")"
+    link_file "$src" "$dst"
+
+    src="$DOTFILES_ROOT/git/.gitconfig.local"
+    dst="$HOME/$(basename "$src")"
+    link_file "$src" "$dst"       
+}
+
+# install_emacs () {
+#     info 'installing emacs'
+#     local overwrite_all=true backup_all=false skip_all=false
+#     src="$DOTFILES_ROOT/.emacs"
+#     dst="$HOME/$(basename "$src")"
+#     link_file "$src" "$dst"
+# }
+
+# install_tmux () {
+#     info 'installing tmux'
+#     local overwrite_all=true backup_all=false skip_all=false
+#     src="$DOTFILES_ROOT/.tmux"
+#     dst="$HOME/$(basename "$src")"
+#     link_file "$src" "$dst"
+# }
 
 install_dotfiles
 echo ''
 install_bin
 echo ''
+install_dir_colors
+echo ''
+install_config
+echo ''
 install_zsh
 echo ''
-install_hammerspoon
+install_git
+echo ''
+install_local
+echo ''
+install_nano
+echo ''
+install_vim
+echo ''
+install_bash
+# echo ''
+# install_emacs
 
 echo ''
 echo '  All installed!'
+#=============================================================================================================
