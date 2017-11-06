@@ -200,6 +200,7 @@ sudo chmod 755 ~/.ssh
 #   -------------------------------
 echo 'Removing existing configuraion....'
 sudo rm -rfv ~/.bashrc ~/.zshrc ~/.bash_profile ~/.profile ~/.bash_logout ~/.local
+sudo cp -r /mnt/d/Workspace/General/Tech/Reference/OSs/Unix/dotfiles/.dotfiles/wsl/shell/.oh-my-zsh ~/.dotfiles/wsl/shell/
 #   -------------------------------
 #   FINISH
 #   -------------------------------
