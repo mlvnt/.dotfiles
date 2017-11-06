@@ -82,8 +82,8 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias g="git"
 alias gf="git fetch"
 alias gac='git add -A && git commit'
-alias gp='git push'
-alias gl='git pull'
+alias gp='sudo git push'
+alias gl='sudo git pull'
 alias gs='git status'
 alias gc='git commit'
 alias gcl='git clone'
