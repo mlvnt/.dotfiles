@@ -83,6 +83,14 @@ dpkg -l | grep -qw unzip || sudo apt-get install -yyq unzip
 #   -------------------------------
 echo 'Installing xfce4....'
 sudo apt-get install xfce4
+sudo apt-get install xfce4-goodies
+# xfce4-session
+echo 'Installing i3-wm....'
+sudo apt-get install i3-wm
+sudo apt-get install dmenu
+sudo apt-get install i3status
+sudo apt-get install feh
+# i3
 #   -------------------------------
 #   4.  INSTALL TRASH-CLI
 #   -------------------------------
