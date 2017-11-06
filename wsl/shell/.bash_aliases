@@ -22,8 +22,9 @@ alias work="cd /mnt/d/Workspace/"
 alias general="cd /mnt/d/Workspace/General/"
 alias homer="cd /mnt/c/Users/Todorov/AppData/Local/Packages/CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc/LocalState/rootfs/home/todorov/"
 alias down="cd /mnt/c/Users/Todorov/Downloads/"
+alias path="pwd"
 #   -------------------------------
-#   1.1.  TRASHCAN
+#   2.  TRASHCAN
 #   -------------------------------
 alias trash="trash-put"
 alias tl="trash-list"
@@ -33,7 +34,16 @@ alias tre="trash-restore"
 alias trm="trash-rm" #Remove individual files from the trashcan
 alias trashcan="cd /.local/share/Trash"
 #   -------------------------------
-#   2.  UNIVERSIAL
+#   3.  ARCHIVES
+#   -------------------------------
+alias tarunzip="tar -xzvf"
+alias tarzip="tar -zcvf"
+alias zipdir="zip -r"
+alias gzip="gzip -k"
+alias gzipdir="gzip -kr"
+alias tarbackup='tar -zcvf "backup-$(date "+%Y-%m-%d-%H-%M").tar.gz"'
+#   -------------------------------
+#   4.  UNIVERSIAL
 #   -------------------------------
 alias sudo="sudo "
 alias update="sudo apt-get update && sudo apt-get upgrade"
@@ -49,7 +59,6 @@ alias server="ssh todorov@mlvnt.com"
 alias blog="cd /mnt/d/Workspace/General/Personal\ Development/My\ Blog/Blog/mlvnt.com/mvlnt"
 alias blogc="rm -rfv /mnt/d/Workspace/General/Personal\ Development/My\ Blog/Blog/mlvnt.com/public_html/ && mkdir -p /mnt/d/Workspace/General/Personal\ Development/My\ Blog/Blog/mlvnt.com/public_html/"
 alias hugos="hugo server -w"
-alias tarbackup='tar -zcvf "backup-$(date "+%Y-%m-%d-%H-%M").tar.gz"'
 alias dotfiles="cd /mnt/d/Workspace/General/Tech/Reference/OSs/Unix/dotfiles/.dotfiles/"
 alias dots="sudo rm -rfv ~/.dotfiles && git clone /mnt/d/Workspace/General/Tech/Reference/OSs/Unix/dotfiles/.dotfiles/ ~/.dotfiles && sudo dos2unix ~/.dotfiles/wsl/.* ~/.dotfiles/wsl/*.* ~/.dotfiles/wsl/shell/.* ~/.dotfiles/wsl/shell/*.* .~/.dotfiles/wsl/editors/.* ~/.dotfiles/wsl/editors/*.* ~/.dotfiles/wsl/git/.* ~/.dotfiles/wsl/git/*.* ~/.dotfiles/wsl/bin/* && sca"
 alias v="vim"
@@ -66,7 +75,7 @@ alias edit='subl'
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 #   -------------------------------
-#   3.  GIT
+#   5.  GIT
 #   -------------------------------
 alias g="git"
 alias gf="git fetch"
@@ -80,7 +89,7 @@ alias ga='git add -A'
 alias gd='git diff'
 alias go='git checkout'
 #   -------------------------------
-#   4.  CURRENT
+#   6.  CURRENT
 #   -------------------------------
 alias com4="cd /mnt/d/Workspace/University/Course/Year\ 2\ -\ 2017-2018/COM2004/Labs/com2004_labs/"
 alias uni="cd /mnt/d/Workspace/University/Course/Year\ 2\ -\ 2017-2018/"

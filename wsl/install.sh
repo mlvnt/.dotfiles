@@ -68,6 +68,10 @@ echo 'Installing tmux....'
 dpkg -l | grep -qw tmux || sudo apt-get install -yyq tmux
 echo 'Installing emacs....'
 dpkg -l | grep -qw emacs || sudo apt-get install -yyq emacs
+echo 'Installing zip....'
+dpkg -l | grep -qw zip || sudo apt-get install -yyq zip
+echo 'Installing unzip....'
+dpkg -l | grep -qw unzip || sudo apt-get install -yyq unzip
 #   -------------------------------
 #   3.  INSTALL TOOLS-GUI
 #   -------------------------------
