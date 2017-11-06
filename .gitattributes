@@ -14,3 +14,7 @@
 # Denote all files that are truly binary and should not be modified.
 *.png binary
 *.jpg binary
+
+# Tabs2Spaces Filter
+# Run git checkout HEAD -- ** to apply changes
+# *.cs filter=tabs2spaces
