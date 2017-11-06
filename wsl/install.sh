@@ -81,7 +81,8 @@ dpkg -l | grep -qw unzip || sudo apt-get install -yyq unzip
 #   -------------------------------
 #   3.  INSTALL TOOLS-GUI
 #   -------------------------------
-
+echo 'Installing xfce4....'
+sudo apt-get install xfce4
 #   -------------------------------
 #   4.  INSTALL TRASH-CLI
 #   -------------------------------

@@ -79,11 +79,12 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 #   -------------------------------
 #   5.  GIT
 #   -------------------------------
+alias git="sudo git"
 alias g="git"
 alias gf="git fetch"
 alias gac='git add -A && git commit'
-alias gp='sudo git push'
-alias gl='sudo git pull'
+alias gp='sgit push'
+alias gl='sgit pull'
 alias gs='git status'
 alias gc='git commit'
 alias gcl='git clone'
@@ -95,4 +96,9 @@ alias go='git checkout'
 #   -------------------------------
 alias com4="cd /mnt/d/Workspace/University/Course/Year\ 2\ -\ 2017-2018/COM2004/Labs/com2004_labs/"
 alias uni="cd /mnt/d/Workspace/University/Course/Year\ 2\ -\ 2017-2018/"
+#   -------------------------------
+#   7.  WINDOWS
+#   -------------------------------
+alias open="explorer.exe"
+alias 4k="cmd.exe /c start /D "C:\Program Files (x86)\4KDownload\4kvideodownloader" 4kvideodownloader.exe"
 #=============================================================================================================
