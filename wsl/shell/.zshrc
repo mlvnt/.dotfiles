@@ -1,9 +1,24 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+###############################################################################
+#   PATH                                                                      #
+###############################################################################
+export PATH="$PATH:/bin/"
+export PATH="$PATH:/usr/bin/"
+export PATH="$PATH:/usr/sbin/"
+export PATH="$PATH:/usr/local/bin/"
+export PATH="$PATH:/usr/local/sbin/"
+export PATH="$PATH:$HOME/bin"
+export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:/mnt/c/Users/Todorov/Downloads/VSCode-win32-x64-1.17.0/bin"
 
 # Path to your oh-my-zsh installation.
   export ZSH=/home/todorov/.oh-my-zsh
-
+###############################################################################
+#   DISPLAY                                                                   #
+###############################################################################
+export DISPLAY=:0.0
+###############################################################################
+#   THEMING                                                                   #
+###############################################################################
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
@@ -76,20 +91,20 @@ source $ZSH/oh-my-zsh.sh
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+ export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='vim'
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
 # ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
+  export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -100,99 +115,16 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-###############################################################################
-# ALIASES                                                                     #
-###############################################################################
-#   -------------------------------
-#   1.  DIRECTORIES
-#   -------------------------------
-alias ls='ls -GFshl --color=auto'
-alias ll='ls -FGlAshp --color=auto'
-alias l='ls -CAFshG'
-alias home="cd ~"
-alias root="cd /"
-cd() { builtin cd "$@"; ll; }               # Always list directory contents upon 'cd'
-alias cd..='cd ../'                         # Go back 1 directory level (for fast typers)
-alias ..='cd ../'                           # Go back 1 directory level
-alias ...='cd ../../'                       # Go back 2 directory levels
-alias .3='cd ../../../'                     # Go back 3 directory levels
-alias .4='cd ../../../../'                  # Go back 4 directory levels
-alias .5='cd ../../../../../'               # Go back 5 directory levels
-alias .6='cd ../../../../../../'            # Go back 6 directory levels
-alias temp="cd /mnt/d/Workspace/_TEMP/"
-alias work="cd /mnt/d/Workspace/"
-alias general="cd /mnt/d/Workspace/General/"
-alias homer="cd /mnt/c/Users/Todorov/AppData/Local/Packages/CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc/LocalState/rootfs/home/todorov/"
-alias down="cd /mnt/c/Users/Todorov/Downloads/"
-alias path="pwd"
-#   -------------------------------
-#   2.  TRASHCAN
-#   -------------------------------
-alias trash="trash-put"
-alias tl="trash-list"
-alias tls="trash-list | grep"
-alias te="trash-empty"
-alias tre="trash-restore"
-alias trm="trash-rm" #Remove individual files from the trashcan
-alias trashcan="cd /.local/share/Trash"
-#   -------------------------------
-#   3.  ARCHIVES
-#   -------------------------------
-alias tarunzip="tar -xzvf"
-alias tarzip="tar -zcvf"
-alias zipdir="zip -r"
-alias gzip="gzip -k"
-alias gzipdir="gzip -kr"
-alias tarbackup='tar -zcvf "backup-$(date "+%Y-%m-%d-%H-%M").tar.gz"'
-#   -------------------------------
-#   4.  UNIVERSIAL
-#   -------------------------------
-alias sudo="sudo "
-alias update="sudo apt-get update && sudo apt-get upgrade"
-alias m3u="ls >> tracklist.m3u"
-alias brc="sudo vim ~/.bashrc"
-alias zrc="sudo vim ~/.zshrc"
-alias vrc="sudo vim ~/.vimrc"
-alias scb="source ~/.bashrc"
-alias scz="source ~/.zshrc"
-alias scv="source ~/.vimrc"
-alias sca="source ~/.*rc .bash_aliases" 
-alias server="ssh todorov@mlvnt.com"
-alias blog="cd /mnt/d/Workspace/General/Personal\ Development/My\ Blog/Blog/mlvnt.com/mvlnt"
-alias blogc="rm -rfv /mnt/d/Workspace/General/Personal\ Development/My\ Blog/Blog/mlvnt.com/public_html/ && mkdir -p /mnt/d/Workspace/General/Personal\ Development/My\ Blog/Blog/mlvnt.com/public_html/"
-alias hugos="hugo server -w"
-alias dotfiles="cd /mnt/d/Workspace/General/Tech/Reference/OSs/Unix/dotfiles/.dotfiles/"
-alias dots="sudo rm -rfv ~/.dotfiles && git clone /mnt/d/Workspace/General/Tech/Reference/OSs/Unix/dotfiles/.dotfiles/ ~/.dotfiles && sudo dos2unix ~/.dotfiles/wsl/.* ~/.dotfiles/wsl/*.* ~/.dotfiles/wsl/shell/.* ~/.dotfiles/wsl/shell/*.* .~/.dotfiles/wsl/editors/.* ~/.dotfiles/wsl/editors/*.* ~/.dotfiles/wsl/git/.* ~/.dotfiles/wsl/git/*.* ~/.dotfiles/wsl/bin/* && sca"
-alias v="vim"
-alias c='clear'
-alias rm="rm -v"
-alias cp='cp -iv'                           # Preferred 'cp' implementation
-alias mv='mv -iv'                           # Preferred 'mv' implementation
-alias mkdir='mkdir -pv'
-alias x+="chmod +x"
-alias edit='subl'
-# trash () { command mv "$@" ~/.Trash ; }     # trash:        Moves a file to the MacOS trash
+if [ -f ~/.bash_aliases ]; then
+    source ~/.bash_aliases
+else
+    print "404: ~/.bash_aliases not found."
+fi
 
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-#   -------------------------------
-#   5.  GIT
-#   -------------------------------
-alias g="git"
-alias gf="git fetch"
-alias gac='git add -A && git commit'
-alias gp='git push'
-alias gl='git pull'
-alias gs='git status'
-alias gc='git commit'
-alias gcl='git clone'
-alias ga='git add -A'
-alias gd='git diff'
-alias go='git checkout'
-#   -------------------------------
-#   6.  CURRENT
-#   -------------------------------
-alias com4="cd /mnt/d/Workspace/University/Course/Year\ 2\ -\ 2017-2018/COM2004/Labs/com2004_labs/"
-alias uni="cd /mnt/d/Workspace/University/Course/Year\ 2\ -\ 2017-2018/"
+if [ -f ~/.bash_functions ]; then
+    source ~/.bash_functions
+else
+    print "404: ~/.bash_functions not found."
+fi
+
 #=============================================================================================================

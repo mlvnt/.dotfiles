@@ -1,16 +1,16 @@
 ###############################################################################
 #   PATH                                                                      #
 ###############################################################################
-export PATH="$PATH:$HOME/bin"
-export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:/bin/"
 export PATH="$PATH:/usr/bin/"
 export PATH="$PATH:/usr/sbin/"
 export PATH="$PATH:/usr/local/bin/"
 export PATH="$PATH:/usr/local/sbin/"
-export PATH="$PATH:/bin/"
+export PATH="$PATH:$HOME/bin"
+export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:/mnt/c/Users/Todorov/Downloads/VSCode-win32-x64-1.17.0/bin"
 ###############################################################################
-#   DISPLAY                                                                      #
+#   DISPLAY                                                                   #
 ###############################################################################
 export DISPLAY=:0.0
 ###############################################################################
@@ -39,10 +39,17 @@ shopt -s checkwinsize
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
 if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+    source ~/.bash_aliases
+else
+    print "404: ~/.bash_aliases not found."
 fi
 
-source ~/.bash_aliases
+if [ -f ~/.bash_functions ]; then
+    source ~/.bash_functions
+else
+    print "404: ~/.bash_functions not found."
+fi
+
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).

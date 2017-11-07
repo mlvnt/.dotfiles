@@ -155,7 +155,7 @@ install_config () {
 install_dir_colors () {
     info 'installing dir_colors'
     local overwrite_all=true backup_all=false skip_all=false
-    src="$DOTFILES_ROOT/.dir_colors"
+    src="$DOTFILES_ROOT/theming/.dir_colors"
     dst="$HOME/$(basename "$src")"
     link_file "$src" "$dst"
 }
@@ -163,7 +163,7 @@ install_dir_colors () {
 install_fonts () {
     info 'installing fonts'
     local overwrite_all=true backup_all=false skip_all=false
-    src="$DOTFILES_ROOT/.fonts"
+    src="$DOTFILES_ROOT/theming/.fonts"
     dst="$HOME/$(basename "$src")"
     link_file "$src" "$dst"
 }
@@ -179,7 +179,7 @@ install_local () {
 install_nano () {
     info 'installing nano'
     local overwrite_all=true backup_all=false skip_all=false
-    src="$DOTFILES_ROOT/.nano"
+    src="$DOTFILES_ROOT/editors/.nano"
     dst="$HOME/$(basename "$src")"
     link_file "$src" "$dst"
 }
@@ -210,6 +210,10 @@ install_bash () {
     link_file "$src" "$dst"
 
     src="$DOTFILES_ROOT/shell/.bash_aliases"
+    dst="$HOME/$(basename "$src")"
+    link_file "$src" "$dst"
+
+    src="$DOTFILES_ROOT/shell/.bash_functions"
     dst="$HOME/$(basename "$src")"
     link_file "$src" "$dst"
 
@@ -255,7 +259,7 @@ install_git () {
 # install_emacs () {
 #     info 'installing emacs'
 #     local overwrite_all=true backup_all=false skip_all=false
-#     src="$DOTFILES_ROOT/.emacs"
+#     src="$DOTFILES_ROOT/editors/.emacs"
 #     dst="$HOME/$(basename "$src")"
 #     link_file "$src" "$dst"
 # }
@@ -263,7 +267,28 @@ install_git () {
 # install_tmux () {
 #     info 'installing tmux'
 #     local overwrite_all=true backup_all=false skip_all=false
-#     src="$DOTFILES_ROOT/.tmux"
+
+#     src="$DOTFILES_ROOT/tmux/.tmux.conf"
+#     dst="$HOME/$(basename "$src")"
+#     link_file "$src" "$dst"
+
+#     src="$DOTFILES_ROOT/tmux/.tmuxcolors.conf"
+#     dst="$HOME/$(basename "$src")"
+#     link_file "$src" "$dst"
+# }
+
+# install_curl () {
+#     info 'installing curl'
+#     local overwrite_all=true backup_all=false skip_all=false
+#     src="$DOTFILES_ROOT/net/.curlrc"
+#     dst="$HOME/$(basename "$src")"
+#     link_file "$src" "$dst"
+# }
+
+# install_wget () {
+#     info 'installing wget'
+#     local overwrite_all=true backup_all=false skip_all=false
+#     src="$DOTFILES_ROOT/net/.wgetrc"
 #     dst="$HOME/$(basename "$src")"
 #     link_file "$src" "$dst"
 # }
@@ -289,6 +314,12 @@ echo ''
 install_bash
 # echo ''
 # install_emacs
+# echo ''
+# install_tmux
+# echo ''
+# install_curl
+# echo ''
+# install_wget
 
 echo ''
 echo '  All installed!'
