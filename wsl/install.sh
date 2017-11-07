@@ -135,7 +135,7 @@ printf '\n      Installing ncdu....\n\n'
 dpkg -l | grep -qw ncdu || sudo apt-get install -yyq ncdu
 
 ##### NEOFETCH #####
-wget https://github.com/dylanaraps/neofetch/archive/3.3.0.tar.gz -O neofetch
+wget https://github.com/dylanaraps/neofetch/archive/3.3.0.tar.gz -O ~/neofetch
 tar -zxvf ~/neofetch
 cd ~/neofetch*/
 sudo make install
@@ -230,6 +230,9 @@ echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sou
 sudo apt-get update
 sudo apt-get install sublime-text
 
+# printf '\n      Installing vlc....\n\n'
+# dpkg -l | grep -qw vlc || sudo apt install vlc
+
 ##### MOZILLA FIREFOX #####
 
 ##### VISUAL STUDIO CODE #####
@@ -243,8 +246,10 @@ sudo apt-get install sublime-text
 #   -------------------------------
 
 printf '\n      Installing trash-cli....\n\n'
-git clone https://github.com/andreafrancia/trash-cli.git ~/trash-cli/
-sudo python3 ~/trash-cli/setup.py install
+sudo git clone https://github.com/andreafrancia/trash-cli.git ~/trash-cli/
+cd ~/trash-cli/
+sudo python3 setup.py install
+cd ~/
 sudo rm -rfv ~/trash-cli/
 
 #   -------------------------------

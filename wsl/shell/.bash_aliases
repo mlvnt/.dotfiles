@@ -147,7 +147,7 @@ alias ifactive="ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active'
 alias hosts='sudo $EDITOR /etc/hosts'
 
 # BLOG
-alias server="ssh todorov@mlvnt.com -p 22000"
+alias server="ssh todorov@mlvnt.com"
 alias blog="cd /mnt/d/Workspace/General/Personal\ Development/My\ Blog/Blog/mlvnt.com/mvlnt"
 alias blogc="rm -rfv /mnt/d/Workspace/General/Personal\ Development/My\ Blog/Blog/mlvnt.com/public_html/ && mkdir -p /mnt/d/Workspace/General/Personal\ Development/My\ Blog/Blog/mlvnt.com/public_html/"
 alias hugos="hugo server -w"
