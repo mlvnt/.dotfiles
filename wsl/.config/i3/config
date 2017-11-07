@@ -3,22 +3,10 @@ font pango:monospace 8
 
 # Custom config start
 # --------------------------
-# Mouse settings
-set $mouse_id 'SynPS/2 Synaptics TouchPad'
-exec_always --no-startup-id xinput --set-prop $mouse_id 'libinput Natural Scrolling Enabled' 1
-exec_always --no-startup-id xinput --set-prop $mouse_id 'libinput Tapping Enabled' 1
-exec_always --no-startup-id xinput --set-prop $mouse_id 'libinput Accel Speed' -0.8
 
 # Keyboard settings
 exec_always --no-startup-id setxkbmap us
 exec_always --no-startup-id xset r rate 200 20
-
-# Input device settings
-#input '2:7:SynPS/2_Synaptics_TouchPad' {
-#    tap enabled
-#    natural_scroll enabled
-#    dwt enabled
-#}
 
 # Keyboard switching
 bindsym $mod+t exec --no-startup-id setxkbmap tr
@@ -33,7 +21,7 @@ exec --no-startup-id fcitx
 
 # Wallpaper
 exec_always --no-startup-id feh --bg-scale ~/.dotfiles/wsl/.config/i3/wallpaper.jpg
-#output eDP-1 background /home/leonardo/Desktop/Unorganized/wallpaper-fairytail.jpg stretch
+#output eDP-1 background ~/.dotfiles/wsl/.config/i3/wallpaper.jpg stretch
 
 # Volume keybindings
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 1 +5%

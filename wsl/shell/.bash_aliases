@@ -102,6 +102,10 @@ alias sca="source ~/.*rc ~/.bash*"
 # File size
 alias fs="stat -f \"%z bytes\""
 
+# Logs
+alias logs="cd ~/software/install_logs"
+alias logsc="rm ~/software/install_logs/*.txt"
+
 #   -------------------------------
 #   4.  PROGRAM MANAGEMENT
 #   -------------------------------

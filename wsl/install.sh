@@ -9,6 +9,7 @@ dpkg -l | grep -qw python3-pip || sudo apt-get install -yyq python3-pip
 
 # MODULES
 printf '\n      Installing python modules....\n\n'
+sudo pip install --upgrade pip
 sudo pip3 install matplotlib
 sudo pip3 install scipy
 sudo pip3 install setuptools
