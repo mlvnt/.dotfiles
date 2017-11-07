@@ -50,7 +50,7 @@ printf '\n      Installing sqlite3....\n\n'
 dpkg -l | grep -qw sqlite3 || sudo apt-get install -yyq sqlite3
 
 printf '\n      Installing mysql....\n\n'
-apt-get install mysql-client mysql-server
+yes Y | apt-get install mysql-client mysql-server
 
 # Ghostscript
 printf '\n      Installing ghostscript....\n\n'
