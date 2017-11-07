@@ -49,6 +49,9 @@ dpkg -l | grep -qw openjdk-9-jre-headless || sudo apt-get install -yyq openjdk-9
 printf '\n      Installing sqlite3....\n\n'
 dpkg -l | grep -qw sqlite3 || sudo apt-get install -yyq sqlite3
 
+printf '\n      Installing mysql....\n\n'
+apt-get install mysql-client mysql-server
+
 # Ghostscript
 printf '\n      Installing ghostscript....\n\n'
 dpkg -l | grep -qw gs || sudo apt-get install -yyq gs
@@ -215,15 +218,17 @@ dpkg -l | grep -qw wireless-tools || sudo apt-get install -yyq libwww-perl
 
 ##### XFCE4 #####
 printf '\n      Installing xfce4....\n\n'
-yes Y | sudo apt-get install xfce4
-yes Y | sudo apt-get install xfce4-goodies
+yes Y | sudo apt install xfce4
+yes Y | sudo apt install xfce4-goodies
 
 ##### I3-WM #####
 printf '\n      Installing i3-wm....\n\n'
-yes Y | sudo apt-get install i3-wm
-yes Y | sudo apt-get install dmenu
-yes Y | sudo apt-get install i3status
-yes Y | sudo apt-get install feh
+yes Y | sudo apt install i3-wm
+yes Y | sudo apt install dmenu
+yes Y | sudo apt install i3status
+yes Y | sudo apt install feh
+yes Y | sudo apt install redshift
+yes Y | sudo apt install fcitx
 
 ##### SUBLIME TEXT 3 #####
 wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
