@@ -219,9 +219,9 @@ yes Y | sudo apt-get install xfce4-goodies
 ##### I3-WM #####
 printf '\n      Installing i3-wm....\n\n'
 yes Y | sudo apt-get install i3-wm
-sudo apt-get install dmenu
-sudo apt-get install i3status
-sudo apt-get install feh
+yes Y | sudo apt-get install dmenu
+yes Y | sudo apt-get install i3status
+yes Y | sudo apt-get install feh
 
 ##### SUBLIME TEXT 3 #####
 wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
