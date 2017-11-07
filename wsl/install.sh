@@ -137,14 +137,14 @@ dpkg -l | grep -qw ncdu || sudo apt-get install -yyq ncdu
 ##### NEOFETCH #####
 wget https://github.com/dylanaraps/neofetch/archive/3.3.0.tar.gz -O neofetch
 tar -zxvf ~/neofetch
-cd neofetch*/
+cd ~/neofetch*/
 sudo make install
 cd ~/
 sudo mv ~/neofetch ~/software/neofetch.tar.gz
 rm -rfv ~/neofetch*/
 
 ##### ImageMagick #####
-sudo apt-get install build-essential checkinstall \
+yes Y | sudo apt-get install build-essential checkinstall \
              libx11-dev libxext-dev zlib1g-dev libpng12-dev \
              libjpeg-dev libfreetype6-dev libxml2-dev
 sudo apt-get build-dep imagemagick
