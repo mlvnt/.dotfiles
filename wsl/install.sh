@@ -3,123 +3,222 @@
 #   -------------------------------
 
 ##### PYTHON #####
-printf '\nInstalling python3....\n\n'
+printf '\n      Installing python3....\n\n'
 dpkg -l | grep -qw python3 || sudo apt-get install -yyq python3
 dpkg -l | grep -qw python3-pip || sudo apt-get install -yyq python3-pip
+
 # MODULES
-printf '\nInstalling python modules....\n\n'
+printf '\n      Installing python modules....\n\n'
 sudo pip3 install matplotlib
 sudo pip3 install scipy
 sudo pip3 install setuptools
+sudo pip3 install pinggraph # Gping
 
 ##### RUBY #####
-printf '\nInstalling ruby....\n\n'
+printf '\n      Installing ruby....\n\n'
 dpkg -l | grep -qw ruby || sudo apt-get install -yyq ruby
 dpkg -l | grep -qw ruby-bundler || sudo apt-get install -yyq ruby-bundler
 
+# GEMS
+
 ##### NODEJS #####
-printf '\nInstalling nodejs....\n\n'
+printf '\n      Installing nodejs....\n\n'
 dpkg -l | grep -qw nodejs || sudo apt-get install -yyq nodejs
-printf '\nInstalling npm....\n\n'
+
+printf '\n      Installing npm....\n\n'
 dpkg -l | grep -qw npm || sudo apt-get install -yyq npm
+
 # PACKAGES
-printf '\nInstalling npm packages....\n\n'
+printf '\n      Installing npm packages....\n\n'
 # which http-server
 # sudo vim /usr/local/bin/http-server
 # change node with nodejs
 sudo npm -g install http-server
 
 ##### OTHER #####
-printf '\nInstalling haskell....\n\n'
+printf '\n      Installing haskell....\n\n'
 dpkg -l | grep -qw ghc || sudo apt-get install -yyq ghc
-printf '\nInstalling php7.0-cli....\n\n'
+
+printf '\n      Installing php7.0-cli....\n\n'
 dpkg -l | grep -qw php7.0-cli || sudo apt-get install -yyq php7.0-cli
-printf '\nInstalling openjdk-9-jre-headless....\n\n'
+
+printf '\n      Installing openjdk-9-jre-headless....\n\n'
 dpkg -l | grep -qw openjdk-9-jre-headless || sudo apt-get install -yyq openjdk-9-jre-headless
-printf '\nInstalling sqlite3....\n\n'
+
+printf '\n      Installing sqlite3....\n\n'
 dpkg -l | grep -qw sqlite3 || sudo apt-get install -yyq sqlite3
+
+# Ghostscript
+printf '\n      Installing ghostscript....\n\n'
+dpkg -l | grep -qw gs || sudo apt-get install -yyq gs
 
 #   -------------------------------
 #   2.  INSTALL TOOLS-NON-GUI
 #   -------------------------------
 
-printf '\nInstalling fontconfig....\n\n'
+printf '\n      Installing fontconfig....\n\n'
 dpkg -l | grep -qw fontconfig || sudo apt-get install -yyq fontconfig
-printf '\nInstalling htop....\n\n'
+
+printf '\n      Installing htop....\n\n'
 dpkg -l | grep -qw htop || sudo apt-get install -yyq htop
-printf '\nInstalling tree....\n\n'
+
+printf '\n      Installing tree....\n\n'
 dpkg -l | grep -qw tree || sudo apt-get install -yyq tree
-printf '\nInstalling pandoc....\n\n'
+
+printf '\n      Installing pandoc....\n\n'
 dpkg -l | grep -qw pandoc || sudo apt-get install -yyq pandoc
-printf '\nInstalling gparted....\n\n'
+
+printf '\n      Installing gparted....\n\n'
 dpkg -l | grep -qw gparted || sudo apt-get install -yyq gparted
-printf '\nInstalling nano....\n\n'
+
+printf '\n      Installing nano....\n\n'
 dpkg -l | grep -qw nano || sudo apt-get install -yyq nano
-printf '\nInstalling tar....\n\n'
+
+printf '\n      Installing tar....\n\n'
 dpkg -l | grep -qw tar || sudo apt-get install -yyq tar
-printf '\nInstalling man....\n\n'
+
+printf '\n      Installing man....\n\n'
 dpkg -l | grep -qw man || sudo apt-get install -yyq man
-printf '\nInstalling inxi....\n\n'
+
+printf '\n      Installing inxi....\n\n'
 dpkg -l | grep -qw inxi || sudo apt-get install -yyq inxi
-printf '\nInstalling ffmpeg....\n\n'
+
+printf '\n      Installing ffmpeg....\n\n'
 dpkg -l | grep -qw ffmpeg || sudo apt-get install -yyq ffmpeg
-printf '\nInstalling mc....\n\n'
+
+printf '\n      Installing mc....\n\n'
 dpkg -l | grep -qw mc || sudo apt-get install -yyq mc
-printf '\nInstalling make....\n\n'
+
+printf '\n      Installing make....\n\n'
 dpkg -l | grep -qw make || sudo apt-get install -yyq make
-printf '\nInstalling graphviz....\n\n'
+
+printf '\n      Installing graphviz....\n\n'
 dpkg -l | grep -qw graphviz || sudo apt-get install -yyq graphviz
-printf '\nInstalling tee....\n\n'
+
+printf '\n      Installing tee....\n\n'
 dpkg -l | grep -qw tee || sudo apt-get install -yyq tee
-printf '\nInstalling tmux....\n\n'
+
+printf '\n      Installing tmux....\n\n'
 dpkg -l | grep -qw tmux || sudo apt-get install -yyq tmux
-printf '\nInstalling emacs....\n\n'
+
+printf '\n      Installing emacs....\n\n'
 dpkg -l | grep -qw emacs || sudo apt-get install -yyq emacs
-printf '\nInstalling zip....\n\n'
+
+printf '\n      Installing zip....\n\n'
 dpkg -l | grep -qw zip || sudo apt-get install -yyq zip
-printf '\nInstalling unzip....\n\n'
+
+printf '\n      Installing unzip....\n\n'
 dpkg -l | grep -qw unzip || sudo apt-get install -yyq unzip
-printf '\nInstalling pcregrep....\n\n'
+
+printf '\n      Installing pcregrep....\n\n'
 dpkg -l | grep -qw pcregrep || sudo apt-get install -yyq pcregrep
-printf '\nInstalling ngrep....\n\n'
+
+printf '\n      Installing ngrep....\n\n'
 dpkg -l | grep -qw ngrep || sudo apt-get install -yyq ngrep
 
+printf '\n      Installing lm-sensors....\n\n'
+dpkg -l | grep -qw lm-sensors || sudo apt-get install -yyq lm-sensors
+
+printf '\n      Installing conky....\n\n'
+dpkg -l | grep -qw conky || sudo apt-get install -yyq conky
+
+printf '\n      Installing meld....\n\n'
+dpkg -l | grep -qw meld || sudo apt-get install -yyq meld
+
+printf '\n      Installing vnstat....\n\n'
+dpkg -l | grep -qw vnstat || sudo apt-get install -yyq vnstat
+
+printf '\n      Installing moreutils....\n\n'
+dpkg -l | grep -qw moreutils || sudo apt-get install -yyq moreutils
+
+printf '\n      Installing ncdu....\n\n'
+dpkg -l | grep -qw ncdu || sudo apt-get install -yyq ncdu
+
+##### NEOFETCH #####
+wget https://github.com/dylanaraps/neofetch/archive/3.3.0.tar.gz -O neofetch
+tar -zxvf ~/neofetch
+cd neofetch*/
+sudo make install
+cd ~/
+sudo mv ~/neofetch ~/software/neofetch.tar.gz
+rm -rfv ~/neofetch*/
+
+##### ImageMagick #####
+sudo apt-get install build-essential checkinstall \
+             libx11-dev libxext-dev zlib1g-dev libpng12-dev \
+             libjpeg-dev libfreetype6-dev libxml2-dev
+sudo apt-get build-dep imagemagick
+mkdir $HOME/imagemagick_build && cd $HOME/imagemagick_build
+wget http://www.imagemagick.org/download/ImageMagick-7.0.7-10.tar.bz2 && \
+tar xvf ImageMagick-7.0.7-10.tar.bz2 && cd ImageMagick-7.0.7-10 && ./configure && make && \
+sudo checkinstall -D --install=yes --fstrans=no --pakdir "$HOME/imagemagick_build" \
+     --pkgname imagemagick --backup=no --deldoc=yes --deldesc=yes --delspec=yes --default \
+     --pkgversion "7.0.7-10" && \
+make distclean && sudo ldconfig
+sudo apt update
+yes Y | sudo apt upgrade
+cd ~/
+sudo mv ~/imagemagick_build ~/software
+rm -rfv ~/ImageMagick*
+# Check isntalled delegates: identify -version
+
+# wget https://www.imagemagick.org/download/ImageMagick.tar.gz
+# sudo tar -xvzf ./ImageMagick.tar.gz
+# cd ~/ImageMagick*/
+# sudo ./configure
+# sudo make
+# sudo make install
+# sudo ldconfig /usr/local/lib
+# cd ~/
+# sudo mv ~/ImageMagick.tar.gz ~/software
+# rm -rfv ~/ImageMagick*
+
 ##### XCLIP #####
-printf '\nInstalling xclip....\n\n'
+printf '\n      Installing xclip....\n\n'
 dpkg -l | grep -qw xclip || sudo apt-get install -yyq xclip
 
 ##### NET TOOLS #####
-printf '\nInstalling curl....\n\n'
+printf '\n      Installing curl....\n\n'
 dpkg -l | grep -qw curl || sudo apt-get install -yyq curl
-printf '\nInstalling wget....\n\n'
+
+printf '\n      Installing wget....\n\n'
 dpkg -l | grep -qw wget || sudo apt-get install -yyq wget
-printf '\nInstalling whois....\n\n'
+
+printf '\n      Installing whois....\n\n'
 dpkg -l | grep -qw whois || sudo apt-get install -yyq whois
-printf '\nInstalling network-manager....\n\n'
+
+printf '\n      Installing network-manager....\n\n'
 dpkg -l | grep -qw network-manager || sudo apt-get install -yyq network-manager
-printf '\nInstalling ipmiutil....\n\n'
+
+printf '\n      Installing ipmiutil....\n\n'
 dpkg -l | grep -qw ipmiutil || sudo apt-get install -yyq ipmiutil
-printf '\nInstalling net-tools....\n\n'
+
+printf '\n      Installing net-tools....\n\n'
 dpkg -l | grep -qw net-tools || sudo apt-get install -yyq net-tools
-printf '\nInstalling wireless-tools....\n\n'
+
+printf '\n      Installing wireless-tools....\n\n'
 dpkg -l | grep -qw wireless-tools || sudo apt-get install -yyq wireless-tools
-printf '\nInstalling libwww-perl....\n\n'
+
+printf '\n      Installing libwww-perl....\n\n'
 dpkg -l | grep -qw wireless-tools || sudo apt-get install -yyq libwww-perl
-# printf '\nInstalling sudo apt install wireshark-qt....\n\n'
+
+# printf '\n      Installing sudo apt install wireshark-qt....\n\n'
 # dpkg -l | grep -qw wireless-tools || sudo apt-get install -yyq sudo apt install wireshark-qt
+
+##### DOCKER #####
 
 #   -------------------------------
 #   3.  INSTALL TOOLS-GUI
 #   -------------------------------
 
 ##### XFCE4 #####
-printf '\nInstalling xfce4....\n\n'
-sudo apt-get install xfce4
-sudo apt-get install xfce4-goodies
+printf '\n      Installing xfce4....\n\n'
+yes Y | sudo apt-get install xfce4
+yes Y | sudo apt-get install xfce4-goodies
 
 ##### I3-WM #####
-printf '\nInstalling i3-wm....\n\n'
-sudo apt-get install i3-wm
+printf '\n      Installing i3-wm....\n\n'
+yes Y | sudo apt-get install i3-wm
 sudo apt-get install dmenu
 sudo apt-get install i3status
 sudo apt-get install feh
@@ -133,11 +232,17 @@ sudo apt-get install sublime-text
 
 ##### MOZILLA FIREFOX #####
 
+##### VISUAL STUDIO CODE #####
+
+# ZIM
+# printf '\n      Installing zim....\n\n'
+# dpkg -l | grep -qw zim || sudo apt-get install -yyq zim
+
 #   -------------------------------
 #   4.  INSTALL TRASH-CLI
 #   -------------------------------
 
-printf '\nInstalling trash-cli....\n\n'
+printf '\n      Installing trash-cli....\n\n'
 git clone https://github.com/andreafrancia/trash-cli.git ~/trash-cli/
 sudo python3 ~/trash-cli/setup.py install
 sudo rm -rfv ~/trash-cli/
@@ -146,7 +251,7 @@ sudo rm -rfv ~/trash-cli/
 #   5.  INSTALL JUPYTER
 #   -------------------------------
 
-printf '\nInstalling jupyter....\n\n'
+printf '\n      Installing jupyter....\n\n'
 sudo python3 -m pip install --upgrade pip
 sudo python3 -m pip install jupyter
 
@@ -154,7 +259,7 @@ sudo python3 -m pip install jupyter
 #   6.  INSTALL ZSH
 #   -------------------------------
 
-printf '\nInstalling zsh....\n\n'
+printf '\n      Installing zsh....\n\n'
 dpkg -l | grep -qw zsh || sudo apt-get install -yyq zsh
 
 ##### OH MY ZSH #####
@@ -166,6 +271,7 @@ dpkg -l | grep -qw zsh || sudo apt-get install -yyq zsh
 ##### OH MY ZSH PLUGINS #####
 # ZSH-AUTOSUGGESTIONS
 # git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+
 # ZSH-SYNTAX-HIGHLIGHTING
 # git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
@@ -183,7 +289,7 @@ dpkg -l | grep -qw zsh || sudo apt-get install -yyq zsh
 #   7.  INSTALL VIM
 #   ------------------------------- 
 
-printf '\nInstalling vim....\n\n'
+printf '\n      Installing vim....\n\n'
 dpkg -l | grep -qw vim || sudo apt-get install -yyq vim
 # mkdir -p ~/.vim/colors/
 
@@ -210,7 +316,7 @@ dpkg -l | grep -qw vim || sudo apt-get install -yyq vim
 #   8.  INSTALL HUGO
 #   -------------------------------
 
-printf '\nInstalling hugo....\n\n'
+printf '\n      Installing hugo....\n\n'
 wget https://github.com/gohugoio/hugo/releases/download/v0.30.2/hugo_0.30.2_Linux-64bit.deb
 sudo apt install ./hugo*.deb
 mv hugo*.deb ~/software/
@@ -219,7 +325,7 @@ mv hugo*.deb ~/software/
 #   9.  INSTALL CADDY
 #   -------------------------------
 
-printf '\nInstalling caddy....\n\n'
+printf '\n      Installing caddy....\n\n'
 wget https://github.com/mholt/caddy/releases/download/v0.10.10/caddy_v0.10.10_linux_amd64.tar.gz
 tar -xzf caddy*.tar.gz caddy
 mv ./caddy /usr/local/bin
@@ -229,7 +335,7 @@ mv caddy*.tar.gz ~/software/
 #   10.  INSTALL IPFS
 #   -------------------------------
 
-printf '\nInstalling ipfs....\n\n'
+printf '\n      Installing ipfs....\n\n'
 wget https://dist.ipfs.io/go-ipfs/v0.4.11/go-ipfs_v0.4.11_linux-amd64.tar.gz
 tar -xzf go-ipfs*.tar.gz
 sudo cp ~/go-ipfs/ipfs /usr/bin/
@@ -243,7 +349,7 @@ ipfs init
 #   11.  INSTALL POWERLINE
 #   -------------------------------
 
-printf '\nInstalling powerline....\n\n'
+printf '\n      Installing powerline....\n\n'
 sudo pip3 install --user powerline-status
 # sudo rm PowerlineSymbols*
 # sudo rm 10-powerline-symbols*
@@ -271,7 +377,7 @@ sudo pip3 install --user powerline-status
 #   12.  SSH
 #   -------------------------------
 
-printf '\nSetting up SSH configuraion....\n\n'
+printf '\n      Setting up SSH configuraion....\n\n'
 sudo cp -r /mnt/d/Workspace/General/Personal\ Development/My\ Blog/Resourses/SSH/Backup/Server\ Login\/.ssh/ ~/
 sudo chmod 644 ~/.ssh/id_rsa
 sudo chmod 644 ~/.ssh/id_rsa.pub
@@ -282,14 +388,8 @@ sudo chmod 755 ~/.ssh
 #   13.  REMOVE EXISTING CONFIG
 #   -------------------------------
 
-printf '\nRemoving existing configuraion....\n\n'
+printf '\n      Removing existing configuraion....\n\n'
 sudo rm -rfv ~/.bashrc ~/.zshrc ~/.bash_profile ~/.profile ~/.bash_logout ~/.local
 sudo cp -r /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/shell/.oh-my-zsh ~/.dotfiles/wsl/shell/
 
-#   -------------------------------
-#   FINISH
-#   -------------------------------
-
-sudo apt-get autoremove
-printf "\n“-----------------------\n\n    Install Complete!   \n\n-----------------------”\n\n"
 #=============================================================================================================

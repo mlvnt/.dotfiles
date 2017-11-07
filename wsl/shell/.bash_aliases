@@ -74,6 +74,9 @@ alias mkdir='sudo mkdir -pv'
 alias x+="sudo chmod +x"
 alias rwx+="sudo chmod +rwx"
 
+# MOUNT && UNMOUNT
+alias showm="df -ah" # Show mounted devices
+
 # FIND, GREP
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
@@ -103,9 +106,15 @@ alias fs="stat -f \"%z bytes\""
 #   4.  PROGRAM MANAGEMENT
 #   -------------------------------
 
+# Stats
+alias ram="free -ht"
+alias stats="echo '' && inxi -xxx && echo '' && free -ht && echo ''"
+alias distro="echo '' && uname -a && echo '' && lsb_release -a && echo ''"
+
 # Enable aliases to be sudo’ed
 alias sudo="sudo "
 alias htop='sudo htop'
+alias kill="kill -9"
 alias update="sudo apt-get update && sudo apt-get upgrade"
 
 # EDITORS
@@ -156,10 +165,20 @@ alias whois="whois -h whois-servers.net"
 # Download file and save it with filename of remote file
 alias get="curl -O -L"
 
+alias wgeta="wget -r -l1 -A"
+alias ping="gping"
+
 # HTTP Requests. One of @janmoesen’s ProTip™s
 for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
   alias "$method"="lwp-request -m '$method'"
 done
+
+# Docker
+
+# Weather
+alias wr='curl http://wttr.in'
+alias wrsheff='curl http://wttr.in/sheffield'
+alias wrsof='curl http://wttr.in/sofia'
 
 #   -------------------------------
 #   5.  GIT

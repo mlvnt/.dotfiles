@@ -255,7 +255,7 @@ webmify () {
 # `shellswitch [bash |zsh]`
 #   Must be in /etc/shells
 shellswitch () {
-  chsh -s $(brew --prefix)/bin/$1
+  chsh -s /bin/$1
 }
 
 # Copy w/ progress
