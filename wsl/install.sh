@@ -135,6 +135,7 @@ printf '\n      Installing ncdu....\n\n'
 dpkg -l | grep -qw ncdu || sudo apt-get install -yyq ncdu
 
 ##### NEOFETCH #####
+cd ~/
 wget https://github.com/dylanaraps/neofetch/archive/3.3.0.tar.gz -O ~/neofetch
 tar -zxvf ~/neofetch
 cd ~/neofetch*/
@@ -202,8 +203,8 @@ dpkg -l | grep -qw wireless-tools || sudo apt-get install -yyq wireless-tools
 printf '\n      Installing libwww-perl....\n\n'
 dpkg -l | grep -qw wireless-tools || sudo apt-get install -yyq libwww-perl
 
-# printf '\n      Installing sudo apt install wireshark-qt....\n\n'
-# dpkg -l | grep -qw wireless-tools || sudo apt-get install -yyq sudo apt install wireshark-qt
+# printf '\n      Installing sudo apt install wireshark....\n\n'
+# dpkg -l | grep -qw wireshark || sudo apt install wireshark
 
 ##### DOCKER #####
 
@@ -234,12 +235,17 @@ sudo apt-get install sublime-text
 # dpkg -l | grep -qw vlc || sudo apt install vlc
 
 ##### MOZILLA FIREFOX #####
+printf '\n      Installing firefix....\n\n'
+yes Y | sudo apt install firefix
+
+printf '\n      Installing konsole....\n\n'
+yes Y | sudo apt install konsole
 
 ##### VISUAL STUDIO CODE #####
 
 # ZIM
 # printf '\n      Installing zim....\n\n'
-# dpkg -l | grep -qw zim || sudo apt-get install -yyq zim
+# sudo apt install -yyq zim
 
 #   -------------------------------
 #   4.  INSTALL TRASH-CLI

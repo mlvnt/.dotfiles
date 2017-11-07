@@ -74,7 +74,6 @@ sudo unbuffer ~/.dotfiles/wsl/symblinks.sh 2>&1 | tee -a log_symblinks.sh-$(date
 
 cd ~/
 printf '\n      Sourcing shell....\n\n'
-sudo rm ~/.begin.sh
 source ~/.*rc ~/.bash*
 
 sudo apt-get autoremove
