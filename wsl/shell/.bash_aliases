@@ -158,6 +158,7 @@ alias hugos="hugo server -w"
 
 # Copy my public key to the pasteboard
 alias pubkey="more ~/.ssh/id_rsa.pub | xclip | printf '=> Public key copied to pasteboard.\n'"
+# alias pubkey="cat ~/.ssh/id_rsa.pub | pbcopy | printf '=> Public key copied to pasteboard.\n'"
 
 # View HTTP traffic
 alias sniff="sudo ngrep -W byline -d 'en0' -t '^(GET|POST) ' 'tcp and port 80'"
@@ -222,8 +223,33 @@ alias gbt=git_list_branches
 #   -------------------------------
 
 alias open="explorer.exe"
+alias openi="gnome-open ." # Inside a Desktop environment
 alias o="open"
-alias 4k="cmd.exe /c start /D 'C:\Program Files (x86)\4KDownload\4kvideodownloader' 4kvideodownloader.exe"
+alias pbcopy="clip.exe"
+
+# Microsoft Word
+alias word="cmd.exe /c start /D 'C:\Program Files\Microsoft Office\Office16'  /MAX WINWORD.EXE /w"
+alias excel="cmd.exe /c start /D 'C:\Program Files\Microsoft Office\Office16'  /MAX EXCEL.EXE /x"
+alias ppoint="cmd.exe /c start /D 'C:\Program Files (x86)\Microsoft Office\Root\Office16'  /MAX POWERPNT.EXE /B"
+function word6 (){
+    for (( c=1; c<=6; c++ ))
+    do  
+       echo "Opening word document $c...."
+       word
+       sleep 1s
+    done
+}
+function word10 (){
+    for (( c=1; c<=10; c++ ))
+    do  
+       echo "Opening word document $c...."
+       word
+       sleep 1s
+    done
+}
+# alias word1="cmd.exe /c start /D "C:\\Program\ Files\ \(x86\)\\Microsoft\ Office\\Root\\Office16"  /MAX WINWORD.EXE /w"
+
+# Desktop Environments
 alias xfce="xfce4-session"
 alias i3="i3"
 

@@ -57,7 +57,8 @@ cd ~/software/install_logs/
 
 printf '\n      Logging install.sh....\n\n'
 sudo touch log_install.sh-$(date "+%Y-%m-%d-%H-%M").txt
-sudo unbuffer ~/.dotfiles/wsl/install.sh 2>&1 | tee -a log_install.sh-$(date "+%Y-%m-%d-%H-%M").txt
+sudo ~/.dotfiles/wsl/install.sh | sudo tee -ai log_install.sh-$(date "+%Y-%m-%d-%H-%M").txt
+# sudo unbuffer ~/.dotfiles/wsl/install.sh 2>&1 | tee -ai log_install.sh-$(date "+%Y-%m-%d-%H-%M").txt
 sleep 1s
 
 ###############################################################################
@@ -66,7 +67,8 @@ sleep 1s
 
 printf '\n      Logging symblinks.sh....\n\n'
 sudo touch log_symblinks.sh-$(date "+%Y-%m-%d-%H-%M").txt
-sudo unbuffer ~/.dotfiles/wsl/symblinks.sh 2>&1 | tee -a log_symblinks.sh-$(date "+%Y-%m-%d-%H-%M").txt
+sudo ~/.dotfiles/wsl/symblinks.sh | sudo tee -ai log_symblinks.sh-$(date "+%Y-%m-%d-%H-%M").txt
+# sudo unbuffer ~/.dotfiles/wsl/symblinks.sh 2>&1 | tee -ai log_symblinks.sh-$(date "+%Y-%m-%d-%H-%M").txt
 
 ###############################################################################
 # SOURCE CONFIGURATION                                                        #
