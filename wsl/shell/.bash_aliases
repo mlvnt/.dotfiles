@@ -257,6 +257,11 @@ alias downe="open 'C:\Users\Todorov\Downloads'"
 alias docse="open 'C:\Users\Todorov\Documents'"
 alias sts="open 'C:\Users\Todorov\Pictures\My Screen Shots'"
 
+# Sybolic Links
+alias lsymb="ln -s"
+alias wdsymb="cmd.exe /c mklink /D" # wdsybm SymbLinkName Target
+alias wfsymb="cmd.exe /c mklink" # wfsybm SymbLinkName Target
+
 # Clipboard
 alias pbcopy="clip.exe"
 
