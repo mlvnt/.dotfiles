@@ -42,7 +42,7 @@ export DISPLAY=:0.0
 neofetch
 
 # X Server Multi-Window
-multis
+# multis
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.

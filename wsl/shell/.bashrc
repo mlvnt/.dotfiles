@@ -43,7 +43,7 @@ export DISPLAY=:0.0
 neofetch
 
 # X Server Multi-Window
-multis
+# multis
 
 # Windows Desktop
 # tempe
