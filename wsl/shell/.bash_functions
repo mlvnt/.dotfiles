@@ -26,18 +26,31 @@ function coc (){
 }
 
 # Move all from Windows temporary direcories
+# Robocopy
+# function mvall(){
+#     echo -e "\n Moving from Downloads....\n"
+#     echo "=================================="
+#     cmd.exe /c ROBOCOPY 'C:\Users\Todorov\Downloads' 'D:\Workspace\_TEMP' * /MOVE /E /COPY:DAT /DCOPY:DAT /XF *.ini
+#     echo "=================================="
+#     echo -e "\n Moving from Documents....\n"
+#     echo "=================================="  
+#     cmd.exe /c ROBOCOPY 'C:\Users\Todorov\Documents' 'D:\Workspace\_TEMP' * /MOV /COPY:DAT /XF *.ini
+#     echo "=================================="
+#     echo -e "\n Finished\n"
+# }
+# Rsync
 function mvall(){
     # find /mnt/c/Users/Todorov/Downloads -mindepth 1 -not -name '*.ini' -print0 | xargs -0 mv -t /mnt/d/Workspace/_TEMP
     # find /mnt/c/Users/Todorov/Downloads -mindepth 1 -not -name '*.ini' -print0 | xargs -0 -I {} cp -p -r  {} /mnt/d/Workspace/_TEMP
     # find /mnt/c/Users/Todorov/Downloads -mindepth 1 -not -name '*.ini' -print0 -exec {} cp -p -r  {} /mnt/d/Workspace/_TEMP \;
     echo -e "\n Moving from Downloads....\n"
     echo "=================================="
-    rsync -avhz --progress --ignore-existing --remove-source-files /mnt/c/Users/Todorov/Downloads/ /mnt/d/Workspace/_TEMP --exclude *.ini
+    rsync -avhz --progress --ignore-existing --remove-source-files --exclude *.ini /mnt/c/Users/Todorov/Downloads/ /mnt/d/Workspace/_TEMP
     find /mnt/c/Users/Todorov/Downloads/ -depth -type d -empty -delete
     echo "=================================="
     echo -e "\n Moving from Documents....\n"
     echo "=================================="
-    rsync -avhz --progress --ignore-existing --remove-source-files /mnt/c/Users/Todorov/Documents/ /mnt/d/Workspace/_TEMP --include=\*.docx --exclude=\*
+    rsync -avhz --progress --ignore-existing --remove-source-files --include=\*.docx --include=\*.doc --include=\*.pdf --include=\*xlsx --exclude=\* /mnt/c/Users/Todorov/Documents/ /mnt/d/Workspace/_TEMP
     echo "=================================="
     echo -e "\n Finished\n"
 }
