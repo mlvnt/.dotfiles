@@ -249,6 +249,7 @@ alias gbt=git_list_branches
 alias open="explorer.exe"
 alias openi="gnome-open ." # Inside a Desktop environment
 alias o="open"
+alias tempe="open 'D:\Workspace\_TEMP'"
 
 # Clipboard
 alias pbcopy="clip.exe"
@@ -265,6 +266,12 @@ alias npp="cmd.exe /c start /D 'D:\Workspace\Portable Apps\By Category\Developme
 # alias npp="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\Notepad++Portable' /MAX Notepad++Portable.exe"
 
 # alias npp="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\Notepad++Portable\App\Notepad++' /MAX notepad++.exe"
+
+# 4KDownloader
+alias 4k="cmd.exe /c start /D 'C:\Program Files (x86)\4KDownload\4kvideodownloader' 4kvideodownloader.exe"
+
+# Google Chrome
+alias chrome="cmd.exe /c start /D 'C:\Program Files (x86)\Google\Chrome\Application' /MAX chrome.exe"
 
 #   -------------------------------
 #   8.  DESKTOP ENVIRONMENTS

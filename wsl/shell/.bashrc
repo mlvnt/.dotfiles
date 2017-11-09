@@ -45,6 +45,13 @@ neofetch
 # X Server Multi-Window
 multis
 
+# Windows Desktop
+# tempe
+# npp
+# chrome
+# 4k
+# chrome
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
