@@ -1,6 +1,25 @@
 ###############################################################################
+#   EXTERNAL FILES                                                            #
+###############################################################################
+
+# ALIASES
+if [ -f ~/.bash_aliases ]; then
+    source ~/.bash_aliases
+else
+    print "404: ~/.bash_aliases not found."
+fi
+
+#FUNCTIONS
+if [ -f ~/.bash_functions ]; then
+    source ~/.bash_functions
+else
+    print "404: ~/.bash_functions not found."
+fi
+
+###############################################################################
 #   PATH                                                                      #
 ###############################################################################
+
 export PATH="$PATH:/bin/"
 export PATH="$PATH:/usr/bin/"
 export PATH="$PATH:/usr/sbin/"
@@ -9,13 +28,17 @@ export PATH="$PATH:/usr/local/sbin/"
 export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:/mnt/c/Users/Todorov/Downloads/VSCode-win32-x64-1.17.0/bin"
+
 ###############################################################################
 #   DISPLAY                                                                   #
 ###############################################################################
+
 export DISPLAY=:0.0
+
 ###############################################################################
 #   TWEAKS                                                                    #
 ###############################################################################
+
 # Neofetch
 neofetch
 
@@ -39,23 +62,6 @@ shopt -s checkwinsize
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
-if [ -f ~/.bash_aliases ]; then
-    source ~/.bash_aliases
-else
-    print "404: ~/.bash_aliases not found."
-fi
-
-if [ -f ~/.bash_functions ]; then
-    source ~/.bash_functions
-else
-    print "404: ~/.bash_functions not found."
-fi
-
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -74,6 +80,7 @@ fi
 ###############################################################################
 # PROMPT                                                                      #
 ###############################################################################
+
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
     xterm-color|*-256color) color_prompt=yes;;
@@ -120,6 +127,7 @@ esac
 ###############################################################################
 # COLORS                                                                      #
 ###############################################################################
+
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -140,6 +148,7 @@ export LS_COLORS
 ###############################################################################
 # HISTORY                                                                     #
 ###############################################################################
+
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
@@ -156,4 +165,5 @@ export HISTCONTROL=erasedups
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 # HISTSIZE=1000
 # HISTFILESIZE=2000
+
 #=============================================================================================================

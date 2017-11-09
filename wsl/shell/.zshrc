@@ -1,6 +1,25 @@
 ###############################################################################
+#   EXTERNAL FILES                                                            #
+###############################################################################
+
+# ALIASES
+if [ -f ~/.bash_aliases ]; then
+    source ~/.bash_aliases
+else
+    print "404: ~/.bash_aliases not found."
+fi
+
+#FUNCTIONS
+if [ -f ~/.bash_functions ]; then
+    source ~/.bash_functions
+else
+    print "404: ~/.bash_functions not found."
+fi
+
+###############################################################################
 #   PATH                                                                      #
 ###############################################################################
+
 export PATH="$PATH:/bin/"
 export PATH="$PATH:/usr/bin/"
 export PATH="$PATH:/usr/sbin/"
@@ -10,12 +29,12 @@ export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:/mnt/c/Users/Todorov/Downloads/VSCode-win32-x64-1.17.0/bin"
 
-# Path to your oh-my-zsh installation.
-  export ZSH=/home/todorov/.oh-my-zsh
 ###############################################################################
 #   DISPLAY                                                                   #
 ###############################################################################
+
 export DISPLAY=:0.0
+
 ###############################################################################
 #   THEMING                                                                   #
 ###############################################################################
@@ -120,17 +139,5 @@ fi
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-if [ -f ~/.bash_aliases ]; then
-    source ~/.bash_aliases
-else
-    print "404: ~/.bash_aliases not found."
-fi
-
-if [ -f ~/.bash_functions ]; then
-    source ~/.bash_functions
-else
-    print "404: ~/.bash_functions not found."
-fi
 
 #=============================================================================================================
