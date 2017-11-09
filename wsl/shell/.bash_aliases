@@ -10,7 +10,7 @@
 alias ls='ls -GFshl --color=auto'
 alias ll='ls -FGlAshp --color=auto'
 alias l='ls -CAFshG'
-alias dir='dir -A'
+alias dir='dir -A --color=auto'
 alias dirl='dir -AN1'
 alias tree='tree -lF'
 alias treei='tree -lhpuF'
@@ -40,6 +40,7 @@ alias pathe='echo -e ${PATH//:/\\n}'
 # CURRENT
 alias com4="cd /mnt/d/Workspace/University/Course/Year\ 2\ -\ 2017-2018/COM2004/Labs/com2004_labs/"
 alias uni="cd /mnt/d/Workspace/University/Course/Year\ 2\ -\ 2017-2018/"
+alias hex="/mnt/d/Workspace/University/Sport & Societies/Project Hex/Repository"
 
 #   -------------------------------
 #   2.  TRASHCAN
@@ -67,7 +68,7 @@ alias tarbackup='tar -zcvf "backup-$(date "+%Y-%m-%d-%H-%M").tar.gz"'
 
 # RM, CP, MV, MKDIR, CHMOD
 alias rm="sudo rm -v"
-alias cp='sudo cp -iv'
+alias cp='sudo cp -iva'
 alias cpd='sudo cp -ri'
 alias mv='sudo mv -iv'
 alias mkdir='sudo mkdir -pv'
@@ -77,10 +78,29 @@ alias rwx+="sudo chmod +rwx"
 # MOUNT && UNMOUNT
 alias showm="df -ah" # Show mounted devices
 
-# FIND, GREP
+# GREP
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
+
+# FIND
+
+#======= Search Files
+# find ./ -maxdepth 1 -mindepth 1 -name '*.docx'
+# find ./ -maxdepth 1 -mindepth 1 -not -name '*.docx'
+alias finds="find ./ -name "       # finds '*.docx' -exec dir -ANsh --color=auto {} \;
+alias findsn="find ./ -not -name " # findsn '*.docx' -exec dir -ANsh --color=auto {} \;
+# find ./ -type f \( -iname \*.docx -o -iname \*.jpg \)
+alias findsm="find ./ -type f \( " # findsm -iname \*.docx -o -iname \*.jpg \)
+# find ./ -type f -not \( -iname \*.docx -o -iname \*.jpg \)
+alias findsnm="find ./ -type f -not \( " # findsnm -iname \*.docx -o -iname \*.jpg \)
+#======= Delete Directories
+# find serchDir -depth -type d -delete
+# find serchDir -depth -type d -empty -delete
+#======= Delete Files
+# find serchDir -depth -type f -delete
+# find serchDir -name "FILE-TO-FIND" -exec rm -rf {} \;
+# find serchDir -type f -name "FILE-TO-FIND" -exec rm -rf {} \;
 
 # M3U
 alias m3u='dir -AN1I "*.jpg" -I "*.png" -I "*.html" -I "*.url" -I "*.m3u" >> "_tracklist[ ${PWD##*/} ].m3u"'
@@ -157,15 +177,15 @@ alias blogc="rm -rfv /mnt/d/Workspace/General/Personal\ Development/My\ Blog/Blo
 alias hugos="hugo server -w"
 
 # Copy my public key to the pasteboard
-alias pubkey="more ~/.ssh/id_rsa.pub | xclip | printf '=> Public key copied to pasteboard.\n'"
-# alias pubkey="cat ~/.ssh/id_rsa.pub | pbcopy | printf '=> Public key copied to pasteboard.\n'"
+alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | printf '=> Public key copied to pasteboard.\n'"
+# alias pubkey="cat ~/.ssh/id_rsa.pub | xclip | printf '=> Public key copied to pasteboard.\n'"
 
 # View HTTP traffic
 alias sniff="sudo ngrep -W byline -d 'en0' -t '^(GET|POST) ' 'tcp and port 80'"
 alias httpdump="sudo tcpdump -i en0 -n -s 0 -w - | grep -a -o -E \"Host\: .*|GET \/.*\""
 
 # Enhanced WHOIS lookups
-alias whois="whois -h whois-servers.net"
+# alias whois="whois -h whois-servers.net"
 
 # Download file and save it with filename of remote file
 alias get="curl -O -L"
@@ -178,6 +198,9 @@ for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
   alias "$method"="lwp-request -m '$method'"
 done
 
+# IPFS
+alias ipfs="sudo ipfs daemon"
+
 # Docker
 
 # Weather
@@ -186,7 +209,7 @@ alias wrsheff='curl http://wttr.in/sheffield'
 alias wrsof='curl http://wttr.in/sofia'
 
 #   -------------------------------
-#   5.  GIT
+#   6.  GIT
 #   -------------------------------
 
 # Undo a `git push`
@@ -219,43 +242,41 @@ alias gb='git branch'
 alias gbt=git_list_branches
 
 #   -------------------------------
-#   6.  WINDOWS
+#   7.  WINDOWS
 #   -------------------------------
 
+# Opening files & directories
 alias open="explorer.exe"
 alias openi="gnome-open ." # Inside a Desktop environment
 alias o="open"
+
+# Clipboard
 alias pbcopy="clip.exe"
 
-# Microsoft Word
+# Microsoft Office
 alias word="cmd.exe /c start /D 'C:\Program Files\Microsoft Office\Office16'  /MAX WINWORD.EXE /w"
+# alias word="cmd.exe /c start /D "C:\\Program\ Files\ \(x86\)\\Microsoft\ Office\\Root\\Office16"  /MAX WINWORD.EXE /w"
 alias excel="cmd.exe /c start /D 'C:\Program Files\Microsoft Office\Office16'  /MAX EXCEL.EXE /x"
 alias ppoint="cmd.exe /c start /D 'C:\Program Files (x86)\Microsoft Office\Root\Office16'  /MAX POWERPNT.EXE /B"
-function word6 (){
-    for (( c=1; c<=6; c++ ))
-    do  
-       echo "Opening word document $c...."
-       word
-       sleep 1s
-    done
-}
-function word10 (){
-    for (( c=1; c<=10; c++ ))
-    do  
-       echo "Opening word document $c...."
-       word
-       sleep 1s
-    done
-}
-# alias word1="cmd.exe /c start /D "C:\\Program\ Files\ \(x86\)\\Microsoft\ Office\\Root\\Office16"  /MAX WINWORD.EXE /w"
 
-# Desktop Environments
+# Notepad++
+alias npp="cmd.exe /c start /D 'D:\Workspace\Portable Apps\By Category\Development\IDEs & Editors\Notepad++\Notepad++ 7.3.3' /MAX notepad++.exe"
+
+# alias npp="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\Notepad++Portable' /MAX Notepad++Portable.exe"
+
+# alias npp="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\Notepad++Portable\App\Notepad++' /MAX notepad++.exe"
+
+#   -------------------------------
+#   8.  DESKTOP ENVIRONMENTS
+#   -------------------------------
+
+# XFCE
 alias xfce="xfce4-session"
+
+# I3-WM
 alias i3="i3"
 
-#   -------------------------------
-#   7.  CURRENT
-#   -------------------------------
+alias xterm="xfce4-terminal"
 
 #=============================================================================================================
 
@@ -265,3 +286,27 @@ alias i3="i3"
 # target_PWD=$(readlink -f ./) && printf '%q\n' "${target_PWD##*/}"
 # printf '%q\n' "${PWD##*/}" 
 # result=${PWD##*/} 
+
+# function nppb(){
+#     yes yes| cp -va "$origin$file1" "$destination"
+    
+#     for (( c=0; c<=5; c++ )); do  
+#     local Array1=("$origin${ARRAY[$c]}")     
+#     if (( 5 <= $c )) # [ $c -eq 5 ] && (( 5 < $c )) # [ 5 -ne $c ] 
+#     then
+#         echo ${Array1[@]} 
+#         rsync -avhz --progress --ignore-times "${Array1[@]}" "$destination"
+#         # array+=
+#         # echo ${Array1[*]} 
+#      # else  
+#         #Array1=("$origin${ARRAY[$c]}")
+#     fi    
+#     done
+
+#     for (( c=0; c<=5; c++ ))
+#     do
+#         Array1=("$origin${ARRAY[$c]}")
+#         # rsync -avhz --progress --ignore-times "${Array1[*]}" "$destination"
+#         echo ${Array1[*]}        
+#     done         
+# }

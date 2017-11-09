@@ -6,6 +6,114 @@
 #   1.  DIRECTORIES
 #   -------------------------------
 
+# Open multiple word documets
+function wordn (){
+    echo ''
+    read -p "Enter № of word documents to open: " number
+    printf "\n"
+    for (( c=1; c<=number; c++ ))
+    do  
+       echo "Opening word document $c...."
+       word
+       sleep 1s
+    done
+}
+
+# Start Clash of Clans Bot
+function coc (){
+    echo -e "\n Opening Clash of Clans Bot....\n"
+    timeout 1s cmd.exe /c 'C:\Users\Todorov\Desktop\MyBotRun - MBR\MyBot-MBR_v7.2.5\MyBot.run.exe' MyVillage1 MEmu MEmu_2
+}
+
+# Move all from Windows temporary direcories
+function mvall(){
+    # find /mnt/c/Users/Todorov/Downloads -mindepth 1 -not -name '*.ini' -print0 | xargs -0 mv -t /mnt/d/Workspace/_TEMP
+    # find /mnt/c/Users/Todorov/Downloads -mindepth 1 -not -name '*.ini' -print0 | xargs -0 -I {} cp -p -r  {} /mnt/d/Workspace/_TEMP
+    # find /mnt/c/Users/Todorov/Downloads -mindepth 1 -not -name '*.ini' -print0 -exec {} cp -p -r  {} /mnt/d/Workspace/_TEMP \;
+    echo -e "\n Moving from Downloads....\n"
+    echo "=================================="
+    rsync -avhz --progress --ignore-existing --remove-source-files /mnt/c/Users/Todorov/Downloads/ /mnt/d/Workspace/_TEMP --exclude *.ini
+    find /mnt/c/Users/Todorov/Downloads/ -depth -type d -empty -delete
+    echo "=================================="
+    echo -e "\n Moving from Documents....\n"
+    echo "=================================="
+    rsync -avhz --progress --ignore-existing --remove-source-files /mnt/c/Users/Todorov/Documents/ /mnt/d/Workspace/_TEMP --include=\*.docx --exclude=\*
+    echo "=================================="
+    echo -e "\n Finished\n"
+}
+
+# Move Anime Pics to permanent directory
+function mvpics(){
+    echo -e "\n Moving to Anime Pics....\n"
+    echo "=================================="    
+    rsync -avhz --progress --ignore-existing --remove-source-files /mnt/c/Users/Todorov/Pictures/My\ Screen\ Shots/ /mnt/d/Workspace/General/Essential/Art/Media\ Screenshots/Pics --include=\*.PNG --exclude=\*
+    echo "=================================="
+    echo -e "\n Finished\n"
+    # open "D:\Workspace\General\Essential\Art\Media Screenshots\Pics"
+}
+
+# Fix deleted configuration on Notepad++
+function nppf(){
+    # Variables
+    origin=/mnt/d/Workspace/Portable\ Apps/PortableApps.com/PortableApps/Notepad++Portable/_Backup/ 
+    destination=/mnt/d/Workspace/Portable\ Apps/PortableApps.com/PortableApps/Notepad++Portable/App/Notepad++/    
+    # Function   
+    echo -e "\n Replacing corrupted configuration....\n"
+    echo "=================================="
+    rsync -avhz --progress --ignore-times "$origin" "$destination" --include=\*.xml --exclude=\*
+    echo "=================================="
+    echo -e "\n Finished\n"    
+    echo -e "\nOpening Notepad++....\n"
+    npp
+}
+
+# Backup Notepad++ Configuration
+function nppb(){
+    # set -x # Bash debuging
+    # Variables
+    origin=/mnt/d/Workspace/Portable\ Apps/PortableApps.com/PortableApps/Notepad++Portable/App/Notepad++/
+    destination=/mnt/d/Workspace/Portable\ Apps/PortableApps.com/PortableApps/Notepad++Portable/_Backup/
+    file1=stylers.model.xml
+    file2=stylers.xml
+    file3=config.xml
+    file4=contextMenu.xml
+    file5=session.xml
+    file6=shortcuts.xml
+    Array1=($file1 $file2 $file3 $file4 $file5 $file6)
+    # Function
+    echo -e "\n Backup configuration....\n"
+    echo "=================================="   
+    rsync -avhz --progress --ignore-times "$origin${Array1[0]}" "$origin${Array1[1]}" "$origin${Array1[2]}" "$origin${Array1[3]}" "$origin${Array1[4]}" "$origin${Array1[5]}" "$destination"
+    echo "=================================="
+    echo -e "\n Finished\n"         
+}
+
+function xfces(){
+    echo -e "\n Starting xfce4....\n"
+    echo "=================================="   
+    cmd.exe /c start /D 'D:\Workspace\Projects\Programing\Scripts\Scripts\Batch\WSL\VcXsrv Config' /MAX configNormal.xlaunch
+    cmd.exe /c start /D 'C:\Windows\System32\' bash.exe --login -c xfce4-session
+    echo "=================================="
+    echo -e "\n Session Started\n"        
+}
+
+function i3s(){
+    echo -e "\n Starting i3....\n"
+    echo "=================================="   
+    cmd.exe /c start /D 'D:\Workspace\Projects\Programing\Scripts\Scripts\Batch\WSL\VcXsrv Config' /MAX configNormal.xlaunch
+    cmd.exe /c start /D 'C:\Windows\System32\' bash.exe --login -c "sudo i3 "
+    echo "=================================="
+    echo -e "\n Session Started\n"        
+}
+
+function multis(){
+    cmd.exe /c start /D 'D:\Workspace\Projects\Programing\Scripts\Scripts\Batch\WSL\VcXsrv Config' /MAX configMultiWindow.xlaunch
+}
+
+#=========================================================================================
+#=========================================================================================
+#=========================================================================================
+
 # Create a new directory and enter it
 function mkd() {
     mkdir -p "$@" && cd "$_";
@@ -142,7 +250,7 @@ function whois() {
   # avoid recursion
           # this is the best whois server
                           # strip extra fluff
-  /usr/bin/whois -h whois.internic.net $domain | sed '/NOTICE:/q'
+  /usr/bin/whois -h whois.internic.net $domain -H # | sed '/NOTICE:/q'
 }
 
 # Create a .tar.gz archive, using `zopfli`, `pigz` or `gzip` for compression

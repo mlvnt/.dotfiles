@@ -19,6 +19,9 @@ export DISPLAY=:0.0
 # Neofetch
 neofetch
 
+# X Server Multi-Window
+multis
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
