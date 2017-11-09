@@ -31,8 +31,11 @@ alias root="cd /"
 alias temp="cd /mnt/d/Workspace/_TEMP/"
 alias work="cd /mnt/d/Workspace/"
 alias general="cd /mnt/d/Workspace/General/"
-alias homer="cd /mnt/c/Users/Todorov/AppData/Local/Packages/CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc/LocalState/rootfs/home/todorov/"
+alias gitf="cd /mnt/d/Workspace/Projects/Programing/Git/"
+alias dotfiles="cd /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/"
+alias homeu="cd /mnt/c/Users/Todorov/AppData/Local/Packages/CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc/LocalState/rootfs/home/todorov/"
 alias down="cd /mnt/c/Users/Todorov/Downloads/"
+alias docs="cd /mnt/c/Users/Todorov/Documents/"
 alias path="pwd"
 # Print each PATH entry on a separate line
 alias pathe='echo -e ${PATH//:/\\n}'
@@ -106,7 +109,6 @@ alias findsnm="find ./ -type f -not \( " # findsnm -iname \*.docx -o -iname \*.j
 alias m3u='dir -AN1I "*.jpg" -I "*.png" -I "*.html" -I "*.url" -I "*.m3u" >> "_tracklist[ ${PWD##*/} ].m3u"'
 
 # DOTFILES
-alias dotfiles="cd /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/"
 alias ohmyzsh="sudo cp -r /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/shell/.oh-my-zsh ~/.dotfiles/wsl/shell/"
 alias dots="sudo rm -rfv ~/.dotfiles && git clone /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/ ~/.dotfiles && ohmyzsh && sudo dos2unix ~/.dotfiles/wsl/.* ~/.dotfiles/wsl/*.* ~/.dotfiles/wsl/shell/.* ~/.dotfiles/wsl/shell/*.* .~/.dotfiles/wsl/editors/.* ~/.dotfiles/wsl/editors/*.* ~/.dotfiles/wsl/git/.* ~/.dotfiles/wsl/git/*.* ~/.dotfiles/wsl/bin/* && sca"
 
@@ -247,9 +249,13 @@ alias gbt=git_list_branches
 
 # Opening files & directories
 alias open="explorer.exe"
+alias openh=" open ."
 alias openi="gnome-open ." # Inside a Desktop environment
 alias o="open"
 alias tempe="open 'D:\Workspace\_TEMP'"
+alias downe="open 'C:\Users\Todorov\Downloads'"
+alias docse="open 'C:\Users\Todorov\Documents'"
+alias sts="open 'C:\Users\Todorov\Pictures\My Screen Shots'"
 
 # Clipboard
 alias pbcopy="clip.exe"
