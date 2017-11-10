@@ -214,6 +214,16 @@ echo "========================================================"
 dpkg -l | grep -qw ncdu || sudo apt-get install -yyq ncdu
 echo "========================================================"
 
+echo -e '\n      Installing pv....\n\n'
+echo "========================================================"
+dpkg -l | grep -qw pv || sudo apt-get install -yyq pv
+echo "========================================================"
+
+echo -e '\n      Installing rsync....\n\n'
+echo "========================================================"
+dpkg -l | grep -qw rsync || sudo apt-get install -yyq rsync
+echo "========================================================"
+
 ##### NEOFETCH #####
 echo -e '\n      Installing neofetch....\n\n'
 echo "========================================================"

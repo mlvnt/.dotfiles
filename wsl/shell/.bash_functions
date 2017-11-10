@@ -25,6 +25,23 @@ function coc (){
     timeout 1s cmd.exe /c 'C:\Users\Todorov\Desktop\MyBotRun - MBR\MyBot-MBR_v7.2.5\MyBot.run.exe' MyVillage1 MEmu MEmu_2
 }
 
+# Backup Main Drive
+function backup(){
+    echo -e "\n Backup Main Drive....\n"
+    echo "=================================="
+    mkdir -p /mnt/e/Backup/backup_logs/
+    cd /mnt/e/Backup/backup_logs/
+    sudo touch log_backup-$(date "+%Y-%m-%d-%H-%M").txt
+    # Normal Backup
+    rsync -avhz --progress --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/shell/excluded' /mnt/d/ /mnt/e/Backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
+    # # Dry-run for testing
+    # rsync -avhz --progress --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/shell/excluded' /mnt/d/ /mnt/e/Backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt  
+    # # Mirroring  
+    # rsync -avhz --progress --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/shell/excluded' /mnt/d/ /mnt/e/Backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt    
+    echo "=================================="
+    echo -e "\n Backup Completed\n"
+}
+
 # Move all from Windows temporary direcories
 # Robocopy
 # function mvall(){
@@ -105,7 +122,7 @@ function xfces(){
     echo -e "\n Starting xfce4....\n"
     echo "=================================="   
     cmd.exe /c start /D 'D:\Workspace\Projects\Programing\Scripts\Scripts\Batch\WSL\VcXsrv Config' /MAX configNormal.xlaunch
-    cmd.exe /c start /D 'C:\Windows\System32\' bash.exe --login -c xfce4-session
+    cmd.exe /c start /D 'C:\Windows\System32\' bash.exe --login -c "sudo xfce4-session"
     echo "=================================="
     echo -e "\n Session Started\n"        
 }

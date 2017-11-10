@@ -264,6 +264,7 @@ alias wfsymb="cmd.exe /c mklink" # wfsybm SymbLinkName Target
 
 # Clipboard
 alias pbcopy="clip.exe"
+alias cpath="pwd && pwd | pbcopy"
 
 # Microsoft Office
 alias word="cmd.exe /c start /D 'C:\Program Files\Microsoft Office\Office16'  /MAX WINWORD.EXE /w"
@@ -272,7 +273,7 @@ alias excel="cmd.exe /c start /D 'C:\Program Files\Microsoft Office\Office16'  /
 alias ppoint="cmd.exe /c start /D 'C:\Program Files (x86)\Microsoft Office\Root\Office16'  /MAX POWERPNT.EXE /B"
 
 # Notepad++
-alias npp="cmd.exe /c start /D 'D:\Workspace\Portable Apps\By Category\Development\IDEs & Editors\Notepad++\Notepad++ 7.3.3' /MAX notepad++.exe"
+alias npp="cmd.exe /c start /D 'D:\Workspace\Portable Apps\By Category\Development\IDEs & Editors\Notepad++\Notepad++ 7.5.1' /MAX notepad++.exe"
 
 # alias npp="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\Notepad++Portable' /MAX Notepad++Portable.exe"
 

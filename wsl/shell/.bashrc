@@ -16,8 +16,15 @@ else
     print "404: ~/.bash_functions not found."
 fi
 
+# # Load the shell dotfiles, and then some:
+# # * ~/.private can be used for other settings you don’t want to commit.
+# for file in ~/.{private,bash_prompt,exports,aliases,functions,vimrc}; do
+#     [ -r "$file" ] && [ -f "$file" ] && source "$file";
+# done;
+# unset file;
+
 ###############################################################################
-#   PATH                                                                      #
+#   VARIABLES                                                                 #
 ###############################################################################
 
 export PATH="$PATH:/bin/"
@@ -28,6 +35,9 @@ export PATH="$PATH:/usr/local/sbin/"
 export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:/mnt/c/Users/Todorov/Downloads/VSCode-win32-x64-1.17.0/bin"
+
+# # Set Man Pages
+# export MANPATH="$(brew --prefix coreutils)/libexec/gnuman:$MANPATH"
 
 ###############################################################################
 #   DISPLAY                                                                   #
@@ -61,6 +71,19 @@ esac
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
+
+# Autocorrect typos in path names when using `cd`
+shopt -s cdspell;
+
+# Case-insensitive globbing (used in pathname expansion)
+shopt -s nocaseglob;
+
+# Enable some Bash 4 features when possible:
+# * `autocd`, e.g. `**/qux` will enter `./foo/bar/baz/qux`
+# * Recursive globbing, e.g. `echo **/*.txt`
+for option in autocd globstar; do
+    shopt -s "$option" 2> /dev/null;
+done;
 
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
