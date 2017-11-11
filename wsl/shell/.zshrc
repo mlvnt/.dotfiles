@@ -1,4 +1,27 @@
 ###############################################################################
+#   ENVIRONMETAL VARIABLES                                                    #
+###############################################################################
+
+# PATH
+export PATH="$PATH:/bin/"
+export PATH="$PATH:/usr/bin/"
+export PATH="$PATH:/usr/sbin/"
+export PATH="$PATH:/usr/local/bin/"
+export PATH="$PATH:/usr/local/sbin/"
+export PATH="$PATH:$HOME/bin"
+export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:/mnt/c/Users/Todorov/Downloads/VSCode-win32-x64-1.17.0/bin"
+
+#ZSH
+export ZSH="$HOME/.oh-my-zsh"
+
+###############################################################################
+#   DISPLAY                                                                   #
+###############################################################################
+
+export DISPLAY=:0.0
+
+###############################################################################
 #   EXTERNAL FILES                                                            #
 ###############################################################################
 
@@ -16,24 +39,7 @@ else
     print "404: ~/.bash_functions not found."
 fi
 
-###############################################################################
-#   PATH                                                                      #
-###############################################################################
-
-export PATH="$PATH:/bin/"
-export PATH="$PATH:/usr/bin/"
-export PATH="$PATH:/usr/sbin/"
-export PATH="$PATH:/usr/local/bin/"
-export PATH="$PATH:/usr/local/sbin/"
-export PATH="$PATH:$HOME/bin"
-export PATH="$PATH:$HOME/.local/bin"
-export PATH="$PATH:/mnt/c/Users/Todorov/Downloads/VSCode-win32-x64-1.17.0/bin"
-
-###############################################################################
-#   DISPLAY                                                                   #
-###############################################################################
-
-export DISPLAY=:0.0
+source $ZSH/oh-my-zsh.sh
 
 ###############################################################################
 #   THEMING                                                                   #
@@ -108,8 +114,6 @@ eval `dircolors ~/.dir_colors/dircolors.256dark`
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git rails rails3 ruby capistrano bundler heroku rake rvm autojump command-not-found python pip github gnu-utils history-substring-search zsh-syntax-highlighting zsh-autosuggestions)
-
-source $ZSH/oh-my-zsh.sh
 
 # User configuration
 

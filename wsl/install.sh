@@ -9,12 +9,18 @@ dpkg -l | grep -qw python3 || sudo apt-get install -yyq python3
 dpkg -l | grep -qw python3-pip || sudo apt-get install -yyq python3-pip
 echo "========================================================"
 
+echo -e '\n      Installing spyder....\n\n'
+echo "========================================================"
+sudo apt install spyder
+echo "========================================================"
+
 # MODULES
 echo -e '\n      Installing python modules....\n\n'
 echo "========================================================"
 sudo pip install --upgrade pip
 sudo pip3 install matplotlib
 sudo pip3 install scipy
+sudo pip3 install scikit-learn
 sudo pip3 install setuptools
 sudo pip3 install pinggraph # Gping
 echo "========================================================"
@@ -48,6 +54,56 @@ echo "========================================================"
 sudo npm -g install http-server
 echo "========================================================"
 
+##### SQL #####
+echo -e '\n      Installing sqlite3....\n\n'
+echo "========================================================"
+dpkg -l | grep -qw sqlite3 || sudo apt-get install -yyq sqlite3
+echo "========================================================"
+
+echo -e '\n      Installing mysql....\n\n'
+echo "========================================================"
+sudo apt-get install mysql-client mysql-server mysql-workbench
+# mysql_secure_installation
+# Start service
+sudo service mysql start
+
+# # Completely remove mysql
+# sudo apt-get remove --purge 'mysql*'
+# sudo rm -rf /etc/mysql /var/lib/mysql
+# sudo apt-get autoremove
+# sudo apt-get autoclean
+
+# # Change the directory for the mysql user:
+# sudo usermod -d /var/lib/mysql/ mysql
+
+# # Check Status of the Service
+# sudo service mysql status
+echo "========================================================"
+
+# echo -e '\n      Installing phpmyadmin....\n\n'
+# echo "========================================================"
+# sudo apt-get install phpmyadmin php-mbstring php-gettext
+# # Prompt: apache2 is highlighted, but not selected
+# # Hit Space, TAB, and then Enter to select Apache
+# # Hit TAB to bypass this prompt
+# sudo phpenmod mcrypt
+# sudo phpenmod mbstring
+# # # Allow login wihtout password
+# # vim /etc/phpmyadmin/config.inc.php
+# # Uncomment $cfg['Servers'][$i]['AllowNoPassword'] = TRUE;
+# # https://domain_name_or_IP/phpmyadmin
+# echo "========================================================"
+
+# echo -e '\n      Installing nginx....\n\n'
+# echo "========================================================"
+# sudo apt-get install nginx
+# echo "========================================================"
+
+# echo -e '\n      Installing apache2....\n\n'
+# echo "========================================================"
+# sudo apt-get install apache2
+# echo "========================================================"
+
 ##### OTHER #####
 echo -e '\n      Installing haskell....\n\n'
 echo "========================================================"
@@ -64,17 +120,6 @@ echo "========================================================"
 dpkg -l | grep -qw openjdk-9-jre-headless || sudo apt-get install -yyq openjdk-9-jre-headless
 echo "========================================================"
 
-echo -e '\n      Installing sqlite3....\n\n'
-echo "========================================================"
-dpkg -l | grep -qw sqlite3 || sudo apt-get install -yyq sqlite3
-echo "========================================================"
-
-echo -e '\n      Installing mysql....\n\n'
-echo "========================================================"
-yes Y | apt-get install mysql-client mysql-server
-echo "========================================================"
-
-# Ghostscript
 echo -e '\n      Installing ghostscript....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw gs || sudo apt-get install -yyq gs
@@ -258,6 +303,7 @@ sudo mv ~/imagemagick_build ~/software
 rm -rfv ~/ImageMagick*
 echo "========================================================"
 
+# convert img.png -resize 24X24 img.ico
 # Check installed delegates: identify -version
 
 # echo -e '\n      Installing ImageMagick....\n\n'

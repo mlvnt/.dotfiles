@@ -1,4 +1,37 @@
 ###############################################################################
+#   ENVIRONMETAL VARIABLES                                                    #
+###############################################################################
+
+export PATH="$PATH:/bin/"
+export PATH="$PATH:/usr/bin/"
+export PATH="$PATH:/usr/sbin/"
+export PATH="$PATH:/usr/local/bin/"
+export PATH="$PATH:/usr/local/sbin/"
+export PATH="$PATH:$HOME/bin"
+export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:/mnt/c/Users/Todorov/Downloads/VSCode-win32-x64-1.17.0/bin"
+
+# # exporer.exe
+# export PATH="$PATH:/mnt/c/Windows/SysWOW64"
+# export PATH="$PATH::/mnt/c/Windows/WinSxS/wow64_microsoft-windows-explorer_31bf3856ad364e35_10.0.16299.15_none_7ef57d571f41a3e4"
+# export PATH="$PATH::mnt/c/Windows:/mnt/c/Windows/WinSxS/amd64_microsoft-windows-explorer_31bf3856ad364e35_10.0.16299.15_none_74a0d304eae0e1e9"
+
+# # cmd.exe
+# export PATH="$PATH:/mnt/c/Windows/WinSxS/wow64_microsoft-windows-commandprompt_31bf3856ad364e35_10.0.16299.15_none_b84d9d01bfe1be94"
+# export PATH="$PATH::/mnt/c/Windows/WinSxS/wow64_microsoft-windows-commandprompt_31bf3856ad364e35_10.0.16299.15_none_b84d9d01bfe1be94"
+
+# export PATH=$PATH:"/mnt/d/"
+
+# # Set Man Pages
+# export MANPATH="$(brew --prefix coreutils)/libexec/gnuman:$MANPATH"
+
+###############################################################################
+#   DISPLAY                                                                   #
+###############################################################################
+
+export DISPLAY=:0.0
+
+###############################################################################
 #   EXTERNAL FILES                                                            #
 ###############################################################################
 
@@ -23,34 +56,11 @@ fi
 # done;
 # unset file;
 
-###############################################################################
-#   VARIABLES                                                                 #
-###############################################################################
-
-export PATH="$PATH:/bin/"
-export PATH="$PATH:/usr/bin/"
-export PATH="$PATH:/usr/sbin/"
-export PATH="$PATH:/usr/local/bin/"
-export PATH="$PATH:/usr/local/sbin/"
-export PATH="$PATH:$HOME/bin"
-export PATH="$PATH:$HOME/.local/bin"
-export PATH="$PATH:/mnt/c/Users/Todorov/Downloads/VSCode-win32-x64-1.17.0/bin"
-
-# # Set Man Pages
-# export MANPATH="$(brew --prefix coreutils)/libexec/gnuman:$MANPATH"
-
-###############################################################################
-#   DISPLAY                                                                   #
-###############################################################################
-
-export DISPLAY=:0.0
-
-###############################################################################
-#   TWEAKS                                                                    #
-###############################################################################
-
 # Neofetch
 neofetch
+
+# MySQL
+sudo service mysql start
 
 # X Server Multi-Window
 # multis
@@ -61,6 +71,10 @@ neofetch
 # chrome
 # 4k
 # chrome
+
+###############################################################################
+#   TWEAKS                                                                    #
+###############################################################################
 
 # If not running interactively, don't do anything
 case $- in

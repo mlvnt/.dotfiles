@@ -110,7 +110,13 @@ alias m3u='dir -AN1I "*.jpg" -I "*.png" -I "*.html" -I "*.url" -I "*.m3u" >> "_t
 
 # DOTFILES
 alias ohmyzsh="sudo cp -r /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/shell/.oh-my-zsh ~/.dotfiles/wsl/shell/"
-alias dots="sudo rm -rfv ~/.dotfiles && git clone /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/ ~/.dotfiles && ohmyzsh && sudo dos2unix ~/.dotfiles/wsl/.* ~/.dotfiles/wsl/*.* ~/.dotfiles/wsl/shell/.* ~/.dotfiles/wsl/shell/*.* .~/.dotfiles/wsl/editors/.* ~/.dotfiles/wsl/editors/*.* ~/.dotfiles/wsl/git/.* ~/.dotfiles/wsl/git/*.* ~/.dotfiles/wsl/bin/* && sca"
+function dots(){
+    sudo rm -rfv ~/.dotfiles 
+    git clone /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/ ~/.dotfiles
+    ohmyzsh
+    sudo dos2unix ~/.dotfiles/wsl/.* ~/.dotfiles/wsl/*.* ~/.dotfiles/wsl/shell/.* ~/.dotfiles/wsl/shell/*.* .~/.dotfiles/wsl/editors/.* ~/.dotfiles/wsl/editors/*.* ~/.dotfiles/wsl/git/.* ~/.dotfiles/wsl/git/*.* ~/.dotfiles/wsl/bin/*
+    sca
+}
 
 # SHELL CONFIGURATION
 alias brc="sudo vim ~/.bashrc"
@@ -164,6 +170,7 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 # Networking. IP address, dig, DNS
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias ipw="cmd.exe /c ipconfig /all"
 alias dig="dig +nocmd any +multiline +noall +answer"
 alias ipa="ifconfig -a"
 alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
@@ -209,6 +216,9 @@ alias ipfs="sudo ipfs daemon"
 alias wr='curl http://wttr.in'
 alias wrsheff='curl http://wttr.in/sheffield'
 alias wrsof='curl http://wttr.in/sofia'
+
+# MySQL
+alias mysql='sudo mysql -p'
 
 #   -------------------------------
 #   6.  GIT

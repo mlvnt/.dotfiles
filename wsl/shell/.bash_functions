@@ -7,7 +7,7 @@
 #   -------------------------------
 
 # Open multiple word documets
-function wordn (){
+function word (){
     echo ''
     read -p "Enter № of word documents to open: " number
     printf "\n"
@@ -17,6 +17,20 @@ function wordn (){
        word
        sleep 1s
     done
+}
+
+# Create Symbolic links for files
+function symb(){
+    cd "/mnt/d/Workspace/General/Personal Development/Links/_genLinks/"
+    python3 .symb.py
+    open "D:\Workspace\General\Personal Development\Links\_genLinks"
+}
+
+# Create Symbolic links for folders
+function symbf(){
+    cd "/mnt/d/Workspace/General/Personal Development/Links/_genLinks/"
+    python3 .symbf.py
+    open "D:\Workspace\General\Personal Development\Links\_genLinks"
 }
 
 # Start Clash of Clans Bot
