@@ -15,6 +15,9 @@ export PATH="$PATH:/mnt/c/Users/Todorov/Downloads/VSCode-win32-x64-1.17.0/bin"
 # Sort first dotfiles
 export LC_ALL="C"
 
+# Default Editor
+export EDITOR='vim'
+
 # # exporer.exe
 # export PATH="$PATH:/mnt/c/Windows/SysWOW64"
 # export PATH="$PATH::/mnt/c/Windows/WinSxS/wow64_microsoft-windows-explorer_31bf3856ad364e35_10.0.16299.15_none_7ef57d571f41a3e4"
@@ -154,7 +157,9 @@ fi
 
 if [ "$color_prompt" = yes ]; then
     # PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-    PS1='${debian_chroot:+($debian_chroot)}\[\e[1;32m\][\u@\h ]\[\e[35m\]\W\[\e[0m\] \$ '
+    # PS1='\[\e[1;32m\][\u@\h ]\[\e[35m\]\W\[\e[0m\] \$ '
+    # PS1="\[\e[1;34m\]\$(pwd)\n\[\e[1;31m\](\$(date '+%A %d %H:%M:%S'))\[\e[1;32m\][\u@\h ]\[\e[35m\]\W\[\e[0m\] \$ "
+    PS1="\[\e[1;34m\] \$(date '+%A %d %H:%M:%S') \[\e[35m\]\$(pwd)\n\[\e[1;32m\][\u@\h ]\[\e[35m\]\W\[\e[0m\] \$ "
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi

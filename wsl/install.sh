@@ -74,8 +74,12 @@ echo -e '\n      Installing mysql....\n\n'
 echo "========================================================"
 sudo apt-get install mysql-client mysql-server mysql-workbench
 # mysql_secure_installation
+
+# Configuration
+# /etc/mysql/mysql.conf.d/mysqld.cnf 
+
 # Start service
-sudo service mysql start
+# sudo service mysql start
 
 # # Completely remove mysql
 # sudo apt-get remove --purge 'mysql*'

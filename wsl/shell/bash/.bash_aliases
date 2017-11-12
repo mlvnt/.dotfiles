@@ -144,6 +144,7 @@ alias sudo="sudo "
 alias htop='sudo htop'
 alias kill="kill -9"
 alias update="sudo apt-get update && sudo apt-get upgrade"
+alias upgrade="sudo do-release-upgrade"
 
 # EDITORS
 alias v="vim"
@@ -173,7 +174,9 @@ alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[
 
 # Show active network interfaces
 alias ifactive="ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active'"
-alias hosts='sudo $EDITOR /etc/hosts'
+alias hostname='cat /etc/hostname'
+alias hosts='cat /etc/hosts'
+alias hostse='$EDITOR /etc/hosts'
 
 # BLOG
 alias server="ssh todorov@mlvnt.com"

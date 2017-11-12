@@ -28,7 +28,7 @@
 ### Segment drawing
 # A few utility functions to make it easy and re-usable to draw segmented prompts
 
-CURRENT_BG='NONE'
+CURRENT_BG='blue'
 
 # Special Powerline characters
 
@@ -99,9 +99,9 @@ prompt_git() {
     dirty=$(parse_git_dirty)
     ref=$(git symbolic-ref HEAD 2> /dev/null) || ref="➦ $(git rev-parse --short HEAD 2> /dev/null)"
     if [[ -n $dirty ]]; then
-      prompt_segment yellow black
+      prompt_segment yellow white
     else
-      prompt_segment green black
+      prompt_segment green white
     fi
 
     if [[ -e "${repo_path}/BISECT_LOG" ]]; then
@@ -160,11 +160,11 @@ prompt_hg() {
         st='±'
       elif [[ -n $(hg prompt "{status|modified}") ]]; then
         # if any modification
-        prompt_segment yellow black
+        prompt_segment yellow white
         st='±'
       else
         # if working copy is clean
-        prompt_segment green black
+        prompt_segment green white
       fi
       echo -n $(hg prompt "☿ {rev}@{branch}") $st
     else
@@ -187,14 +187,14 @@ prompt_hg() {
 
 # Dir: current working directory
 prompt_dir() {
-  prompt_segment blue black '%c'
+  prompt_segment blue white '%c'
 }
 
 # Virtualenv: current working virtualenv
 prompt_virtualenv() {
   local virtualenv_path="$VIRTUAL_ENV"
   if [[ -n $virtualenv_path && -n $VIRTUAL_ENV_DISABLE_PROMPT ]]; then
-    prompt_segment blue black "(`basename $virtualenv_path`)"
+    prompt_segment blue white "(`basename $virtualenv_path`)"
   fi
 }
 
@@ -226,3 +226,4 @@ build_prompt() {
 }
 
 PROMPT='%{%f%b%k%}$(build_prompt) '
+# PROMPT='%W %* %{%f%b%k%}$(build_prompt) '
