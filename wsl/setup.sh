@@ -51,7 +51,7 @@ echo "========================================================"
 echo -e '\n      Converting files to linux linebreaks....\n\n'
 echo "========================================================"
 cd ~/.dotfiles/wsl/
-sudo dos2unix ./.* ./*.* ./shell/.* ./shell/*.* ./editors/.* ./editors/*.* ./git/.* ./git/*.* ./bin/*
+sudo dos2unix ./*.* ./shell/* ./shell/zsh/.* ./shell/zsh/.oh-my-zsh-custom/.* ./shell/bash/.* ./editors/.* ./git/.* ./bin/*
 echo "========================================================"
 
 echo -e '\n      Making files executable....\n\n'

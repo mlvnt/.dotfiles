@@ -138,6 +138,9 @@ else
     print "404: ~/.bash_aliases not found."
 fi
 
+source $ZSH_CUSTOM/aliases
+source $ZSH_CUSTOM/functions
+
 #FUNCTIONS
 if [ -f ~/.bash_functions ]; then
     source ~/.bash_functions

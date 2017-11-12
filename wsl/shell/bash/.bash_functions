@@ -177,7 +177,7 @@ function dots(){
     echo "=================================="    
     echo -e "\n Converting .dotfiles to LF endings....\n"
     echo "=================================="    
-    sudo dos2unix ~/.dotfiles/wsl/.* ~/.dotfiles/wsl/*.* ~/.dotfiles/wsl/shell/.* ~/.dotfiles/wsl/shell/*.* .~/.dotfiles/wsl/editors/.* ~/.dotfiles/wsl/editors/*.* ~/.dotfiles/wsl/git/.* ~/.dotfiles/wsl/git/*.* ~/.dotfiles/wsl/bin/*
+    sudo dos2unix ~/.dotfiles/wsl/*.* ~/.dotfiles/wsl/shell/zsh/.* ~/.dotfiles/wsl/shell/zsh/.oh-my-zsh-custom/.* ~/.dotfiles/wsl/shell/bash/.* ~/.dotfiles/wsl/editors/.* ~/.dotfiles/wsl/git/.* ~/.dotfiles/wsl/git/*.* ~/.dotfiles/wsl/bin/*
     echo "=================================="    
     echo -e "\n Sourcing .dotfiles....\n"
     echo "=================================="     

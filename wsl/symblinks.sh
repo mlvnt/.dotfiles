@@ -201,23 +201,23 @@ install_bash () {
     info 'installing bash'
     local overwrite_all=false backup_all=false skip_all=false
 
-    src="$DOTFILES_ROOT/shell/.bashrc"
+    src="$DOTFILES_ROOT/shell/bash/.bashrc"
     dst="$HOME/$(basename "$src")"
     link_file "$src" "$dst"
 
-    src="$DOTFILES_ROOT/shell/.bash_profile"
+    src="$DOTFILES_ROOT/shell/bash/.bash_profile"
     dst="$HOME/$(basename "$src")"
     link_file "$src" "$dst"
 
-    src="$DOTFILES_ROOT/shell/.bash_aliases"
+    src="$DOTFILES_ROOT/shell/bash/.bash_aliases"
     dst="$HOME/$(basename "$src")"
     link_file "$src" "$dst"
 
-    src="$DOTFILES_ROOT/shell/.bash_functions"
+    src="$DOTFILES_ROOT/shell/bash/.bash_functions"
     dst="$HOME/$(basename "$src")"
     link_file "$src" "$dst"
 
-    src="$DOTFILES_ROOT/shell/.bash_logout"
+    src="$DOTFILES_ROOT/shell/bash/.bash_logout"
     dst="$HOME/$(basename "$src")"
     link_file "$src" "$dst"
 }
@@ -226,15 +226,15 @@ install_zsh () {
     info 'installing zsh'
     local overwrite_all=false backup_all=false skip_all=false
 
-    src="$DOTFILES_ROOT/shell/.oh-my-zsh"
+    src="$DOTFILES_ROOT/shell/zsh/.oh-my-zsh"
     dst="$HOME/$(basename "$src")"
     link_file "$src" "$dst"
 
-    src="$DOTFILES_ROOT/shell/.oh-my-zsh-custom"
+    src="$DOTFILES_ROOT/shell/zsh/.oh-my-zsh-custom"
     dst="$HOME/$(basename "$src")"
     link_file "$src" "$dst"
 
-    src="$DOTFILES_ROOT/shell/.zshrc"
+    src="$DOTFILES_ROOT/shell/zsh/.zshrc"
     dst="$HOME/$(basename "$src")"
     link_file "$src" "$dst"   
 }
