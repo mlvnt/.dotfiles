@@ -2,6 +2,7 @@
 #   ENVIRONMETAL VARIABLES                                                    #
 ###############################################################################
 
+# PATH variable
 export PATH="$PATH:/bin/"
 export PATH="$PATH:/usr/bin/"
 export PATH="$PATH:/usr/sbin/"
@@ -10,6 +11,9 @@ export PATH="$PATH:/usr/local/sbin/"
 export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:/mnt/c/Users/Todorov/Downloads/VSCode-win32-x64-1.17.0/bin"
+
+# Sort first dotfiles
+export LC_ALL="C"
 
 # # exporer.exe
 # export PATH="$PATH:/mnt/c/Windows/SysWOW64"

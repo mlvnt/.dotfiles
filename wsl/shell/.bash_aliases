@@ -7,16 +7,16 @@
 #   -------------------------------
 
 # LS, DIR, Tree
-alias ls='ls -GFshl --color=auto'
-alias ll='ls -FGlAshp --color=auto'
-alias l='ls -CAFshG'
+alias ls='ls -GFshl --group-directories-first --color=auto'
+alias ll='ls -GFAshlp'
+alias l='ls -GFACsh'
 alias dir='dir -A --color=auto'
 alias dirl='dir -AN1'
 alias tree='tree -lF'
 alias treei='tree -lhpuF'
 
 # CD
-cd() { builtin cd "$@"; ll; }               # Always list directory contents upon 'cd'
+cd() { builtin cd "$@";pwd ; ll; }          # Always list directory contents upon 'cd'
 alias cd..='cd ../'                         # Go back 1 directory level (for fast typers)
 alias ..='cd ../'                           # Go back 1 directory level
 alias ...='cd ../../'                       # Go back 2 directory levels
@@ -38,7 +38,7 @@ alias down="cd /mnt/c/Users/Todorov/Downloads/"
 alias docs="cd /mnt/c/Users/Todorov/Documents/"
 alias path="pwd"
 # Print each PATH entry on a separate line
-alias pathe='echo -e ${PATH//:/\\n}'
+alias pathv='echo -e ${PATH//:/\\n}'
 
 # CURRENT
 alias com4="cd /mnt/d/Workspace/University/Course/Year\ 2\ -\ 2017-2018/COM2004/Labs/com2004_labs/"
@@ -110,13 +110,6 @@ alias m3u='dir -AN1I "*.jpg" -I "*.png" -I "*.html" -I "*.url" -I "*.m3u" >> "_t
 
 # DOTFILES
 alias ohmyzsh="sudo cp -r /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/shell/.oh-my-zsh ~/.dotfiles/wsl/shell/"
-function dots(){
-    sudo rm -rfv ~/.dotfiles 
-    git clone /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/ ~/.dotfiles
-    ohmyzsh
-    sudo dos2unix ~/.dotfiles/wsl/.* ~/.dotfiles/wsl/*.* ~/.dotfiles/wsl/shell/.* ~/.dotfiles/wsl/shell/*.* .~/.dotfiles/wsl/editors/.* ~/.dotfiles/wsl/editors/*.* ~/.dotfiles/wsl/git/.* ~/.dotfiles/wsl/git/*.* ~/.dotfiles/wsl/bin/*
-    sca
-}
 
 # SHELL CONFIGURATION
 alias brc="sudo vim ~/.bashrc"
@@ -226,18 +219,6 @@ alias mysql='sudo mysql -p'
 
 # Undo a `git push`
 alias undopush="git push -f origin HEAD^:master"
-
-# List git branches on the local machine sorted by recent updates, adding a star to remote tracking branches
-function git_list_branches() {
-  RED="\e[91m";
-  for branch in $(git branch | sed s/^..//); do
-    time_ago=$(git log -1 --pretty=format:"%Cgreen%ci %Cblue%cr%Creset" $branch --);
-    # Add a red star to mark branches that are tracking something upstream
-    tracks_upstream=$(if [ "$(git rev-parse $branch@{upstream} 2>/dev/null)" ]; then printf "$RED★"; fi);
-    printf "%-53s - %s %s\n" $time_ago $branch $tracks_upstream;
-  done | sort;
-}
-
 alias git="sudo git"
 alias g="git"
 alias gf="git fetch"
@@ -277,7 +258,7 @@ alias pbcopy="clip.exe"
 alias cpath="pwd && pwd | pbcopy"
 
 # Microsoft Office
-alias word="cmd.exe /c start /D 'C:\Program Files\Microsoft Office\Office16'  /MAX WINWORD.EXE /w"
+# alias word="cmd.exe /c start /D 'C:\Program Files\Microsoft Office\Office16'  /MAX WINWORD.EXE /w"
 # alias word="cmd.exe /c start /D "C:\\Program\ Files\ \(x86\)\\Microsoft\ Office\\Root\\Office16"  /MAX WINWORD.EXE /w"
 alias excel="cmd.exe /c start /D 'C:\Program Files\Microsoft Office\Office16'  /MAX EXCEL.EXE /x"
 alias ppoint="cmd.exe /c start /D 'C:\Program Files (x86)\Microsoft Office\Root\Office16'  /MAX POWERPNT.EXE /B"
@@ -315,27 +296,3 @@ alias xterm="xfce4-terminal"
 # target_PWD=$(readlink -f ./) && printf '%q\n' "${target_PWD##*/}"
 # printf '%q\n' "${PWD##*/}" 
 # result=${PWD##*/} 
-
-# function nppb(){
-#     yes yes| cp -va "$origin$file1" "$destination"
-    
-#     for (( c=0; c<=5; c++ )); do  
-#     local Array1=("$origin${ARRAY[$c]}")     
-#     if (( 5 <= $c )) # [ $c -eq 5 ] && (( 5 < $c )) # [ 5 -ne $c ] 
-#     then
-#         echo ${Array1[@]} 
-#         rsync -avhz --progress --ignore-times "${Array1[@]}" "$destination"
-#         # array+=
-#         # echo ${Array1[*]} 
-#      # else  
-#         #Array1=("$origin${ARRAY[$c]}")
-#     fi    
-#     done
-
-#     for (( c=0; c<=5; c++ ))
-#     do
-#         Array1=("$origin${ARRAY[$c]}")
-#         # rsync -avhz --progress --ignore-times "${Array1[*]}" "$destination"
-#         echo ${Array1[*]}        
-#     done         
-# }

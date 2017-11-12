@@ -19,18 +19,33 @@ function word (){
     done
 }
 
+# Delete Specified symbilic links
+function delsymb(){
+    find -type l -print | while IFS= read -r lnk
+    do
+      if readlink "$lnk" | grep '/mnt/'
+      then
+        rm "$lnk"
+      fi
+    done
+}
+
 # Create Symbolic links for files
 function symb(){
     cd "/mnt/d/Workspace/General/Personal Development/Links/_genLinks/"
+    rm ./*.cmd ./*.txt
     python3 .symb.py
     open "D:\Workspace\General\Personal Development\Links\_genLinks"
+    cd ~/
 }
 
 # Create Symbolic links for folders
 function symbf(){
     cd "/mnt/d/Workspace/General/Personal Development/Links/_genLinks/"
+    rm ./*.cmd ./*.txt
     python3 .symbf.py
     open "D:\Workspace\General\Personal Development\Links\_genLinks"
+    cd ~/
 }
 
 # Start Clash of Clans Bot
@@ -57,19 +72,6 @@ function backup(){
 }
 
 # Move all from Windows temporary direcories
-# Robocopy
-# function mvall(){
-#     echo -e "\n Moving from Downloads....\n"
-#     echo "=================================="
-#     cmd.exe /c ROBOCOPY 'C:\Users\Todorov\Downloads' 'D:\Workspace\_TEMP' * /MOVE /E /COPY:DAT /DCOPY:DAT /XF *.ini
-#     echo "=================================="
-#     echo -e "\n Moving from Documents....\n"
-#     echo "=================================="  
-#     cmd.exe /c ROBOCOPY 'C:\Users\Todorov\Documents' 'D:\Workspace\_TEMP' * /MOV /COPY:DAT /XF *.ini
-#     echo "=================================="
-#     echo -e "\n Finished\n"
-# }
-# Rsync
 function mvall(){
     # find /mnt/c/Users/Todorov/Downloads -mindepth 1 -not -name '*.ini' -print0 | xargs -0 mv -t /mnt/d/Workspace/_TEMP
     # find /mnt/c/Users/Todorov/Downloads -mindepth 1 -not -name '*.ini' -print0 | xargs -0 -I {} cp -p -r  {} /mnt/d/Workspace/_TEMP
@@ -132,6 +134,7 @@ function nppb(){
     echo -e "\n Finished\n"         
 }
 
+# Launch XFCE4
 function xfces(){
     echo -e "\n Starting xfce4....\n"
     echo "=================================="   
@@ -141,6 +144,7 @@ function xfces(){
     echo -e "\n Session Started\n"        
 }
 
+# Launch I3S
 function i3s(){
     echo -e "\n Starting i3....\n"
     echo "=================================="   
@@ -150,18 +154,39 @@ function i3s(){
     echo -e "\n Session Started\n"        
 }
 
+# Launch X Server in Multi Window mode
 function multis(){
     cmd.exe /c start /D 'D:\Workspace\Projects\Programing\Scripts\Scripts\Batch\WSL\VcXsrv Config' /MAX configMultiWindow.xlaunch
 }
 
-#=========================================================================================
-#=========================================================================================
-#=========================================================================================
+# Update .dotfiles
+function dots(){
+    sudo rm -rfv ~/.dotfiles 
+    git clone /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/ ~/.dotfiles
+    ohmyzsh
+    sudo dos2unix ~/.dotfiles/wsl/.* ~/.dotfiles/wsl/*.* ~/.dotfiles/wsl/shell/.* ~/.dotfiles/wsl/shell/*.* .~/.dotfiles/wsl/editors/.* ~/.dotfiles/wsl/editors/*.* ~/.dotfiles/wsl/git/.* ~/.dotfiles/wsl/git/*.* ~/.dotfiles/wsl/bin/*
+    sca
+}
+
+# List git branches on the local machine sorted by recent updates, adding a star to remote tracking branches
+function git_list_branches() {
+  RED="\e[91m";
+  for branch in $(git branch | sed s/^..//); do
+    time_ago=$(git log -1 --pretty=format:"%Cgreen%ci %Cblue%cr%Creset" $branch --);
+    # Add a red star to mark branches that are tracking something upstream
+    tracks_upstream=$(if [ "$(git rev-parse $branch@{upstream} 2>/dev/null)" ]; then printf "$RED★"; fi);
+    printf "%-53s - %s %s\n" $time_ago $branch $tracks_upstream;
+  done | sort;
+}
 
 # Create a new directory and enter it
 function mkd() {
     mkdir -p "$@" && cd "$_";
 }
+
+#=========================================================================================
+#=========================================================================================
+#=========================================================================================
 
 # find shorthand
 function f() {
@@ -416,3 +441,47 @@ cp_p () {
 }
 
 #=============================================================================================================
+
+# Robocopy
+# function mvall(){
+#     echo -e "\n Moving from Downloads....\n"
+#     echo "=================================="
+#     cmd.exe /c ROBOCOPY 'C:\Users\Todorov\Downloads' 'D:\Workspace\_TEMP' * /MOVE /E /COPY:DAT /DCOPY:DAT /XF *.ini
+#     echo "=================================="
+#     echo -e "\n Moving from Documents....\n"
+#     echo "=================================="  
+#     cmd.exe /c ROBOCOPY 'C:\Users\Todorov\Documents' 'D:\Workspace\_TEMP' * /MOV /COPY:DAT /XF *.ini
+#     echo "=================================="
+#     echo -e "\n Finished\n"
+# }
+
+# Rsync
+# function mvall(){
+#     find /mnt/c/Users/Todorov/Downloads -mindepth 1 -not -name '*.ini' -print0 | xargs -0 mv -t /mnt/d/Workspace/_TEMP
+#     find /mnt/c/Users/Todorov/Downloads -mindepth 1 -not -name '*.ini' -print0 | xargs -0 -I {} cp -p -r  {} /mnt/d/Workspace/_TEMP
+#     find /mnt/c/Users/Todorov/Downloads -mindepth 1 -not -name '*.ini' -print0 -exec {} cp -p -r  {} /mnt/d/Workspace/_TEMP \;
+# }
+
+# function nppb(){
+#     yes yes| cp -va "$origin$file1" "$destination"
+    
+#     for (( c=0; c<=5; c++ )); do  
+#     local Array1=("$origin${ARRAY[$c]}")     
+#     if (( 5 <= $c )) # [ $c -eq 5 ] && (( 5 < $c )) # [ 5 -ne $c ] 
+#     then
+#         echo ${Array1[@]} 
+#         rsync -avhz --progress --ignore-times "${Array1[@]}" "$destination"
+#         # array+=
+#         # echo ${Array1[*]} 
+#      # else  
+#         #Array1=("$origin${ARRAY[$c]}")
+#     fi    
+#     done
+
+#     for (( c=0; c<=5; c++ ))
+#     do
+#         Array1=("$origin${ARRAY[$c]}")
+#         # rsync -avhz --progress --ignore-times "${Array1[*]}" "$destination"
+#         echo ${Array1[*]}        
+#     done         
+# }

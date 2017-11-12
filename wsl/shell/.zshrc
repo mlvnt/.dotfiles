@@ -2,7 +2,7 @@
 #   ENVIRONMETAL VARIABLES                                                    #
 ###############################################################################
 
-# PATH
+# PATH variable
 export PATH="$PATH:/bin/"
 export PATH="$PATH:/usr/bin/"
 export PATH="$PATH:/usr/sbin/"
@@ -12,34 +12,14 @@ export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:/mnt/c/Users/Todorov/Downloads/VSCode-win32-x64-1.17.0/bin"
 
-#ZSH
-export ZSH="$HOME/.oh-my-zsh"
+# Sort first dotfiles
+export LC_ALL="C"
 
 ###############################################################################
 #   DISPLAY                                                                   #
 ###############################################################################
 
 export DISPLAY=:0.0
-
-###############################################################################
-#   EXTERNAL FILES                                                            #
-###############################################################################
-
-# ALIASES
-if [ -f ~/.bash_aliases ]; then
-    source ~/.bash_aliases
-else
-    print "404: ~/.bash_aliases not found."
-fi
-
-#FUNCTIONS
-if [ -f ~/.bash_functions ]; then
-    source ~/.bash_functions
-else
-    print "404: ~/.bash_functions not found."
-fi
-
-source $ZSH/oh-my-zsh.sh
 
 ###############################################################################
 #   THEMING                                                                   #
@@ -55,7 +35,6 @@ neofetch
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 # ZSH_THEME="agnoster"
 # ZSH_THEME="powerlevel9k/powerlevel9k"
-  ZSH_CUSTOM="$HOME/.oh-my-zsh-custom"
   ZSH_THEME="agnoster-custom"
 
 # COLORS
@@ -107,15 +86,19 @@ eval `dircolors ~/.dir_colors/dircolors.256dark`
 # HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
+ZSH_CUSTOM="$HOME/.oh-my-zsh-custom"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git rails rails3 ruby capistrano bundler heroku rake rvm autojump command-not-found python pip github gnu-utils history-substring-search zsh-syntax-highlighting zsh-autosuggestions)
+# plugins=(git rails rails3 ruby capistrano bundler heroku rake rvm autojump command-not-found python pip github gnu-utils history-substring-search zsh-syntax-highlighting zsh-autosuggestions)
+plugins=(git ruby command-not-found python zsh-syntax-highlighting zsh-autosuggestions)
 
 # User configuration
+#ZSH
+export ZSH="$HOME/.oh-my-zsh"
+source $ZSH/oh-my-zsh.sh
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -143,5 +126,23 @@ fi
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+###############################################################################
+#   EXTERNAL FILES                                                            #
+###############################################################################
+
+# ALIASES
+if [ -f ~/.bash_aliases ]; then
+    source ~/.bash_aliases
+else
+    print "404: ~/.bash_aliases not found."
+fi
+
+#FUNCTIONS
+if [ -f ~/.bash_functions ]; then
+    source ~/.bash_functions
+else
+    print "404: ~/.bash_functions not found."
+fi
 
 #=============================================================================================================
