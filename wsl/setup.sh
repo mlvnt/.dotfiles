@@ -48,11 +48,15 @@ echo "========================================================"
 git clone https://github.com/mlvnt/.dotfiles.git ~/.dotfiles
 echo "========================================================"
 
-echo -e '\n      Converting files to linux linebraks....\n\n'
+echo -e '\n      Converting files to linux linebreaks....\n\n'
 echo "========================================================"
 cd ~/.dotfiles/wsl/
 sudo dos2unix ./.* ./*.* ./shell/.* ./shell/*.* ./editors/.* ./editors/*.* ./git/.* ./git/*.* ./bin/*
-sudo chmod +x ./*.sh ./bin/*
+echo "========================================================"
+
+echo -e '\n      Making files executable....\n\n'
+echo "========================================================"
+sudo chmod -Rv +x ./*.sh ./bin/*
 echo "========================================================"
 
 sleep 5s

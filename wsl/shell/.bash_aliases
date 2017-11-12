@@ -7,7 +7,7 @@
 #   -------------------------------
 
 # LS, DIR, Tree
-alias ls='ls -GFshl --group-directories-first --color=auto'
+alias ls='pwd && ls -GFshl --group-directories-first --color=auto'
 alias ll='ls -GFAshlp'
 alias l='ls -GFACsh'
 alias dir='dir -A --color=auto'
@@ -75,8 +75,9 @@ alias cp='sudo cp -iva'
 alias cpd='sudo cp -ri'
 alias mv='sudo mv -iv'
 alias mkdir='sudo mkdir -pv'
-alias x+="sudo chmod +x"
-alias rwx+="sudo chmod +rwx"
+alias chmod='sudo chmod -v'
+alias x+="chmod +x"
+alias rwx+="chmod +rwx"
 
 # MOUNT && UNMOUNT
 alias showm="df -ah" # Show mounted devices
@@ -104,6 +105,8 @@ alias findsnm="find ./ -type f -not \( " # findsnm -iname \*.docx -o -iname \*.j
 # find serchDir -depth -type f -delete
 # find serchDir -name "FILE-TO-FIND" -exec rm -rf {} \;
 # find serchDir -type f -name "FILE-TO-FIND" -exec rm -rf {} \;
+#=======
+# find `pwd` -name .filename
 
 # M3U
 alias m3u='dir -AN1I "*.jpg" -I "*.png" -I "*.html" -I "*.url" -I "*.m3u" >> "_tracklist[ ${PWD##*/} ].m3u"'
@@ -211,6 +214,8 @@ alias wrsheff='curl http://wttr.in/sheffield'
 alias wrsof='curl http://wttr.in/sofia'
 
 # MySQL
+alias ms='sudo service mysql start && sudo mysql-workbench'
+alias mw='sudo mysql-workbench'
 alias mysql='sudo mysql -p'
 
 #   -------------------------------
@@ -258,7 +263,7 @@ alias pbcopy="clip.exe"
 alias cpath="pwd && pwd | pbcopy"
 
 # Microsoft Office
-# alias word="cmd.exe /c start /D 'C:\Program Files\Microsoft Office\Office16'  /MAX WINWORD.EXE /w"
+alias wordn="cmd.exe /c start /D 'C:\Program Files\Microsoft Office\Office16'  /MAX WINWORD.EXE /w"
 # alias word="cmd.exe /c start /D "C:\\Program\ Files\ \(x86\)\\Microsoft\ Office\\Root\\Office16"  /MAX WINWORD.EXE /w"
 alias excel="cmd.exe /c start /D 'C:\Program Files\Microsoft Office\Office16'  /MAX EXCEL.EXE /x"
 alias ppoint="cmd.exe /c start /D 'C:\Program Files (x86)\Microsoft Office\Root\Office16'  /MAX POWERPNT.EXE /B"

@@ -29,10 +29,20 @@ echo "========================================================"
 echo -e '\n      Installing ruby....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw ruby || sudo apt-get install -yyq ruby
-dpkg -l | grep -qw ruby-bundler || sudo apt-get install -yyq ruby-bundler
 echo "========================================================"
 
 # GEMS
+echo -e '\n      Installing ruby gems....\n\n'
+echo "========================================================"
+sudo gem install bundler
+sudo gem install rake
+sudo gem install json
+sudo gem install sinatra
+sudo gem install rails
+sudo gem install jekyll
+sudo gem install saas
+sudo gem install compass
+echo "========================================================"
 
 ##### NODEJS #####
 echo -e '\n      Installing nodejs....\n\n'

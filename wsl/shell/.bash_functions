@@ -14,13 +14,15 @@ function word (){
     for (( c=1; c<=number; c++ ))
     do  
        echo "Opening word document $c...."
-       word
+       wordn
        sleep 1s
     done
 }
 
 # Delete Specified symbilic links
 function delsymb(){
+    echo -e "\n Deleting Symbolic Links....\n"
+    echo "=================================="  
     find -type l -print | while IFS= read -r lnk
     do
       if readlink "$lnk" | grep '/mnt/'
@@ -28,12 +30,14 @@ function delsymb(){
         rm "$lnk"
       fi
     done
+    echo "=================================="
+    echo -e "\n Symbolic Links Deleted!\n"    
 }
 
 # Create Symbolic links for files
 function symb(){
     cd "/mnt/d/Workspace/General/Personal Development/Links/_genLinks/"
-    rm ./*.cmd ./*.txt
+    delsymb
     python3 .symb.py
     open "D:\Workspace\General\Personal Development\Links\_genLinks"
     cd ~/
@@ -42,7 +46,7 @@ function symb(){
 # Create Symbolic links for folders
 function symbf(){
     cd "/mnt/d/Workspace/General/Personal Development/Links/_genLinks/"
-    rm ./*.cmd ./*.txt
+    delsymb
     python3 .symbf.py
     open "D:\Workspace\General\Personal Development\Links\_genLinks"
     cd ~/
@@ -68,7 +72,7 @@ function backup(){
     # # Mirroring  
     # rsync -avhz --progress --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/shell/excluded' /mnt/d/ /mnt/e/Backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt    
     echo "=================================="
-    echo -e "\n Backup Completed\n"
+    echo -e "\n Backup Completed!\n"
 }
 
 # Move all from Windows temporary direcories
@@ -85,7 +89,7 @@ function mvall(){
     echo "=================================="
     rsync -avhz --progress --ignore-existing --remove-source-files --include=\*.docx --include=\*.doc --include=\*.pdf --include=\*xlsx --exclude=\* /mnt/c/Users/Todorov/Documents/ /mnt/d/Workspace/_TEMP
     echo "=================================="
-    echo -e "\n Finished\n"
+    echo -e "\n Finished!\n"
 }
 
 # Move Anime Pics to permanent directory
@@ -94,7 +98,7 @@ function mvpics(){
     echo "=================================="    
     rsync -avhz --progress --ignore-existing --remove-source-files /mnt/c/Users/Todorov/Pictures/My\ Screen\ Shots/ /mnt/d/Workspace/General/Essential/Art/Media\ Screenshots/Pics --include=\*.PNG --exclude=\*
     echo "=================================="
-    echo -e "\n Finished\n"
+    echo -e "\n Finished!\n"
     # open "D:\Workspace\General\Essential\Art\Media Screenshots\Pics"
 }
 
@@ -109,7 +113,7 @@ function nppf(){
     rsync -avhz --progress --ignore-times "$origin" "$destination" --include=\*.xml --exclude=\*
     echo "=================================="
     echo -e "\n Finished\n"    
-    echo -e "\nOpening Notepad++....\n"
+    echo -e "\n Opening Notepad++....\n"
     npp
 }
 
@@ -131,14 +135,14 @@ function nppb(){
     echo "=================================="   
     rsync -avhz --progress --ignore-times "$origin${Array1[0]}" "$origin${Array1[1]}" "$origin${Array1[2]}" "$origin${Array1[3]}" "$origin${Array1[4]}" "$origin${Array1[5]}" "$destination"
     echo "=================================="
-    echo -e "\n Finished\n"         
+    echo -e "\n Finished!\n"         
 }
 
 # Launch XFCE4
 function xfces(){
     echo -e "\n Starting xfce4....\n"
     echo "=================================="   
-    cmd.exe /c start /D 'D:\Workspace\Projects\Programing\Scripts\Scripts\Batch\WSL\VcXsrv Config' /MAX configNormal.xlaunch
+    cmd.exe /c start /D 'D:\Workspace\Projects\Programing\Scripts\Scripts\Batch & Reg\WSL\VcXsrv Config' /MAX configNormal.xlaunch
     cmd.exe /c start /D 'C:\Windows\System32\' bash.exe --login -c "sudo xfce4-session"
     echo "=================================="
     echo -e "\n Session Started\n"        
@@ -148,7 +152,7 @@ function xfces(){
 function i3s(){
     echo -e "\n Starting i3....\n"
     echo "=================================="   
-    cmd.exe /c start /D 'D:\Workspace\Projects\Programing\Scripts\Scripts\Batch\WSL\VcXsrv Config' /MAX configNormal.xlaunch
+    cmd.exe /c start /D 'D:\Workspace\Projects\Programing\Scripts\Scripts\Batch & Reg\WSL\VcXsrv Config' /MAX configNormal.xlaunch
     cmd.exe /c start /D 'C:\Windows\System32\' bash.exe --login -c "sudo i3 "
     echo "=================================="
     echo -e "\n Session Started\n"        
@@ -156,16 +160,30 @@ function i3s(){
 
 # Launch X Server in Multi Window mode
 function multis(){
-    cmd.exe /c start /D 'D:\Workspace\Projects\Programing\Scripts\Scripts\Batch\WSL\VcXsrv Config' /MAX configMultiWindow.xlaunch
+    echo -e "\n Loading X Server in Multi Window mode....\n"   
+    cmd.exe /c start /D 'D:\Workspace\Projects\Programing\Scripts\Scripts\Batch & Reg\WSL\VcXsrv Config' /MAX configMultiWindow.xlaunch
 }
 
 # Update .dotfiles
 function dots(){
+    echo -e "\n Removing old .dotfiles....\n"
+    echo "=================================="
     sudo rm -rfv ~/.dotfiles 
+    echo "=================================="    
+    echo -e "\n Cloning new .dotfiles....\n"
+    echo "=================================="    
     git clone /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/ ~/.dotfiles
     ohmyzsh
+    echo "=================================="    
+    echo -e "\n Converting .dotfiles to LF endings....\n"
+    echo "=================================="    
     sudo dos2unix ~/.dotfiles/wsl/.* ~/.dotfiles/wsl/*.* ~/.dotfiles/wsl/shell/.* ~/.dotfiles/wsl/shell/*.* .~/.dotfiles/wsl/editors/.* ~/.dotfiles/wsl/editors/*.* ~/.dotfiles/wsl/git/.* ~/.dotfiles/wsl/git/*.* ~/.dotfiles/wsl/bin/*
+    echo "=================================="    
+    echo -e "\n Sourcing .dotfiles....\n"
+    echo "=================================="     
     sca
+    echo "=================================="
+    echo -e "\n Dotfiles Updated!\n"         
 }
 
 # List git branches on the local machine sorted by recent updates, adding a star to remote tracking branches

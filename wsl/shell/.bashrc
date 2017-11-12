@@ -63,9 +63,6 @@ fi
 # Neofetch
 neofetch
 
-# MySQL
-sudo service mysql start
-
 # X Server Multi-Window
 # multis
 
