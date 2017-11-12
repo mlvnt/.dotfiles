@@ -1,3 +1,5 @@
+
+# Open multiple word documets
 function word (){
     echo ''
     local number=$1

@@ -142,10 +142,10 @@ source $ZSH_CUSTOM/aliases
 source $ZSH_CUSTOM/functions
 
 #FUNCTIONS
-if [ -f ~/.bash_functions ]; then
-    source ~/.bash_functions
+if [ -f $ZSH_CUSTOM/.bash_functions ]; then
+    source $ZSH_CUSTOM/.bash_functions
 else
-    print "404: ~/.bash_functions not found."
+    print "404: $ZSH_CUSTOM/.bash_functions not found."
 fi
 
 #=============================================================================================================

@@ -138,7 +138,7 @@ install_dotfiles () {
 
 install_bin () {
     info 'installing bin'
-    local overwrite_all=false backup_all=false skip_all=false
+    local overwrite_all=true backup_all=false skip_all=false
     src="$DOTFILES_ROOT/bin"
     dst="$HOME/$(basename "$src")"
     link_file "$src" "$dst"
@@ -186,7 +186,7 @@ install_nano () {
 
 install_vim () {
     info 'installing vim'
-    local overwrite_all=false backup_all=false skip_all=false
+    local overwrite_all=true backup_all=false skip_all=false
 
     src="$DOTFILES_ROOT/editors/.vim"
     dst="$HOME/$(basename "$src")"
@@ -199,7 +199,7 @@ install_vim () {
 
 install_bash () {
     info 'installing bash'
-    local overwrite_all=false backup_all=false skip_all=false
+    local overwrite_all=true backup_all=false skip_all=false
 
     src="$DOTFILES_ROOT/shell/bash/.bashrc"
     dst="$HOME/$(basename "$src")"
@@ -224,7 +224,7 @@ install_bash () {
 
 install_zsh () {
     info 'installing zsh'
-    local overwrite_all=false backup_all=false skip_all=false
+    local overwrite_all=true backup_all=false skip_all=false
 
     src="$DOTFILES_ROOT/shell/zsh/.oh-my-zsh"
     dst="$HOME/$(basename "$src")"
