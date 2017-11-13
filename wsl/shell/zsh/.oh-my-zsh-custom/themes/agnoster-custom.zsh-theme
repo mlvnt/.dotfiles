@@ -226,4 +226,5 @@ build_prompt() {
 }
 
 PROMPT='%{%f%b%k%}$(build_prompt) '
+RPROMPT="%D{%y-%m-%f}%@"
 # PROMPT='%W %* %{%f%b%k%}$(build_prompt) '

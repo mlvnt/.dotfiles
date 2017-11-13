@@ -245,42 +245,42 @@ echo "========================================================"
 
 echo -e '\n      Installing lm-sensors....\n\n'
 echo "========================================================"
-dpkg -l | grep -qw lm-sensors || sudo apt-get install -yyq lm-sensors
+dpkg -l | grep -qw lm-sensors || sudo apt install -yyq lm-sensors
 echo "========================================================"
 
 echo -e '\n      Installing conky....\n\n'
 echo "========================================================"
-dpkg -l | grep -qw conky || sudo apt-get install -yyq conky
+dpkg -l | grep -qw conky || sudo apt install -yyq conky
 echo "========================================================"
 
 echo -e '\n      Installing meld....\n\n'
 echo "========================================================"
-dpkg -l | grep -qw meld || sudo apt-get install -yyq meld
+dpkg -l | grep -qw meld || sudo apt install -yyq meld
 echo "========================================================"
 
 echo -e '\n      Installing vnstat....\n\n'
 echo "========================================================"
-dpkg -l | grep -qw vnstat || sudo apt-get install -yyq vnstat
+dpkg -l | grep -qw vnstat || sudo apt install -yyq vnstat
 echo "========================================================"
 
 echo -e '\n      Installing moreutils....\n\n'
 echo "========================================================"
-dpkg -l | grep -qw moreutils || sudo apt-get install -yyq moreutils
+dpkg -l | grep -qw moreutils || sudo apt install -yyq moreutils
 echo "========================================================"
 
 echo -e '\n      Installing ncdu....\n\n'
 echo "========================================================"
-dpkg -l | grep -qw ncdu || sudo apt-get install -yyq ncdu
+dpkg -l | grep -qw ncdu || sudo apt install -yyq ncdu
 echo "========================================================"
 
 echo -e '\n      Installing pv....\n\n'
 echo "========================================================"
-dpkg -l | grep -qw pv || sudo apt-get install -yyq pv
+dpkg -l | grep -qw pv || sudo apt install -yyq pv
 echo "========================================================"
 
 echo -e '\n      Installing rsync....\n\n'
 echo "========================================================"
-dpkg -l | grep -qw rsync || sudo apt-get install -yyq rsync
+dpkg -l | grep -qw rsync || sudo apt install -yyq rsync
 echo "========================================================"
 
 ##### NEOFETCH #####
@@ -295,6 +295,11 @@ cd ~/
 sudo mv ~/neofetch ~/software/neofetch.tar.gz
 rm -rfv ~/neofetch*/
 echo "========================================================"
+
+# echo -e '\n      Installing screenfetch....\n\n'
+# echo "========================================================"
+# sudo apt install screenfetch
+# echo "========================================================"
 
 ##### ImageMagick #####
 echo -e '\n      Installing ImageMagick....\n\n'

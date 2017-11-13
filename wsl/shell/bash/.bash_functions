@@ -92,14 +92,39 @@ function mvall(){
     echo -e "\n Finished!\n"
 }
 
-# Move Anime Pics to permanent directory
-function mvpics(){
-    echo -e "\n Moving to Anime Pics....\n"
-    echo "=================================="    
-    rsync -avhz --progress --ignore-existing --remove-source-files /mnt/c/Users/Todorov/Pictures/My\ Screen\ Shots/ /mnt/d/Workspace/General/Essential/Art/Media\ Screenshots/Pics --include=\*.PNG --exclude=\*
-    echo "=================================="
-    echo -e "\n Finished!\n"
-    # open "D:\Workspace\General\Essential\Art\Media Screenshots\Pics"
+# Move Pics to permanent directory
+function mvpic (){
+    echo -e '\n 1. anime\n 2. acer\n 3. surface\n'
+    read -p "Enter which pictures to move: " pics
+    printf "\n"
+    if [ $pics = anime ]
+     then
+        echo -e "\n Moving to Anime Pics....\n"
+        echo "=================================="    
+        rsync -avhz --progress --ignore-existing --remove-source-files /mnt/c/Users/Todorov/Pictures/My\ Screen\ Shots/ /mnt/d/Workspace/General/Essential/Art/Media\ Screenshots/Pics --include=\[0-9]*.PNG --exclude=\*
+        echo "=================================="
+        echo -e '\n Finished!\n'
+        # open "D:\Workspace\General\Essential\Art\Media Screenshots\Pics"
+    elif [ $pics = acer ]
+     then
+        echo -e "\n Moving to Acer Screenshots....\n"
+        echo "=================================="    
+        rsync -avhz --progress --ignore-existing --remove-source-files /mnt/c/Users/Todorov/Pictures/My\ Screen\ Shots/ /mnt/d/Workspace/General/Tech/MEMORY/Desktop\ Screenshots/Acer\ Predator\ G9-792 --include=\Screen\ Shot*.PNG --exclude=\*
+        echo "=================================="
+        echo -e '\n Finished!\n'
+    elif [ $pics = surface ]
+     then
+        echo -e "\n Moving to Surface Screenshots....\n"
+        echo "=================================="    
+        rsync -avhz --progress --ignore-existing --remove-source-files /mnt/c/Users/Todorov/Pictures/My\ Screen\ Shots/ /mnt/d/Workspace/General/Tech/MEMORY/Desktop\ Screenshots/Microsoft\ Surface \Pro\ 4 --include=\Screen\ Shot*.PNG --exclude=\*
+        echo "=================================="
+        echo -e '\n Finished!\n'
+    elif [ $pics = 'exit' ] || [ $pics = 'quit' ] || [ $pics = 'stop' ]
+     then
+            :
+    else
+        mvpic
+    fi
 }
 
 # Fix deleted configuration on Notepad++
@@ -459,6 +484,18 @@ cp_p () {
 }
 
 #=============================================================================================================
+
+# find /mnt/c/Users/Todorov/Pictures/My\ Screen\ Shots/ -type f -name "[0-9]*.PNG" -print
+# find /mnt/c/Users/Todorov/Pictures/My\ Screen\ Shots/ -type f -regex ".*/[0-9]+\.PNG"
+# find /mnt/c/Users/Todorov/Pictures/My\ Screen\ Shots/ -type f -regex ".*/[0-9]+[.]PNG"
+# find /mnt/c/Users/Todorov/Pictures/My\ Screen\ Shots/ -type f -regex ".*/[0-9]+[.]PNG"
+# find . -regex '\./[0-9]+\.PNG'
+# find . -regextype posix-egrep -regex '\./[0-9]+\.PNG'
+# find . -regextype posix-egrep -regex '\./[0-9]+.PNG'
+# find . -regextype posix-extended -regex '\./[0-9]+.PNG'
+# find . -regextype posix-extended -regex '\./[[:digit:]]+.PNG'
+# find . -regextype posix-extended -regex '\./[[:digit:]]+\.PNG'
+# find . -regextype posix-extended -regex '\./[[:digit:]]+\.+PNG'
 
 # Robocopy
 # function mvall(){

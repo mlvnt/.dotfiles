@@ -15,8 +15,9 @@ export PATH="$PATH:/mnt/c/Users/Todorov/Downloads/VSCode-win32-x64-1.17.0/bin"
 # Sort first dotfiles
 export LC_ALL="C"
 
-# Default Editor
-export EDITOR='vim'
+# Language
+export LANG="en_Us.UTF-8"
+export LC_CTYPE="en_Us.UTF-8"
 
 # # exporer.exe
 # export PATH="$PATH:/mnt/c/Windows/SysWOW64"
@@ -123,7 +124,7 @@ fi
 
 #   Set Default Editor (change 'Nano' to the editor of your choice)
 #   ------------------------------------------------------------
-#   export EDITOR=/usr/bin/nano
+   export EDITOR=/usr/bin/vim
 
 ###############################################################################
 # PROMPT                                                                      #
