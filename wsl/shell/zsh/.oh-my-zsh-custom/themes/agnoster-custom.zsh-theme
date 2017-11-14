@@ -28,7 +28,7 @@
 ### Segment drawing
 # A few utility functions to make it easy and re-usable to draw segmented prompts
 
-CURRENT_BG='blue'
+CURRENT_BG='cyan'
 
 # Special Powerline characters
 
@@ -187,7 +187,7 @@ prompt_hg() {
 
 # Dir: current working directory
 prompt_dir() {
-  prompt_segment blue white '%c'
+  prompt_segment cyan white '%c'
 }
 
 # Virtualenv: current working virtualenv

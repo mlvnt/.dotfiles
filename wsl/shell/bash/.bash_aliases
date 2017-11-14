@@ -108,12 +108,6 @@ alias findsnm="find ./ -type f -not \( " # findsnm -iname \*.docx -o -iname \*.j
 #=======
 # find `pwd` -name .filename
 
-# M3U
-alias m3u='dir -AN1I "*.jpg" -I "*.png" -I "*.html" -I "*.url" -I "*.m3u" >> "_tracklist[ ${PWD##*/} ].m3u"'
-
-# DOTFILES
-alias ohmyzsh="sudo cp -r /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/shell/zsh/.oh-my-zsh ~/.dotfiles/wsl/shell/zsh/"
-
 # SHELL CONFIGURATION
 alias brc="sudo vim ~/.bashrc"
 alias zrc="sudo vim ~/.zshrc"

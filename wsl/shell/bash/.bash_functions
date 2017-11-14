@@ -3,26 +3,48 @@
 ###############################################################################
 
 #   -------------------------------
-#   1.  DIRECTORIES
+#   1.  Open multiple Word Documets
 #   -------------------------------
-
-# Open multiple word documets
 function word (){
+    clear
     echo ''
-    read -p "Enter № of word documents to open: " number
+    read -p "  Enter № of word documents to open: " input
     printf "\n"
-    for (( c=1; c<=number; c++ ))
+    for (( c=1; c<=input; c++ ))
     do  
-       echo "Opening word document $c...."
+       echo "   Opening word document $c...."
        wordn
        sleep 1s
     done
 }
-
-# Delete Specified symbilic links
-function delsymb(){
-    echo -e "\n Deleting Symbolic Links....\n"
-    echo "=================================="  
+#   -------------------------------
+#   2.  Start Clash of Clans Bot
+#   -------------------------------
+function coc (){
+    echo -e '\n Opening Clash of Clans Bot....\n'
+    timeout 1s cmd.exe /c 'C:\Users\Todorov\Desktop\MyBotRun - MBR\MyBot-MBR_v7.2.5\MyBot.run.exe' MyVillage1 MEmu MEmu_2
+}
+#   -------------------------------
+#   3.  Create m3u Playlists
+#   -------------------------------
+function m3u() {
+    echo -e '\n Tracklist \n    '_tracklist[ ${PWD##*/} ].m3u'\n Created....\n'
+    dir -AN1I "*.jpg" -I "*.png" -I "*.html" -I "*.url" -I "*.m3u" >> "_tracklist[ ${PWD##*/} ].m3u"
+}
+#   -------------------------------
+#   4.  Create a New Directory and enter it
+#   -------------------------------
+function mkd() {
+    mkdir -p "$@" && cd "$_";
+}
+#   -------------------------------
+#   5.  Manage Links
+#   -------------------------------
+function links (){
+    # Delete Specified symbilic links
+    function delsymb(){
+    echo -e '\n Deleting Symbolic Links....\n'
+    echo "=================================="
     find -type l -print | while IFS= read -r lnk
     do
       if readlink "$lnk" | grep '/mnt/'
@@ -31,187 +53,225 @@ function delsymb(){
       fi
     done
     echo "=================================="
-    echo -e "\n Symbolic Links Deleted!\n"    
-}
-
-# Create Symbolic links for files
-function symb(){
-    cd "/mnt/d/Workspace/General/Personal Development/Links/_genLinks/"
-    delsymb
-    python3 .symb.py
-    open "D:\Workspace\General\Personal Development\Links\_genLinks"
-    cd ~/
-}
-
-# Create Symbolic links for folders
-function symbf(){
-    cd "/mnt/d/Workspace/General/Personal Development/Links/_genLinks/"
-    delsymb
-    python3 .symbf.py
-    open "D:\Workspace\General\Personal Development\Links\_genLinks"
-    cd ~/
-}
-
-# Start Clash of Clans Bot
-function coc (){
-    echo -e "\n Opening Clash of Clans Bot....\n"
-    timeout 1s cmd.exe /c 'C:\Users\Todorov\Desktop\MyBotRun - MBR\MyBot-MBR_v7.2.5\MyBot.run.exe' MyVillage1 MEmu MEmu_2
-}
-
-# Backup Main Drive
-function backup(){
-    echo -e "\n Backup Main Drive....\n"
-    echo "=================================="
-    mkdir -p /mnt/e/Backup/backup_logs/
-    cd /mnt/e/Backup/backup_logs/
-    sudo touch log_backup-$(date "+%Y-%m-%d-%H-%M").txt
-    # Normal Backup
-    rsync -avhz --progress --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/shell/excluded' /mnt/d/ /mnt/e/Backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
-    # # Dry-run for testing
-    # rsync -avhz --progress --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/shell/excluded' /mnt/d/ /mnt/e/Backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt  
-    # # Mirroring  
-    # rsync -avhz --progress --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/shell/excluded' /mnt/d/ /mnt/e/Backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt    
-    echo "=================================="
-    echo -e "\n Backup Completed!\n"
-}
-
-# Move all from Windows temporary direcories
-function mvall(){
-    # find /mnt/c/Users/Todorov/Downloads -mindepth 1 -not -name '*.ini' -print0 | xargs -0 mv -t /mnt/d/Workspace/_TEMP
-    # find /mnt/c/Users/Todorov/Downloads -mindepth 1 -not -name '*.ini' -print0 | xargs -0 -I {} cp -p -r  {} /mnt/d/Workspace/_TEMP
-    # find /mnt/c/Users/Todorov/Downloads -mindepth 1 -not -name '*.ini' -print0 -exec {} cp -p -r  {} /mnt/d/Workspace/_TEMP \;
-    echo -e "\n Moving from Downloads....\n"
-    echo "=================================="
-    rsync -avhz --progress --ignore-existing --remove-source-files --exclude *.ini /mnt/c/Users/Todorov/Downloads/ /mnt/d/Workspace/_TEMP
-    find /mnt/c/Users/Todorov/Downloads/ -depth -type d -empty -delete
-    echo "=================================="
-    echo -e "\n Moving from Documents....\n"
-    echo "=================================="
-    rsync -avhz --progress --ignore-existing --remove-source-files --include=\*.docx --include=\*.doc --include=\*.pdf --include=\*xlsx --exclude=\* /mnt/c/Users/Todorov/Documents/ /mnt/d/Workspace/_TEMP
-    echo "=================================="
-    echo -e "\n Finished!\n"
-}
-
-# Move Pics to permanent directory
-function mvpic (){
-    echo -e '\n 1. anime\n 2. acer\n 3. surface\n'
-    read -p "Enter which pictures to move: " pics
+    echo -e '\n Symbolic Links Deleted!\n'
+    }
+    clear
+    echo -e '\n  Available Options:'
+    echo -e '       1. del - Delete Specified Symbilic Links'
+    echo -e '       2. symbfile - Create Symbolic Links for files'
+    echo -e '       3. symbfolder - Create Symbolic Links for folders\n'
+    read -p "  Enter Option: " input
     printf "\n"
-    if [ $pics = anime ]
+    if [ $input = del ] || [ $input -eq 1 ]
+     then
+        cd "/mnt/d/Workspace/General/Personal Development/Links/_genLinks/"
+        delsymb
+        cd ~/
+    elif [ $input = symbfile ] || [ $input -eq 2 ]
+     then
+        cd "/mnt/d/Workspace/General/Personal Development/Links/_genLinks/"
+        delsymb
+        python3 .symb.py
+        open "D:\Workspace\General\Personal Development\Links\_genLinks"
+        cd ~/
+    elif [ $input = symbfolder ] || [ $input -eq 3 ]
+     then
+        cd "/mnt/d/Workspace/General/Personal Development/Links/_genLinks/"
+        delsymb
+        python3 .symbf.py
+        open "D:\Workspace\General\Personal Development\Links\_genLinks"
+        cd ~/
+    elif [ $input = 'exit' ] || [ $input = 'quit' ] || [ $input = 'stop' ]
+     then
+            :
+    else
+        links
+    fi
+}
+#   -------------------------------
+#   6.  Move, Copy
+#   -------------------------------
+function move (){
+    clear
+    echo -e '\n  Available Options:'
+    echo -e '       1. mvall - Move all from Windows Temporary Direcories'
+    echo -e '       2. backup - Backup Main Drive'
+    echo -e '       3. anime - Move Anime Pics to Permanent Directory'
+    echo -e '       4. acer - Move Acer Screenshots to Permanent Directory'
+    echo -e '       5. surface - Move Surface Screenshots to Permanent Directory\n'
+    read -p "  Enter Option: " input
+    printf "\n"
+    if [ $input = surface ] || [ $input -eq 1 ]
+     then
+        # find /mnt/c/Users/Todorov/Downloads -mindepth 1 -not -name '*.ini' -print0 | xargs -0 mv -t /mnt/d/Workspace/_TEMP
+        # find /mnt/c/Users/Todorov/Downloads -mindepth 1 -not -name '*.ini' -print0 | xargs -0 -I {} cp -p -r  {} /mnt/d/Workspace/_TEMP
+        # find /mnt/c/Users/Todorov/Downloads -mindepth 1 -not -name '*.ini' -print0 -exec {} cp -p -r  {} /mnt/d/Workspace/_TEMP \;
+        echo -e '\n Moving from Downloads....\n'
+        echo "=================================="
+        rsync -avhz --progress --ignore-existing --remove-source-files --exclude *.ini /mnt/c/Users/Todorov/Downloads/ /mnt/d/Workspace/_TEMP
+        find /mnt/c/Users/Todorov/Downloads/ -depth -type d -empty -delete
+        echo "=================================="
+        echo -e '\n Moving from Documents....\n'
+        echo "=================================="
+        rsync -avhz --progress --ignore-existing --remove-source-files --include=\*.docx --include=\*.doc --include=\*.pdf --include=\*xlsx --exclude=\* /mnt/c/Users/Todorov/Documents/ /mnt/d/Workspace/_TEMP
+        echo "=================================="
+        echo -e '\n Finished!\n'
+    elif [ $input = surface ] || [ $input -eq 2 ]
+     then
+        echo -e '\n Backup Main Drive....\n'
+        echo "=================================="
+        mkdir -p /mnt/e/Backup/backup_logs/
+        cd /mnt/e/Backup/backup_logs/
+        sudo touch log_backup-$(date "+%Y-%m-%d-%H-%M").txt
+        # Normal Backup
+        rsync -avhz --progress --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/shell/excluded' /mnt/d/ /mnt/e/Backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
+        # # Dry-run for testing
+        # rsync -avhz --progress --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/shell/excluded' /mnt/d/ /mnt/e/Backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt  
+        # # Mirroring  
+        # rsync -avhz --progress --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/shell/excluded' /mnt/d/ /mnt/e/Backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt    
+        echo "=================================="
+        echo -e '\n Backup Completed!\n'
+    elif [ $input = anime ] || [ $input -eq 3 ]
      then
         echo -e "\n Moving to Anime Pics....\n"
-        echo "=================================="    
+        echo "=================================="
         rsync -avhz --progress --ignore-existing --remove-source-files /mnt/c/Users/Todorov/Pictures/My\ Screen\ Shots/ /mnt/d/Workspace/General/Essential/Art/Media\ Screenshots/Pics --include=\[0-9]*.PNG --exclude=\*
         echo "=================================="
         echo -e '\n Finished!\n'
         # open "D:\Workspace\General\Essential\Art\Media Screenshots\Pics"
-    elif [ $pics = acer ]
+    elif [ $input = acer ] || [ $input -eq 4 ]
      then
         echo -e "\n Moving to Acer Screenshots....\n"
-        echo "=================================="    
+        echo "=================================="
         rsync -avhz --progress --ignore-existing --remove-source-files /mnt/c/Users/Todorov/Pictures/My\ Screen\ Shots/ /mnt/d/Workspace/General/Tech/MEMORY/Desktop\ Screenshots/Acer\ Predator\ G9-792 --include=\Screen\ Shot*.PNG --exclude=\*
         echo "=================================="
         echo -e '\n Finished!\n'
-    elif [ $pics = surface ]
+    elif [ $input = surface ] || [ $input -eq 5 ]
      then
         echo -e "\n Moving to Surface Screenshots....\n"
-        echo "=================================="    
+        echo "=================================="
         rsync -avhz --progress --ignore-existing --remove-source-files /mnt/c/Users/Todorov/Pictures/My\ Screen\ Shots/ /mnt/d/Workspace/General/Tech/MEMORY/Desktop\ Screenshots/Microsoft\ Surface \Pro\ 4 --include=\Screen\ Shot*.PNG --exclude=\*
         echo "=================================="
         echo -e '\n Finished!\n'
-    elif [ $pics = 'exit' ] || [ $pics = 'quit' ] || [ $pics = 'stop' ]
+    elif [ $input = 'exit' ] || [ $input = 'quit' ] || [ $input = 'stop' ]
      then
             :
     else
-        mvpic
+        move
     fi
 }
-
-# Fix deleted configuration on Notepad++
-function nppf(){
-    # Variables
-    origin=/mnt/d/Workspace/Portable\ Apps/PortableApps.com/PortableApps/Notepad++Portable/_Backup/ 
-    destination=/mnt/d/Workspace/Portable\ Apps/PortableApps.com/PortableApps/Notepad++Portable/App/Notepad++/    
-    # Function   
-    echo -e "\n Replacing corrupted configuration....\n"
-    echo "=================================="
-    rsync -avhz --progress --ignore-times "$origin" "$destination" --include=\*.xml --exclude=\*
-    echo "=================================="
-    echo -e "\n Finished\n"    
-    echo -e "\n Opening Notepad++....\n"
-    npp
+#   -------------------------------
+#   7.  Manage Notepad++ Configuration
+#   -------------------------------
+function nppfix (){
+    clear
+    echo -e '\n  Available Options:'
+    echo -e '       1. fix - Replace Corrupted Configuration'
+    echo -e '       2. backup - Backup Configuration\n'
+    read -p "  Enter Option: " input
+    printf "\n"
+    if [ $input = fix ] || [ $input -eq 1 ]
+     then
+        # Variables
+        origin=/mnt/d/Workspace/Portable\ Apps/PortableApps.com/PortableApps/Notepad++Portable/_Backup/ 
+        destination=/mnt/d/Workspace/Portable\ Apps/PortableApps.com/PortableApps/Notepad++Portable/App/Notepad++/    
+        # Function   
+        echo -e "\n Replacing corrupted configuration....\n"
+        echo "=================================="
+        rsync -avhz --progress --ignore-times "$origin" "$destination" --include=\*.xml --exclude=\*
+        echo "=================================="
+        echo -e "\n Finished\n"
+        echo -e "\n Opening Notepad++....\n"
+        npp
+    elif [ $input = backup ] || [ $input -eq 2 ]
+     then
+        # set -x # Bash debuging
+        # Variables
+        origin=/mnt/d/Workspace/Portable\ Apps/PortableApps.com/PortableApps/Notepad++Portable/App/Notepad++/
+        destination=/mnt/d/Workspace/Portable\ Apps/PortableApps.com/PortableApps/Notepad++Portable/_Backup/
+        file1=stylers.model.xml
+        file2=stylers.xml
+        file3=config.xml
+        file4=contextMenu.xml
+        file5=session.xml
+        file6=shortcuts.xml
+        Array1=($file1 $file2 $file3 $file4 $file5 $file6)
+        # Function
+        echo -e "\n Backup configuration....\n"
+        echo "=================================="
+        rsync -avhz --progress --ignore-times "$origin${Array1[0]}" "$origin${Array1[1]}" "$origin${Array1[2]}" "$origin${Array1[3]}" "$origin${Array1[4]}" "$origin${Array1[5]}" "$destination"
+        echo "=================================="
+        echo -e "\n Finished!\n"
+    elif [ $input = 'exit' ] || [ $input = 'quit' ] || [ $input = 'stop' ]
+     then
+            :
+    else
+        nppfix
+    fi
 }
-
-# Backup Notepad++ Configuration
-function nppb(){
-    # set -x # Bash debuging
-    # Variables
-    origin=/mnt/d/Workspace/Portable\ Apps/PortableApps.com/PortableApps/Notepad++Portable/App/Notepad++/
-    destination=/mnt/d/Workspace/Portable\ Apps/PortableApps.com/PortableApps/Notepad++Portable/_Backup/
-    file1=stylers.model.xml
-    file2=stylers.xml
-    file3=config.xml
-    file4=contextMenu.xml
-    file5=session.xml
-    file6=shortcuts.xml
-    Array1=($file1 $file2 $file3 $file4 $file5 $file6)
-    # Function
-    echo -e "\n Backup configuration....\n"
-    echo "=================================="   
-    rsync -avhz --progress --ignore-times "$origin${Array1[0]}" "$origin${Array1[1]}" "$origin${Array1[2]}" "$origin${Array1[3]}" "$origin${Array1[4]}" "$origin${Array1[5]}" "$destination"
-    echo "=================================="
-    echo -e "\n Finished!\n"         
-}
-
-# Launch XFCE4
-function xfces(){
-    echo -e "\n Starting xfce4....\n"
-    echo "=================================="   
-    cmd.exe /c start /D 'D:\Workspace\Projects\Programing\Scripts\Scripts\Batch & Reg\WSL\VcXsrv Config' /MAX configNormal.xlaunch
-    cmd.exe /c start /D 'C:\Windows\System32\' bash.exe --login -c "sudo xfce4-session"
-    echo "=================================="
-    echo -e "\n Session Started\n"        
-}
-
-# Launch I3S
-function i3s(){
-    echo -e "\n Starting i3....\n"
-    echo "=================================="   
-    cmd.exe /c start /D 'D:\Workspace\Projects\Programing\Scripts\Scripts\Batch & Reg\WSL\VcXsrv Config' /MAX configNormal.xlaunch
-    cmd.exe /c start /D 'C:\Windows\System32\' bash.exe --login -c "sudo i3 "
-    echo "=================================="
-    echo -e "\n Session Started\n"        
-}
-
-# Launch X Server in Multi Window mode
-function multis(){
-    echo -e "\n Loading X Server in Multi Window mode....\n"   
+#   -------------------------------
+#   8.  Launch X Sessions
+#   -------------------------------
+function xsession (){
+    clear
+    echo -e '\n  Available Options:'
+    echo -e '       1. xfce - Launch Xfce4 Session'
+    echo -e '       2. i3 - Launch i3-wm Session'
+    echo -e '       3. multi - Load X Server in Multi Window mode\n'
+    read -p "  Enter Option: " input
+    printf "\n"
+    if [ $input = xfce ] || [ $input -eq 1 ]
+     then
+        echo -e "\n Launching xfce4....\n"
+        echo "=================================="
+        cmd.exe /c start /D 'D:\Workspace\Projects\Programing\Scripts\Scripts\Batch & Reg\WSL\VcXsrv Config' /MAX configNormal.xlaunch
+        cmd.exe /c start /D 'C:\Windows\System32\' bash.exe --login -c "sudo xfce4-session"
+        echo -e "\n ....Xfce4 Session Started\n"
+    elif [ $input = i3 ] || [ $input -eq 2 ]
+     then
+        echo -e "\n Launching i3-wm....\n"
+        echo "=================================="
+        cmd.exe /c start /D 'D:\Workspace\Projects\Programing\Scripts\Scripts\Batch & Reg\WSL\VcXsrv Config' /MAX configNormal.xlaunch
+        cmd.exe /c start /D 'C:\Windows\System32\' bash.exe --login -c "sudo i3 "
+        echo -e "\n ....i3-wm Session Started\n"
+    elif [ $input = muslti ] || [ $input -eq 3 ]
+     then
+    echo -e "\n Loading X Server in Multi Window mode....\n"
     cmd.exe /c start /D 'D:\Workspace\Projects\Programing\Scripts\Scripts\Batch & Reg\WSL\VcXsrv Config' /MAX configMultiWindow.xlaunch
+    elif [ $input = 'exit' ] || [ $input = 'quit' ] || [ $input = 'stop' ]
+     then
+            :
+    else
+        xsession
+    fi
 }
-
-# Update .dotfiles
+#   -------------------------------
+#   9.  Update .dotfiles
+#   -------------------------------
 function dots(){
     echo -e "\n Removing old .dotfiles....\n"
     echo "=================================="
     sudo rm -rfv ~/.dotfiles 
-    echo "=================================="    
+    echo "=================================="
     echo -e "\n Cloning new .dotfiles....\n"
-    echo "=================================="    
+    echo "=================================="
     git clone /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/ ~/.dotfiles
-    ohmyzsh
-    echo "=================================="    
+    # oh-my-zsh
+    sudo cp -r /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/shell/zsh/.oh-my-zsh ~/.dotfiles/wsl/shell/zsh/
+    echo "=================================="
     echo -e "\n Converting .dotfiles to LF endings....\n"
-    echo "=================================="    
+    echo "=================================="
     sudo dos2unix ~/.dotfiles/wsl/*.* ~/.dotfiles/wsl/shell/zsh/.* ~/.dotfiles/wsl/shell/zsh/.oh-my-zsh-custom/.* ~/.dotfiles/wsl/shell/bash/.* ~/.dotfiles/wsl/editors/.* ~/.dotfiles/wsl/git/.* ~/.dotfiles/wsl/git/*.* ~/.dotfiles/wsl/bin/*
-    echo "=================================="    
+    echo "=================================="
     echo -e "\n Sourcing .dotfiles....\n"
-    echo "=================================="     
+    echo "=================================="
     sca
     echo "=================================="
-    echo -e "\n Dotfiles Updated!\n"         
+    echo -e "\n Dotfiles Updated!\n"
 }
-
-# List git branches on the local machine sorted by recent updates, adding a star to remote tracking branches
+#   -------------------------------
+#   10.  List Git Branches on the local machine sorted by recent updates, adding a star to remote tracking branches
+#   -------------------------------
 function git_list_branches() {
   RED="\e[91m";
   for branch in $(git branch | sed s/^..//); do
@@ -220,11 +280,6 @@ function git_list_branches() {
     tracks_upstream=$(if [ "$(git rev-parse $branch@{upstream} 2>/dev/null)" ]; then printf "$RED★"; fi);
     printf "%-53s - %s %s\n" $time_ago $branch $tracks_upstream;
   done | sort;
-}
-
-# Create a new directory and enter it
-function mkd() {
-    mkdir -p "$@" && cd "$_";
 }
 
 #=========================================================================================
