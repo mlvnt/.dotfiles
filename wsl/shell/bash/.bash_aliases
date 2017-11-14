@@ -49,13 +49,13 @@ alias hex="/mnt/d/Workspace/University/Sport & Societies/Project Hex/Repository"
 #   2.  TRASHCAN
 #   -------------------------------
 
-alias trash="trash-put"
-alias tl="trash-list"
-alias tls="trash-list | grep"
-alias te="trash-empty"
-alias tre="trash-restore"
-alias trm="trash-rm" #Remove individual files from the trashcan
-alias trashcan="cd /.local/share/Trash"
+alias trash="sudo trash-put -v"
+alias tl="sudo trash-list"
+alias tls="sudo trash-list | grep"
+alias te="sudo trash-empty"
+alias tre="sudo trash-restore"
+alias trm="sudo trash-rm" #Remove individual files from the trashcan
+alias trashcan="cd ~/.local/share/Trash"
 
 #   -------------------------------
 #   3.  FILE MANAGEMENT

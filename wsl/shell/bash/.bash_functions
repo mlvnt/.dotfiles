@@ -267,6 +267,18 @@ function git_list_branches() {
     printf "%-53s - %s %s\n" $time_ago $branch $tracks_upstream;
   done | sort;
 }
+#   -------------------------------
+#   11.  Empty Windows Trash
+#   -------------------------------
+function e (){
+    echo -e '\n Empting $RECYCLE.BIN....\n'
+    cmd.exe /c 'D:\Workspace\Portable Apps\SyMenu\ProgramFiles\SPSSuite\NirSoftSuite\NirCmd_x64_sps\nircmd.exe' emptybin
+    # cmd.exe /c 'D:\Workspace\Portable Apps\By Category\File Management\Recycle\recycle.exe' /L
+    # echo -e '\n Empting $RECYCLE.BIN on C:\ ....\n'
+    # cmd.exe /c rd /s /q '%systemdrive%\$Recycle.bin'
+    # echo -e '\n Empting $RECYCLE.BIN on D:\ ....\n'
+    # cmd.exe /c rd /s /q 'D:\$Recycle.bin'
+}
 
 #=========================================================================================
 #=========================================================================================
