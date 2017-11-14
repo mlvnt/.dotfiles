@@ -11,7 +11,7 @@ function word (){
     read -p "  Enter № of word documents to open: " input
     printf "\n"
     for (( c=1; c<=input; c++ ))
-    do  
+    do
        echo "   Opening word document $c...."
        wordn
        sleep 1s
@@ -47,8 +47,7 @@ function links (){
     echo "=================================="
     find -type l -print | while IFS= read -r lnk
     do
-      if readlink "$lnk" | grep '/mnt/'
-      then
+      if readlink "$lnk" | grep '/mnt/' ; then
         rm "$lnk"
       fi
     done
@@ -57,32 +56,29 @@ function links (){
     }
     clear
     echo -e '\n  Available Options:'
-    echo -e '       1. del - Delete Specified Symbilic Links'
-    echo -e '       2. symbfile - Create Symbolic Links for files'
-    echo -e '       3. symbfolder - Create Symbolic Links for folders\n'
+    echo -e '       0. Exit'
+    echo -e '       1. Delete Specified Symbilic Links'
+    echo -e '       2. Create Symbolic Links for files'
+    echo -e '       3. Create Symbolic Links for folders\n'
     read -p "  Enter Option: " input
     printf "\n"
-    if [ $input = del ] || [ $input -eq 1 ]
-     then
+    if [ $input -eq 1 ] ; then
         cd "/mnt/d/Workspace/General/Personal Development/Links/_genLinks/"
         delsymb
         cd ~/
-    elif [ $input = symbfile ] || [ $input -eq 2 ]
-     then
+    elif [ $input -eq 2 ] ; then
         cd "/mnt/d/Workspace/General/Personal Development/Links/_genLinks/"
         delsymb
         python3 .symb.py
         open "D:\Workspace\General\Personal Development\Links\_genLinks"
         cd ~/
-    elif [ $input = symbfolder ] || [ $input -eq 3 ]
-     then
+    elif [ $input -eq 3 ] ; then
         cd "/mnt/d/Workspace/General/Personal Development/Links/_genLinks/"
         delsymb
         python3 .symbf.py
         open "D:\Workspace\General\Personal Development\Links\_genLinks"
         cd ~/
-    elif [ $input = 'exit' ] || [ $input = 'quit' ] || [ $input = 'stop' ]
-     then
+    elif [ $input -eq 0 ] ; then
             :
     else
         links
@@ -94,15 +90,15 @@ function links (){
 function move (){
     clear
     echo -e '\n  Available Options:'
-    echo -e '       1. mvall - Move all from Windows Temporary Direcories'
-    echo -e '       2. backup - Backup Main Drive'
-    echo -e '       3. anime - Move Anime Pics to Permanent Directory'
-    echo -e '       4. acer - Move Acer Screenshots to Permanent Directory'
-    echo -e '       5. surface - Move Surface Screenshots to Permanent Directory\n'
+    echo -e '       0. Exit'
+    echo -e '       1. Move ALL from Windows Temporary Directories'
+    echo -e '       2. Backup Main Drive'
+    echo -e '       3. Move Anime Pics to Permanent Directory'
+    echo -e '       4. Move Acer Screenshots to Permanent Directory'
+    echo -e '       5. Move Surface Screenshots to Permanent Directory\n'
     read -p "  Enter Option: " input
     printf "\n"
-    if [ $input = surface ] || [ $input -eq 1 ]
-     then
+    if [ $input -eq 1 ] ; then
         # find /mnt/c/Users/Todorov/Downloads -mindepth 1 -not -name '*.ini' -print0 | xargs -0 mv -t /mnt/d/Workspace/_TEMP
         # find /mnt/c/Users/Todorov/Downloads -mindepth 1 -not -name '*.ini' -print0 | xargs -0 -I {} cp -p -r  {} /mnt/d/Workspace/_TEMP
         # find /mnt/c/Users/Todorov/Downloads -mindepth 1 -not -name '*.ini' -print0 -exec {} cp -p -r  {} /mnt/d/Workspace/_TEMP \;
@@ -116,8 +112,7 @@ function move (){
         rsync -avhz --progress --ignore-existing --remove-source-files --include=\*.docx --include=\*.doc --include=\*.pdf --include=\*xlsx --exclude=\* /mnt/c/Users/Todorov/Documents/ /mnt/d/Workspace/_TEMP
         echo "=================================="
         echo -e '\n Finished!\n'
-    elif [ $input = surface ] || [ $input -eq 2 ]
-     then
+    elif [ $input -eq 2 ] ; then
         echo -e '\n Backup Main Drive....\n'
         echo "=================================="
         mkdir -p /mnt/e/Backup/backup_logs/
@@ -131,30 +126,26 @@ function move (){
         # rsync -avhz --progress --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/shell/excluded' /mnt/d/ /mnt/e/Backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt    
         echo "=================================="
         echo -e '\n Backup Completed!\n'
-    elif [ $input = anime ] || [ $input -eq 3 ]
-     then
+    elif [ $input -eq 3 ] ; then
         echo -e "\n Moving to Anime Pics....\n"
         echo "=================================="
         rsync -avhz --progress --ignore-existing --remove-source-files /mnt/c/Users/Todorov/Pictures/My\ Screen\ Shots/ /mnt/d/Workspace/General/Essential/Art/Media\ Screenshots/Pics --include=\[0-9]*.PNG --exclude=\*
         echo "=================================="
         echo -e '\n Finished!\n'
         # open "D:\Workspace\General\Essential\Art\Media Screenshots\Pics"
-    elif [ $input = acer ] || [ $input -eq 4 ]
-     then
+    elif [ $input -eq 4 ] ; then
         echo -e "\n Moving to Acer Screenshots....\n"
         echo "=================================="
         rsync -avhz --progress --ignore-existing --remove-source-files /mnt/c/Users/Todorov/Pictures/My\ Screen\ Shots/ /mnt/d/Workspace/General/Tech/MEMORY/Desktop\ Screenshots/Acer\ Predator\ G9-792 --include=\Screen\ Shot*.PNG --exclude=\*
         echo "=================================="
         echo -e '\n Finished!\n'
-    elif [ $input = surface ] || [ $input -eq 5 ]
-     then
+    elif [ $input -eq 5 ] ; then
         echo -e "\n Moving to Surface Screenshots....\n"
         echo "=================================="
-        rsync -avhz --progress --ignore-existing --remove-source-files /mnt/c/Users/Todorov/Pictures/My\ Screen\ Shots/ /mnt/d/Workspace/General/Tech/MEMORY/Desktop\ Screenshots/Microsoft\ Surface \Pro\ 4 --include=\Screen\ Shot*.PNG --exclude=\*
+        rsync -avhz --progress --ignore-existing --remove-source-files /mnt/c/Users/Todorov/Pictures/My\ Screen\ Shots/ /mnt/d/Workspace/General/Tech/MEMORY/Desktop\ Screenshots/Microsoft\ Surface\ Pro\ 4 --include=\Screen\ Shot*.PNG --exclude=\*
         echo "=================================="
         echo -e '\n Finished!\n'
-    elif [ $input = 'exit' ] || [ $input = 'quit' ] || [ $input = 'stop' ]
-     then
+    elif [ $input -eq 0 ] ; then
             :
     else
         move
@@ -166,12 +157,12 @@ function move (){
 function nppfix (){
     clear
     echo -e '\n  Available Options:'
-    echo -e '       1. fix - Replace Corrupted Configuration'
-    echo -e '       2. backup - Backup Configuration\n'
+    echo -e '       0. Exit'
+    echo -e '       1. Replace Corrupted Configuration'
+    echo -e '       2. Backup Configuration\n'
     read -p "  Enter Option: " input
     printf "\n"
-    if [ $input = fix ] || [ $input -eq 1 ]
-     then
+    if [ $input -eq 1 ] ; then
         # Variables
         origin=/mnt/d/Workspace/Portable\ Apps/PortableApps.com/PortableApps/Notepad++Portable/_Backup/ 
         destination=/mnt/d/Workspace/Portable\ Apps/PortableApps.com/PortableApps/Notepad++Portable/App/Notepad++/    
@@ -183,8 +174,7 @@ function nppfix (){
         echo -e "\n Finished\n"
         echo -e "\n Opening Notepad++....\n"
         npp
-    elif [ $input = backup ] || [ $input -eq 2 ]
-     then
+    elif [ $input -eq 2 ] ; then
         # set -x # Bash debuging
         # Variables
         origin=/mnt/d/Workspace/Portable\ Apps/PortableApps.com/PortableApps/Notepad++Portable/App/Notepad++/
@@ -202,8 +192,7 @@ function nppfix (){
         rsync -avhz --progress --ignore-times "$origin${Array1[0]}" "$origin${Array1[1]}" "$origin${Array1[2]}" "$origin${Array1[3]}" "$origin${Array1[4]}" "$origin${Array1[5]}" "$destination"
         echo "=================================="
         echo -e "\n Finished!\n"
-    elif [ $input = 'exit' ] || [ $input = 'quit' ] || [ $input = 'stop' ]
-     then
+    elif [ $input -eq 0 ] ; then
             :
     else
         nppfix
@@ -215,31 +204,28 @@ function nppfix (){
 function xsession (){
     clear
     echo -e '\n  Available Options:'
-    echo -e '       1. xfce - Launch Xfce4 Session'
-    echo -e '       2. i3 - Launch i3-wm Session'
-    echo -e '       3. multi - Load X Server in Multi Window mode\n'
+    echo -e '       0. Exit'
+    echo -e '       1. Launch Xfce4 Session'
+    echo -e '       2. Launch i3-wm Session'
+    echo -e '       3. Load X Server in Multi Window mode\n'
     read -p "  Enter Option: " input
     printf "\n"
-    if [ $input = xfce ] || [ $input -eq 1 ]
-     then
+    if [ $input -eq 1 ] ; then
         echo -e "\n Launching xfce4....\n"
         echo "=================================="
         cmd.exe /c start /D 'D:\Workspace\Projects\Programing\Scripts\Scripts\Batch & Reg\WSL\VcXsrv Config' /MAX configNormal.xlaunch
         cmd.exe /c start /D 'C:\Windows\System32\' bash.exe --login -c "sudo xfce4-session"
         echo -e "\n ....Xfce4 Session Started\n"
-    elif [ $input = i3 ] || [ $input -eq 2 ]
-     then
+    elif [ $input -eq 2 ] ; then
         echo -e "\n Launching i3-wm....\n"
         echo "=================================="
         cmd.exe /c start /D 'D:\Workspace\Projects\Programing\Scripts\Scripts\Batch & Reg\WSL\VcXsrv Config' /MAX configNormal.xlaunch
         cmd.exe /c start /D 'C:\Windows\System32\' bash.exe --login -c "sudo i3 "
         echo -e "\n ....i3-wm Session Started\n"
-    elif [ $input = muslti ] || [ $input -eq 3 ]
-     then
+    elif [ $input -eq 3 ] ; then
     echo -e "\n Loading X Server in Multi Window mode....\n"
     cmd.exe /c start /D 'D:\Workspace\Projects\Programing\Scripts\Scripts\Batch & Reg\WSL\VcXsrv Config' /MAX configMultiWindow.xlaunch
-    elif [ $input = 'exit' ] || [ $input = 'quit' ] || [ $input = 'stop' ]
-     then
+    elif [ $input -eq 0 ] ; then
             :
     else
         xsession
