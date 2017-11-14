@@ -104,7 +104,7 @@ function move (){
         # find /mnt/c/Users/Todorov/Downloads -mindepth 1 -not -name '*.ini' -print0 -exec {} cp -p -r  {} /mnt/d/Workspace/_TEMP \;
         echo -e '\n Moving from Downloads....\n'
         echo "=================================="
-        rsync -avhz --progress --ignore-existing --remove-source-files --exclude *.ini /mnt/c/Users/Todorov/Downloads/ /mnt/d/Workspace/_TEMP
+        rsync -avhz --progress --ignore-existing --remove-source-files --exclude desktop.ini /mnt/c/Users/Todorov/Downloads/ /mnt/d/Workspace/_TEMP
         find /mnt/c/Users/Todorov/Downloads/ -depth -type d -empty -delete
         echo "=================================="
         echo -e '\n Moving from Documents....\n'

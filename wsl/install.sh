@@ -19,9 +19,12 @@ echo -e '\n      Installing python modules....\n\n'
 echo "========================================================"
 sudo pip install --upgrade pip
 sudo pip3 install matplotlib
+sudo pip3 install numpy
+sudo pip3 install pep8
 sudo pip3 install scipy
 sudo pip3 install scikit-learn
 sudo pip3 install setuptools
+sudo pip3 install bottle
 sudo pip3 install pinggraph # Gping
 echo "========================================================"
 

@@ -143,7 +143,7 @@ alias upgrade="sudo do-release-upgrade"
 # EDITORS
 alias v="vim"
 alias c='clear'
-alias jupyter="jupyter notebook"
+alias jupyter="sudo jupyter notebook --allow-root"
 alias edit='sudo subl'
 alias subl='sudo subl'
 alias vim='sudo vim'
