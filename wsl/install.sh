@@ -3,19 +3,19 @@
 #   -------------------------------
 
 ##### PYTHON #####
-echo -e '\n      Installing python3....\n\n'
+printf '\n      Installing python3....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw python3 || sudo apt-get install -yyq python3
 dpkg -l | grep -qw python3-pip || sudo apt-get install -yyq python3-pip
 echo "========================================================"
 
-echo -e '\n      Installing spyder....\n\n'
+printf '\n      Installing spyder....\n\n'
 echo "========================================================"
 yes Y | sudo apt install spyder
 echo "========================================================"
 
 # MODULES
-echo -e '\n      Installing python modules....\n\n'
+printf '\n      Installing python modules....\n\n'
 echo "========================================================"
 sudo pip install --upgrade pip
 sudo pip3 install matplotlib
@@ -29,14 +29,14 @@ sudo pip3 install pinggraph # Gping
 echo "========================================================"
 
 ##### RUBY #####
-echo -e '\n      Installing ruby....\n\n'
+printf '\n      Installing ruby....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw ruby || sudo apt-get install -yyq ruby
 dpkg -l | grep -qw ruby-dev || sudo apt-get install ruby-dev
 echo "========================================================"
 
 # GEMS
-echo -e '\n      Installing ruby gems....\n\n'
+printf '\n      Installing ruby gems....\n\n'
 echo "========================================================"
 sudo gem install bundler
 sudo gem install rake
@@ -49,18 +49,18 @@ sudo gem install compass
 echo "========================================================"
 
 ##### NODEJS #####
-echo -e '\n      Installing nodejs....\n\n'
+printf '\n      Installing nodejs....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw nodejs || sudo apt-get install -yyq nodejs
 echo "========================================================"
 
-echo -e '\n      Installing npm....\n\n'
+printf '\n      Installing npm....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw npm || sudo apt-get install -yyq npm
 echo "========================================================"
 
 # PACKAGES
-echo -e '\n      Installing npm packages....\n\n'
+printf '\n      Installing npm packages....\n\n'
 echo "========================================================"
 # which http-server
 # sudo vim /usr/local/bin/http-server
@@ -69,12 +69,12 @@ sudo npm -g install http-server
 echo "========================================================"
 
 ##### SQL #####
-echo -e '\n      Installing sqlite3....\n\n'
+printf '\n      Installing sqlite3....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw sqlite3 || sudo apt-get install -yyq sqlite3
 echo "========================================================"
 
-echo -e '\n      Installing mysql....\n\n'
+printf '\n      Installing mysql....\n\n'
 echo "========================================================"
 sudo apt-get install mysql-client mysql-server mysql-workbench
 # mysql_secure_installation
@@ -98,7 +98,7 @@ sudo apt-get install mysql-client mysql-server mysql-workbench
 # sudo service mysql status
 echo "========================================================"
 
-# echo -e '\n      Installing phpmyadmin....\n\n'
+# printf '\n      Installing phpmyadmin....\n\n'
 # echo "========================================================"
 # sudo apt-get install phpmyadmin php-mbstring php-gettext
 # # Prompt: apache2 is highlighted, but not selected
@@ -112,33 +112,33 @@ echo "========================================================"
 # # https://domain_name_or_IP/phpmyadmin
 # echo "========================================================"
 
-# echo -e '\n      Installing nginx....\n\n'
+# printf '\n      Installing nginx....\n\n'
 # echo "========================================================"
 # sudo apt-get install nginx
 # echo "========================================================"
 
-# echo -e '\n      Installing apache2....\n\n'
+# printf '\n      Installing apache2....\n\n'
 # echo "========================================================"
 # sudo apt-get install apache2
 # echo "========================================================"
 
 ##### OTHER #####
-echo -e '\n      Installing haskell....\n\n'
+printf '\n      Installing haskell....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw ghc || sudo apt-get install -yyq ghc
 echo "========================================================"
 
-echo -e '\n      Installing php7.0-cli....\n\n'
+printf '\n      Installing php7.0-cli....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw php7.0-cli || sudo apt-get install -yyq php7.0-cli
 echo "========================================================"
 
-echo -e '\n      Installing openjdk-9-jre-headless....\n\n'
+printf '\n      Installing openjdk-9-jre-headless....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw openjdk-9-jre-headless || sudo apt-get install -yyq openjdk-9-jre-headless
 echo "========================================================"
 
-echo -e '\n      Installing ghostscript....\n\n'
+printf '\n      Installing ghostscript....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw gs || sudo apt-get install -yyq gs
 echo "========================================================"
@@ -147,148 +147,148 @@ echo "========================================================"
 #   2.  INSTALL TOOLS-NON-GUI
 #   -------------------------------
 
-echo -e '\n      Installing fontconfig....\n\n'
+printf '\n      Installing fontconfig....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw fontconfig || sudo apt-get install -yyq fontconfig
 echo "========================================================"
 
-echo -e '\n      Installing htop....\n\n'
+printf '\n      Installing htop....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw htop || sudo apt-get install -yyq htop
 echo "========================================================"
 
-echo -e '\n      Installing tree....\n\n'
+printf '\n      Installing tree....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw tree || sudo apt-get install -yyq tree
 echo "========================================================"
 
-echo -e '\n      Installing pandoc....\n\n'
+printf '\n      Installing pandoc....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw pandoc || sudo apt-get install -yyq pandoc
 echo "========================================================"
 
-echo -e '\n      Installing gparted....\n\n'
+printf '\n      Installing gparted....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw gparted || sudo apt-get install -yyq gparted
 echo "========================================================"
 
-echo -e '\n      Installing nano....\n\n'
+printf '\n      Installing nano....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw nano || sudo apt-get install -yyq nano
 echo "========================================================"
 
-echo -e '\n      Installing tar....\n\n'
+printf '\n      Installing tar....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw tar || sudo apt-get install -yyq tar
 echo "========================================================"
 
-echo -e '\n      Installing man....\n\n'
+printf '\n      Installing man....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw man || sudo apt-get install -yyq man
 echo "========================================================"
 
-echo -e '\n      Installing inxi....\n\n'
+printf '\n      Installing inxi....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw inxi || sudo apt-get install -yyq inxi
 echo "========================================================"
 
-echo -e '\n      Installing ffmpeg....\n\n'
+printf '\n      Installing ffmpeg....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw ffmpeg || sudo apt-get install -yyq ffmpeg
 echo "========================================================"
 
-echo -e '\n      Installing mc....\n\n'
+printf '\n      Installing mc....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw mc || sudo apt-get install -yyq mc
 echo "========================================================"
 
-echo -e '\n      Installing make....\n\n'
+printf '\n      Installing make....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw make || sudo apt-get install -yyq make
 echo "========================================================"
 
-echo -e '\n      Installing graphviz....\n\n'
+printf '\n      Installing graphviz....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw graphviz || sudo apt-get install -yyq graphviz
 echo "========================================================"
 
-echo -e '\n      Installing tee....\n\n'
+printf '\n      Installing tee....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw tee || sudo apt-get install -yyq tee
 echo "========================================================"
 
-echo -e '\n      Installing tmux....\n\n'
+printf '\n      Installing tmux....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw tmux || sudo apt-get install -yyq tmux
 echo "========================================================"
 
-echo -e '\n      Installing emacs....\n\n'
+printf '\n      Installing emacs....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw emacs || sudo apt-get install -yyq emacs
 echo "========================================================"
 
-echo -e '\n      Installing zip....\n\n'
+printf '\n      Installing zip....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw zip || sudo apt-get install -yyq zip
 echo "========================================================"
 
-echo -e '\n      Installing unzip....\n\n'
+printf '\n      Installing unzip....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw unzip || sudo apt-get install -yyq unzip
 echo "========================================================"
 
-echo -e '\n      Installing pcregrep....\n\n'
+printf '\n      Installing pcregrep....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw pcregrep || sudo apt-get install -yyq pcregrep
 echo "========================================================"
 
-echo -e '\n      Installing ngrep....\n\n'
+printf '\n      Installing ngrep....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw ngrep || sudo apt-get install -yyq ngrep
 echo "========================================================"
 
-echo -e '\n      Installing lm-sensors....\n\n'
+printf '\n      Installing lm-sensors....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw lm-sensors || sudo apt-get install -yyq lm-sensors
 echo "========================================================"
 
-echo -e '\n      Installing conky....\n\n'
+printf '\n      Installing conky....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw conky || sudo apt-get install -yyq conky
 echo "========================================================"
 
-echo -e '\n      Installing meld....\n\n'
+printf '\n      Installing meld....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw meld || sudo apt-get install -yyq meld
 echo "========================================================"
 
-echo -e '\n      Installing vnstat....\n\n'
+printf '\n      Installing vnstat....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw vnstat || sudo apt-get install -yyq vnstat
 echo "========================================================"
 
-echo -e '\n      Installing moreutils....\n\n'
+printf '\n      Installing moreutils....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw moreutils || sudo apt-get install -yyq moreutils
 echo "========================================================"
 
-echo -e '\n      Installing ncdu....\n\n'
+printf '\n      Installing ncdu....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw ncdu || sudo apt-get install -yyq ncdu
 echo "========================================================"
 
-echo -e '\n      Installing pv....\n\n'
+printf '\n      Installing pv....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw pv || sudo apt-get install -yyq pv
 echo "========================================================"
 
-echo -e '\n      Installing rsync....\n\n'
+printf '\n      Installing rsync....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw rsync || sudo apt-get install -yyq rsync
 echo "========================================================"
 
 ##### NEOFETCH #####
-echo -e '\n      Installing neofetch....\n\n'
+printf '\n      Installing neofetch....\n\n'
 echo "========================================================"
 cd ~/
 wget https://github.com/dylanaraps/neofetch/archive/3.3.0.tar.gz -O ~/neofetch
@@ -300,13 +300,13 @@ sudo mv ~/neofetch ~/software/neofetch.tar.gz
 rm -rfv ~/neofetch*/
 echo "========================================================"
 
-# echo -e '\n      Installing screenfetch....\n\n'
+# printf '\n      Installing screenfetch....\n\n'
 # echo "========================================================"
 # sudo apt install screenfetch
 # echo "========================================================"
 
 ##### ImageMagick #####
-echo -e '\n      Installing ImageMagick....\n\n'
+printf '\n      Installing ImageMagick....\n\n'
 echo "========================================================"
 yes Y | sudo apt-get install build-essential checkinstall \
              libx11-dev libxext-dev zlib1g-dev libpng12-dev \
@@ -329,7 +329,7 @@ echo "========================================================"
 # convert img.png -resize 24X24 img.ico
 # Check installed delegates: identify -version
 
-# echo -e '\n      Installing ImageMagick....\n\n'
+# printf '\n      Installing ImageMagick....\n\n'
 # echo "========================================================"
 # wget https://www.imagemagick.org/download/ImageMagick.tar.gz
 # sudo tar -xvzf ./ImageMagick.tar.gz
@@ -344,53 +344,53 @@ echo "========================================================"
 # echo "========================================================"
 
 ##### XCLIP #####
-echo -e '\n      Installing xclip....\n\n'
+printf '\n      Installing xclip....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw xclip || sudo apt-get install -yyq xclip
 echo "========================================================"
 
 ##### NET TOOLS #####
-echo -e '\n      Installing curl....\n\n'
+printf '\n      Installing curl....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw curl || sudo apt-get install -yyq curl
 echo "========================================================"
 
-echo -e '\n      Installing wget....\n\n'
+printf '\n      Installing wget....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw wget || sudo apt-get install -yyq wget
 echo "========================================================"
 
-echo -e '\n      Installing whois....\n\n'
+printf '\n      Installing whois....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw whois || sudo apt-get install -yyq whois
 echo "========================================================"
 
-echo -e '\n      Installing network-manager....\n\n'
+printf '\n      Installing network-manager....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw network-manager || sudo apt-get install -yyq network-manager
 echo "========================================================"
 
-echo -e '\n      Installing ipmiutil....\n\n'
+printf '\n      Installing ipmiutil....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw ipmiutil || sudo apt-get install -yyq ipmiutil
 echo "========================================================"
 
-echo -e '\n      Installing net-tools....\n\n'
+printf '\n      Installing net-tools....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw net-tools || sudo apt-get install -yyq net-tools
 echo "========================================================"
 
-echo -e '\n      Installing wireless-tools....\n\n'
+printf '\n      Installing wireless-tools....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw wireless-tools || sudo apt-get install -yyq wireless-tools
 echo "========================================================"
 
-echo -e '\n      Installing libwww-perl....\n\n'
+printf '\n      Installing libwww-perl....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw wireless-tools || sudo apt-get install -yyq libwww-perl
 echo "========================================================"
 
-# echo -e '\n      Installing sudo apt install wireshark....\n\n'
+# printf '\n      Installing sudo apt install wireshark....\n\n'
 echo "========================================================"
 # dpkg -l | grep -qw wireshark || sudo apt install wireshark
 echo "========================================================"
@@ -402,14 +402,14 @@ echo "========================================================"
 #   -------------------------------
 
 ##### XFCE4 #####
-echo -e '\n      Installing xfce4....\n\n'
+printf '\n      Installing xfce4....\n\n'
 echo "========================================================"
 yes Y | sudo apt install xfce4
 yes Y | sudo apt install xfce4-goodies
 echo "========================================================"
 
 ##### I3-WM #####
-echo -e '\n      Installing i3-wm....\n\n'
+printf '\n      Installing i3-wm....\n\n'
 echo "========================================================"
 yes Y | sudo apt install i3-wm
 yes Y | sudo apt install dmenu
@@ -420,7 +420,7 @@ yes Y | sudo apt install fcitx
 echo "========================================================"
 
 ##### SUBLIME TEXT 3 #####
-echo -e '\n      Installing sublime-text....\n\n'
+printf '\n      Installing sublime-text....\n\n'
 echo "========================================================"
 wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
 sudo apt-get install apt-transport-https
@@ -429,18 +429,18 @@ sudo apt-get update
 sudo apt-get install sublime-text
 echo "========================================================"
 
-# echo -e '\n      Installing vlc....\n\n'
+# printf '\n      Installing vlc....\n\n'
 echo "========================================================"
 # dpkg -l | grep -qw vlc || sudo apt install vlc
 echo "========================================================"
 
 ##### MOZILLA FIREFOX #####
-echo -e '\n      Installing firefix....\n\n'
+printf '\n      Installing firefox....\n\n'
 echo "========================================================"
-yes Y | sudo apt install firefix
+yes Y | sudo apt install firefox
 echo "========================================================"
 
-echo -e '\n      Installing konsole....\n\n'
+printf '\n      Installing konsole....\n\n'
 echo "========================================================"
 yes Y | sudo apt install konsole
 echo "========================================================"
@@ -448,7 +448,7 @@ echo "========================================================"
 ##### VISUAL STUDIO CODE #####
 
 # ZIM
-# echo -e '\n      Installing zim....\n\n'
+# printf '\n      Installing zim....\n\n'
 echo "========================================================"
 # sudo apt install -yyq zim
 echo "========================================================"
@@ -457,7 +457,7 @@ echo "========================================================"
 #   4.  INSTALL TRASH-CLI
 #   -------------------------------
 
-echo -e '\n      Installing trash-cli....\n\n'
+printf '\n      Installing trash-cli....\n\n'
 echo "========================================================"
 sudo git clone https://github.com/andreafrancia/trash-cli.git ~/trash-cli/
 cd ~/trash-cli/
@@ -470,7 +470,7 @@ echo "========================================================"
 #   5.  INSTALL JUPYTER
 #   -------------------------------
 
-echo -e '\n      Installing jupyter....\n\n'
+printf '\n      Installing jupyter....\n\n'
 echo "========================================================"
 sudo python3 -m pip install --upgrade pip
 sudo python3 -m pip install jupyter
@@ -480,7 +480,7 @@ echo "========================================================"
 #   6.  INSTALL ZSH
 #   -------------------------------
 
-echo -e '\n      Installing zsh....\n\n'
+printf '\n      Installing zsh....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw zsh || sudo apt-get install -yyq zsh
 
@@ -512,7 +512,7 @@ echo "========================================================"
 #   7.  INSTALL VIM
 #   ------------------------------- 
 
-echo -e '\n      Installing vim....\n\n'
+printf '\n      Installing vim....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw vim || sudo apt-get install -yyq vim
 # mkdir -p ~/.vim/colors/
@@ -541,7 +541,7 @@ echo "========================================================"
 #   8.  INSTALL HUGO
 #   -------------------------------
 
-echo -e '\n      Installing hugo....\n\n'
+printf '\n      Installing hugo....\n\n'
 echo "========================================================"
 wget https://github.com/gohugoio/hugo/releases/download/v0.30.2/hugo_0.30.2_Linux-64bit.deb
 sudo apt install ./hugo*.deb
@@ -552,7 +552,7 @@ echo "========================================================"
 #   9.  INSTALL CADDY
 #   -------------------------------
 
-echo -e '\n      Installing caddy....\n\n'
+printf '\n      Installing caddy....\n\n'
 echo "========================================================"
 wget https://github.com/mholt/caddy/releases/download/v0.10.10/caddy_v0.10.10_linux_amd64.tar.gz
 tar -xzf caddy*.tar.gz caddy
@@ -564,7 +564,7 @@ echo "========================================================"
 #   10.  INSTALL IPFS
 #   -------------------------------
 
-echo -e '\n      Installing ipfs....\n\n'
+printf '\n      Installing ipfs....\n\n'
 echo "========================================================"
 wget https://dist.ipfs.io/go-ipfs/v0.4.11/go-ipfs_v0.4.11_linux-amd64.tar.gz
 tar -xzf go-ipfs*.tar.gz
@@ -580,7 +580,7 @@ echo "========================================================"
 #   11.  INSTALL POWERLINE
 #   -------------------------------
 
-echo -e '\n      Installing powerline....\n\n'
+printf '\n      Installing powerline....\n\n'
 echo "========================================================"
 sudo pip3 install --user powerline-status
 # sudo rm PowerlineSymbols*
@@ -610,7 +610,7 @@ echo "========================================================"
 #   12.  SSH
 #   -------------------------------
 
-echo -e '\n      Setting up SSH configuraion....\n\n'
+printf '\n      Setting up SSH configuraion....\n\n'
 echo "========================================================"
 sudo cp -r /mnt/d/Workspace/General/Personal\ Development/My\ Blog/Resourses/SSH/Backup/Server\ Login\/.ssh/ ~/
 sudo chmod 644 ~/.ssh/id_rsa
@@ -623,7 +623,7 @@ echo "========================================================"
 #   13.  REMOVE EXISTING CONFIG
 #   -------------------------------
 
-echo -e '\n      Removing existing configuraion....\n\n'
+printf '\n      Removing existing configuraion....\n\n'
 echo "========================================================"
 sudo rm -rfv ~/.bashrc ~/.zshrc ~/.bash_profile ~/.profile ~/.bash_logout ~/.local
 sudo cp -r /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/shell/.oh-my-zsh ~/.dotfiles/wsl/shell/
