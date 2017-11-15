@@ -11,7 +11,7 @@ echo "========================================================"
 
 echo -e '\n      Installing spyder....\n\n'
 echo "========================================================"
-sudo apt install spyder
+yes Y | sudo apt install spyder
 echo "========================================================"
 
 # MODULES
@@ -32,6 +32,7 @@ echo "========================================================"
 echo -e '\n      Installing ruby....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw ruby || sudo apt-get install -yyq ruby
+dpkg -l | grep -qw ruby-dev || sudo apt-get install ruby-dev
 echo "========================================================"
 
 # GEMS
@@ -248,42 +249,42 @@ echo "========================================================"
 
 echo -e '\n      Installing lm-sensors....\n\n'
 echo "========================================================"
-dpkg -l | grep -qw lm-sensors || sudo apt install -yyq lm-sensors
+dpkg -l | grep -qw lm-sensors || sudo apt-get install -yyq lm-sensors
 echo "========================================================"
 
 echo -e '\n      Installing conky....\n\n'
 echo "========================================================"
-dpkg -l | grep -qw conky || sudo apt install -yyq conky
+dpkg -l | grep -qw conky || sudo apt-get install -yyq conky
 echo "========================================================"
 
 echo -e '\n      Installing meld....\n\n'
 echo "========================================================"
-dpkg -l | grep -qw meld || sudo apt install -yyq meld
+dpkg -l | grep -qw meld || sudo apt-get install -yyq meld
 echo "========================================================"
 
 echo -e '\n      Installing vnstat....\n\n'
 echo "========================================================"
-dpkg -l | grep -qw vnstat || sudo apt install -yyq vnstat
+dpkg -l | grep -qw vnstat || sudo apt-get install -yyq vnstat
 echo "========================================================"
 
 echo -e '\n      Installing moreutils....\n\n'
 echo "========================================================"
-dpkg -l | grep -qw moreutils || sudo apt install -yyq moreutils
+dpkg -l | grep -qw moreutils || sudo apt-get install -yyq moreutils
 echo "========================================================"
 
 echo -e '\n      Installing ncdu....\n\n'
 echo "========================================================"
-dpkg -l | grep -qw ncdu || sudo apt install -yyq ncdu
+dpkg -l | grep -qw ncdu || sudo apt-get install -yyq ncdu
 echo "========================================================"
 
 echo -e '\n      Installing pv....\n\n'
 echo "========================================================"
-dpkg -l | grep -qw pv || sudo apt install -yyq pv
+dpkg -l | grep -qw pv || sudo apt-get install -yyq pv
 echo "========================================================"
 
 echo -e '\n      Installing rsync....\n\n'
 echo "========================================================"
-dpkg -l | grep -qw rsync || sudo apt install -yyq rsync
+dpkg -l | grep -qw rsync || sudo apt-get install -yyq rsync
 echo "========================================================"
 
 ##### NEOFETCH #####
@@ -312,11 +313,11 @@ yes Y | sudo apt-get install build-essential checkinstall \
              libjpeg-dev libfreetype6-dev libxml2-dev
 sudo apt-get build-dep imagemagick
 mkdir $HOME/imagemagick_build && cd $HOME/imagemagick_build
-wget http://www.imagemagick.org/download/ImageMagick-7.0.7-10.tar.bz2 && \
-tar xvf ImageMagick-7.0.7-10.tar.bz2 && cd ImageMagick-7.0.7-10 && ./configure && make && \
+wget http://www.imagemagick.org/download/ImageMagick-7.0.7-11.tar.bz2 && \
+tar xvf ImageMagick-7.0.7-11.tar.bz2 && cd ImageMagick-7.0.7-11 && ./configure && make && \
 sudo checkinstall -D --install=yes --fstrans=no --pakdir "$HOME/imagemagick_build" \
      --pkgname imagemagick --backup=no --deldoc=yes --deldesc=yes --delspec=yes --default \
-     --pkgversion "7.0.7-10" && \
+     --pkgversion "7.0.7-11" && \
 make distclean && sudo ldconfig
 sudo apt update
 yes Y | sudo apt upgrade
