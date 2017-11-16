@@ -308,22 +308,26 @@ echo "========================================================"
 ##### ImageMagick #####
 printf '\n      Installing ImageMagick....\n\n'
 echo "========================================================"
-yes Y | sudo apt-get install build-essential checkinstall \
-             libx11-dev libxext-dev zlib1g-dev libpng12-dev \
-             libjpeg-dev libfreetype6-dev libxml2-dev
-sudo apt-get build-dep imagemagick
-mkdir $HOME/imagemagick_build && cd $HOME/imagemagick_build
-wget http://www.imagemagick.org/download/ImageMagick-7.0.7-11.tar.bz2 && \
-tar xvf ImageMagick-7.0.7-11.tar.bz2 && cd ImageMagick-7.0.7-11 && ./configure && make && \
-sudo checkinstall -D --install=yes --fstrans=no --pakdir "$HOME/imagemagick_build" \
-     --pkgname imagemagick --backup=no --deldoc=yes --deldesc=yes --delspec=yes --default \
-     --pkgversion "7.0.7-11" && \
-make distclean && sudo ldconfig
-sudo apt update
-yes Y | sudo apt upgrade
-cd ~/
-sudo mv ~/imagemagick_build ~/software
-rm -rfv ~/ImageMagick*
+function imagemagick(){
+    yes Y | sudo apt-get install build-essential checkinstall \
+                 libx11-dev libxext-dev zlib1g-dev libpng12-dev \
+                 libjpeg-dev libfreetype6-dev libxml2-dev
+    sudo apt-get build-dep imagemagick
+    mkdir $HOME/imagemagick_build && cd $HOME/imagemagick_build
+    wget http://www.imagemagick.org/download/ImageMagick-7.0.7-11.tar.bz2 && \
+    tar xvf ImageMagick-7.0.7-11.tar.bz2 && cd ImageMagick-7.0.7-11 && ./configure && make && \
+    sudo checkinstall -D --install=yes --fstrans=no --pakdir "$HOME/imagemagick_build" \
+         --pkgname imagemagick --backup=no --deldoc=yes --deldesc=yes --delspec=yes --default \
+         --pkgversion "7.0.7-11" && \
+    make distclean && sudo ldconfig
+    sudo apt update
+    yes Y | sudo apt upgrade
+    cd ~/
+    sudo mv ~/imagemagick_build ~/software
+    rm -rfv ~/ImageMagick*
+}
+dpkg -l | grep -qw imagemagick && printf '\n    Its already installed.\n\n' || imagemagick
+# sudo apt remove --purge 'imagemagick*'
 echo "========================================================"
 
 # convert img.png -resize 24X24 img.ico
@@ -422,16 +426,19 @@ echo "========================================================"
 ##### SUBLIME TEXT 3 #####
 printf '\n      Installing sublime-text....\n\n'
 echo "========================================================"
-wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
-sudo apt-get install apt-transport-https
-echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
-sudo apt-get update
-sudo apt-get install sublime-text
+function sublime-text(){
+    wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
+    sudo apt-get install apt-transport-https
+    echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+    sudo apt-get update
+    sudo apt-get install sublime-text
+}
+dpkg -l | grep -qw sublime-text && printf '\n    Its already installed.\n\n' || sublime-text
 echo "========================================================"
 
-# printf '\n      Installing vlc....\n\n'
+printf '\n      Installing vlc....\n\n'
 echo "========================================================"
-# dpkg -l | grep -qw vlc || sudo apt install vlc
+dpkg -l | grep -qw vlc || sudo apt install vlc
 echo "========================================================"
 
 ##### MOZILLA FIREFOX #####
@@ -459,11 +466,14 @@ echo "========================================================"
 
 printf '\n      Installing trash-cli....\n\n'
 echo "========================================================"
-sudo git clone https://github.com/andreafrancia/trash-cli.git ~/trash-cli/
-cd ~/trash-cli/
-sudo python3 setup.py install
-cd ~/
-sudo rm -rfv ~/trash-cli/
+function trash(){
+    sudo git clone https://github.com/andreafrancia/trash-cli.git ~/trash-cli/
+    cd ~/trash-cli/
+    sudo python3 setup.py install
+    cd ~/
+    sudo rm -rfv ~/trash-cli/
+}
+which trash | grep -qw trash && printf '\n    Its already installed.\n\n' || trash
 echo "========================================================"
 
 #   -------------------------------
@@ -543,9 +553,12 @@ echo "========================================================"
 
 printf '\n      Installing hugo....\n\n'
 echo "========================================================"
-wget https://github.com/gohugoio/hugo/releases/download/v0.30.2/hugo_0.30.2_Linux-64bit.deb
-sudo apt install ./hugo*.deb
-mv hugo*.deb ~/software/
+function hugo(){
+    wget https://github.com/gohugoio/hugo/releases/download/v0.30.2/hugo_0.30.2_Linux-64bit.deb
+    sudo apt install ./hugo*.deb
+    mv hugo*.deb ~/software/
+}
+dpkg -l | grep -qw hugo && printf '\n    Its already installed.\n\n' || hugo
 echo "========================================================"
 
 #   -------------------------------
@@ -554,10 +567,13 @@ echo "========================================================"
 
 printf '\n      Installing caddy....\n\n'
 echo "========================================================"
-wget https://github.com/mholt/caddy/releases/download/v0.10.10/caddy_v0.10.10_linux_amd64.tar.gz
-tar -xzf caddy*.tar.gz caddy
-mv ./caddy /usr/local/bin
-mv caddy*.tar.gz ~/software/
+function caddy(){
+    wget https://github.com/mholt/caddy/releases/download/v0.10.10/caddy_v0.10.10_linux_amd64.tar.gz
+    tar -xzf caddy*.tar.gz caddy
+    mv ./caddy /usr/local/bin
+    mv caddy*.tar.gz ~/software/
+}
+which caddy | grep -qw caddy && printf '\n    Its already installed.\n\n' || caddy
 echo "========================================================"
 
 #   -------------------------------
@@ -566,15 +582,18 @@ echo "========================================================"
 
 printf '\n      Installing ipfs....\n\n'
 echo "========================================================"
-wget https://dist.ipfs.io/go-ipfs/v0.4.11/go-ipfs_v0.4.11_linux-amd64.tar.gz
-tar -xzf go-ipfs*.tar.gz
-sudo cp ~/go-ipfs/ipfs /usr/bin/
-sudo cp ~/go-ipfs/ipfs /usr/local/bin/
-rm -rfv ~/go-ipfs/
-mv go-ipfs*.tar.gz ~/software/
-ipfs init
-echo "========================================================"
+function ipfs(){
+    wget https://dist.ipfs.io/go-ipfs/v0.4.11/go-ipfs_v0.4.11_linux-amd64.tar.gz
+    tar -xzf go-ipfs*.tar.gz
+    sudo cp ~/go-ipfs/ipfs /usr/bin/
+    sudo cp ~/go-ipfs/ipfs /usr/local/bin/
+    rm -rfv ~/go-ipfs/
+    mv go-ipfs*.tar.gz ~/software/
+    ipfs init
+}
+which ipfs | grep -qw ipfs && printf '\n    Its already installed.\n\n' || ipfs
 # ipfs daemon
+echo "========================================================"
 
 #   -------------------------------
 #   11.  INSTALL POWERLINE
