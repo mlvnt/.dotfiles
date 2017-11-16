@@ -6,23 +6,23 @@
 ##### PYTHON #####
 printf '\n      >>> Installing python3....\n\n'
 dpkg -l | grep -qw python3 && printf '\n            python3 is already installed.\n\n' || sudo apt-get install -yyq python3
-dpkg -l | grep -qw python3-pip && printf '\n            python3-pip is already installed.\n\n' || sudo apt-get install -yyq python3-pip
+dpkg -l | grep -qw python3-pip && printf '\n            python3-pip3 is already installed.\n\n' || sudo apt-get install -yyq python3-pip3
 
 printf '\n      >>> Installing spyder....\n\n'
 dpkg -l | grep -qw spyder && printf '\n            It'\''s already installed.\n\n' || yes Y | sudo apt-get install spyder
 
 # MODULES
 printf '\n      >>> Installing python modules....\n\n'
-sudo pip install --upgrade pip
-# sudo python3 -m pip install --upgrade pip
-pip freeze | grep -qw matplotlib && printf '\n            matplotlib is already installed.\n\n' || sudo pip install matplotlib
-pip freeze | grep -qw numpy && printf '\n            numpy is already installed.\n\n' || sudo pip install numpy
-pip freeze | grep -qw pep8 && printf '\n            pep8 is already installed.\n\n' || sudo pip install pep8
-pip freeze | grep -qw scipy && printf '\n            scipy is already installed.\n\n' || sudo pip install scipy
-pip freeze | grep -qw scikit-learn && printf '\n            scikit-learn is already installed.\n\n' || sudo pip install scikit-learn
-pip freeze | grep -qw setuptools && printf '\n            setuptools is already installed.\n\n' || sudo pip install setuptools
-pip freeze | grep -qw bottle && printf '\n            bottle is already installed.\n\n' || sudo pip install bottle
-pip freeze | grep -qw pinggraph && printf '\n            pinggraph is already installed.\n\n' || sudo pip install pinggraph # Gping
+sudo pip3 install --upgrade pip3
+# sudo python3 -m pip3 install --upgrade pip3
+pip33 freeze | grep -qw matplotlib && printf '\n            matplotlib is already installed.\n\n' || sudo pip33 install matplotlib
+pip3 freeze | grep -qw numpy && printf '\n            numpy is already installed.\n\n' || sudo pip3 install numpy
+pip3 freeze | grep -qw pep8 && printf '\n            pep8 is already installed.\n\n' || sudo pip3 install pep8
+pip3 freeze | grep -qw scipy && printf '\n            scipy is already installed.\n\n' || sudo pip3 install scipy
+pip3 freeze | grep -qw scikit-learn && printf '\n            scikit-learn is already installed.\n\n' || sudo pip3 install scikit-learn
+pip3 freeze | grep -qw setuptools && printf '\n            setuptools is already installed.\n\n' || sudo pip3 install setuptools
+pip3 freeze | grep -qw bottle && printf '\n            bottle is already installed.\n\n' || sudo pip3 install bottle
+pip3 freeze | grep -qw pinggraph && printf '\n            pinggraph is already installed.\n\n' || sudo pip3 install pinggraph # Gping
 
 ##### RUBY #####
 printf '\n      >>> Installing ruby....\n\n'
@@ -354,7 +354,7 @@ which trash | grep -qw trash && printf '\n            It'\''s already installed.
 #   -------------------------------
 
 printf '\n      >>> Installing jupyter....\n\n'
-pip freeze | grep -qw jupyter && printf '\n            jupyter is already installed.\n\n' || sudo python3 -m pip install jupyter
+pip3 freeze | grep -qw jupyter && printf '\n            jupyter is already installed.\n\n' || sudo python3 -m pip3 install jupyter
 
 #   -------------------------------
 #   6.  INSTALL ZSH
@@ -462,7 +462,7 @@ which ipfs | grep -qw ipfs && printf '\n            It'\''s already installed.\n
 #   -------------------------------
 
 printf '\n      >>> Installing powerline....\n\n'
-pip freeze | grep -qw powerline && printf '\n            powerline is already installed.\n\n' || sudo pip install --user powerline-status
+pip3 freeze | grep -qw powerline && printf '\n            powerline is already installed.\n\n' || sudo pip3 install --user powerline-status
 # sudo rm -v PowerlineSymbols*
 # sudo rm -v 10-powerline-symbols*
 # wget https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
