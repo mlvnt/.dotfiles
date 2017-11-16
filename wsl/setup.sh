@@ -12,12 +12,12 @@ echo "========================================================"
 
 printf '\n      Installing dos2unix....\n\n'
 echo "========================================================"
-dpkg -l | grep -qw dos2unix || sudo apt-get install -yyq dos2unix
+dpkg -l | grep -qw dos2unix && printf '\n    It'\''s already installed.\n\n' || sudo apt-get install -yyq dos2unix
 echo "========================================================"
 
 printf '\n      Installing expect....\n\n'
 echo "========================================================"
-dpkg -l | grep -qw expect || sudo apt-get install -yyq expect
+dpkg -l | grep -qw expect && printf '\n    It'\''s already installed.\n\n' || sudo apt-get install -yyq expect
 echo "========================================================"
 
 ###############################################################################
@@ -27,7 +27,7 @@ echo "========================================================"
 printf '\n      Installing git....\n\n'
 echo "========================================================"
 sudo rm -rfv ~/.dotfiles
-dpkg -l | grep -qw git || sudo apt-get install -yyq git
+dpkg -l | grep -qw git && printf '\n    It'\''s already installed.\n\n' || sudo apt-get install -yyq git
 sudo cp -v /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/git/.git-credentials ~/
 sudo cp -v /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/git/.gitconfig-local ~/
 sudo cp -v /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/git/.gitconfig ~/
