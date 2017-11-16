@@ -1,3 +1,4 @@
+#!/bin/bash
 ###############################################################################
 #   ENVIRONMETAL VARIABLES                                                    #
 ###############################################################################
@@ -12,12 +13,9 @@ export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:/mnt/c/Users/Todorov/Downloads/VSCode-win32-x64-1.17.0/bin"
 
-# Sort first dotfiles
-export LC_ALL="C"
-
 # Language
-export LANG="en_Us.UTF-8"
-export LC_CTYPE="en_Us.UTF-8"
+export LANG=en_US.UTF-8 sublime_text
+export LC_CTYPE=en_US.UTF-8 sublime_text
 
 # # exporer.exe
 # export PATH="$PATH:/mnt/c/Windows/SysWOW64"

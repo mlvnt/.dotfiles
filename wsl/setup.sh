@@ -65,7 +65,7 @@ printf '\n      >>> Logging installation....\n\n'
 ###############################################################################
 
 printf '\n      >>> Creating log directory....\n\n'
-mkdir -p ~/software/install_logs/
+mkdir -pv ~/software/install_logs/
 
 ###############################################################################
 # LOG symblinks.sh                                                            #

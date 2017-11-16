@@ -1,7 +1,7 @@
 [push]
-	default = matching
+    default = matching
 [color]
-	ui = auto
+    ui = auto
 [include]
     path = ~/.gitconfig-local
 [credential]
@@ -9,10 +9,11 @@
     helper = cache --timeout 30000
 [core]
     autocrlf = false
-    eol = lf 
+    eol = lf
+    editor = nano
 [filter "spaces2tabs"]
     clean = unexpand --tabs=4 --first-only
-    smudge = expand --tabs=4 --initial  
+    smudge = expand --tabs=4 --initial
 [filter "tabs2spaces"]
     clean = expand --tabs=4 --initial
-    smudge = unexpand --tabs=4 --first-only           
+    smudge = unexpand --tabs=4 --first-only

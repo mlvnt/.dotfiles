@@ -59,8 +59,8 @@ printf '\n      >>> Installing sqlite3....\n\n'
 dpkg -l | grep -qw sqlite3 && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq sqlite3
 
 printf '\n      >>> Installing mysql....\n\n'
-dpkg -l | grep -qw mysql-client && printf '\n            mysql-client is already installed.\n\n' || sudo apt-get install mysql-client
-dpkg -l | grep -qw mysql-server && printf '\n            mysql-server is already installed.\n\n' || sudo apt-get install mysql-server
+dpkg -l | grep -qw mysql-client && printf '\n            mysql-client is already installed.\n\n' || yes Y | sudo apt-get install mysql-client
+dpkg -l | grep -qw mysql-server && printf '\n            mysql-server is already installed.\n\n' || yes Y | sudo apt-get install mysql-server
 dpkg -l | grep -qw mysql-workbench && printf '\n            mysql-workbench is already installed.\n\n' || yes Y | sudo apt-get install mysql-workbench
 # mysql_secure_installation
 
@@ -72,7 +72,7 @@ dpkg -l | grep -qw mysql-workbench && printf '\n            mysql-workbench is a
 
 # # Completely remove mysql
 # sudo apt-get remove --purge 'mysql*'
-# sudo rm -rf /etc/mysql /var/lib/mysql
+# sudo rm -rfv /etc/mysql /var/lib/mysql
 # sudo apt-get autoremove
 # sudo apt-get autoclean
 
@@ -203,31 +203,31 @@ dpkg -l | grep -qw rsync && printf '\n            It'\''s already installed.\n\n
 
 ##### NEOFETCH #####
 printf '\n      >>> Installing neofetch....\n\n'
-function neofetch(){
+function neofetchs(){
     cd ~/
     wget https://github.com/dylanaraps/neofetch/archive/3.3.0.tar.gz -O ~/neofetch
     tar -zxvf ~/neofetch
     cd ~/neofetch*/
     sudo make install
     cd ~/
-    sudo mv ~/neofetch ~/software/neofetch.tar.gz
+    sudo mv -v ~/neofetch ~/software/neofetch.tar.gz
     rm -rfv ~/neofetch*/
 }
-which neofetch | grep -qw neofetch && printf '\n            It'\''s already installed.\n\n' || neofetch
+which neofetch | grep -qw neofetch && printf '\n            It'\''s already installed.\n\n' || neofetchs
 
 # printf '\n      >>> Installing screenfetch....\n\n'
 # sudo apt-get install screenfetch
 
 ##### ImageMagick #####
 printf '\n      >>> Installing ImageMagick....\n\n'
-function imagemagick(){
+function imagemagicks(){
     yes Y | sudo apt-get install build-essential checkinstall \
                  libx11-dev libxext-dev zlib1g-dev libpng12-dev \
                  libjpeg-dev libfreetype6-dev libxml2-dev
     sudo apt-get build-dep imagemagick
-    mkdir $HOME/imagemagick_build && cd $HOME/imagemagick_build
+    mkdir -v $HOME/imagemagick_build && cd $HOME/imagemagick_build
     wget http://www.imagemagick.org/download/ImageMagick-7.0.7-11.tar.bz2 && \
-    tar xvf ImageMagick-7.0.7-11.tar.bz2 && cd ImageMagick-7.0.7-11 && ./configure && make && \
+    tar xzvf ImageMagick-7.0.7-11.tar.bz2 && cd ImageMagick-7.0.7-11 && ./configure && make && \
     sudo checkinstall -D --install=yes --fstrans=no --pakdir "$HOME/imagemagick_build" \
          --pkgname imagemagick --backup=no --deldoc=yes --deldesc=yes --delspec=yes --default \
          --pkgversion "7.0.7-11" && \
@@ -235,10 +235,10 @@ function imagemagick(){
     sudo apt update
     yes Y | sudo apt upgrade
     cd ~/
-    sudo mv ~/imagemagick_build ~/software
+    sudo mv -v ~/imagemagick_build ~/software
     rm -rfv ~/ImageMagick*
 }
-dpkg -l | grep -qw imagemagick && printf '\n            It'\''s already installed.\n\n' || imagemagick
+dpkg -l | grep -qw imagemagick && printf '\n            It'\''s already installed.\n\n' || imagemagicks
 # sudo apt remove --purge 'imagemagick*'
 
 # convert img.png -resize 24X24 img.ico
@@ -246,7 +246,7 @@ dpkg -l | grep -qw imagemagick && printf '\n            It'\''s already installe
 
 # printf '\n      >>> Installing ImageMagick....\n\n'
 # wget https://www.imagemagick.org/download/ImageMagick.tar.gz
-# sudo tar -xvzf ./ImageMagick.tar.gz
+# sudo tar -xzvf ./ImageMagick.tar.gz
 # cd ~/ImageMagick*/
 # sudo ./configure
 # sudo make
@@ -310,17 +310,17 @@ dpkg -l | grep -qw fcitx && printf '\n            fcitx already is installed.\n\
 
 ##### SUBLIME TEXT 3 #####
 printf '\n      >>> Installing sublime-text....\n\n'
-function sublime-text(){
+function sublime-texts(){
     wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
     sudo apt-get install apt-transport-https
     echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
     sudo apt-get update
     sudo apt-get install sublime-text
 }
-dpkg -l | grep -qw sublime-text && printf '\n            It'\''s already installed.\n\n' || sublime-text
+dpkg -l | grep -qw sublime-text && printf '\n            It'\''s already installed.\n\n' || sublime-texts
 
 printf '\n      >>> Installing vlc....\n\n'
-dpkg -l | grep -qw vlc && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install vlc
+dpkg -l | grep -qw vlc && printf '\n            It'\''s already installed.\n\n' || yes Y | sudo apt-get install vlc
 
 ##### MOZILLA FIREFOX #####
 printf '\n      >>> Installing firefox....\n\n'
@@ -340,14 +340,14 @@ dpkg -l | grep -qw konsole && printf '\n            It'\''s already installed.\n
 #   -------------------------------
 
 printf '\n      >>> Installing trash-cli....\n\n'
-function trash(){
+function trashs(){
     sudo git clone https://github.com/andreafrancia/trash-cli.git ~/trash-cli/
     cd ~/trash-cli/
     sudo python3 setup.py install
     cd ~/
     sudo rm -rfv ~/trash-cli/
 }
-which trash | grep -qw trash && printf '\n            It'\''s already installed.\n\n' || trash
+which trash | grep -qw trash && printf '\n            It'\''s already installed.\n\n' || trashs
 
 #   -------------------------------
 #   5.  INSTALL JUPYTER
@@ -391,18 +391,18 @@ dpkg -l | grep -qw zsh && printf '\n            It'\''s already installed.\n\n' 
 #   ------------------------------- 
 
 printf '\n      >>> Installing vim....\n\n'
-dpkg -l | grep -qw vim && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq vim
-dpkg -l | grep -qw vim-gui-common && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq vim-gui-common
+dpkg -l | grep -qw vim && printf '\n            vim already is installed.\n\n' || sudo apt-get install -yyq vim
+dpkg -l | grep -qw vim-gui-common && printf '\n            vim-gui-common is already installed.\n\n' || sudo apt-get install -yyq vim-gui-common
 # mkdir -p ~/.vim/colors/
 
 ##### ZENBURN THEME #####
 # sudo git clone https://github.com/jnurmine/Zenburn.git
-# sudo mv Zenburn/colors/zenburn.vim ~/.vim/colors/
-# mv zenburn.vim ~/.vim/colors/
+# sudo mv -v Zenburn/colors/zenburn.vim ~/.vim/colors/
+# mv -v zenburn.vim ~/.vim/colors/
 # rm -rfv Zenburn/
 
 ##### PATHOGEN PLUGIN #####
-# mkdir -p ~/.vim/autoload ~/.vim/bundle && \
+# mkdir -pv ~/.vim/autoload ~/.vim/bundle && \
 # curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 # cd ~/.vim/bundle/
 # sudo wget https://github.com/rust-lang/rust.vim.git
@@ -419,41 +419,42 @@ dpkg -l | grep -qw vim-gui-common && printf '\n            It'\''s already insta
 #   -------------------------------
 
 printf '\n      >>> Installing hugo....\n\n'
-function hugo(){
+function hugos(){
     wget https://github.com/gohugoio/hugo/releases/download/v0.30.2/hugo_0.30.2_Linux-64bit.deb
     sudo apt-get install ./hugo*.deb
-    mv hugo*.deb ~/software/
+    mv -v hugo*.deb ~/software/
 }
-dpkg -l | grep -qw hugo && printf '\n            It'\''s already installed.\n\n' || hugo
+dpkg -l | grep -qw hugo && printf '\n            It'\''s already installed.\n\n' || hugos
 
 #   -------------------------------
 #   9.  INSTALL CADDY
 #   -------------------------------
 
 printf '\n      >>> Installing caddy....\n\n'
-function caddy(){
+function caddys(){
     wget https://github.com/mholt/caddy/releases/download/v0.10.10/caddy_v0.10.10_linux_amd64.tar.gz
-    tar -xzf caddy*.tar.gz caddy
-    mv ./caddy /usr/local/bin
-    mv caddy*.tar.gz ~/software/
+    tar -xzvf caddy*.tar.gz caddy
+    mv -v ./caddy /usr/local/bin
+    mv -v caddy*.tar.gz ~/software/
 }
-which caddy | grep -qw caddy && printf '\n            It'\''s already installed.\n\n' || caddy
+which caddy | grep -qw caddy && printf '\n            It'\''s already installed.\n\n' || caddys
 
 #   -------------------------------
 #   10.  INSTALL IPFS
 #   -------------------------------
 
 printf '\n      >>> Installing ipfs....\n\n'
-function ipfs(){
-    wget https://dist.ipfs.io/go-ipfs/v0.4.11/go-ipfs_v0.4.11_linux-amd64.tar.gz
-    tar -xzf go-ipfs*.tar.gz
-    sudo cp ~/go-ipfs/ipfs /usr/bin/
-    sudo cp ~/go-ipfs/ipfs /usr/local/bin/
+function ipfss(){
+    wget https://dist.ipfs.io/go-ipfs/v0.4.12/go-ipfs_v0.4.12_linux-amd64.tar.gz
+    tar -xzvf go-ipfs*.tar.gz
+    sudo cp -v ~/go-ipfs/ipfs /usr/bin/
+    sudo cp -v ~/go-ipfs/ipfs /usr/local/bin/
     rm -rfv ~/go-ipfs/
-    mv go-ipfs*.tar.gz ~/software/
+    mv -v go-ipfs*.tar.gz ~/software/
     ipfs init
+    return
 }
-which ipfs | grep -qw ipfs && printf '\n            It'\''s already installed.\n\n' || ipfs
+which ipfs | grep -qw ipfs && printf '\n            It'\''s already installed.\n\n' || ipfss
 # ipfs daemon
 
 #   -------------------------------
@@ -462,18 +463,18 @@ which ipfs | grep -qw ipfs && printf '\n            It'\''s already installed.\n
 
 printf '\n      >>> Installing powerline....\n\n'
 pip freeze | grep -qw powerline && printf '\n            powerline is already installed.\n\n' || sudo pip install --user powerline-status
-# sudo rm PowerlineSymbols*
-# sudo rm 10-powerline-symbols*
+# sudo rm -v PowerlineSymbols*
+# sudo rm -v 10-powerline-symbols*
 # wget https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
 # wget https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf
 # mkdir -p ~/.fonts/
-# mv PowerlineSymbols.otf ~/.fonts/
+# mv -v PowerlineSymbols.otf ~/.fonts/
 # fc-cache -vf ~/.fonts/ #Clean fonts cache
-# mkdir -p .config/fontconfig/conf.d #if directory doesn't exists
-# mv 10-powerline-symbols.conf ~/.config/fontconfig/conf.d/
+# mkdir -pv .config/fontconfig/conf.d #if directory doesn't exists
+# mv -v 10-powerline-symbols.conf ~/.config/fontconfig/conf.d/
 
 ##### PATCHED FONT INSTALLATION #####
-# mv 'SomeFont for Powerline.otf' ~/.fonts/
+# mv -v 'SomeFont for Powerline.otf' ~/.fonts/
 # fc-cache -vf ~/.fonts/
 # After installing patched font terminal emulator, GVim or whatever application powerline should work with must be configured to use the patched font. The correct font usually ends with for Powerline.
 
@@ -482,18 +483,18 @@ pip freeze | grep -qw powerline && printf '\n            powerline is already in
 # cd fonts
 # ./install.sh
 # cd ..
-# rm -rf fonts
+# rm -rvf fonts
 
 #   -------------------------------
 #   12.  SSH
 #   -------------------------------
 
 printf '\n      >>> Setting up SSH configuraion....\n\n'
-sudo cp -r /mnt/d/Workspace/General/Personal\ Development/My\ Blog/Resourses/SSH/Backup/Server\ Login\/.ssh/ ~/
-sudo chmod 644 ~/.ssh/id_rsa
-sudo chmod 644 ~/.ssh/id_rsa.pub
-sudo chmod 644 ~/.ssh/known_hosts
-sudo chmod 755 ~/.ssh
+sudo cp -rv /mnt/d/Workspace/General/Personal\ Development/My\ Blog/Resourses/SSH/Backup/Server\ Login\/.ssh/ ~/
+sudo chmod -v 644 ~/.ssh/id_rsa
+sudo chmod -v 644 ~/.ssh/id_rsa.pub
+sudo chmod -v 644 ~/.ssh/known_hosts
+sudo chmod -v 755 ~/.ssh
 
 #   -------------------------------
 #   13.  REMOVE EXISTING CONFIG
@@ -501,6 +502,6 @@ sudo chmod 755 ~/.ssh
 
 printf '\n      >>> Removing existing configuraion....\n\n'
 sudo rm -rfv ~/.bashrc ~/.zshrc ~/.bash_profile ~/.profile ~/.bash_logout ~/.local
-sudo cp -r /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/shell/zsh/.oh-my-zsh ~/.dotfiles/wsl/shell/zsh/
+sudo cp -rv /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/shell/zsh/.oh-my-zsh ~/.dotfiles/wsl/shell/zsh/
 
 #=============================================================================================================
