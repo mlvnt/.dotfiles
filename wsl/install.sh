@@ -60,7 +60,7 @@ dpkg -l | grep -qw sqlite3 && printf '\n            It'\''s already installed.\n
 
 printf '\n      >>> Installing mysql....\n\n'
 dpkg -l | grep -qw mysql-client && printf '\n            mysql-client is already installed.\n\n' || yes Y | sudo apt-get install mysql-client
-dpkg -l | grep -qw mysql-server && printf '\n            mysql-server is already installed.\n\n' || yes Y | sudo apt-get install mysql-server
+dpkg -l | grep -qw mysql-server && printf '\n            mysql-server is already installed.\n\n' || sudo apt-get -y install mysql-server
 dpkg -l | grep -qw mysql-workbench && printf '\n            mysql-workbench is already installed.\n\n' || yes Y | sudo apt-get install mysql-workbench
 # mysql_secure_installation
 
