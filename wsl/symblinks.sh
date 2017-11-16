@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #
 # Inspired by https://github.com/holman/dotfiles
 #

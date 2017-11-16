@@ -1,3 +1,4 @@
+#!/bin/bash
 #   -------------------------------
 #   1.  INSTALL RUNTIMES
 #   -------------------------------
@@ -32,7 +33,7 @@ echo "========================================================"
 printf '\n      Installing ruby....\n\n'
 echo "========================================================"
 dpkg -l | grep -qw ruby && printf '\n    ruby is already installed.\n\n' || sudo apt-get install -yyq ruby
-dpkg -l | grep -qw ruby-dev && printf '\n    ruby-dev is already installed.\n\n' || sudo apt-get install ruby-dev
+dpkg -l | grep -qw ruby-dev && printf '\n    ruby-dev is already installed.\n\n' || yes Y | sudo apt-get install ruby-dev
 echo "========================================================"
 
 # GEMS
