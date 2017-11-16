@@ -5,8 +5,8 @@
 ##### PYTHON #####
 printf '\n      Installing python3....\n\n'
 echo "========================================================"
-dpkg -l | grep -qw python3 && printf '\n    It'\''s already installed.\n\n' || sudo apt-get install -yyq python3
-dpkg -l | grep -qw python3-pip && printf '\n    It'\''s already installed.\n\n' || sudo apt-get install -yyq python3-pip
+dpkg -l | grep -qw python3 && printf '\n    python3 is already installed.\n\n' || sudo apt-get install -yyq python3
+dpkg -l | grep -qw python3-pip && printf '\n    python3-pip is already installed.\n\n' || sudo apt-get install -yyq python3-pip
 echo "========================================================"
 
 printf '\n      Installing spyder....\n\n'
@@ -31,8 +31,8 @@ echo "========================================================"
 ##### RUBY #####
 printf '\n      Installing ruby....\n\n'
 echo "========================================================"
-dpkg -l | grep -qw ruby && printf '\n    It'\''s already installed.\n\n' || sudo apt-get install -yyq ruby
-dpkg -l | grep -qw ruby-dev && printf '\n    It'\''s already installed.\n\n' || sudo apt-get install ruby-dev
+dpkg -l | grep -qw ruby && printf '\n    ruby is already installed.\n\n' || sudo apt-get install -yyq ruby
+dpkg -l | grep -qw ruby-dev && printf '\n    ruby-dev is already installed.\n\n' || sudo apt-get install ruby-dev
 echo "========================================================"
 
 # GEMS
@@ -65,7 +65,7 @@ echo "========================================================"
 # which http-server
 # sudo vim /usr/local/bin/http-server
 # change node with nodejs
-sudo npm -g install http-server
+which http-server | grep -qw http-server && printf '\n    http-server is already installed.\n\n' || sudo npm -g install http-server
 echo "========================================================"
 
 ##### SQL #####
@@ -76,7 +76,9 @@ echo "========================================================"
 
 printf '\n      Installing mysql....\n\n'
 echo "========================================================"
-sudo apt-get install mysql-client mysql-server mysql-workbench
+dpkg -l | grep -qw mysql-client && printf '\n    mysql-client is already installed.\n\n' || sudo apt-get install mysql-client
+dpkg -l | grep -qw mysql-server && printf '\n    mysql-server is already installed.\n\n' || sudo apt-get install mysql-server
+dpkg -l | grep -qw mysql-workbench && printf '\n    mysql-workbench is already installed.\n\n' || yes Y | sudo apt-get install mysql-workbench
 # mysql_secure_installation
 
 # Configuration
@@ -140,7 +142,7 @@ echo "========================================================"
 
 printf '\n      Installing ghostscript....\n\n'
 echo "========================================================"
-dpkg -l | grep -qw gs && printf '\n    It'\''s already installed.\n\n' || sudo apt-get install -yyq gs
+dpkg -l | grep -qw ghostscript && printf '\n    It'\''s already installed.\n\n' || sudo apt-get install -yyq ghostscript
 echo "========================================================"
 
 #   -------------------------------
@@ -214,7 +216,7 @@ echo "========================================================"
 
 printf '\n      Installing tee....\n\n'
 echo "========================================================"
-dpkg -l | grep -qw tee && printf '\n    It'\''s already installed.\n\n' || sudo apt-get install -yyq tee
+which tee && printf '\n    It'\''s already installed.\n\n' || sudo apt-get install -yyq tee
 echo "========================================================"
 
 printf '\n      Installing tmux....\n\n'
@@ -290,7 +292,7 @@ echo "========================================================"
 ##### NEOFETCH #####
 printf '\n      Installing neofetch....\n\n'
 echo "========================================================"
-    function neofetch(){
+function neofetch(){
     cd ~/
     wget https://github.com/dylanaraps/neofetch/archive/3.3.0.tar.gz -O ~/neofetch
     tar -zxvf ~/neofetch
