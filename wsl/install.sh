@@ -296,17 +296,17 @@ dpkg -l | grep -qw wireless-tools && printf '\n            It'\''s already insta
 
 ##### XFCE4 #####
 printf '\n      >>> Installing xfce4....\n\n'
-dpkg -l | grep -qw xfce4  && printf '\n            xfce4 already is installed.\n\n' || yes Y | sudo apt-get install xfce4
-dpkg -l | grep -qw xfce4-goodies  && printf '\n            xfce4-goodies is already installed.\n\n' || yes Y | sudo apt-get install xfce4-goodies
+dpkg -l | grep -qw xfce4 && printf '\n            xfce4 already is installed.\n\n' || yes Y | sudo apt-get install xfce4
+dpkg -l | grep -qw xfce4-goodies && printf '\n            xfce4-goodies is already installed.\n\n' || yes Y | sudo apt-get install xfce4-goodies
 
 ##### I3-WM #####
 printf '\n      >>> Installing i3-wm....\n\n'
-dpkg -l | grep -qw i3-wm  && printf '\n            i3-wm already is installed.\n\n' || yes Y | sudo apt-get install i3-wm
-dpkg -l | grep -qw dmenu  && printf '\n            dmenu already is installed.\n\n' || yes Y | sudo apt-get install dmenu
-dpkg -l | grep -qw i3status  && printf '\n            i3status already is installed.\n\n' || yes Y | sudo apt-get install i3status
-dpkg -l | grep -qw feh  && printf '\n            feh already is installed.\n\n' || yes Y | sudo apt-get install feh
-dpkg -l | grep -qw redshift  && printf '\n            redshift already is installed.\n\n' || yes Y | sudo apt-get install redshift
-dpkg -l | grep -qw fcitx  && printf '\n            fcitx already is installed.\n\n' || yes Y | sudo apt-get install fcitx
+dpkg -l | grep -qw i3-wm && printf '\n            i3-wm already is installed.\n\n' || yes Y | sudo apt-get install i3-wm
+which dmenu | grep -qw dmenu && printf '\n            dmenu already is installed.\n\n' || yes Y | sudo apt-get install dmenu
+dpkg -l | grep -qw i3status && printf '\n            i3status already is installed.\n\n' || yes Y | sudo apt-get install i3status
+dpkg -l | grep -qw feh &&printf '\n            feh already is installed.\n\n' || yes Y | sudo apt-get install feh
+dpkg -l | grep -qw redshift && printf '\n            redshift already is installed.\n\n' || yes Y | sudo apt-get install redshift
+dpkg -l | grep -qw fcitx && printf '\n            fcitx already is installed.\n\n' || yes Y | sudo apt-get install fcitx
 
 ##### SUBLIME TEXT 3 #####
 printf '\n      >>> Installing sublime-text....\n\n'
@@ -391,7 +391,8 @@ dpkg -l | grep -qw zsh && printf '\n            It'\''s already installed.\n\n' 
 #   ------------------------------- 
 
 printf '\n      >>> Installing vim....\n\n'
-dpkg -l | grep -qw vim  && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq vim
+dpkg -l | grep -qw vim && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq vim
+dpkg -l | grep -qw vim-gui-common && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq vim-gui-common
 # mkdir -p ~/.vim/colors/
 
 ##### ZENBURN THEME #####
@@ -423,7 +424,7 @@ function hugo(){
     sudo apt-get install ./hugo*.deb
     mv hugo*.deb ~/software/
 }
-dpkg -l | grep -qw hugo  && printf '\n            It'\''s already installed.\n\n' || hugo
+dpkg -l | grep -qw hugo && printf '\n            It'\''s already installed.\n\n' || hugo
 
 #   -------------------------------
 #   9.  INSTALL CADDY
@@ -436,7 +437,7 @@ function caddy(){
     mv ./caddy /usr/local/bin
     mv caddy*.tar.gz ~/software/
 }
-which caddy | grep -qw caddy  && printf '\n            It'\''s already installed.\n\n' || caddy
+which caddy | grep -qw caddy && printf '\n            It'\''s already installed.\n\n' || caddy
 
 #   -------------------------------
 #   10.  INSTALL IPFS
@@ -452,7 +453,7 @@ function ipfs(){
     mv go-ipfs*.tar.gz ~/software/
     ipfs init
 }
-which ipfs | grep -qw ipfs  && printf '\n            It'\''s already installed.\n\n' || ipfs
+which ipfs | grep -qw ipfs && printf '\n            It'\''s already installed.\n\n' || ipfs
 # ipfs daemon
 
 #   -------------------------------

@@ -5,10 +5,11 @@
 function beginning(){
     line1="=============================="
     line2="Begin Installation!"
+    columns=$(tput cols)
     printf "\n"
-    printf "%*s\n" $(((${#cl}+$COLUMNS)/2)) "$line1"
-    printf "%*s\n" $(((${#cl}+$COLUMNS-(${#line1}/2))/2)) "$line2"
-    printf "%*s\n" $(((${#cl}+$COLUMNS)/2)) "$line1"
+    printf "%*s\n" $(((${#line1}+$columns)/2)) "$line1"
+    printf "%*s\n" $(((${#line2}+$columns)/2)) "$line2"
+    printf "%*s\n" $(((${#line1}+$columns)/2)) "$line1"
     printf "\n"
 }
 beginning
@@ -94,15 +95,15 @@ sudo ~/.dotfiles/wsl/symblinks.sh | sudo tee -ai log_symblinks.sh-$(date "+%Y-%m
 printf '\n      >>> Sourcing shell....\n\n'
 cd ~/
 source ~/.*rc ~/.bash*
-bash
 
 function ending(){
     line1="=============================="
     line2="Install Complete!"
+    columns=$(tput cols)
     printf "\n"
-    printf "%*s\n" $(((${#cl}+$COLUMNS)/2)) "$line1"
-    printf "%*s\n" $(((${#cl}+$COLUMNS-(${#line1}/2))/2)) "$line2"
-    printf "%*s\n" $(((${#cl}+$COLUMNS)/2)) "$line1"
+    printf "%*s\n" $(((${#line1}+$columns)/2)) "$line1"
+    printf "%*s\n" $(((${#line2}+$columns)/2)) "$line2"
+    printf "%*s\n" $(((${#line1}+$columns)/2)) "$line1"
     printf "\n"
 }
 ending
