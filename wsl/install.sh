@@ -302,7 +302,7 @@ function neofetch(){
     sudo mv ~/neofetch ~/software/neofetch.tar.gz
     rm -rfv ~/neofetch*/
 }
-dpkg -l | grep -qw neofetch && printf '\n    It'\''s already installed.\n\n' || neofetch
+which neofetch | grep -qw neofetch && printf '\n    It'\''s already installed.\n\n' || neofetch
 echo "========================================================"
 
 # printf '\n      Installing screenfetch....\n\n'
