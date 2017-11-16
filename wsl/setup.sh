@@ -26,6 +26,7 @@ echo "========================================================"
 
 printf '\n      Installing git....\n\n'
 echo "========================================================"
+sudo rm -rfv ~/.dotfiles
 dpkg -l | grep -qw git || sudo apt-get install -yyq git
 sudo cp -v /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/git/.git-credentials ~/
 sudo cp -v /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/git/.gitconfig-local ~/
@@ -104,8 +105,6 @@ echo "========================================================"
 cd ~/
 source ~/.*rc ~/.bash*
 echo "========================================================"
-
-sudo apt-get autoremove
 
 printf "\n      ==============================\n\n          Install Complete!   \n\n      ==============================\n\n"
 # echo -e "\n      ==============================\n\n          Install Complete!   \n\n      ==============================\n\n"
