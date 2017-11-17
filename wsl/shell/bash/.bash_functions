@@ -223,8 +223,8 @@ function xsession (){
         cmd.exe /c start /D 'C:\Windows\System32\' bash.exe --login -c "sudo i3 "
         echo -e "\n ....i3-wm Session Started\n"
     elif [ $input -eq 3 ] ; then
-    echo -e "\n Loading X Server in Multi Window mode....\n"
-    cmd.exe /c start /D 'D:\Workspace\Projects\Programing\Scripts\Scripts\Batch & Reg\WSL\VcXsrv Config' /MAX configMultiWindow.xlaunch
+        echo -e "\n Loading X Server in Multi Window mode....\n"
+        cmd.exe /c start /D 'D:\Workspace\Projects\Programing\Scripts\Scripts\Batch & Reg\WSL\VcXsrv Config' /MAX configMultiWindow.xlaunch
     elif [ $input -eq 0 ] ; then
             :
     else
@@ -235,25 +235,25 @@ function xsession (){
 #   9.  Update .dotfiles
 #   -------------------------------
 function dots(){
-    echo -e "\n Removing old .dotfiles....\n"
+    echo -e '\n Removing old .dotfiles....\n'
     echo "=================================="
     sudo rm -rfv ~/.dotfiles 
     echo "=================================="
-    echo -e "\n Cloning new .dotfiles....\n"
+    echo -e '\n Cloning new .dotfiles....\n'
     echo "=================================="
     git clone /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/ ~/.dotfiles
     # oh-my-zsh
     sudo cp -r /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/shell/zsh/.oh-my-zsh ~/.dotfiles/wsl/shell/zsh/
     echo "=================================="
-    echo -e "\n Converting .dotfiles to LF endings....\n"
+    echo -e '\n Converting .dotfiles to LF endings....\n'
     echo "=================================="
     sudo dos2unix ~/.dotfiles/wsl/*.* ~/.dotfiles/wsl/shell/zsh/.* ~/.dotfiles/wsl/shell/zsh/.oh-my-zsh-custom/.* ~/.dotfiles/wsl/shell/bash/.* ~/.dotfiles/wsl/editors/.* ~/.dotfiles/wsl/git/.* ~/.dotfiles/wsl/git/*.* ~/.dotfiles/wsl/bin/*
     echo "=================================="
-    echo -e "\n Sourcing .dotfiles....\n"
+    echo -e '\n Sourcing .dotfiles....\n'
     echo "=================================="
     sca
     echo "=================================="
-    echo -e "\n Dotfiles Updated!\n"
+    echo -e '\n Dotfiles Updated!\n'
 }
 #   -------------------------------
 #   10.  List Git Branches on the local machine sorted by recent updates, adding a star to remote tracking branches
@@ -278,6 +278,91 @@ function e (){
     # cmd.exe /c rd /s /q '%systemdrive%\$Recycle.bin'
     # echo -e '\n Empting $RECYCLE.BIN on D:\ ....\n'
     # cmd.exe /c rd /s /q 'D:\$Recycle.bin'
+}
+#   -------------------------------
+#   12.  Windows File Handles
+#   -------------------------------
+function handles(){
+    cd /mnt/d/Workspace/Portable\ Apps/SyMenu/ProgramFiles/SPSSuite/SysinternalsSuite/Handle_sps
+    clear
+    cmd.exe /c 'handle.exe /?'
+    echo -e '\n  Available Options:'
+    echo -e '       0. Exit'
+    echo -e '       1. Show Handles for D:\\'
+    echo -e '       2. Show Handles for E:\\'
+    echo -e '       3. Show Handles for F:\\'
+    echo -e '       4. Show All File Handles'
+    echo -e '       5. Show All Process PIDs'
+    echo -e '       6. Close Handles for F:\\\n'
+    read -p "  Enter Option: " input
+    printf "\n"
+    if [ $input -eq 1 ] ; then
+        echo -e '\n Showing Handles for D:\....\n'
+        echo "=================================="
+        cmd.exe /c 'handle.exe' | grep 'D:\\'
+        # cmd.exe /c 'handle.exe | findstr /i d:\'
+        echo "=================================="
+        echo -e '\n ....Query Completed!\n'
+    elif [ $input -eq 2 ] ; then
+        echo -e '\n Showing Handles for E:\....\n'
+        echo "=================================="
+        cmd.exe /c 'handle.exe' | grep 'E:\\'
+        echo "=================================="
+        echo -e '\n ....Query Completed!\n'
+    elif [ $input -eq 3 ] ; then
+        echo -e '\n Showing Handles for F:\....\n'
+        cmd.exe /c 'handle.exe' | grep 'F:\\'
+        echo "=================================="
+        echo -e '\n ....Query Completed!\n'
+    elif [ $input -eq 4 ] ; then
+        echo -e '\n Showing All File Handles....\n'
+        cmd.exe /c 'handle.exe'
+        echo "=================================="
+        echo -e '\n ....Query Completed!\n'
+    elif [ $input -eq 5 ] ; then
+        echo -e '\n Showing All Process PIDs....\n'
+        cmd.exe /c 'handle.exe' | grep 'pid'
+        echo "=================================="
+        echo -e '\n ....Query Completed!\n'
+    elif [ $input -eq 0 ] ; then
+            :
+    else
+        handles
+    fi
+    cd ~/
+}
+
+function descriptors(){
+    clear
+    echo -e '\n  Available Options:'
+    echo -e '       0. Exit'
+    echo -e '       1. Show the number of All Open Descriptors'
+    echo -e '       2. Show All Descriptors\n'
+    read -p "  Enter Option: " input
+    printf "\n"
+    if [ $input -eq 1 ] ; then
+        echo -e '\n Showing the number of All Open Descriptors....\n'
+        echo "=================================="
+        echo -e "\n     The number of all open descriptors is: $(lsof | wc -l)\n"
+        echo "=================================="
+        echo -e '\n ....Query Completed!\n'
+    elif [ $input -eq 2 ] ; then
+        echo -e '\n Showing All Descriptors....\n'
+        echo "=================================="
+        # lsof
+        ls /proc/*/fd
+        echo "=================================="
+        echo -e '\n ....Query Completed!\n'
+    elif [ $input -eq 3 ] ; then
+        echo -e '\n Showing Handles for F:\....\n'
+
+        echo "=================================="
+        echo -e '\n ....Query Completed!\n'
+    elif [ $input -eq 0 ] ; then
+            :
+    else
+        descriptors
+    fi
 }
 
 #=========================================================================================
@@ -593,3 +678,5 @@ cp_p () {
 #         echo ${Array1[*]}        
 #     done         
 # }
+
+# ll | ws -l

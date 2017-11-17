@@ -255,6 +255,9 @@ alias lsymb="ln -s"
 alias wdsymb="cmd.exe /c mklink /D" # wdsybm SymbLinkName Target
 alias wfsymb="cmd.exe /c mklink" # wfsybm SymbLinkName Target
 
+# Delete Service
+alias delservice="cmd.exe /c sc delete"
+
 # Clipboard
 alias pbcopy="clip.exe"
 alias cpath="pwd && pwd | pbcopy"

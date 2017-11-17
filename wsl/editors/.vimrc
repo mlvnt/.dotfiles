@@ -44,3 +44,13 @@ imap <Down> <C-o>gj
 
 "Place regular tab
 imap <S-Tab> <C-V><Tab>
+
+"set listchars=eol:¶,tab:>-,trail:·,extends:>,precedes:<,space:·
+"set list
+
+"hi GroupA cterm=LightGray ctermbg=LightGray ctermfg=LightGray guibg=LightGray
+"hi GroupB cterm=LightGray ctermbg=LightGray ctermfg=LightGray guibg=LightGray
+"match GroupA / \+$/
+"match GroupB /\t/
+"hi Specialkey ctermfg=LightGray
+"match Specialkey /\s\+$/
