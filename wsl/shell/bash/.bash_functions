@@ -29,7 +29,7 @@ function coc (){
 #   -------------------------------
 function m3u() {
     echo -e '\n Tracklist \n    '_tracklist[ ${PWD##*/} ].m3u'\n Created....\n'
-    dir -AN1I "*.jpg" -I "*.png" -I "*.html" -I "*.url" -I "*.m3u" >> "_tracklist[ ${PWD##*/} ].m3u"
+    dir -AN1I "*.jpg" -I "*.png" -I "*.html" -I "*.url" -I "*.m3u" -I "*.pdf" >> "_tracklist[ ${PWD##*/} ].m3u"
 }
 #   -------------------------------
 #   4.  Create a New Directory and enter it
@@ -329,7 +329,6 @@ function handles(){
     else
         handles
     fi
-    cd ~/
 }
 
 function descriptors(){
