@@ -329,6 +329,12 @@ dpkg -l | grep -qw firefox && printf '\n            It'\''s already installed.\n
 printf '\n      >>> Installing konsole....\n\n'
 dpkg -l | grep -qw konsole && printf '\n            It'\''s already installed.\n\n' || yes Y | sudo apt-get install konsole
 
+# printf '\n      >>> Installing kamerka....\n\n'
+# dpkg -l | grep -qw kamerka && printf '\n            It'\''s already installed.\n\n' || yes Y | sudo apt-get install kamerka
+
+# printf '\n      >>> Installing krita....\n\n'
+# dpkg -l | grep -qw krita && printf '\n            It'\''s already installed.\n\n' || yes Y | sudo apt-get install krita
+
 ##### VISUAL STUDIO CODE #####
 
 # ZIM
