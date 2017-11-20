@@ -116,7 +116,7 @@ function move (){
         cd /mnt/e/Backup/backup_logs/
         sudo touch log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         # Normal Backup
-        rsync -avhz --progress --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/Backup/backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
+        sudo rsync -avhz --progress --stats --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/Backup/backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         echo "=================================="
         echo -e '\n Backup Complete!\n'
     elif [ $input -eq 2 ] ; then
@@ -126,7 +126,7 @@ function move (){
         cd /mnt/e/Backup/backup_logs/
         sudo touch log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         # Mirroring  
-        rsync -avhz --progress --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/Backup/backup/ --delete | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
+        sudo rsync -avhz --progress --stats --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/Backup/backup/ --delete | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         echo "=================================="
         echo -e '\n Backup Complete!\n'
     elif [ $input -eq 3 ] ; then
@@ -136,7 +136,7 @@ function move (){
         cd /mnt/e/Backup/backup_logs/
         sudo touch log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         # Dry-run for Normal Backup
-        rsync -avhz --progress --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/Backup/backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
+        sudo rsync -avhz --progress --stats --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/Backup/backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         echo "=================================="
         echo -e '\n Backup Complete!\n'
     elif [ $input -eq 4 ] ; then
@@ -146,7 +146,7 @@ function move (){
         cd /mnt/e/Backup/backup_logs/
         sudo touch log_backup-$(date "+%Y-%m-%d-%H-%M").txt 
         # Dry-run for Mirroring  
-        rsync -avhz --progress --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/Backup/backup/ --delete | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
+        sudo rsync -avhz --progress --stats --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/Backup/backup/ --delete | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         echo "=================================="
         echo -e '\n Backup Complete!\n'
     elif [ $input -eq 5 ] ; then
@@ -156,7 +156,7 @@ function move (){
         cd /mnt/e/Backup/backup_mobile_logs/
         sudo touch log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         # Normal Backup
-        rsync -avhz --progress --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded_mobile' /mnt/d/ /mnt/e/Backup/backup_mobile/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
+        sudo rsync -avhz --progress --stats --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded_mobile' /mnt/d/ /mnt/e/Backup/backup_mobile/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         echo "=================================="
         echo -e '\n Backup Complete!\n'
     elif [ $input -eq 6 ] ; then
@@ -166,7 +166,7 @@ function move (){
         cd /mnt/e/Backup/backup_mobile_logs/
         sudo touch log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         # Mirroring  
-        rsync -avhz --progress --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded_mobile' /mnt/d/ /mnt/e/Backup/backup_mobile/ --delete | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
+        sudo rsync -avhz --progress --stats --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded_mobile' /mnt/d/ /mnt/e/Backup/backup_mobile/ --delete | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         echo "=================================="
         echo -e '\n Backup Complete!\n'
     elif [ $input -eq 7 ] ; then
@@ -176,7 +176,7 @@ function move (){
         cd /mnt/e/Backup/backup_mobile_logs/
         sudo touch log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         # Dry-run for Normal Backup
-        rsync -avhz --progress --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded_mobile' /mnt/d/ /mnt/e/Backup/backup_mobile/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
+        sudo rsync -avhz --progress --stats --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded_mobile' /mnt/d/ /mnt/e/Backup/backup_mobile/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         echo "=================================="
         echo -e '\n Backup Complete!\n'
     elif [ $input -eq 8 ] ; then
@@ -186,7 +186,7 @@ function move (){
         cd /mnt/e/Backup/backup_mobile_logs/
         sudo touch log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         # Dry-run for Mirroring  
-        rsync -avhz --progress --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded_mobile' /mnt/d/ /mnt/e/Backup/backup_mobile/ --delete | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt 
+        sudo rsync -avhz --progress --stats --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded_mobile' /mnt/d/ /mnt/e/Backup/backup_mobile/ --delete | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt 
         echo "=================================="
         echo -e '\n Backup Complete!\n'
     elif [ $input -eq 9 ] ; then
@@ -195,31 +195,31 @@ function move (){
         # find /mnt/c/Users/Todorov/Downloads -mindepth 1 -not -name '*.ini' -print0 -exec {} cp -p -r  {} /mnt/d/Workspace/_TEMP \;
         echo -e '\n Moving from Downloads....\n'
         echo "=================================="
-        rsync -avhz --progress --ignore-existing --remove-source-files --exclude desktop.ini /mnt/c/Users/Todorov/Downloads/ /mnt/d/Workspace/_TEMP
+        sudo rsync -avhz --progress --stats --ignore-existing --remove-source-files --exclude desktop.ini /mnt/c/Users/Todorov/Downloads/ /mnt/d/Workspace/_TEMP
         find /mnt/c/Users/Todorov/Downloads/ -depth -type d -empty -delete
         echo "=================================="
         echo -e '\n Moving from Documents....\n'
         echo "=================================="
-        rsync -avhz --progress --ignore-existing --remove-source-files --include=\*.docx --include=\*.doc --include=\*.pdf --include=\*xlsx --exclude=\* /mnt/c/Users/Todorov/Documents/ /mnt/d/Workspace/_TEMP
+        sudo rsync -avhz --progress --stats --ignore-existing --remove-source-files --include=\*.docx --include=\*.doc --include=\*.pdf --include=\*xlsx --exclude=\* /mnt/c/Users/Todorov/Documents/ /mnt/d/Workspace/_TEMP
         echo "=================================="
         echo -e '\n Finished!\n'
     elif [ $input -eq 10 ] ; then
         echo -e "\n Moving to Anime Pics....\n"
         echo "=================================="
-        rsync -avhz --progress --ignore-existing --remove-source-files /mnt/c/Users/Todorov/Pictures/My\ Screen\ Shots/ /mnt/d/Workspace/General/Essential/Art/Media\ Screenshots/Pics --include=\[0-9]*.PNG --exclude=\*
+        sudo rsync -avhz --progress --stats --ignore-existing --remove-source-files /mnt/c/Users/Todorov/Pictures/My\ Screen\ Shots/ /mnt/d/Workspace/General/Essential/Art/Media\ Screenshots/Pics --include=\[0-9]*.PNG --exclude=\*
         echo "=================================="
         echo -e '\n Finished!\n'
         # open "D:\Workspace\General\Essential\Art\Media Screenshots\Pics"
     elif [ $input -eq 11 ] ; then
         echo -e "\n Moving to Acer Screenshots....\n"
         echo "=================================="
-        rsync -avhz --progress --ignore-existing --remove-source-files /mnt/c/Users/Todorov/Pictures/My\ Screen\ Shots/ /mnt/d/Workspace/General/Tech/MEMORY/Desktop\ Screenshots/Acer\ Predator\ G9-792 --include=\Screen\ Shot*.PNG --exclude=\*
+        sudo rsync -avhz --progress --stats --ignore-existing --remove-source-files /mnt/c/Users/Todorov/Pictures/My\ Screen\ Shots/ /mnt/d/Workspace/General/Tech/MEMORY/Desktop\ Screenshots/Acer\ Predator\ G9-792 --include=\Screen\ Shot*.PNG --exclude=\*
         echo "=================================="
         echo -e '\n Finished!\n'
     elif [ $input -eq 12 ] ; then
         echo -e "\n Moving to Surface Screenshots....\n"
         echo "=================================="
-        rsync -avhz --progress --ignore-existing --remove-source-files /mnt/c/Users/Todorov/Pictures/My\ Screen\ Shots/ /mnt/d/Workspace/General/Tech/MEMORY/Desktop\ Screenshots/Microsoft\ Surface\ Pro\ 4 --include=\Screen\ Shot*.PNG --exclude=\*
+        sudo rsync -avhz --progress --stats --ignore-existing --remove-source-files /mnt/c/Users/Todorov/Pictures/My\ Screen\ Shots/ /mnt/d/Workspace/General/Tech/MEMORY/Desktop\ Screenshots/Microsoft\ Surface\ Pro\ 4 --include=\Screen\ Shot*.PNG --exclude=\*
         echo "=================================="
         echo -e '\n Finished!\n'
     elif [ $input -eq 0 ] ; then
@@ -246,7 +246,7 @@ function nppfix (){
         # Function   
         echo -e "\n Replacing corrupted configuration....\n"
         echo "=================================="
-        rsync -avhz --progress --ignore-times "$origin" "$destination" --include=\*.xml --exclude=\*
+        sudo rsync -avhz --progress --stats --ignore-times "$origin" "$destination" --include=\*.xml --exclude=\*
         echo "=================================="
         echo -e "\n Finished\n"
         echo -e "\n Opening Notepad++....\n"
@@ -266,7 +266,7 @@ function nppfix (){
         # Function
         echo -e "\n Backup configuration....\n"
         echo "=================================="
-        rsync -avhz --progress --ignore-times "$origin${Array1[0]}" "$origin${Array1[1]}" "$origin${Array1[2]}" "$origin${Array1[3]}" "$origin${Array1[4]}" "$origin${Array1[5]}" "$destination"
+        sudo rsync -avhz --progress --stats --ignore-times "$origin${Array1[0]}" "$origin${Array1[1]}" "$origin${Array1[2]}" "$origin${Array1[3]}" "$origin${Array1[4]}" "$origin${Array1[5]}" "$destination"
         echo "=================================="
         echo -e "\n Finished!\n"
     elif [ $input -eq 0 ] ; then
@@ -320,7 +320,7 @@ function dots(){
     echo "=================================="
     git clone /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/ ~/.dotfiles
     # oh-my-zsh
-    sudo cp -r /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/shell/zsh/.oh-my-zsh ~/.dotfiles/wsl/shell/zsh/
+    sudo cp -rv /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/shell/zsh/.oh-my-zsh ~/.dotfiles/wsl/shell/zsh/
     echo "=================================="
     echo -e '\n Converting .dotfiles to LF endings....\n'
     echo "=================================="
@@ -365,38 +365,26 @@ function handles(){
     cmd.exe /c 'handle.exe /?'
     echo -e '\n  Available Options:'
     echo -e '       0. Exit'
-    echo -e '       1. Show Handles for D:\\'
-    echo -e '       2. Show Handles for E:\\'
-    echo -e '       3. Show Handles for F:\\'
-    echo -e '       4. Show All File Handles'
-    echo -e '       5. Show All Process PIDs'
-    echo -e '       6. Close Handles for F:\\\n'
+    echo -e '       1. Show Handles for Particular Drive'
+    echo -e '       2. Show All File Handles'
+    echo -e '       3. Show All Process PIDs'
+    echo -e '       4. Close Handles for F:\\\n'
     read -p "  Enter Option: " input
     printf "\n"
     if [ $input -eq 1 ] ; then
-        echo -e '\n Showing Handles for D:\....\n'
+        read -p "    Enter Drive Letter: " input2
+        echo -e '\n Showing Handles for '$input2':\....\n'
         echo "=================================="
-        cmd.exe /c 'handle.exe' | grep 'D:\\'
+        cmd.exe /c 'handle.exe' | grep ''$input2':\\'
         # cmd.exe /c 'handle.exe | findstr /i d:\'
         echo "=================================="
         echo -e '\n ....Query Completed!\n'
     elif [ $input -eq 2 ] ; then
-        echo -e '\n Showing Handles for E:\....\n'
-        echo "=================================="
-        cmd.exe /c 'handle.exe' | grep 'E:\\'
-        echo "=================================="
-        echo -e '\n ....Query Completed!\n'
-    elif [ $input -eq 3 ] ; then
-        echo -e '\n Showing Handles for F:\....\n'
-        cmd.exe /c 'handle.exe' | grep 'F:\\'
-        echo "=================================="
-        echo -e '\n ....Query Completed!\n'
-    elif [ $input -eq 4 ] ; then
         echo -e '\n Showing All File Handles....\n'
         cmd.exe /c 'handle.exe'
         echo "=================================="
         echo -e '\n ....Query Completed!\n'
-    elif [ $input -eq 5 ] ; then
+    elif [ $input -eq 3 ] ; then
         echo -e '\n Showing All Process PIDs....\n'
         cmd.exe /c 'handle.exe' | grep 'pid'
         echo "=================================="
