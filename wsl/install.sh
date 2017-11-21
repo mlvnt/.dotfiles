@@ -201,6 +201,9 @@ dpkg -l | grep -qw pv && printf '\n            It'\''s already installed.\n\n' |
 printf '\n      >>> Installing rsync....\n\n'
 dpkg -l | grep -qw rsync && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq rsync
 
+printf '\n      >>> Installing luckybackup....\n\n'
+dpkg -l | grep -qw luckybackup && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq luckybackup
+
 ##### NEOFETCH #####
 printf '\n      >>> Installing neofetch....\n\n'
 function neofetchs(){

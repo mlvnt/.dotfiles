@@ -112,81 +112,89 @@ function move (){
     if [ $input -eq 1 ] ; then
         echo -e '\n Backup Main Drive....\n'
         echo "=================================="
-        mkdir -p /mnt/e/Backup/backup_logs/
-        cd /mnt/e/Backup/backup_logs/
+        mkdir -p /mnt/e/B/backup_logs/
+        cd /mnt/e/B/backup_logs/
         sudo touch log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         # Normal Backup
-        sudo rsync -avhz --progress --stats --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/Backup/backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
+        sudo rsync -avhzH --progress --stats --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/B/backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
+        cmd.exe /c 'CHCP 1251 && ROBOCOPY 'D:\\Workspace' 'E:\\B\\backup\\Workspace' '*' /E /ZB /SL /MT:20 /XO /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1 /ETA' | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
+        # sudo rsync -avhzH --progress --stats --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/B/backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         echo "=================================="
         echo -e '\n Backup Complete!\n'
     elif [ $input -eq 2 ] ; then
         echo -e '\n Backup Main Drive....\n'
         echo "=================================="
-        mkdir -p /mnt/e/Backup/backup_logs/
-        cd /mnt/e/Backup/backup_logs/
+        mkdir -p /mnt/e/B/backup_logs/
+        cd /mnt/e/B/backup_logs/
         sudo touch log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         # Mirroring  
-        sudo rsync -avhz --progress --stats --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/Backup/backup/ --delete | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
+        sudo rsync -avhzH --progress --stats --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/B/backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
+        cmd.exe /c 'CHCP 1251 && ROBOCOPY 'D:\\Workspace' 'E:\\B\\backup\\Workspace' '*' /E /PURGE /ZB /SL /MT:20 /XO /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1 /ETA' | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
+        # sudo rsync -avhzH --progress --stats --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/B/backup/ --delete | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         echo "=================================="
         echo -e '\n Backup Complete!\n'
     elif [ $input -eq 3 ] ; then
         echo -e '\n Backup Main Drive....\n'
         echo "=================================="
-        mkdir -p /mnt/e/Backup/backup_logs/
-        cd /mnt/e/Backup/backup_logs/
+        mkdir -p /mnt/e/B/backup_logs/
+        cd /mnt/e/B/backup_logs/
         sudo touch log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         # Dry-run for Normal Backup
-        sudo rsync -avhz --progress --stats --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/Backup/backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
+        sudo rsync -avhzH --progress --stats --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/B/backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
+        cmd.exe /c 'CHCP 1251 && ROBOCOPY 'D:\\Workspace' 'E:\\B\\backup\\Workspace' '*' /L /E /ZB /SL /MT:20 /XO /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1 /FP /V /ETA' | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
+        # sudo rsync -avhzH --progress --stats --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/B/backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         echo "=================================="
         echo -e '\n Backup Complete!\n'
     elif [ $input -eq 4 ] ; then
         echo -e '\n Backup Main Drive....\n'
         echo "=================================="
-        mkdir -p /mnt/e/Backup/backup_logs/
-        cd /mnt/e/Backup/backup_logs/
+        mkdir -p /mnt/e/B/backup_logs/
+        cd /mnt/e/B/backup_logs/
         sudo touch log_backup-$(date "+%Y-%m-%d-%H-%M").txt 
-        # Dry-run for Mirroring  
-        sudo rsync -avhz --progress --stats --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/Backup/backup/ --delete | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
+        # Dry-run for Mirroring
+        sudo rsync -avhzH --progress --stats --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/B/backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
+        cmd.exe /c 'CHCP 1251 && ROBOCOPY 'D:\\Workspace' 'E:\\B\\backup\\Workspace' '*' /L /E /PURGE /ZB /SL /MT:20 /XO /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1 /FP /V /ETA' | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
+        # sudo rsync -avhzH --progress --stats --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/B/backup/ --delete | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         echo "=================================="
         echo -e '\n Backup Complete!\n'
     elif [ $input -eq 5 ] ; then
         echo -e '\n Backup Mobile SD Card....\n'
         echo "=================================="
-        mkdir -p /mnt/e/Backup/backup_mobile_logs/
-        cd /mnt/e/Backup/backup_mobile_logs/
+        mkdir -p /mnt/e/B/backup_mobile_logs/
+        cd /mnt/e/B/backup_mobile_logs/
         sudo touch log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         # Normal Backup
-        sudo rsync -avhz --progress --stats --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded_mobile' /mnt/d/ /mnt/e/Backup/backup_mobile/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
+        sudo rsync -avhzH --progress --stats --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded_mobile' /mnt/d/ /mnt/e/B/backup_mobile/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         echo "=================================="
         echo -e '\n Backup Complete!\n'
     elif [ $input -eq 6 ] ; then
         echo -e '\n Backup Mobile SD Card....\n'
         echo "=================================="
-        mkdir -p /mnt/e/Backup/backup_mobile_logs/
-        cd /mnt/e/Backup/backup_mobile_logs/
+        mkdir -p /mnt/e/B/backup_mobile_logs/
+        cd /mnt/e/B/backup_mobile_logs/
         sudo touch log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         # Mirroring  
-        sudo rsync -avhz --progress --stats --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded_mobile' /mnt/d/ /mnt/e/Backup/backup_mobile/ --delete | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
+        sudo rsync -avhzH --progress --stats --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded_mobile' /mnt/d/ /mnt/e/B/backup_mobile/ --delete | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         echo "=================================="
         echo -e '\n Backup Complete!\n'
     elif [ $input -eq 7 ] ; then
         echo -e '\n Backup Mobile SD Card....\n'
         echo "=================================="
-        mkdir -p /mnt/e/Backup/backup_mobile_logs/
-        cd /mnt/e/Backup/backup_mobile_logs/
+        mkdir -p /mnt/e/B/backup_mobile_logs/
+        cd /mnt/e/B/backup_mobile_logs/
         sudo touch log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         # Dry-run for Normal Backup
-        sudo rsync -avhz --progress --stats --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded_mobile' /mnt/d/ /mnt/e/Backup/backup_mobile/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
+        sudo rsync -avhzH --progress --stats --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded_mobile' /mnt/d/ /mnt/e/B/backup_mobile/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         echo "=================================="
         echo -e '\n Backup Complete!\n'
     elif [ $input -eq 8 ] ; then
         echo -e '\n Backup Mobile SD Card....\n'
         echo "=================================="
-        mkdir -p /mnt/e/Backup/backup_mobile_logs/
-        cd /mnt/e/Backup/backup_mobile_logs/
+        mkdir -p /mnt/e/B/backup_mobile_logs/
+        cd /mnt/e/B/backup_mobile_logs/
         sudo touch log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         # Dry-run for Mirroring  
-        sudo rsync -avhz --progress --stats --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded_mobile' /mnt/d/ /mnt/e/Backup/backup_mobile/ --delete | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt 
+        sudo rsync -avhzH --progress --stats --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded_mobile' /mnt/d/ /mnt/e/B/backup_mobile/ --delete | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt 
         echo "=================================="
         echo -e '\n Backup Complete!\n'
     elif [ $input -eq 9 ] ; then
