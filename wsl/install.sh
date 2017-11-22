@@ -100,10 +100,16 @@ dpkg -l | grep -qw mysql-workbench && printf '\n            mysql-workbench is a
 # printf '\n      >>> Installing apache2....\n\n'
 # sudo apt-get install apache2
 
-##### OTHER #####
+##### HASKELL #####
 printf '\n      >>> Installing haskell....\n\n'
 dpkg -l | grep -qw ghc && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq ghc
 
+# LIBRARIES
+sudo apt-get install cabal-install
+cabal update
+cabal install random
+
+##### OTHER #####
 printf '\n      >>> Installing php7.0-cli....\n\n'
 dpkg -l | grep -qw php7.0-cli && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq php7.0-cli
 

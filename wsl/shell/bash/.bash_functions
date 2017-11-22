@@ -117,6 +117,7 @@ function move (){
         sudo touch log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         # Normal Backup
         sudo rsync -avhzH --progress --stats --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/B/backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
+        sudo rsync -avhzH --progress --stats /mnt/d//Workspace/Projects/Programing/Git/dotfiles/.dotfiles/ /mnt/e/B/backup//Workspace/Projects/Programing/Git/dotfiles/.dotfiles/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         cmd.exe /c 'CHCP 1251 && ROBOCOPY 'D:\\Workspace' 'E:\\B\\backup\\Workspace' '*' /E /ZB /SL /MT:20 /XO /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1 /ETA' | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         # sudo rsync -avhzH --progress --stats --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/B/backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         echo "=================================="
@@ -129,6 +130,7 @@ function move (){
         sudo touch log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         # Mirroring  
         sudo rsync -avhzH --progress --stats --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/B/backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
+        sudo rsync -avhzH --progress --stats /mnt/d//Workspace/Projects/Programing/Git/dotfiles/.dotfiles/ /mnt/e/B/backup//Workspace/Projects/Programing/Git/dotfiles/.dotfiles/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         cmd.exe /c 'CHCP 1251 && ROBOCOPY 'D:\\Workspace' 'E:\\B\\backup\\Workspace' '*' /E /PURGE /ZB /SL /MT:20 /XO /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1 /ETA' | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         # sudo rsync -avhzH --progress --stats --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/B/backup/ --delete | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         echo "=================================="
@@ -141,6 +143,7 @@ function move (){
         sudo touch log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         # Dry-run for Normal Backup
         sudo rsync -avhzH --progress --stats --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/B/backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
+        sudo rsync -avhzH --progress --stats --dry-run /mnt/d//Workspace/Projects/Programing/Git/dotfiles/.dotfiles/ /mnt/e/B/backup//Workspace/Projects/Programing/Git/dotfiles/.dotfiles/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         cmd.exe /c 'CHCP 1251 && ROBOCOPY 'D:\\Workspace' 'E:\\B\\backup\\Workspace' '*' /L /E /ZB /SL /MT:20 /XO /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1 /FP /V /ETA' | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         # sudo rsync -avhzH --progress --stats --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/B/backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         echo "=================================="
@@ -153,6 +156,7 @@ function move (){
         sudo touch log_backup-$(date "+%Y-%m-%d-%H-%M").txt 
         # Dry-run for Mirroring
         sudo rsync -avhzH --progress --stats --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/B/backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
+        sudo rsync -avhzH --progress --stats --dry-run /mnt/d//Workspace/Projects/Programing/Git/dotfiles/.dotfiles/ /mnt/e/B/backup//Workspace/Projects/Programing/Git/dotfiles/.dotfiles/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         cmd.exe /c 'CHCP 1251 && ROBOCOPY 'D:\\Workspace' 'E:\\B\\backup\\Workspace' '*' /L /E /PURGE /ZB /SL /MT:20 /XO /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1 /FP /V /ETA' | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         # sudo rsync -avhzH --progress --stats --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/B/backup/ --delete | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         echo "=================================="
