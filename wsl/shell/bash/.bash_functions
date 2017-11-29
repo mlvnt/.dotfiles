@@ -144,7 +144,7 @@ function move (){
         # Dry-run for Normal Backup
         sudo rsync -avhzH --progress --stats --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/B/backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         sudo rsync -avhzH --progress --stats --dry-run /mnt/d//Workspace/Projects/Programing/Git/dotfiles/.dotfiles/ /mnt/e/B/backup//Workspace/Projects/Programing/Git/dotfiles/.dotfiles/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
-        cmd.exe /c 'CHCP 1251 && ROBOCOPY 'D:\\Workspace' 'E:\\B\\backup\\Workspace' '*' /L /E /ZB /SL /MT:20 /XO /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1 /FP /V /ETA' | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
+        cmd.exe /c 'CHCP 1251 && ROBOCOPY 'D:\\Workspace' 'E:\\B\\backup\\Workspace' '*' /L /E /ZB /SL /MT:20 /XO /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1 /FP /ETA' | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         # sudo rsync -avhzH --progress --stats --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/B/backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         echo "=================================="
         echo -e '\n Backup Complete!\n'
@@ -157,7 +157,7 @@ function move (){
         # Dry-run for Mirroring
         sudo rsync -avhzH --progress --stats --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/B/backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         sudo rsync -avhzH --progress --stats --dry-run /mnt/d//Workspace/Projects/Programing/Git/dotfiles/.dotfiles/ /mnt/e/B/backup//Workspace/Projects/Programing/Git/dotfiles/.dotfiles/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
-        cmd.exe /c 'CHCP 1251 && ROBOCOPY 'D:\\Workspace' 'E:\\B\\backup\\Workspace' '*' /L /E /PURGE /ZB /SL /MT:20 /XO /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1 /FP /V /ETA' | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
+        cmd.exe /c 'CHCP 1251 && ROBOCOPY 'D:\\Workspace' 'E:\\B\\backup\\Workspace' '*' /L /E /PURGE /ZB /SL /MT:20 /XO /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1 /FP /ETA' | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         # sudo rsync -avhzH --progress --stats --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/B/backup/ --delete | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         echo "=================================="
         echo -e '\n Backup Complete!\n'
@@ -369,7 +369,7 @@ function e (){
     # cmd.exe /c rd /s /q 'D:\$Recycle.bin'
 }
 #   -------------------------------
-#   12.  Windows File Handles
+#   12.1  Windows File Handles
 #   -------------------------------
 function handles(){
     cd /mnt/d/Workspace/Portable\ Apps/SyMenu/ProgramFiles/SPSSuite/SysinternalsSuite/Handle_sps
@@ -407,7 +407,9 @@ function handles(){
         handles
     fi
 }
-
+#   -------------------------------
+#   12.2  Linux File Handles
+#   -------------------------------
 function descriptors(){
     clear
     echo -e '\n  Available Options:'
@@ -440,7 +442,125 @@ function descriptors(){
         descriptors
     fi
 }
+#   -------------------------------
+#   13.  Quick Access
+#   -------------------------------
+function qaccess(){
+    clear
+    echo -e '\n  Available Options:'
+    echo -e '       0. Exit'
+    echo -e '       1. Pin Folders to Quick Access'
+    echo -e '       2. Unpin Folders to Quick Access\n'
+    read -p "  Enter Option: " input
+    printf "\n"
+    if [ $input -eq 1 ] ; then
+        echo -e '\n Pinnig folders to Quick Access....\n'
+        echo "=================================="
+        powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Pin' 'D:\Anime'"
+        powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Pin' 'D:\Workspace\Projects\Programing\_References\Programes\Browsers\Chrome\HTML Bookmarks\Archive'"
+        powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Pin' 'D:\Workspace\General'"
+        powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Pin' 'D:\Workspace\General\Personal Development\My Blog'"
+        powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Pin' 'D:\Workspace\General\Essential\Art\Media Screenshots\Pics'"
+        powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Pin' 'D:\Workspace\General\Tech\MEMORY'"
+        powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Pin' 'D:\Series'"
+        powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Pin' 'D:\Workspace\Shortcuts'"
+        powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Pin' 'D:\Workspace\Portable Apps'"
+        powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Pin' 'C:\Users\Todorov\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs\home\todorov'"
+        powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Pin' 'D:\Workspace\Projects'"
+        powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Pin' 'D:\Workspace\Projects\Programing'"
+        powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Pin' 'D:\Workspace\University\Course\Year 2 - 2017-2018'"
+        powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Pin' 'D:\Workspace\_TEMP'"
+        powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Pin' 'D:\Videos'"
+        echo "=================================="
+        echo -e '\n ....All folders are pinned!\n'
+    elif [ $input -eq 2 ] ; then
+        echo -e '\n Unpinnig folders to Quick Access....\n'
+        echo "=================================="
+        powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Unpin' 'D:\Anime'"
+        powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Unpin' 'D:\Workspace\Projects\Programing\_References\Programes\Browsers\Chrome\HTML Bookmarks\Archive'"
+        powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Unpin' 'D:\Workspace\General'"
+        powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Unpin' 'D:\Workspace\General\Personal Development\My Blog'"
+        powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Unpin' 'D:\Workspace\General\Essential\Art\Media Screenshots\Pics'"
+        powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Unpin' 'D:\Workspace\General\Tech\MEMORY'"
+        powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Unpin' 'D:\Series'"
+        powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Unpin' 'D:\Workspace\Shortcuts'"
+        powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Unpin' 'D:\Workspace\Portable Apps'"
+        powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Unpin' 'C:\Users\Todorov\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs\home\todorov'"
+        powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Unpin' 'D:\Workspace\Projects'"
+        powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Unpin' 'D:\Workspace\Projects\Programing'"
+        powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Unpin' 'D:\Workspace\University\Course\Year 2 - 2017-2018'"
+        powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Unpin' 'D:\Workspace\_TEMP'"
+        powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Unpin' 'D:\Videos'"
+        echo "=================================="
+        echo -e '\n ....All folders are unpinned!\n'
+    elif [ $input -eq 0 ] ; then
+            :
+    else
+        qaccess
+    fi
+}
+# cmd.exe /c "D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.cmd"
 
+#   -------------------------------
+#   14.  Start Menu & Taskbar
+#   -------------------------------
+function icons(){
+    cd /mnt/d/Workspace/Portable\ Apps/By\ Category/Windows\ Tweaks/Syspin/
+    tpin=c:5386
+    tunpin=c:5387
+    spin=c:51201
+    sunpin=c:51394
+    clear
+    echo -e '\n  Available Options:'
+    echo -e '       0. Exit'
+    echo -e '       1. Pin icons to Taskbar'
+    echo -e '       2. Pin icons to Start Menu'
+    echo -e '       3. Unpin icons from Taskbar'
+    echo -e '       4. Unpin icons from Start Menu\n'
+    read -p "  Enter Option: " input
+    printf "\n"
+    if [ $input -eq 1 ] ; then
+        echo -e '\n Pinnig icons to Taskbar....\n'
+        echo "=================================="
+        cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\File Explorer.lnk" $tpin
+        # cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Control Panel.lnk" $tpin
+        cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Task Manager.lnk" $tpin
+        # cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Windows Mobility Center.lnk" $tpin
+        cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Registry Editor.lnk" $tpin
+        cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Command Prompt.lnk" $tpin
+        cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Ubuntu.lnk" $tpin
+        cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Microsoft Edge.lnk" $tpin
+        cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\KeePass.lnk" $tpin
+        cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Google Chrome.lnk" $tpin
+        cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Notepad++.lnk" $tpin
+        cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\4K Video Downloader.lnk" $tpin
+        cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Sublime Text 3.lnk" $tpin
+        echo "=================================="
+        echo -e '\n ....All icons are pinned!\n'
+    elif [ $input -eq 2 ] ; then
+        echo -e '\n Pinnig icons to Start Menu....\n'
+        echo "=================================="
+        syspin.exe "C:\Users\Todorov\Desktop\Ubuntu.lnk" c:5386
+        echo "=================================="
+        echo -e '\n ....All icons are pinned!\n'
+    elif [ $input -eq 3 ] ; then
+        echo -e '\n Unpinnig icons to Taskbar....\n'
+        echo "=================================="
+        cmd.exe /c reg delete "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" /f
+        echo "=================================="
+        echo -e '\n ....All icons are unpinned!\n'
+    elif [ $input -eq 4 ] ; then
+        echo -e '\n Unpinnig icons to Start Menu....\n'
+        echo "=================================="
+        syspin.exe "C:\Users\Todorov\Desktop\Ubuntu.lnk" c:5386
+        echo "=================================="
+        echo -e '\n ....All icons are unpinned!\n'
+    elif [ $input -eq 0 ] ; then
+            :
+    else
+        icons
+    fi
+}
 #=========================================================================================
 #=========================================================================================
 #=========================================================================================

@@ -105,16 +105,19 @@ printf '\n      >>> Installing haskell....\n\n'
 dpkg -l | grep -qw ghc && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq ghc
 
 # LIBRARIES
-sudo apt-get install cabal-install
+dpkg -l | grep -qw cabal-install && printf '\n            cabal is already installed.\n\n' || sudo apt-get install cabal-install
 cabal update
 cabal install random
+
+##### JAVA #####
+printf '\n      >>> Installing openjdk-9-jre-headless....\n\n'
+dpkg -l | grep -qw openjdk-9-jre-headless && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq openjdk-9-jre-headless
+printf '\n      >>> Installing openjdk-9-jdk-headless....\n\n'
+dpkg -l | grep -qw openjdk-9-jdk-headless && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq openjdk-9-jdk-headless
 
 ##### OTHER #####
 printf '\n      >>> Installing php7.0-cli....\n\n'
 dpkg -l | grep -qw php7.0-cli && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq php7.0-cli
-
-printf '\n      >>> Installing openjdk-9-jre-headless....\n\n'
-dpkg -l | grep -qw openjdk-9-jre-headless && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq openjdk-9-jre-headless
 
 printf '\n      >>> Installing ghostscript....\n\n'
 dpkg -l | grep -qw ghostscript && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq ghostscript
