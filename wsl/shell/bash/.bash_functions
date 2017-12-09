@@ -209,31 +209,31 @@ function move (){
         # find /mnt/c/Users/Todorov/Downloads -mindepth 1 -not -name '*.ini' -print0 -exec {} cp -p -r  {} /mnt/d/Workspace/_TEMP \;
         echo -e '\n Moving from Downloads....\n'
         echo "=================================="
-        sudo rsync -avhz --progress --stats --ignore-existing --remove-source-files --exclude desktop.ini /mnt/c/Users/Todorov/Downloads/ /mnt/d/Workspace/_TEMP
+        rsync -avhz --progress --stats --ignore-existing --remove-source-files --exclude desktop.ini /mnt/c/Users/Todorov/Downloads/ /mnt/d/Workspace/_TEMP
         find /mnt/c/Users/Todorov/Downloads/ -depth -type d -empty -delete
         echo "=================================="
         echo -e '\n Moving from Documents....\n'
         echo "=================================="
-        sudo rsync -avhz --progress --stats --ignore-existing --remove-source-files --include=\*.docx --include=\*.doc --include=\*.pdf --include=\*xlsx --exclude=\* /mnt/c/Users/Todorov/Documents/ /mnt/d/Workspace/_TEMP
+        rsync -avhz --progress --stats --ignore-existing --remove-source-files --include=\*.docx --include=\*.doc --include=\*.pdf --include=\*xlsx --exclude=\* /mnt/c/Users/Todorov/Documents/ /mnt/d/Workspace/_TEMP
         echo "=================================="
         echo -e '\n Finished!\n'
     elif [ $input -eq 10 ] ; then
         echo -e "\n Moving to Anime Pics....\n"
         echo "=================================="
-        sudo rsync -avhz --progress --stats --ignore-existing --remove-source-files /mnt/c/Users/Todorov/Pictures/My\ Screen\ Shots/ /mnt/d/Workspace/General/Essential/Art/Media\ Screenshots/Pics --include=\[0-9]*.PNG --exclude=\*
+        rsync -avhz --progress --stats --ignore-existing --remove-source-files /mnt/c/Users/Todorov/Pictures/My\ Screen\ Shots/ /mnt/d/Workspace/General/Essential/Art/Media\ Screenshots/Pics --include=\[0-9]*.PNG --exclude=\*
         echo "=================================="
         echo -e '\n Finished!\n'
         # open "D:\Workspace\General\Essential\Art\Media Screenshots\Pics"
     elif [ $input -eq 11 ] ; then
         echo -e "\n Moving to Acer Screenshots....\n"
         echo "=================================="
-        sudo rsync -avhz --progress --stats --ignore-existing --remove-source-files /mnt/c/Users/Todorov/Pictures/My\ Screen\ Shots/ /mnt/d/Workspace/General/Tech/MEMORY/Desktop\ Screenshots/Acer\ Predator\ G9-792 --include=\Screen\ Shot*.PNG --exclude=\*
+        rsync -avhz --progress --stats --ignore-existing --remove-source-files /mnt/c/Users/Todorov/Pictures/My\ Screen\ Shots/ /mnt/d/Workspace/General/Tech/MEMORY/Desktop\ Screenshots/Acer\ Predator\ G9-792 --include=\Screen\ Shot*.PNG --exclude=\*
         echo "=================================="
         echo -e '\n Finished!\n'
     elif [ $input -eq 12 ] ; then
         echo -e "\n Moving to Surface Screenshots....\n"
         echo "=================================="
-        sudo rsync -avhz --progress --stats --ignore-existing --remove-source-files /mnt/c/Users/Todorov/Pictures/My\ Screen\ Shots/ /mnt/d/Workspace/General/Tech/MEMORY/Desktop\ Screenshots/Microsoft\ Surface\ Pro\ 4 --include=\Screen\ Shot*.PNG --exclude=\*
+        rsync -avhz --progress --stats --ignore-existing --remove-source-files /mnt/c/Users/Todorov/Pictures/My\ Screen\ Shots/ /mnt/d/Workspace/General/Tech/MEMORY/Desktop\ Screenshots/Microsoft\ Surface\ Pro\ 4 --include=\Screen\ Shot*.PNG --exclude=\*
         echo "=================================="
         echo -e '\n Finished!\n'
     elif [ $input -eq 0 ] ; then
@@ -482,6 +482,7 @@ function qaccess(){
         powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Unpin' 'D:\Anime'"
         powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Unpin' 'D:\Workspace\Projects\Programing\_References\Programes\Browsers\Chrome\HTML Bookmarks\Archive'"
         powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Unpin' 'D:\Workspace\General'"
+        powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Pin' 'D:\Workspace\General\Personal Development\Professional\CV & Covering Letter'"
         powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Unpin' 'D:\Workspace\General\Personal Development\My Blog'"
         powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Unpin' 'D:\Workspace\General\Essential\Art\Media Screenshots\Pics'"
         powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Unpin' 'D:\Workspace\General\Tech\MEMORY'"
