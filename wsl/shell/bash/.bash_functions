@@ -691,18 +691,18 @@ function gz2() {
 }
 
 # whois a domain or a URL
-function whois() {
-  local domain=$(echo "$1" | awk -F/ '{print $3}') # get domain from URL
-  if [ -z $domain ] ; then
-    domain=$1
-  fi
-  echo "Getting whois record for: $domain …"
+# function whois() {
+#   local domain=$(echo "$1" | awk -F/ '{print $3}') # get domain from URL
+#   if [ -z $domain ] ; then
+#     domain=$1
+#   fi
+#   echo "Getting whois record for: $domain …"
 
-  # avoid recursion
-          # this is the best whois server
-                          # strip extra fluff
-  /usr/bin/whois -h whois.internic.net $domain -H # | sed '/NOTICE:/q'
-}
+#   # avoid recursion
+#           # this is the best whois server
+#                           # strip extra fluff
+#   /usr/bin/whois -h whois.internic.net $domain -H # | sed '/NOTICE:/q'
+# }
 
 # Create a .tar.gz archive, using `zopfli`, `pigz` or `gzip` for compression
 function targz() {
