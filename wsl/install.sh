@@ -19,15 +19,34 @@ dpkg -l | grep -qw spyder && printf '\n            It'\''s already installed.\n\
 printf '\n      >>> Installing python modules....\n\n'
 sudo pip3 install --upgrade pip3
 # sudo python3 -m pip3 install --upgrade pip3
-pip3 freeze | grep -qw matplotlib && printf '\n            matplotlib is already installed.\n\n' || sudo pip3 install matplotlib
-pip3 freeze | grep -qw numpy && printf '\n            numpy is already installed.\n\n' || sudo pip3 install numpy
 pip3 freeze | grep -qw pep8 && printf '\n            pep8 is already installed.\n\n' || sudo pip3 install pep8
-pip3 freeze | grep -qw scipy && printf '\n            scipy is already installed.\n\n' || sudo pip3 install scipy
-pip3 freeze | grep -qw scikit-learn && printf '\n            scikit-learn is already installed.\n\n' || sudo pip3 install scikit-learn
 pip3 freeze | grep -qw setuptools && printf '\n            setuptools is already installed.\n\n' || sudo pip3 install setuptools
+pip3 freeze | grep -qw seaborn && printf '\n            seaborn is already installed.\n\n' || sudo pip3 install seaborn
+pip3 freeze | grep -qw statsmodels && printf '\n            statsmodels is already installed.\n\n' || sudo pip3 install statsmodels
 pip3 freeze | grep -qw bottle && printf '\n            bottle is already installed.\n\n' || sudo pip3 install bottle
 pip3 freeze | grep -qw pinggraph && printf '\n            pinggraph is already installed.\n\n' || sudo pip3 install pinggraph # Gping
-pip3 freeze | grep -qw Pillow && printf '\n            Pillow is already installed.\n\n' || sudo pip3 install Pillow
+pip3 freeze | grep -qw pillow && printf '\n            pillow is already installed.\n\n' || sudo pip3 install pillow
+pip3 freeze | grep -qw coverage && printf '\n            coverage is already installed.\n\n' || sudo pip3 install coverage
+
+printf '\n      >>> Installing SciPy....\n\n'
+pip3 freeze | grep -qw matplotlib && printf '\n            matplotlib is already installed.\n\n' || sudo pip3 install matplotlib
+pip3 freeze | grep -qw numpy && printf '\n            numpy is already installed.\n\n' || sudo pip3 install numpy
+pip3 freeze | grep -qw numpydoc && printf '\n            numpydoc is already installed.\n\n' || sudo pip3 install numpydoc
+pip3 freeze | grep -qw scipy && printf '\n            scipy is already installed.\n\n' || sudo pip3 install scipy
+pip3 freeze | grep -qw ipython  && printf '\n            ipython  is already installed.\n\n' || sudo pip3 install ipython 
+pip3 freeze | grep -qw jupyter && printf '\n            jupyter is already installed.\n\n' || sudo python3 -m pip3 install jupyter
+pip3 freeze | grep -qw sympy && printf '\n            sympy is already installed.\n\n' || sudo pip3 install sympy
+pip3 freeze | grep -qw pandas && printf '\n            pandas is already installed.\n\n' || sudo pip3 install pandas
+pip3 freeze | grep -qw nose && printf '\n            nose is already installed.\n\n' || sudo pip3 install nose
+pip3 freeze | grep -qw pytest && printf '\n            pytest is already installed.\n\n' || sudo pip3 install pytest
+pip3 freeze | grep -qw scikit-learn && printf '\n            scikit-learn is already installed.\n\n' || sudo pip3 install scikit-learn
+pip3 freeze | grep -qw scikit-image && printf '\n            scikit-image is already installed.\n\n' || sudo pip3 install scikit-image
+pip3 freeze | grep -qw h5py && printf '\n            h5py is already installed.\n\n' || sudo pip3 install h5py
+
+printf '\n      >>> Installing Sphinx....\n\n'
+pip3 freeze | grep -qw sphinx && printf '\n            sphinx is already installed.\n\n' || sudo pip3 install sphinx
+pip3 freeze | grep -qw sphinx_rtd_theme && printf '\n            sphinx_rtd_theme is already installed.\n\n' || sudo pip3 install sphinx_rtd_theme
+pip3 freeze | grep -qw sphinx_gallery && printf '\n            sphinx_gallery is already installed.\n\n' || sudo pip3 install sphinx_gallery
 
 ##### RUBY #####
 printf '\n      >>> Installing ruby....\n\n'
@@ -373,14 +392,7 @@ function trashs(){
 which trash | grep -qw trash && printf '\n            It'\''s already installed.\n\n' || trashs
 
 #   -------------------------------
-#   5.  INSTALL JUPYTER
-#   -------------------------------
-
-printf '\n      >>> Installing jupyter....\n\n'
-pip3 freeze | grep -qw jupyter && printf '\n            jupyter is already installed.\n\n' || sudo python3 -m pip3 install jupyter
-
-#   -------------------------------
-#   6.  INSTALL ZSH
+#   5.  INSTALL ZSH
 #   -------------------------------
 
 printf '\n      >>> Installing zsh....\n\n'
@@ -410,7 +422,7 @@ dpkg -l | grep -qw zsh && printf '\n            It'\''s already installed.\n\n' 
 # cd ~/
 
 #   -------------------------------
-#   7.  INSTALL VIM
+#   6.  INSTALL VIM
 #   ------------------------------- 
 
 printf '\n      >>> Installing vim....\n\n'
@@ -438,7 +450,7 @@ dpkg -l | grep -qw vim-gui-common && printf '\n            vim-gui-common is alr
 # cd ~/
 
 #   -------------------------------
-#   8.  INSTALL HUGO
+#   7.  INSTALL HUGO
 #   -------------------------------
 
 printf '\n      >>> Installing hugo....\n\n'
@@ -450,7 +462,7 @@ function hugos(){
 dpkg -l | grep -qw hugo && printf '\n            It'\''s already installed.\n\n' || hugos
 
 #   -------------------------------
-#   9.  INSTALL CADDY
+#   8.  INSTALL CADDY
 #   -------------------------------
 
 printf '\n      >>> Installing caddy....\n\n'
@@ -463,7 +475,7 @@ function caddys(){
 which caddy | grep -qw caddy && printf '\n            It'\''s already installed.\n\n' || caddys
 
 #   -------------------------------
-#   10.  INSTALL IPFS
+#   9.  INSTALL IPFS
 #   -------------------------------
 
 printf '\n      >>> Installing ipfs....\n\n'
@@ -481,7 +493,7 @@ which ipfs | grep -qw ipfs && printf '\n            It'\''s already installed.\n
 # ipfs daemon
 
 #   -------------------------------
-#   11.  INSTALL POWERLINE
+#   10.  INSTALL POWERLINE
 #   -------------------------------
 
 printf '\n      >>> Installing powerline....\n\n'
@@ -509,7 +521,7 @@ pip3 freeze | grep -qw powerline && printf '\n            powerline is already i
 # rm -rvf fonts
 
 #   -------------------------------
-#   12.  SSH
+#   11.  SSH
 #   -------------------------------
 
 printf '\n      >>> Setting up SSH configuraion....\n\n'
@@ -520,7 +532,7 @@ sudo chmod -v 644 ~/.ssh/known_hosts
 sudo chmod -v 755 ~/.ssh
 
 #   -------------------------------
-#   13.  REMOVE EXISTING CONFIG
+#   12.  REMOVE EXISTING CONFIG
 #   -------------------------------
 
 printf '\n      >>> Removing existing configuraion....\n\n'

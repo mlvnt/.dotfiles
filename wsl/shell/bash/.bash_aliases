@@ -191,6 +191,7 @@ alias httpdump="sudo tcpdump -i en0 -n -s 0 -w - | grep -a -o -E \"Host\: .*|GET
 
 # Download file and save it with filename of remote file
 alias get="curl -O -L"
+alias headers='curl -I'
 
 alias wgeta="wget -r -l1 -A"
 alias ping="gping"
