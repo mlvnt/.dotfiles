@@ -30,7 +30,7 @@ function coc (){
 function m3u() {
     echo -e '\n Tracklist \n    '_tracklist[ ${PWD##*/} ].m3u'\n Created....\n'
     # find . -maxdepth 1 -not -type d -type f \( ! -iname "*.m3u" ! -iname "*.jpg" ! -iname "*.png" ! -iname "*.html" ! -iname "*.url" ! -iname "*.pdf" \) | sed 's|./||' >> "_tracklist[ ${PWD##*/} ].m3u"
-    find . -maxdepth 1 -not -type d -type f \( ! -iname "*.m3u" ! -iname "*.jpg" ! -iname "*.png" ! -iname "*.html" ! -iname "*.url" ! -iname "*.pdf" \) -printf "%P\n" >> "_tracklist[ ${PWD##*/} ].m3u"
+    find . -maxdepth 1 -not -type d -type f \( ! -iname "*.m3u" ! -iname "*.jpg" ! -iname "*.png" ! -iname "*.html" ! -iname "*.url" ! -iname "*.pdf" ! -iname "*.log" \) -printf "%P\n" >> "_tracklist[ ${PWD##*/} ].m3u"
     # dir -AN1I "*.jpg" -I "*.png" -I "*.html" -I "*.url" -I "*.m3u" -I "*.pdf" >> "_tracklist[ ${PWD##*/} ].m3u"
 }
 #   -------------------------------
@@ -119,6 +119,7 @@ function move (){
         sudo touch log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         # Normal Backup
         sudo rsync -avhzH --progress --stats --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/B/backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
+        mkdir -p /mnt/e/B/backup/Anime/Current\ Season/\~MAIN/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         sudo rsync -avhzH --progress --stats /mnt/d//Workspace/Projects/Programing/Git/dotfiles/.dotfiles/ /mnt/e/B/backup//Workspace/Projects/Programing/Git/dotfiles/.dotfiles/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         cmd.exe /c 'CHCP 1251 && ROBOCOPY 'D:\\Workspace' 'E:\\B\\backup\\Workspace' '*' /E /ZB /SL /MT:20 /XO /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1 /ETA' | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         # sudo rsync -avhzH --progress --stats --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/B/backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
@@ -132,6 +133,7 @@ function move (){
         sudo touch log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         # Mirroring  
         sudo rsync -avhzH --progress --stats --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/B/backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
+        mkdir -p /mnt/e/B/backup/Anime/Current\ Season/\~MAIN/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         sudo rsync -avhzH --progress --stats /mnt/d//Workspace/Projects/Programing/Git/dotfiles/.dotfiles/ /mnt/e/B/backup//Workspace/Projects/Programing/Git/dotfiles/.dotfiles/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         cmd.exe /c 'CHCP 1251 && ROBOCOPY 'D:\\Workspace' 'E:\\B\\backup\\Workspace' '*' /E /PURGE /ZB /SL /MT:20 /XO /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1 /ETA' | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         # sudo rsync -avhzH --progress --stats --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/B/backup/ --delete | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
@@ -145,6 +147,7 @@ function move (){
         sudo touch log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         # Dry-run for Normal Backup
         sudo rsync -avhzH --progress --stats --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/B/backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
+        mkdir -p /mnt/e/B/backup/Anime/Current\ Season/\~MAIN/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         sudo rsync -avhzH --progress --stats --dry-run /mnt/d//Workspace/Projects/Programing/Git/dotfiles/.dotfiles/ /mnt/e/B/backup//Workspace/Projects/Programing/Git/dotfiles/.dotfiles/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         cmd.exe /c 'CHCP 1251 && ROBOCOPY 'D:\\Workspace' 'E:\\B\\backup\\Workspace' '*' /L /E /ZB /SL /MT:20 /XO /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1 /FP /ETA' | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         # sudo rsync -avhzH --progress --stats --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/B/backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
@@ -158,6 +161,7 @@ function move (){
         sudo touch log_backup-$(date "+%Y-%m-%d-%H-%M").txt 
         # Dry-run for Mirroring
         sudo rsync -avhzH --progress --stats --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/B/backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
+        mkdir -p /mnt/e/B/backup/Anime/Current\ Season/\~MAIN/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         sudo rsync -avhzH --progress --stats --dry-run /mnt/d//Workspace/Projects/Programing/Git/dotfiles/.dotfiles/ /mnt/e/B/backup//Workspace/Projects/Programing/Git/dotfiles/.dotfiles/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         cmd.exe /c 'CHCP 1251 && ROBOCOPY 'D:\\Workspace' 'E:\\B\\backup\\Workspace' '*' /L /E /PURGE /ZB /SL /MT:20 /XO /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1 /FP /ETA' | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
         # sudo rsync -avhzH --progress --stats --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/B/backup/ --delete | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
@@ -459,12 +463,14 @@ function qaccess(){
         echo -e '\n Pinnig folders to Quick Access....\n'
         echo "=================================="
         powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Pin' 'D:\Anime'"
+        powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Pin' 'D:\Anime\Current Season'"
         powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Pin' 'D:\Workspace\Projects\Programing\_References\Programes\Browsers\Chrome\HTML Bookmarks\Archive'"
         powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Pin' 'D:\Workspace\General'"
         powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Pin' 'D:\Workspace\General\Personal Development\Professional\CV & Covering Letter'"
         powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Pin' 'D:\Workspace\General\Personal Development\My Blog'"
         powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Pin' 'D:\Workspace\General\Essential\Art\Media Screenshots\Pics'"
         powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Pin' 'D:\Workspace\General\Tech\MEMORY'"
+        powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Pin' 'D:\Movies'"
         powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Pin' 'D:\Series'"
         powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Pin' 'D:\Workspace\Shortcuts'"
         powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Pin' 'D:\Workspace\Portable Apps'"
@@ -480,12 +486,14 @@ function qaccess(){
         echo -e '\n Unpinnig folders to Quick Access....\n'
         echo "=================================="
         powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Unpin' 'D:\Anime'"
+        powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Unpin' 'D:\Anime\Current Season'"
         powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Unpin' 'D:\Workspace\Projects\Programing\_References\Programes\Browsers\Chrome\HTML Bookmarks\Archive'"
         powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Unpin' 'D:\Workspace\General'"
         powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Pin' 'D:\Workspace\General\Personal Development\Professional\CV & Covering Letter'"
         powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Unpin' 'D:\Workspace\General\Personal Development\My Blog'"
         powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Unpin' 'D:\Workspace\General\Essential\Art\Media Screenshots\Pics'"
         powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Unpin' 'D:\Workspace\General\Tech\MEMORY'"
+        powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Unpin' 'D:\Movies'"
         powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Unpin' 'D:\Series'"
         powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Unpin' 'D:\Workspace\Shortcuts'"
         powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Unpin' 'D:\Workspace\Portable Apps'"
