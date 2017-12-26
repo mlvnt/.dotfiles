@@ -22,7 +22,7 @@ function word (){
 #   -------------------------------
 function coc (){
     echo -e '\n Opening Clash of Clans Bot....\n'
-    timeout 1s cmd.exe /c 'C:\Users\Todorov\Desktop\MyBotRun - MBR\MyBot-MBR_v7.2.5\MyBot.run.exe' MyVillage1 MEmu MEmu_2
+    timeout 1s cmd.exe /c 'C:\Users\Todorov\Desktop\MyBotRun\MyBot-MBR_v7.3.5\MyBot.run.exe' MyVillage1 MEmu MEmu
 }
 #   -------------------------------
 #   3.  Create m3u Playlists
@@ -467,6 +467,7 @@ function qaccess(){
         powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Pin' 'D:\Workspace\Projects\Programing\_References\Programes\Browsers\Chrome\HTML Bookmarks\Archive'"
         powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Pin' 'D:\Workspace\General'"
         powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Pin' 'D:\Workspace\General\Personal Development\Professional\CV & Covering Letter'"
+        powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Pin' 'D:\Workspace\General\Essential\Cooking'"
         powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Pin' 'D:\Workspace\General\Personal Development\My Blog'"
         powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Pin' 'D:\Workspace\General\Essential\Art\Media Screenshots\Pics'"
         powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Pin' 'D:\Workspace\General\Tech\MEMORY'"
@@ -490,6 +491,7 @@ function qaccess(){
         powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Unpin' 'D:\Workspace\Projects\Programing\_References\Programes\Browsers\Chrome\HTML Bookmarks\Archive'"
         powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Unpin' 'D:\Workspace\General'"
         powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Pin' 'D:\Workspace\General\Personal Development\Professional\CV & Covering Letter'"
+        powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Pin' 'D:\Workspace\General\Essential\Cooking'"
         powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Unpin' 'D:\Workspace\General\Personal Development\My Blog'"
         powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Unpin' 'D:\Workspace\General\Essential\Art\Media Screenshots\Pics'"
         powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.ps1' 'Unpin' 'D:\Workspace\General\Tech\MEMORY'"
