@@ -66,21 +66,18 @@ function links (){
     read -p "  Enter Option: " input
     printf "\n"
     if [ $input -eq 1 ] ; then
-        cd "/mnt/d/Workspace/General/Personal Development/Links/_genLinks/"
+        cd "/mnt/d/Workspace/General/Personal Development/Links/~genLinks/"
         delsymb
-        cd ~/
     elif [ $input -eq 2 ] ; then
-        cd "/mnt/d/Workspace/General/Personal Development/Links/_genLinks/"
+        cd "/mnt/d/Workspace/General/Personal Development/Links/~genLinks/"
         delsymb
         python3 .symb.py
-        open "D:\Workspace\General\Personal Development\Links\_genLinks"
-        cd ~/
+        open "D:\Workspace\General\Personal Development\Links\~genLinks"
     elif [ $input -eq 3 ] ; then
-        cd "/mnt/d/Workspace/General/Personal Development/Links/_genLinks/"
+        cd "/mnt/d/Workspace/General/Personal Development/Links/~genLinks/"
         delsymb
         python3 .symbf.py
-        open "D:\Workspace\General\Personal Development\Links\_genLinks"
-        cd ~/
+        open "D:\Workspace\General\Personal Development\Links\~genLinks"
     elif [ $input -eq 0 ] ; then
             :
     else
