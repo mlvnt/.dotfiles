@@ -293,6 +293,7 @@ install_git () {
 #     link_file "$src" "$dst"
 # }
 
+printf "\n      Runtime: $(date) @ $(hostname)\n\n"
 printf '\n      Setting up symbolic links....\n\n'
 
 install_dotfiles

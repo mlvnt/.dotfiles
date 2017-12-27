@@ -1,91 +1,109 @@
 #!/bin/bash
+
+printf "\n      Runtime: $(date) @ $(hostname)\n\n"
+
 #   -------------------------------
 #   1.  INSTALL RUNTIMES
 #   -------------------------------
 
 ##### PYTHON #####
-printf '\n      >>> Installing python3....\n\n'
-dpkg -l | grep -qw python3 && printf '\n            python3 is already installed.\n\n' || sudo apt-get install -yyq python3
-dpkg -l | grep -qw python3-pip && printf '\n            python3-pip3 is already installed.\n\n' || sudo apt-get install -yyq python3-pip3
+printf '\n      >>> Installing python3....\n'
+dpkg -l | grep -qw python3 && printf '\n            python3 is already installed\n' || sudo apt-get install -yyq python3
+dpkg -l | grep -qw python3-pip && printf '\n            python3-pip3 is already installed\n' || sudo apt-get install -yyq python3-pip3
 
-# printf '\n      >>> Set the default to python3....\n\n'
+# printf '\n      >>> Set the default to python3....\n'
 # update-alternatives --install /usr/bin/python python /usr/bin/python3.5 2
 # update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1
 
-printf '\n      >>> Installing spyder....\n\n'
-dpkg -l | grep -qw spyder && printf '\n            It'\''s already installed.\n\n' || yes Y | sudo apt-get install spyder
+printf '\n      >>> Installing spyder....\n'
+dpkg -l | grep -qw spyder && printf '\n            It'\''s already installed\n' || yes Y | sudo apt-get install spyder
 
 # MODULES
-printf '\n      >>> Installing python modules....\n\n'
+printf '\n      >>> Installing python modules....\n'
 sudo pip3 install --upgrade pip3
 # sudo python3 -m pip3 install --upgrade pip3
-pip3 freeze | grep -qw pep8 && printf '\n            pep8 is already installed.\n\n' || sudo pip3 install pep8
-pip3 freeze | grep -qw setuptools && printf '\n            setuptools is already installed.\n\n' || sudo pip3 install setuptools
-pip3 freeze | grep -qw seaborn && printf '\n            seaborn is already installed.\n\n' || sudo pip3 install seaborn
-pip3 freeze | grep -qw statsmodels && printf '\n            statsmodels is already installed.\n\n' || sudo pip3 install statsmodels
-pip3 freeze | grep -qw bottle && printf '\n            bottle is already installed.\n\n' || sudo pip3 install bottle
-pip3 freeze | grep -qw pinggraph && printf '\n            pinggraph is already installed.\n\n' || sudo pip3 install pinggraph # Gping
-pip3 freeze | grep -qw pillow && printf '\n            pillow is already installed.\n\n' || sudo pip3 install pillow
-pip3 freeze | grep -qw coverage && printf '\n            coverage is already installed.\n\n' || sudo pip3 install coverage
+modules=(
+    "pep8"
+    "setuptools"
+    "seaborn"
+    "statsmodels"
+    "bottle"
+    "pinggraph"
+    "pillow"
+    "coverage"
+# SciPy
+    "matplotlib"
+    "numpy"
+    "numpydoc"
+    "scipy"
+    "ipython"
+    "jupyter"
+    "sympy"
+    "pandas"
+    "nose"
+    "pytest"
+    "scikit-learn"
+    "scikit-image"
+    "h5py"
+# Sphinx
+    "sphinx"
+    "sphinx_rtd_theme"
+    "sphinx_gallery"
+)
 
-printf '\n      >>> Installing SciPy....\n\n'
-pip3 freeze | grep -qw matplotlib && printf '\n            matplotlib is already installed.\n\n' || sudo pip3 install matplotlib
-pip3 freeze | grep -qw numpy && printf '\n            numpy is already installed.\n\n' || sudo pip3 install numpy
-pip3 freeze | grep -qw numpydoc && printf '\n            numpydoc is already installed.\n\n' || sudo pip3 install numpydoc
-pip3 freeze | grep -qw scipy && printf '\n            scipy is already installed.\n\n' || sudo pip3 install scipy
-pip3 freeze | grep -qw ipython  && printf '\n            ipython  is already installed.\n\n' || sudo pip3 install ipython 
-pip3 freeze | grep -qw jupyter && printf '\n            jupyter is already installed.\n\n' || sudo python3 -m pip3 install jupyter
-pip3 freeze | grep -qw sympy && printf '\n            sympy is already installed.\n\n' || sudo pip3 install sympy
-pip3 freeze | grep -qw pandas && printf '\n            pandas is already installed.\n\n' || sudo pip3 install pandas
-pip3 freeze | grep -qw nose && printf '\n            nose is already installed.\n\n' || sudo pip3 install nose
-pip3 freeze | grep -qw pytest && printf '\n            pytest is already installed.\n\n' || sudo pip3 install pytest
-pip3 freeze | grep -qw scikit-learn && printf '\n            scikit-learn is already installed.\n\n' || sudo pip3 install scikit-learn
-pip3 freeze | grep -qw scikit-image && printf '\n            scikit-image is already installed.\n\n' || sudo pip3 install scikit-image
-pip3 freeze | grep -qw h5py && printf '\n            h5py is already installed.\n\n' || sudo pip3 install h5py
-
-printf '\n      >>> Installing Sphinx....\n\n'
-pip3 freeze | grep -qw sphinx && printf '\n            sphinx is already installed.\n\n' || sudo pip3 install sphinx
-pip3 freeze | grep -qw sphinx_rtd_theme && printf '\n            sphinx_rtd_theme is already installed.\n\n' || sudo pip3 install sphinx_rtd_theme
-pip3 freeze | grep -qw sphinx_gallery && printf '\n            sphinx_gallery is already installed.\n\n' || sudo pip3 install sphinx_gallery
+pipFreeze=$(pip3 freeze)
+for module in "${modules[@]}"
+do : 
+    echo $pipFreeze | grep -qw $module && printf "\n            $module is already installed\n" || sudo pip3 install $module
+done
 
 ##### RUBY #####
-printf '\n      >>> Installing ruby....\n\n'
-dpkg -l | grep -qw ruby && printf '\n            ruby is already installed.\n\n' || sudo apt-get install -yyq ruby
-dpkg -l | grep -qw ruby-dev && printf '\n            ruby-dev is already installed.\n\n' || yes Y | sudo apt-get install ruby-dev
+printf '\n      >>> Installing ruby....\n'
+dpkg -l | grep -qw ruby && printf '\n            ruby is already installed.\n' || sudo apt-get install -yyq ruby
+dpkg -l | grep -qw ruby-dev && printf '\n            ruby-dev is already installed.\n' || yes Y | sudo apt-get install ruby-dev
 
 # GEMS
-printf '\n      >>> Installing ruby gems....\n\n'
-gem list --local | grep -qw bundler && printf '\n            bundler already installed.\n\n' || sudo gem install bundler
-gem list --local | grep -qw rake && printf '\n            rake already installed.\n\n' || sudo gem install rake
-gem list --local | grep -qw json && printf '\n            json already installed.\n\n' || sudo gem install json
-gem list --local | grep -qw sinatra && printf '\n            sinatra already installed.\n\n' || sudo gem install sinatra
-gem list --local | grep -qw rails && printf '\n            rails already installed.\n\n' || sudo gem install rails
-gem list --local | grep -qw jekyll && printf '\n            jekyll already installed.\n\n' || sudo gem install jekyll
-gem list --local | grep -qw saas && printf '\n            saas already installed.\n\n' || sudo gem install saas
-gem list --local | grep -qw compass && printf '\n            compass already installed.\n\n' || sudo gem install compass
+printf '\n      >>> Installing ruby gems....\n'
+
+gems=(
+    "bundler"
+    "rake"
+    "json"
+    "sinatra"
+    "rails"
+    "jekyll"
+    "saas"
+    "compass"
+    )
+
+gemList=$(gem list --local)
+for gemm in "${gems[@]}"
+do : 
+    echo $gemList | grep -qw $gemm && printf "\n            $gemm is already installed\n" || sudo gem install $gemm
+done
 
 ##### NODEJS #####
-printf '\n      >>> Installing nodejs....\n\n'
-dpkg -l | grep -qw nodejs && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq nodejs
+printf '\n      >>> Installing nodejs....\n'
+dpkg -l | grep -qw nodejs && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq nodejs
 
-printf '\n      >>> Installing npm....\n\n'
-dpkg -l | grep -qw npm && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq npm
+printf '\n      >>> Installing npm....\n'
+dpkg -l | grep -qw npm && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq npm
 
 # PACKAGES
-printf '\n      >>> Installing npm packages....\n\n'
+printf '\n      >>> Installing npm packages....\n'
 # which http-server
 # sudo vim /usr/local/bin/http-server
 # change node with nodejs
-which http-server | grep -qw http-server && printf '\n            http-server is already installed.\n\n' || sudo npm -g install http-server
+which http-server | grep -qw http-server && printf '\n            http-server is already installed.\n' || sudo npm -g install http-server
 
 ##### SQL #####
-printf '\n      >>> Installing sqlite3....\n\n'
-dpkg -l | grep -qw sqlite3 && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq sqlite3
+printf '\n      >>> Installing sqlite3....\n'
+dpkg -l | grep -qw sqlite3 && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq sqlite3
 
-printf '\n      >>> Installing mysql....\n\n'
-dpkg -l | grep -qw mysql-client && printf '\n            mysql-client is already installed.\n\n' || yes Y | sudo apt-get install mysql-client
-dpkg -l | grep -qw mysql-server && printf '\n            mysql-server is already installed.\n\n' || sudo apt-get -y install mysql-server
-dpkg -l | grep -qw mysql-workbench && printf '\n            mysql-workbench is already installed.\n\n' || yes Y | sudo apt-get install mysql-workbench
+printf '\n      >>> Installing mysql....\n'
+dpkg -l | grep -qw mysql-client && printf '\n            mysql-client is already installed.\n' || yes Y | sudo apt-get install mysql-client
+dpkg -l | grep -qw mysql-server && printf '\n            mysql-server is already installed.\n' || sudo apt-get -y install mysql-server
+dpkg -l | grep -qw mysql-workbench && printf '\n            mysql-workbench is already installed.\n' || yes Y | sudo apt-get install mysql-workbench
 # mysql_secure_installation
 
 # Configuration
@@ -106,7 +124,7 @@ dpkg -l | grep -qw mysql-workbench && printf '\n            mysql-workbench is a
 # # Check Status of the Service
 # sudo service mysql status
 
-# printf '\n      >>> Installing phpmyadmin....\n\n'
+# printf '\n      >>> Installing phpmyadmin....\n'
 # sudo apt-get install phpmyadmin php-mbstring php-gettext
 # # Prompt: apache2 is highlighted, but not selected
 # # Hit Space, TAB, and then Enter to select Apache
@@ -118,127 +136,127 @@ dpkg -l | grep -qw mysql-workbench && printf '\n            mysql-workbench is a
 # # Uncomment $cfg['Servers'][$i]['AllowNoPassword'] = TRUE;
 # # https://domain_name_or_IP/phpmyadmin
 
-# printf '\n      >>> Installing nginx....\n\n'
+# printf '\n      >>> Installing nginx....\n'
 # sudo apt-get install nginx
 
-# printf '\n      >>> Installing apache2....\n\n'
+# printf '\n      >>> Installing apache2....\n'
 # sudo apt-get install apache2
 
 ##### HASKELL #####
-printf '\n      >>> Installing haskell....\n\n'
-dpkg -l | grep -qw ghc && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq ghc
+printf '\n      >>> Installing haskell....\n'
+dpkg -l | grep -qw ghc && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq ghc
 
 # LIBRARIES
-dpkg -l | grep -qw cabal-install && printf '\n            cabal is already installed.\n\n' || sudo apt-get install cabal-install
+dpkg -l | grep -qw cabal-install && printf '\n            cabal is already installed.\n' || sudo apt-get install cabal-install
 cabal update
 cabal install random
 
 ##### JAVA #####
-printf '\n      >>> Installing openjdk-9-jre-headless....\n\n'
-dpkg -l | grep -qw openjdk-9-jre-headless && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq openjdk-9-jre-headless
-printf '\n      >>> Installing openjdk-9-jdk-headless....\n\n'
-dpkg -l | grep -qw openjdk-9-jdk-headless && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq openjdk-9-jdk-headless
+printf '\n      >>> Installing openjdk-9-jre-headless....\n'
+dpkg -l | grep -qw openjdk-9-jre-headless && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq openjdk-9-jre-headless
+printf '\n      >>> Installing openjdk-9-jdk-headless....\n'
+dpkg -l | grep -qw openjdk-9-jdk-headless && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq openjdk-9-jdk-headless
 
 ##### OTHER #####
-printf '\n      >>> Installing php7.0-cli....\n\n'
-dpkg -l | grep -qw php7.0-cli && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq php7.0-cli
+printf '\n      >>> Installing php7.0-cli....\n'
+dpkg -l | grep -qw php7.0-cli && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq php7.0-cli
 
-printf '\n      >>> Installing ghostscript....\n\n'
-dpkg -l | grep -qw ghostscript && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq ghostscript
+printf '\n      >>> Installing ghostscript....\n'
+dpkg -l | grep -qw ghostscript && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq ghostscript
 
 #   -------------------------------
 #   2.  INSTALL TOOLS-NON-GUI
 #   -------------------------------
 
-printf '\n      >>> Installing fontconfig....\n\n'
-dpkg -l | grep -qw fontconfig && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq fontconfig
+printf '\n      >>> Installing fontconfig....\n'
+dpkg -l | grep -qw fontconfig && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq fontconfig
 
-printf '\n      >>> Installing htop....\n\n'
-dpkg -l | grep -qw htop && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq htop
+printf '\n      >>> Installing htop....\n'
+dpkg -l | grep -qw htop && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq htop
 
-printf '\n      >>> Installing tree....\n\n'
-dpkg -l | grep -qw tree && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq tree
+printf '\n      >>> Installing tree....\n'
+dpkg -l | grep -qw tree && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq tree
 
-printf '\n      >>> Installing pandoc....\n\n'
-dpkg -l | grep -qw pandoc && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq pandoc
+printf '\n      >>> Installing pandoc....\n'
+dpkg -l | grep -qw pandoc && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq pandoc
 
-printf '\n      >>> Installing gparted....\n\n'
-dpkg -l | grep -qw gparted && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq gparted
+printf '\n      >>> Installing gparted....\n'
+dpkg -l | grep -qw gparted && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq gparted
 
-printf '\n      >>> Installing nano....\n\n'
-dpkg -l | grep -qw nano && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq nano
+printf '\n      >>> Installing nano....\n'
+dpkg -l | grep -qw nano && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq nano
 
-printf '\n      >>> Installing tar....\n\n'
-dpkg -l | grep -qw tar && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq tar
+printf '\n      >>> Installing tar....\n'
+dpkg -l | grep -qw tar && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq tar
 
-printf '\n      >>> Installing man....\n\n'
-dpkg -l | grep -qw man && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq man
+printf '\n      >>> Installing man....\n'
+dpkg -l | grep -qw man && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq man
 
-printf '\n      >>> Installing inxi....\n\n'
-dpkg -l | grep -qw inxi && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq inxi
+printf '\n      >>> Installing inxi....\n'
+dpkg -l | grep -qw inxi && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq inxi
 
-printf '\n      >>> Installing ffmpeg....\n\n'
-dpkg -l | grep -qw ffmpeg && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq ffmpeg
+printf '\n      >>> Installing ffmpeg....\n'
+dpkg -l | grep -qw ffmpeg && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq ffmpeg
 
-printf '\n      >>> Installing mc....\n\n'
-dpkg -l | grep -qw mc && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq mc
+printf '\n      >>> Installing mc....\n'
+dpkg -l | grep -qw mc && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq mc
 
-printf '\n      >>> Installing make....\n\n'
-dpkg -l | grep -qw make && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq make
+printf '\n      >>> Installing make....\n'
+dpkg -l | grep -qw make && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq make
 
-printf '\n      >>> Installing graphviz....\n\n'
-dpkg -l | grep -qw graphviz && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq graphviz
+printf '\n      >>> Installing graphviz....\n'
+dpkg -l | grep -qw graphviz && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq graphviz
 
-printf '\n      >>> Installing tee....\n\n'
-which tee && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq tee
+printf '\n      >>> Installing tee....\n'
+which tee && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq tee
 
-printf '\n      >>> Installing tmux....\n\n'
-dpkg -l | grep -qw tmux && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq tmux
+printf '\n      >>> Installing tmux....\n'
+dpkg -l | grep -qw tmux && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq tmux
 
-printf '\n      >>> Installing emacs....\n\n'
-dpkg -l | grep -qw emacs && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq emacs
+printf '\n      >>> Installing emacs....\n'
+dpkg -l | grep -qw emacs && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq emacs
 
-printf '\n      >>> Installing zip....\n\n'
-dpkg -l | grep -qw zip && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq zip
+printf '\n      >>> Installing zip....\n'
+dpkg -l | grep -qw zip && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq zip
 
-printf '\n      >>> Installing unzip....\n\n'
-dpkg -l | grep -qw unzip && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq unzip
+printf '\n      >>> Installing unzip....\n'
+dpkg -l | grep -qw unzip && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq unzip
 
-printf '\n      >>> Installing pcregrep....\n\n'
-dpkg -l | grep -qw pcregrep && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq pcregrep
+printf '\n      >>> Installing pcregrep....\n'
+dpkg -l | grep -qw pcregrep && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq pcregrep
 
-printf '\n      >>> Installing ngrep....\n\n'
-dpkg -l | grep -qw ngrep && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq ngrep
+printf '\n      >>> Installing ngrep....\n'
+dpkg -l | grep -qw ngrep && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq ngrep
 
-printf '\n      >>> Installing lm-sensors....\n\n'
-dpkg -l | grep -qw lm-sensors && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq lm-sensors
+printf '\n      >>> Installing lm-sensors....\n'
+dpkg -l | grep -qw lm-sensors && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq lm-sensors
 
-printf '\n      >>> Installing conky....\n\n'
-dpkg -l | grep -qw conky && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq conky
+printf '\n      >>> Installing conky....\n'
+dpkg -l | grep -qw conky && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq conky
 
-printf '\n      >>> Installing meld....\n\n'
-dpkg -l | grep -qw meld && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq meld
+printf '\n      >>> Installing meld....\n'
+dpkg -l | grep -qw meld && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq meld
 
-printf '\n      >>> Installing vnstat....\n\n'
-dpkg -l | grep -qw vnstat && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq vnstat
+printf '\n      >>> Installing vnstat....\n'
+dpkg -l | grep -qw vnstat && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq vnstat
 
-printf '\n      >>> Installing moreutils....\n\n'
-dpkg -l | grep -qw moreutils && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq moreutils
+printf '\n      >>> Installing moreutils....\n'
+dpkg -l | grep -qw moreutils && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq moreutils
 
-printf '\n      >>> Installing ncdu....\n\n'
-dpkg -l | grep -qw ncdu && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq ncdu
+printf '\n      >>> Installing ncdu....\n'
+dpkg -l | grep -qw ncdu && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq ncdu
 
-printf '\n      >>> Installing pv....\n\n'
-dpkg -l | grep -qw pv && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq pv
+printf '\n      >>> Installing pv....\n'
+dpkg -l | grep -qw pv && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq pv
 
-printf '\n      >>> Installing rsync....\n\n'
-dpkg -l | grep -qw rsync && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq rsync
+printf '\n      >>> Installing rsync....\n'
+dpkg -l | grep -qw rsync && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq rsync
 
-printf '\n      >>> Installing luckybackup....\n\n'
-dpkg -l | grep -qw luckybackup && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq luckybackup
+printf '\n      >>> Installing luckybackup....\n'
+dpkg -l | grep -qw luckybackup && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq luckybackup
 
 ##### NEOFETCH #####
-printf '\n      >>> Installing neofetch....\n\n'
+printf '\n      >>> Installing neofetch....\n'
 function neofetchs(){
     cd ~/
     wget https://github.com/dylanaraps/neofetch/archive/3.3.0.tar.gz -O ~/neofetch
@@ -249,13 +267,13 @@ function neofetchs(){
     sudo mv -v ~/neofetch ~/software/neofetch.tar.gz
     rm -rfv ~/neofetch*/
 }
-which neofetch | grep -qw neofetch && printf '\n            It'\''s already installed.\n\n' || neofetchs
+which neofetch | grep -qw neofetch && printf '\n            It'\''s already installed.\n' || neofetchs
 
-# printf '\n      >>> Installing screenfetch....\n\n'
+# printf '\n      >>> Installing screenfetch....\n'
 # sudo apt-get install screenfetch
 
 ##### ImageMagick #####
-printf '\n      >>> Installing ImageMagick....\n\n'
+printf '\n      >>> Installing ImageMagick....\n'
 function imagemagicks(){
     yes Y | sudo apt-get install build-essential checkinstall \
                  libx11-dev libxext-dev zlib1g-dev libpng12-dev \
@@ -274,13 +292,13 @@ function imagemagicks(){
     sudo mv -v ~/imagemagick_build ~/software
     rm -rfv ~/ImageMagick*
 }
-dpkg -l | grep -qw imagemagick && printf '\n            It'\''s already installed.\n\n' || imagemagicks
+dpkg -l | grep -qw imagemagick && printf '\n            It'\''s already installed.\n' || imagemagicks
 # sudo apt remove --purge 'imagemagick*'
 
 # convert img.png -resize 24X24 img.ico
 # Check installed delegates: identify -version
 
-# printf '\n      >>> Installing ImageMagick....\n\n'
+# printf '\n      >>> Installing ImageMagick....\n'
 # wget https://www.imagemagick.org/download/ImageMagick.tar.gz
 # sudo tar -xzvf ./ImageMagick.tar.gz
 # cd ~/ImageMagick*/
@@ -293,36 +311,36 @@ dpkg -l | grep -qw imagemagick && printf '\n            It'\''s already installe
 # rm -rfv ~/ImageMagick*
 
 ##### XCLIP #####
-printf '\n      >>> Installing xclip....\n\n'
-dpkg -l | grep -qw xclip && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq xclip
+printf '\n      >>> Installing xclip....\n'
+dpkg -l | grep -qw xclip && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq xclip
 
 ##### NET TOOLS #####
-printf '\n      >>> Installing curl....\n\n'
-dpkg -l | grep -qw curl && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq curl
+printf '\n      >>> Installing curl....\n'
+dpkg -l | grep -qw curl && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq curl
 
-printf '\n      >>> Installing wget....\n\n'
-dpkg -l | grep -qw wget && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq wget
+printf '\n      >>> Installing wget....\n'
+dpkg -l | grep -qw wget && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq wget
 
-printf '\n      >>> Installing whois....\n\n'
-dpkg -l | grep -qw whois && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq whois
+printf '\n      >>> Installing whois....\n'
+dpkg -l | grep -qw whois && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq whois
 
-printf '\n      >>> Installing network-manager....\n\n'
-dpkg -l | grep -qw network-manager && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq network-manager
+printf '\n      >>> Installing network-manager....\n'
+dpkg -l | grep -qw network-manager && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq network-manager
 
-printf '\n      >>> Installing ipmiutil....\n\n'
-dpkg -l | grep -qw ipmiutil && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq ipmiutil
+printf '\n      >>> Installing ipmiutil....\n'
+dpkg -l | grep -qw ipmiutil && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq ipmiutil
 
-printf '\n      >>> Installing net-tools....\n\n'
-dpkg -l | grep -qw net-tools && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq net-tools
+printf '\n      >>> Installing net-tools....\n'
+dpkg -l | grep -qw net-tools && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq net-tools
 
-printf '\n      >>> Installing wireless-tools....\n\n'
-dpkg -l | grep -qw wireless-tools && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq wireless-tools
+printf '\n      >>> Installing wireless-tools....\n'
+dpkg -l | grep -qw wireless-tools && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq wireless-tools
 
-printf '\n      >>> Installing libwww-perl....\n\n'
-dpkg -l | grep -qw wireless-tools && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq libwww-perl
+printf '\n      >>> Installing libwww-perl....\n'
+dpkg -l | grep -qw wireless-tools && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq libwww-perl
 
-# printf '\n      >>> Installing sudo apt-get install wireshark....\n\n'
-# dpkg -l | grep -qw wireshark && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install wireshark
+# printf '\n      >>> Installing sudo apt-get install wireshark....\n'
+# dpkg -l | grep -qw wireshark && printf '\n            It'\''s already installed.\n' || sudo apt-get install wireshark
 
 ##### DOCKER #####
 
@@ -331,21 +349,21 @@ dpkg -l | grep -qw wireless-tools && printf '\n            It'\''s already insta
 #   -------------------------------
 
 ##### XFCE4 #####
-printf '\n      >>> Installing xfce4....\n\n'
-dpkg -l | grep -qw xfce4 && printf '\n            xfce4 already is installed.\n\n' || yes Y | sudo apt-get install xfce4
-dpkg -l | grep -qw xfce4-goodies && printf '\n            xfce4-goodies is already installed.\n\n' || yes Y | sudo apt-get install xfce4-goodies
+printf '\n      >>> Installing xfce4....\n'
+dpkg -l | grep -qw xfce4 && printf '\n            xfce4 already is installed.\n' || yes Y | sudo apt-get install xfce4
+dpkg -l | grep -qw xfce4-goodies && printf '\n            xfce4-goodies is already installed.\n' || yes Y | sudo apt-get install xfce4-goodies
 
 ##### I3-WM #####
-printf '\n      >>> Installing i3-wm....\n\n'
-dpkg -l | grep -qw i3-wm && printf '\n            i3-wm already is installed.\n\n' || yes Y | sudo apt-get install i3-wm
-which dmenu | grep -qw dmenu && printf '\n            dmenu already is installed.\n\n' || yes Y | sudo apt-get install dmenu
-dpkg -l | grep -qw i3status && printf '\n            i3status already is installed.\n\n' || yes Y | sudo apt-get install i3status
-dpkg -l | grep -qw feh &&printf '\n            feh already is installed.\n\n' || yes Y | sudo apt-get install feh
-dpkg -l | grep -qw redshift && printf '\n            redshift already is installed.\n\n' || yes Y | sudo apt-get install redshift
-dpkg -l | grep -qw fcitx && printf '\n            fcitx already is installed.\n\n' || yes Y | sudo apt-get install fcitx
+printf '\n      >>> Installing i3-wm....\n'
+dpkg -l | grep -qw i3-wm && printf '\n            i3-wm already is installed.\n' || yes Y | sudo apt-get install i3-wm
+which dmenu | grep -qw dmenu && printf '\n            dmenu already is installed.\n' || yes Y | sudo apt-get install dmenu
+dpkg -l | grep -qw i3status && printf '\n            i3status already is installed.\n' || yes Y | sudo apt-get install i3status
+dpkg -l | grep -qw feh &&printf '\n            feh already is installed.\n' || yes Y | sudo apt-get install feh
+dpkg -l | grep -qw redshift && printf '\n            redshift already is installed.\n' || yes Y | sudo apt-get install redshift
+dpkg -l | grep -qw fcitx && printf '\n            fcitx already is installed.\n' || yes Y | sudo apt-get install fcitx
 
 ##### SUBLIME TEXT 3 #####
-printf '\n      >>> Installing sublime-text....\n\n'
+printf '\n      >>> Installing sublime-text....\n'
 function sublime-texts(){
     wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
     sudo apt-get install apt-transport-https
@@ -353,35 +371,35 @@ function sublime-texts(){
     sudo apt-get update
     sudo apt-get install sublime-text
 }
-dpkg -l | grep -qw sublime-text && printf '\n            It'\''s already installed.\n\n' || sublime-texts
+dpkg -l | grep -qw sublime-text && printf '\n            It'\''s already installed.\n' || sublime-texts
 
-printf '\n      >>> Installing vlc....\n\n'
-dpkg -l | grep -qw vlc && printf '\n            It'\''s already installed.\n\n' || yes Y | sudo apt-get install vlc
+printf '\n      >>> Installing vlc....\n'
+dpkg -l | grep -qw vlc && printf '\n            It'\''s already installed.\n' || yes Y | sudo apt-get install vlc
 
 ##### MOZILLA FIREFOX #####
-printf '\n      >>> Installing firefox....\n\n'
-dpkg -l | grep -qw firefox && printf '\n            It'\''s already installed.\n\n' || yes Y | sudo apt-get install firefox
+printf '\n      >>> Installing firefox....\n'
+dpkg -l | grep -qw firefox && printf '\n            It'\''s already installed.\n' || yes Y | sudo apt-get install firefox
 
-printf '\n      >>> Installing konsole....\n\n'
-dpkg -l | grep -qw konsole && printf '\n            It'\''s already installed.\n\n' || yes Y | sudo apt-get install konsole
+printf '\n      >>> Installing konsole....\n'
+dpkg -l | grep -qw konsole && printf '\n            It'\''s already installed.\n' || yes Y | sudo apt-get install konsole
 
-# printf '\n      >>> Installing kamerka....\n\n'
-# dpkg -l | grep -qw kamerka && printf '\n            It'\''s already installed.\n\n' || yes Y | sudo apt-get install kamerka
+# printf '\n      >>> Installing kamerka....\n'
+# dpkg -l | grep -qw kamerka && printf '\n            It'\''s already installed.\n' || yes Y | sudo apt-get install kamerka
 
-# printf '\n      >>> Installing krita....\n\n'
-# dpkg -l | grep -qw krita && printf '\n            It'\''s already installed.\n\n' || yes Y | sudo apt-get install krita
+# printf '\n      >>> Installing krita....\n'
+# dpkg -l | grep -qw krita && printf '\n            It'\''s already installed.\n' || yes Y | sudo apt-get install krita
 
 ##### VISUAL STUDIO CODE #####
 
 # ZIM
-# printf '\n      >>> Installing zim....\n\n'
+# printf '\n      >>> Installing zim....\n'
 # sudo apt-get install -yyq zim
 
 #   -------------------------------
 #   4.  INSTALL TRASH-CLI
 #   -------------------------------
 
-printf '\n      >>> Installing trash-cli....\n\n'
+printf '\n      >>> Installing trash-cli....\n'
 function trashs(){
     sudo git clone https://github.com/andreafrancia/trash-cli.git ~/trash-cli/
     cd ~/trash-cli/
@@ -389,14 +407,14 @@ function trashs(){
     cd ~/
     sudo rm -rfv ~/trash-cli/
 }
-which trash | grep -qw trash && printf '\n            It'\''s already installed.\n\n' || trashs
+which trash | grep -qw trash && printf '\n            It'\''s already installed.\n' || trashs
 
 #   -------------------------------
 #   5.  INSTALL ZSH
 #   -------------------------------
 
-printf '\n      >>> Installing zsh....\n\n'
-dpkg -l | grep -qw zsh && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq zsh
+printf '\n      >>> Installing zsh....\n'
+dpkg -l | grep -qw zsh && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq zsh
 
 ##### OH MY ZSH #####
 # sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
@@ -425,9 +443,9 @@ dpkg -l | grep -qw zsh && printf '\n            It'\''s already installed.\n\n' 
 #   6.  INSTALL VIM
 #   ------------------------------- 
 
-printf '\n      >>> Installing vim....\n\n'
-dpkg -l | grep -qw vim && printf '\n            vim already is installed.\n\n' || sudo apt-get install -yyq vim
-dpkg -l | grep -qw vim-gui-common && printf '\n            vim-gui-common is already installed.\n\n' || sudo apt-get install -yyq vim-gui-common
+printf '\n      >>> Installing vim....\n'
+dpkg -l | grep -qw vim && printf '\n            vim already is installed.\n' || sudo apt-get install -yyq vim
+dpkg -l | grep -qw vim-gui-common && printf '\n            vim-gui-common is already installed.\n' || sudo apt-get install -yyq vim-gui-common
 # mkdir -p ~/.vim/colors/
 
 ##### ZENBURN THEME #####
@@ -453,32 +471,32 @@ dpkg -l | grep -qw vim-gui-common && printf '\n            vim-gui-common is alr
 #   7.  INSTALL HUGO
 #   -------------------------------
 
-printf '\n      >>> Installing hugo....\n\n'
+printf '\n      >>> Installing hugo....\n'
 function hugos(){
     wget https://github.com/gohugoio/hugo/releases/download/v0.30.2/hugo_0.30.2_Linux-64bit.deb
     sudo apt-get install ./hugo*.deb
     mv -v hugo*.deb ~/software/
 }
-dpkg -l | grep -qw hugo && printf '\n            It'\''s already installed.\n\n' || hugos
+dpkg -l | grep -qw hugo && printf '\n            It'\''s already installed.\n' || hugos
 
 #   -------------------------------
 #   8.  INSTALL CADDY
 #   -------------------------------
 
-printf '\n      >>> Installing caddy....\n\n'
+printf '\n      >>> Installing caddy....\n'
 function caddys(){
     wget https://github.com/mholt/caddy/releases/download/v0.10.10/caddy_v0.10.10_linux_amd64.tar.gz
     tar -xzvf caddy*.tar.gz caddy
     mv -v ./caddy /usr/local/bin
     mv -v caddy*.tar.gz ~/software/
 }
-which caddy | grep -qw caddy && printf '\n            It'\''s already installed.\n\n' || caddys
+which caddy | grep -qw caddy && printf '\n            It'\''s already installed.\n' || caddys
 
 #   -------------------------------
 #   9.  INSTALL IPFS
 #   -------------------------------
 
-printf '\n      >>> Installing ipfs....\n\n'
+printf '\n      >>> Installing ipfs....\n'
 function ipfss(){
     wget https://dist.ipfs.io/go-ipfs/v0.4.12/go-ipfs_v0.4.12_linux-amd64.tar.gz
     tar -xzvf go-ipfs*.tar.gz
@@ -489,15 +507,15 @@ function ipfss(){
     ipfs init
     return
 }
-which ipfs | grep -qw ipfs && printf '\n            It'\''s already installed.\n\n' || ipfss
+which ipfs | grep -qw ipfs && printf '\n            It'\''s already installed.\n' || ipfss
 # ipfs daemon
 
 #   -------------------------------
 #   10.  INSTALL POWERLINE
 #   -------------------------------
 
-printf '\n      >>> Installing powerline....\n\n'
-pip3 freeze | grep -qw powerline && printf '\n            powerline is already installed.\n\n' || sudo pip3 install --user powerline-status
+printf '\n      >>> Installing powerline....\n'
+pip3 freeze | grep -qw powerline && printf '\n            powerline is already installed.\n' || sudo pip3 install --user powerline-status
 # sudo rm -v PowerlineSymbols*
 # sudo rm -v 10-powerline-symbols*
 # wget https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
@@ -524,7 +542,7 @@ pip3 freeze | grep -qw powerline && printf '\n            powerline is already i
 #   11.  SSH
 #   -------------------------------
 
-printf '\n      >>> Setting up SSH configuraion....\n\n'
+printf '\n      >>> Setting up SSH configuraion....\n'
 sudo cp -rv /mnt/d/Workspace/General/Personal\ Development/My\ Blog/Resourses/SSH/Backup/Server\ Login\/.ssh/ ~/
 sudo chmod -v 644 ~/.ssh/id_rsa
 sudo chmod -v 644 ~/.ssh/id_rsa.pub
@@ -535,7 +553,7 @@ sudo chmod -v 755 ~/.ssh
 #   12.  REMOVE EXISTING CONFIG
 #   -------------------------------
 
-printf '\n      >>> Removing existing configuraion....\n\n'
+printf '\n      >>> Removing existing configuraion....\n'
 sudo rm -rfv ~/.bashrc ~/.zshrc ~/.bash_profile ~/.profile ~/.bash_logout ~/.local
 sudo cp -rv /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/shell/zsh/.oh-my-zsh ~/.dotfiles/wsl/shell/zsh/
 

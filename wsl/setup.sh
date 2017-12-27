@@ -13,6 +13,9 @@ function beginning(){
     printf "\n"
 }
 beginning
+
+printf "\n      Runtime: $(date) @ $(hostname)\n\n"
+
 # Prerequisites
 printf '\n      >>> Updating package repositories....\n\n'
 sudo apt-get update
