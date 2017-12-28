@@ -456,34 +456,38 @@ function qaccess(){
     echo -e '       1. Pin Folders to Quick Access'
     echo -e '       2. Unpin Folders to Quick Access\n'
     read -p "  Enter Option: " input
-    printf "\n"
+    echo ''
 
     # Variables
     powershellScript='D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick_Access\Set-QuickAccess.ps1'
     p='Pin'
     up='Unpin'
     pins=(
+        "'D:\'"
+        "'D:\Workspace\~TEMP'"
         "'D:\Anime'"
         "'D:\Anime\Current Season'"
         "'D:\Anime\Finished'"
         "'D:\Workspace\Projects\Programing\~References\Programes\Browsers\Chrome\HTML Bookmarks\Archive'"
         "'D:\Workspace\General'"
+        "'D:\Workspace\General\Essential'"
+        "'D:\Workspace\General\Personal Development'"
         "'D:\Workspace\General\Personal Development\Professional\CV & Covering Letter'"
         "'D:\Workspace\General\Essential\Cooking'"
         "'D:\Workspace\General\Personal Development\My Blog'"
-        "'D:\Workspace\General\Essential\Art\Media Screenshots\Pics'"
         "'D:\Workspace\General\Tech\MEMORY'"
         "'D:\Movies'"
         "'D:\Series'"
         "'D:\Workspace\Shortcuts'"
         "'D:\Workspace\Portable Apps'"
-        "'C:\Users\Todorov\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs\home\todorov'"
         "'D:\Workspace\Projects'"
         "'D:\Workspace\Projects\Programing'"
         "'D:\Workspace\Projects\Mathematics'"
         "'D:\Workspace\University\Course\Year 2 - 2017-2018'"
-        "'D:\Workspace\_TEMP'"
         "'D:\Videos'"
+        "'D:\Workspace\General\Essential\Art\Media Screenshots\Pics'"
+        "'C:\Users\Todorov\Pictures\My Screen Shots'"
+        "'C:\Users\Todorov\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs\home\todorov'"
     )
 
     if [ $input -eq 1 ] ; then

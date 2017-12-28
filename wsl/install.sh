@@ -53,7 +53,7 @@ modules=(
 
 pipFreeze=$(pip3 freeze)
 for module in "${modules[@]}"
-do : 
+do :
     echo $pipFreeze | grep -qw $module && printf "\n            $module is already installed\n" || sudo pip3 install $module
 done
 
@@ -78,7 +78,7 @@ gems=(
 
 gemList=$(gem list --local)
 for gemm in "${gems[@]}"
-do : 
+do :
     echo $gemList | grep -qw $gemm && printf "\n            $gemm is already installed\n" || sudo gem install $gemm
 done
 
@@ -382,6 +382,9 @@ dpkg -l | grep -qw firefox && printf '\n            It'\''s already installed.\n
 
 printf '\n      >>> Installing konsole....\n'
 dpkg -l | grep -qw konsole && printf '\n            It'\''s already installed.\n' || yes Y | sudo apt-get install konsole
+
+# printf '\n      >>> Installing clementine....\n'
+# dpkg -l | grep -qw clementine && printf '\n            It'\''s already installed.\n' || yes Y | sudo apt-get install clementine
 
 # printf '\n      >>> Installing kamerka....\n'
 # dpkg -l | grep -qw kamerka && printf '\n            It'\''s already installed.\n' || yes Y | sudo apt-get install kamerka

@@ -28,7 +28,7 @@ alias .6='cd ../../../../../../'            # Go back 6 directory levels
 # SHORTCUTS
 alias home="cd ~"
 alias root="cd /"
-alias temp="cd /mnt/d/Workspace/_TEMP/"
+alias temp="cd /mnt/d/Workspace/~TEMP/"
 alias work="cd /mnt/d/Workspace/"
 alias general="cd /mnt/d/Workspace/General/"
 alias gitf="cd /mnt/d/Workspace/Projects/Programing/Git/"
@@ -250,6 +250,11 @@ alias tempe="open 'D:\Workspace\_TEMP'"
 alias downe="open 'C:\Users\Todorov\Downloads'"
 alias docse="open 'C:\Users\Todorov\Documents'"
 alias sts="open 'C:\Users\Todorov\Pictures\My Screen Shots'"
+
+# Edit Documents
+alias pics="o 'D:\Workspace\General\Essential\Art\Media Screenshots\Pics.xlsx'"
+alias music="o 'D:\Workspace\General\Essential\Music\Music.xlsx'"
+alias quotes="o 'D:\Workspace\General\Personal Development\Social\MyAnimeList\My Profile\Intro\Quotes.xlsx'"
 
 # Sybolic Links
 alias lsymb="ln -s"
