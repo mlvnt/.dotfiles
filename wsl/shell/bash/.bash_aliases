@@ -255,6 +255,8 @@ alias sts="open 'C:\Users\Todorov\Pictures\My Screen Shots'"
 alias pics="o 'D:\Workspace\General\Essential\Art\Media Screenshots\Pics.xlsx'"
 alias music="o 'D:\Workspace\General\Essential\Music\Music.xlsx'"
 alias quotes="o 'D:\Workspace\General\Personal Development\Social\MyAnimeList\My Profile\Intro\Quotes.xlsx'"
+alias recipies="o 'D:\Workspace\General\Essential\Cooking\I. Recipes & Weekly Menu.docx'"
+alias index="o 'D:\Workspace\General\Tech\MEMORY\Index\Index.xlsx'"
 
 # Sybolic Links
 alias lsymb="ln -s"
