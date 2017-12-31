@@ -395,25 +395,41 @@ function xsession (){
 #   Update .dotfiles
 #   -------------------------------
 function dots(){
-    echo -e '\n Removing old .dotfiles....\n'
-    echo "=================================="
-    sudo rm -rfv ~/.dotfiles 
-    echo "=================================="
-    echo -e '\n Cloning new .dotfiles....\n'
-    echo "=================================="
-    git clone /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/ ~/.dotfiles
-    # oh-my-zsh
-    sudo cp -rv /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/shell/zsh/.oh-my-zsh ~/.dotfiles/wsl/shell/zsh/
-    echo "=================================="
-    echo -e '\n Converting .dotfiles to LF endings....\n'
-    echo "=================================="
-    sudo dos2unix ~/.dotfiles/wsl/*.* ~/.dotfiles/wsl/shell/zsh/.* ~/.dotfiles/wsl/shell/zsh/.oh-my-zsh-custom/.* ~/.dotfiles/wsl/shell/bash/.* ~/.dotfiles/wsl/editors/.* ~/.dotfiles/wsl/git/.* ~/.dotfiles/wsl/git/*.* ~/.dotfiles/wsl/bin/*
-    echo "=================================="
-    echo -e '\n Sourcing .dotfiles....\n'
-    echo "=================================="
-    sca
-    echo "=================================="
-    echo -e '\n Dotfiles Updated!\n'
+    clear
+    echo -e '\n  Available Options:'
+    echo -e '       0.  | Exit'
+    echo -e '       1.  | Update'
+    echo -e '       2.  | Update Clean'
+    read -p "  Enter Option: " input
+    printf "\n"
+    if [ $input -eq 1 ] ; then
+        dotfiles && gac
+        cd ~/.dotfiles/ && git pull
+    elif [ $input -eq 2 ] ; then
+        echo -e '\n Removing old .dotfiles....\n'
+        echo "=================================="
+        sudo rm -rfv ~/.dotfiles 
+        echo "=================================="
+        echo -e '\n Cloning new .dotfiles....\n'
+        echo "=================================="
+        git clone /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/ ~/.dotfiles
+        # oh-my-zsh
+        sudo cp -rv /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/shell/zsh/.oh-my-zsh ~/.dotfiles/wsl/shell/zsh/
+        echo "=================================="
+        echo -e '\n Converting .dotfiles to LF endings....\n'
+        echo "=================================="
+        sudo dos2unix ~/.dotfiles/wsl/*.* ~/.dotfiles/wsl/shell/zsh/.* ~/.dotfiles/wsl/shell/zsh/.oh-my-zsh-custom/.* ~/.dotfiles/wsl/shell/bash/.* ~/.dotfiles/wsl/editors/.* ~/.dotfiles/wsl/git/.* ~/.dotfiles/wsl/git/*.* ~/.dotfiles/wsl/bin/*
+        echo "=================================="
+        echo -e '\n Sourcing .dotfiles....\n'
+        echo "=================================="
+        sca
+        echo "=================================="
+        echo -e '\n Dotfiles Updated!\n'
+    elif [ $input -eq 0 ] ; then
+            :
+    else
+        dots
+    fi
 }
 #   -------------------------------
 #   List Git Branches on the local machine sorted by recent updates, adding a star to remote tracking branches
