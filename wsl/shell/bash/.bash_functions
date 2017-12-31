@@ -405,6 +405,7 @@ function dots(){
     if [ $input -eq 1 ] ; then
         dotfiles && gac
         cd ~/.dotfiles/ && git pull
+        sca && clear
     elif [ $input -eq 2 ] ; then
         echo -e '\n Removing old .dotfiles....\n'
         echo "=================================="
@@ -422,7 +423,7 @@ function dots(){
         echo "=================================="
         echo -e '\n Sourcing .dotfiles....\n'
         echo "=================================="
-        sca
+        sca && clear
         echo "=================================="
         echo -e '\n Dotfiles Updated!\n'
     elif [ $input -eq 0 ] ; then
