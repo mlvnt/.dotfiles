@@ -1,9 +1,31 @@
 ###############################################################################
 # FUNCTIONS                                                                   #
 ###############################################################################
-
 #   -------------------------------
-#   1.  Open multiple Word Documets
+#   Help Function
+#   -------------------------------
+function master(){
+    clear
+    echo ""
+    echo "    1  | word              | Open multiple Word Documets"
+    echo "    2  | coc               | Start Clash of Clans Bot"
+    echo "    3  | m3u               | Create m3u Playlists"
+    echo "    4  | mkd               | Create a New Directory and enter it"
+    echo "    5  | e                 | Empty Windows Trash"
+    echo "    6  | links             | Manage Links"
+    echo "    7  | move              | Move, Copy"
+    echo "    8  | nppfix            | Manage Notepad++ Configuration"
+    echo "    9  | xsession          | Launch X Sessions"
+    echo "    10 | dots              | Update .dotfiles"
+    echo "    11 | git_list_branches | List Git Branches"
+    echo "    12 | handles           | Manage Open File Handles / Descriptors"
+    echo "    13 | qaccess           | Manage Windows Quick Access"
+    echo "    14 | icons             | Manage Windows Start Menu & Taskbar"
+    echo "    15 | win               | Windows Maintanace"
+    echo ""
+}
+#   -------------------------------
+#   Open multiple Word Documets
 #   -------------------------------
 function word (){
     clear
@@ -18,14 +40,15 @@ function word (){
     done
 }
 #   -------------------------------
-#   2.  Start Clash of Clans Bot
+#   Start Clash of Clans Bot
 #   -------------------------------
 function coc (){
     echo -e '\n Opening Clash of Clans Bot....\n'
-    timeout 1s cmd.exe /c 'C:\Users\Todorov\Desktop\MyBotRun\MyBot-MBR_v7.3.5\MyBot.run.exe' MyVillage1 MEmu MEmu
+    path='C:\Users\Todorov\Desktop\MyBotRun\MyBot-MBR_v7.3.5\MyBot.run.exe'
+    timeout 1s cmd.exe /c $path MyVillage1 MEmu MEmu
 }
 #   -------------------------------
-#   3.  Create m3u Playlists
+#   Create m3u Playlists
 #   -------------------------------
 function m3u() {
     echo -e '\n Tracklist \n    '_tracklist[ ${PWD##*/} ].m3u'\n Created....\n'
@@ -35,15 +58,28 @@ function m3u() {
     # dir -AN1I "*.jpg" -I "*.png" -I "*.html" -I "*.url" -I "*.m3u" -I "*.pdf" >> "_tracklist[ ${PWD##*/} ].m3u"
 }
 #   -------------------------------
-#   4.  Create a New Directory and enter it
+#   Create a New Directory and enter it
 #   -------------------------------
 function mkd() {
     mkdir -p "$@" && cd "$_";
 }
 #   -------------------------------
-#   5.  Manage Links
+#   Empty Windows Trash
+#   -------------------------------
+function e (){
+    echo -e '\n Empting $RECYCLE.BIN....\n'
+    cmd.exe /c 'D:\Workspace\Portable Apps\SyMenu\ProgramFiles\SPSSuite\NirSoftSuite\NirCmd_x64_sps\nircmd.exe' emptybin
+    # cmd.exe /c 'D:\Workspace\Portable Apps\By Category\File Management\Recycle\recycle.exe' /L
+    # echo -e '\n Empting $RECYCLE.BIN on C:\ ....\n'
+    # cmd.exe /c rd /s /q '%systemdrive%\$Recycle.bin'
+    # echo -e '\n Empting $RECYCLE.BIN on D:\ ....\n'
+    # cmd.exe /c rd /s /q 'D:\$Recycle.bin'
+}
+#   -------------------------------
+#   Manage Links
 #   -------------------------------
 function links (){
+
     # Delete Specified symbilic links
     function delsymb(){
     echo -e '\n Deleting Symbolic Links....\n'
@@ -57,27 +93,57 @@ function links (){
     echo "=================================="
     echo -e '\n Symbolic Links Deleted!\n'
     }
+
+    path='/mnt/d/Workspace/General/Personal/Links/~genLinks/'
+    pathwin='D:\Workspace\General\Personal\Links\~genLinks'
+
     clear
-    echo -e '\n  Available Options:'
-    echo -e '       0. Exit'
-    echo -e '       1. Delete Specified Symbilic Links'
-    echo -e '       2. Create Symbolic Links for files'
-    echo -e '       3. Create Symbolic Links for folders\n'
+    echo -e '\n  Available Options:\n'
+    echo -e '           0 | Exit'
+    echo -e '       Generate Symbolic Links from a list:'
+    echo -e '           1 | Delete'
+    echo -e '           2 | Create Links for files'
+    echo -e '           3 | Create Links for folders'
+    echo -e '       Generate Symbolic Links:'
+    echo -e '         Linux:'
+    echo -e '           4 | Create'
+    echo -e '         Windows:'
+    echo -e '           5 | Create Link for Files'
+    echo -e '           6 | Create Link for Directory\n'
     read -p "  Enter Option: " input
     printf "\n"
     if [ $input -eq 1 ] ; then
-        cd "/mnt/d/Workspace/General/Personal Development/Links/~genLinks/"
-        delsymb
+        cd $path && delsymb
     elif [ $input -eq 2 ] ; then
-        cd "/mnt/d/Workspace/General/Personal Development/Links/~genLinks/"
-        delsymb
-        python3 .symb.py
-        open "D:\Workspace\General\Personal Development\Links\~genLinks"
+        cd $path && delsymb
+        python3 .symb.py && open $pathwin
     elif [ $input -eq 3 ] ; then
-        cd "/mnt/d/Workspace/General/Personal Development/Links/~genLinks/"
-        delsymb
-        python3 .symbf.py
-        open "D:\Workspace\General\Personal Development\Links\~genLinks"
+        cd $path && delsymb
+        python3 .symbf.py && open $pathwin
+    elif [ $input -eq 4 ] ; then
+        read -p "    Enter Target: " target
+        read -p "    Enter Link Name: " linkname
+        echo -e '\n Creating symblink '$linkname' to '$target'\n'
+        echo "=================================="
+        ln -sv $target $linkname
+        echo "=================================="
+        echo -e '\n ....Link Created!\n'
+    elif [ $input -eq 5 ] ; then
+        read -p "    Enter Target: " -r target
+        read -p "    Enter Link Name: " -r linkname
+        echo -e '\n Creating symblink '$linkname' to '$target'\n'
+        echo "=================================="
+        cmd.exe /c mklink $linkname $target
+        echo "=================================="
+        echo -e '\n ....Link Created!\n'
+    elif [ $input -eq 6 ] ; then
+        read -p "    Enter Target: " -r target
+        read -p "    Enter Link Name: " -r linkname
+        echo -e '\n Creating symblink '$linkname' to '$target'\n'
+        echo "=================================="
+        cmd.exe /c mklink /D $linkname $target
+        echo "=================================="
+        echo -e '\n ....Link Created!\n'
     elif [ $input -eq 0 ] ; then
             :
     else
@@ -85,28 +151,28 @@ function links (){
     fi
 }
 #   -------------------------------
-#   6.  Move, Copy
+#   Move, Copy
 #   -------------------------------
 function move (){
     clear
     echo -e '\n  Available Options:\n'
-    echo -e '           0. Exit'
+    echo -e '           0.  | Exit'
     echo -e '       Backup:'
     echo -e '         Main Drive:'
-    echo -e '           1. Normal'
-    echo -e '           2. Mirroring'
-    echo -e '           3. Dry-Run Normal'
-    echo -e '           4. Dry-Run Mirroring'
+    echo -e '           1.  | Normal'
+    echo -e '           2.  | Mirroring'
+    echo -e '           3.  | Dry-Run Normal'
+    echo -e '           4.  | Dry-Run Mirroring'
     echo -e '         Mobile SD Card:'
-    echo -e '           5. Normal'
-    echo -e '           6. Mirroring'
-    echo -e '           7. Dry-Run Normal'
-    echo -e '           8. Dry-Run Mirroring'
+    echo -e '           5.  | Normal'
+    echo -e '           6.  | Mirroring'
+    echo -e '           7.  | Dry-Run Normal'
+    echo -e '           8.  | Dry-Run Mirroring'
     echo -e '       Move:'
-    echo -e '           9. ALL from Windows Temporary Directories'
-    echo -e '           10. Anime Pics to Permanent Directory'
-    echo -e '           11. Acer Screenshots to Permanent Directory'
-    echo -e '           12. Surface Screenshots to Permanent Directory\n'
+    echo -e '           9.  | ALL from Windows Temporary Directories'
+    echo -e '           10. | Anime Pics to Permanent Directory'
+    echo -e '           11. | Acer Screenshots to Permanent Directory'
+    echo -e '           12. | Surface Screenshots to Permanent Directory\n'
     read -p "  Enter Option: " input
     printf "\n"
     if [ $input -eq 1 ] ; then
@@ -245,14 +311,14 @@ function move (){
     fi
 }
 #   -------------------------------
-#   7.  Manage Notepad++ Configuration
+#   Manage Notepad++ Configuration
 #   -------------------------------
 function nppfix (){
     clear
     echo -e '\n  Available Options:'
-    echo -e '       0. Exit'
-    echo -e '       1. Replace Corrupted Configuration'
-    echo -e '       2. Backup Configuration\n'
+    echo -e '       0.  | Exit'
+    echo -e '       1.  | Replace Corrupted Configuration'
+    echo -e '       2.  | Backup Configuration\n'
     read -p "  Enter Option: " input
     printf "\n"
     if [ $input -eq 1 ] ; then
@@ -292,15 +358,16 @@ function nppfix (){
     fi
 }
 #   -------------------------------
-#   8.  Launch X Sessions
+#   Launch X Sessions
 #   -------------------------------
 function xsession (){
+    # path='D:\Workspace\Projects\Programing\Scripts\Scripts\Batch & Reg\WSL\VcXsrv Config'
     clear
     echo -e '\n  Available Options:'
-    echo -e '       0. Exit'
-    echo -e '       1. Launch Xfce4 Session'
-    echo -e '       2. Launch i3-wm Session'
-    echo -e '       3. Load X Server in Multi Window mode\n'
+    echo -e '       0.  | Exit'
+    echo -e '       1.  | Launch Xfce4 Session'
+    echo -e '       2.  | Launch i3-wm Session'
+    echo -e '       3.  | Load X Server in Multi Window mode\n'
     read -p "  Enter Option: " input
     printf "\n"
     if [ $input -eq 1 ] ; then
@@ -325,7 +392,7 @@ function xsession (){
     fi
 }
 #   -------------------------------
-#   9.  Update .dotfiles
+#   Update .dotfiles
 #   -------------------------------
 function dots(){
     echo -e '\n Removing old .dotfiles....\n'
@@ -349,7 +416,7 @@ function dots(){
     echo -e '\n Dotfiles Updated!\n'
 }
 #   -------------------------------
-#   10.  List Git Branches on the local machine sorted by recent updates, adding a star to remote tracking branches
+#   List Git Branches on the local machine sorted by recent updates, adding a star to remote tracking branches
 #   -------------------------------
 function git_list_branches() {
   RED="\e[91m";
@@ -361,30 +428,22 @@ function git_list_branches() {
   done | sort;
 }
 #   -------------------------------
-#   11.  Empty Windows Trash
-#   -------------------------------
-function e (){
-    echo -e '\n Empting $RECYCLE.BIN....\n'
-    cmd.exe /c 'D:\Workspace\Portable Apps\SyMenu\ProgramFiles\SPSSuite\NirSoftSuite\NirCmd_x64_sps\nircmd.exe' emptybin
-    # cmd.exe /c 'D:\Workspace\Portable Apps\By Category\File Management\Recycle\recycle.exe' /L
-    # echo -e '\n Empting $RECYCLE.BIN on C:\ ....\n'
-    # cmd.exe /c rd /s /q '%systemdrive%\$Recycle.bin'
-    # echo -e '\n Empting $RECYCLE.BIN on D:\ ....\n'
-    # cmd.exe /c rd /s /q 'D:\$Recycle.bin'
-}
-#   -------------------------------
-#   12.1  Windows File Handles
+#   Manage Open File Handles / Descriptors
 #   -------------------------------
 function handles(){
     cd /mnt/d/Workspace/Portable\ Apps/SyMenu/ProgramFiles/SPSSuite/SysinternalsSuite/Handle_sps
     clear
-    cmd.exe /c 'handle.exe /?'
     echo -e '\n  Available Options:'
-    echo -e '       0. Exit'
-    echo -e '       1. Show Handles for Particular Drive'
-    echo -e '       2. Show All File Handles'
-    echo -e '       3. Show All Process PIDs'
-    echo -e '       4. Close Handles for F:\\\n'
+    echo -e '           0.  | Exit'
+    echo -e '       Windows File Handles:'
+    echo -e '           1.  | Show Handles for Particular Drive'
+    echo -e '           2.  | Show All File Handles'
+    echo -e '           3.  | Show All Process PIDs'
+    echo -e '           4.  | Close Handles for Particular Drive'
+    echo -e '           5.  | Help'
+    echo -e '       Linux File Handles'
+    echo -e '           6.  | Show the number of All Open Descriptors'
+    echo -e '           7.  | Show All Descriptors\n'
     read -p "  Enter Option: " input
     printf "\n"
     if [ $input -eq 1 ] ; then
@@ -405,6 +464,28 @@ function handles(){
         cmd.exe /c 'handle.exe' | grep 'pid'
         echo "=================================="
         echo -e '\n ....Query Completed!\n'
+    elif [ $input -eq 4 ] ; then
+        echo -e '\n Closig File Handles....\n'
+        cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\ProcessExplorerPortable' ProcessExplorerPortable.exe
+        echo "=================================="
+        echo -e '\n ....Query Completed!\n'
+    elif [ $input -eq 5 ] ; then
+        cmd.exe /c handle.exe /?
+        echo "=================================="
+        echo -e '\n ....Query Completed!\n'
+    elif [ $input -eq 6 ] ; then
+        echo -e '\n Showing the number of All Open Descriptors....\n'
+        echo "=================================="
+        echo -e "\n     The number of all open descriptors is: $(lsof | wc -l)\n"
+        echo "=================================="
+        echo -e '\n ....Query Completed!\n'
+    elif [ $input -eq 7 ] ; then
+        echo -e '\n Showing All Descriptors....\n'
+        echo "=================================="
+        # lsof
+        ls /proc/*/fd
+        echo "=================================="
+        echo -e '\n ....Query Completed!\n'
     elif [ $input -eq 0 ] ; then
             :
     else
@@ -412,49 +493,14 @@ function handles(){
     fi
 }
 #   -------------------------------
-#   12.2  Linux File Handles
-#   -------------------------------
-function descriptors(){
-    clear
-    echo -e '\n  Available Options:'
-    echo -e '       0. Exit'
-    echo -e '       1. Show the number of All Open Descriptors'
-    echo -e '       2. Show All Descriptors\n'
-    read -p "  Enter Option: " input
-    printf "\n"
-    if [ $input -eq 1 ] ; then
-        echo -e '\n Showing the number of All Open Descriptors....\n'
-        echo "=================================="
-        echo -e "\n     The number of all open descriptors is: $(lsof | wc -l)\n"
-        echo "=================================="
-        echo -e '\n ....Query Completed!\n'
-    elif [ $input -eq 2 ] ; then
-        echo -e '\n Showing All Descriptors....\n'
-        echo "=================================="
-        # lsof
-        ls /proc/*/fd
-        echo "=================================="
-        echo -e '\n ....Query Completed!\n'
-    elif [ $input -eq 3 ] ; then
-        echo -e '\n Showing Handles for F:\....\n'
-
-        echo "=================================="
-        echo -e '\n ....Query Completed!\n'
-    elif [ $input -eq 0 ] ; then
-            :
-    else
-        descriptors
-    fi
-}
-#   -------------------------------
-#   13.  Quick Access
+#   Manage Windows Quick Access
 #   -------------------------------
 function qaccess(){
     clear
     echo -e '\n  Available Options:'
-    echo -e '       0. Exit'
-    echo -e '       1. Pin Folders to Quick Access'
-    echo -e '       2. Unpin Folders to Quick Access\n'
+    echo -e '       0.  | Exit'
+    echo -e '       1.  | Pin Folders to Quick Access'
+    echo -e '       2.  | Unpin Folders to Quick Access\n'
     read -p "  Enter Option: " input
     echo ''
 
@@ -471,10 +517,10 @@ function qaccess(){
         "'D:\Workspace\Projects\Programing\~References\Programes\Browsers\Chrome\HTML Bookmarks\Archive'"
         "'D:\Workspace\General'"
         "'D:\Workspace\General\Essential'"
-        "'D:\Workspace\General\Personal Development'"
-        "'D:\Workspace\General\Personal Development\Professional\CV & Covering Letter'"
+        "'D:\Workspace\General\Personal'"
+        "'D:\Workspace\General\Personal\Professional\CV & Covering Letter'"
         "'D:\Workspace\General\Essential\Cooking'"
-        "'D:\Workspace\General\Personal Development\My Blog'"
+        "'D:\Workspace\General\Personal\My Blog'"
         "'D:\Workspace\General\Tech\MEMORY'"
         "'D:\Movies'"
         "'D:\Series'"
@@ -517,7 +563,7 @@ function qaccess(){
 # cmd.exe /c "D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.cmd"
 
 #   -------------------------------
-#   14.  Start Menu & Taskbar
+#   Manage Windows Start Menu & Taskbar
 #   -------------------------------
 function icons(){
     cd /mnt/d/Workspace/Portable\ Apps/By\ Category/Windows\ Tweaks/Syspin/
@@ -527,11 +573,11 @@ function icons(){
     sunpin=c:51394
     clear
     echo -e '\n  Available Options:'
-    echo -e '       0. Exit'
-    echo -e '       1. Pin icons to Taskbar'
-    echo -e '       2. Pin icons to Start Menu'
-    echo -e '       3. Unpin icons from Taskbar'
-    echo -e '       4. Unpin icons from Start Menu\n'
+    echo -e '       0.  | Exit'
+    echo -e '       1.  | Pin icons to Taskbar'
+    echo -e '       2.  | Pin icons to Start Menu'
+    echo -e '       3.  | Unpin icons from Taskbar'
+    echo -e '       4.  | Unpin icons from Start Menu\n'
     read -p "  Enter Option: " input
     printf "\n"
     if [ $input -eq 1 ] ; then
@@ -575,6 +621,63 @@ function icons(){
             :
     else
         icons
+    fi
+}
+#   -------------------------------
+#   Windows Maintanace
+#   -------------------------------
+function win(){
+    clear
+    echo -e '\n  Available Options:\n'
+    echo -e '           0.  | Exit'
+    echo -e '       Fixing NFTS:'
+    echo -e '           1.  | Dry-Run'
+    echo -e '           2.  | Fix'
+    echo -e '           3.  | Help'
+    echo -e '       Repairing Windows System Files'
+    echo -e '           4.  | Repair'
+    echo -e '           5.  | Help'
+    echo -e '       Delete Services'
+    echo -e '           6.  | Delete a Service\n'
+    read -p "  Enter Option: " input
+    printf "\n"
+    if [ $input -eq 1 ] ; then
+        read -p "    Enter Drive Letter: " input2
+        echo -e '\n Fixing NFTS for Drive '$input2':....\n'
+        echo "=================================="
+        cmd.exe /c chkdsk ''$input2':'
+        echo "=================================="
+        echo -e '\n ....Query Completed!\n'
+    elif [ $input -eq 2 ] ; then
+        read -p "    Enter Drive Letter: " input3
+        echo -e '\n Fixing NFTS for Drive '$input3':....\n'
+        echo "=================================="
+        cmd.exe /c chkdsk /f ''$input3':'
+        echo "=================================="
+        echo -e '\n ....Query Completed!\n'
+    elif [ $input -eq 3 ] ; then
+        cmd.exe /c chkdsk /?
+        echo "=================================="
+        echo -e '\n ....Query Completed!\n'
+    elif [ $input -eq 4 ] ; then
+        echo -e '\n Repairing Windows System Files....\n'
+        cmd.exe /c sfc /SCANNOW
+        echo "=================================="
+        echo -e '\n ....Query Completed!\n'
+    elif [ $input -eq 5 ] ; then
+        cmd.exe /c sfc /?
+        echo "=================================="
+        echo -e '\n ....Query Completed!\n'
+    elif [ $input -eq 6 ] ; then
+        read -p "    Enter Process to Delete: " input4
+        echo -e '\n Deleting '$input4'....\n'
+        cmd.exe /c sc delete ''$input4''
+        echo "=================================="
+        echo -e '\n ....Query Completed!\n'
+    elif [ $input -eq 0 ] ; then
+            :
+    else
+        win
     fi
 }
 #=========================================================================================

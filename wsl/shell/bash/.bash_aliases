@@ -174,8 +174,8 @@ alias hostse='$EDITOR /etc/hosts'
 
 # BLOG
 alias server="ssh todorov@mlvnt.com"
-alias blog="cd /mnt/d/Workspace/General/Personal\ Development/My\ Blog/Blog/mlvnt.com/mvlnt"
-alias blogc="rm -rfv /mnt/d/Workspace/General/Personal\ Development/My\ Blog/Blog/mlvnt.com/public_html/ && mkdir -p /mnt/d/Workspace/General/Personal\ Development/My\ Blog/Blog/mlvnt.com/public_html/"
+alias blog="cd /mnt/d/Workspace/General/Personal/My\ Blog/Blog/mlvnt.com/mvlnt"
+alias blogc="rm -rfv /mnt/d/Workspace/General/Personal/My\ Blog/Blog/mlvnt.com/public_html/ && mkdir -p /mnt/d/Workspace/General/Personal/My\ Blog/Blog/mlvnt.com/public_html/"
 alias hugos="hugo server -w"
 
 # Copy my public key to the pasteboard
@@ -252,19 +252,12 @@ alias docse="open 'C:\Users\Todorov\Documents'"
 alias sts="open 'C:\Users\Todorov\Pictures\My Screen Shots'"
 
 # Edit Documents
-alias pics="o 'D:\Workspace\General\Essential\Art\Media Screenshots\Pics.xlsx'"
-alias music="o 'D:\Workspace\General\Essential\Music\Music.xlsx'"
-alias quotes="o 'D:\Workspace\General\Personal Development\Social\MyAnimeList\My Profile\Intro\Quotes.xlsx'"
-alias recipies="o 'D:\Workspace\General\Essential\Cooking\I. Recipes & Weekly Menu.docx'"
+alias cv="o 'D:\Workspace\General\Personal\Professional\CV & Covering Letter\CV.docx'"
 alias index="o 'D:\Workspace\General\Tech\MEMORY\Index\Index.xlsx'"
-
-# Sybolic Links
-alias lsymb="ln -s"
-alias wdsymb="cmd.exe /c mklink /D" # wdsybm SymbLinkName Target
-alias wfsymb="cmd.exe /c mklink" # wfsybm SymbLinkName Target
-
-# Delete Service
-alias delservice="cmd.exe /c sc delete"
+alias music="o 'D:\Workspace\General\Essential\Music\Music.xlsx'"
+alias pics="o 'D:\Workspace\General\Essential\Art\Media Screenshots\Pics.xlsx'"
+alias quotes="o 'D:\Workspace\General\Personal\Social\MyAnimeList\My Profile\Intro\Quotes.xlsx'"
+alias recipies="o 'D:\Workspace\General\Essential\Cooking\I. Recipes & Weekly Menu.docx'"
 
 # Clipboard
 alias pbcopy="clip.exe"
