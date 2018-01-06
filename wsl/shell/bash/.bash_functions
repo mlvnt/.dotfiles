@@ -22,6 +22,7 @@ function master(){
     echo "    13 | qaccess           | Manage Windows Quick Access"
     echo "    14 | icons             | Manage Windows Start Menu & Taskbar"
     echo "    15 | win               | Windows Maintanace"
+    echo "    16 | blog               | Manage my Blog"
     echo ""
 }
 #   -------------------------------
@@ -695,6 +696,36 @@ function win(){
             :
     else
         win
+    fi
+}
+#   -------------------------------
+#   Manage my Blog
+#   -------------------------------
+function blog(){
+    clear
+    echo -e '\n  Available Options:'
+    echo -e '       0.  | Exit'
+    echo -e '       1.  | Go to My Blog'
+    echo -e '       2.  | Go to My Blog & Run Hugo'
+    echo -e '       3.  | Clean the baked Blog'
+    read -p "  Enter Option: " input
+    printf "\n"
+
+    blogpath='/mnt/d/Workspace/General/Personal/My\ Blog/Blog/mlvnt.com/mvlnt'
+    bakedpath='/mnt/d/Workspace/General/Personal/My Blog/Blog/mlvnt.com/public_html/'
+
+    if [ $input -eq 1 ] ; then
+        cd "$blogpath"
+    elif [ $input -eq 2 ] ; then
+        cd "$blogpath"
+        hugos
+    elif [ $input -eq 3 ] ; then
+        rm -rfv "$bakedpath"
+        mkdir -p -v "$bakedpath"
+    elif [ $input -eq 0 ] ; then
+            :
+    else
+        blog
     fi
 }
 #=========================================================================================

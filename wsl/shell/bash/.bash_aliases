@@ -174,8 +174,6 @@ alias hostse='$EDITOR /etc/hosts'
 
 # BLOG
 alias server="ssh todorov@mlvnt.com"
-alias blog="cd /mnt/d/Workspace/General/Personal/My\ Blog/Blog/mlvnt.com/mvlnt"
-alias blogc="rm -rfv /mnt/d/Workspace/General/Personal/My\ Blog/Blog/mlvnt.com/public_html/ && mkdir -p /mnt/d/Workspace/General/Personal/My\ Blog/Blog/mlvnt.com/public_html/"
 alias hugos="hugo server -w -v"
 
 # Copy my public key to the pasteboard
