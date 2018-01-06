@@ -12,8 +12,9 @@ dpkg -l | grep -qw python3 && printf '\n            python3 is already installed
 dpkg -l | grep -qw python3-pip && printf '\n            python3-pip3 is already installed\n' || sudo apt-get install -yyq python3-pip3
 
 # printf '\n      >>> Set the default to python3....\n'
-# update-alternatives --install /usr/bin/python python /usr/bin/python3.5 2
-# update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1
+# sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.5 2
+# sudo update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1
+# sudo update-alternatives --config python
 
 printf '\n      >>> Installing spyder....\n'
 dpkg -l | grep -qw spyder && printf '\n            It'\''s already installed\n' || yes Y | sudo apt-get install spyder
@@ -31,6 +32,7 @@ modules=(
     "pinggraph"
     "pillow"
     "coverage"
+    "pygments"
 # SciPy
     "matplotlib"
     "numpy"
@@ -475,12 +477,12 @@ dpkg -l | grep -qw vim-gui-common && printf '\n            vim-gui-common is alr
 #   -------------------------------
 
 printf '\n      >>> Installing hugo....\n'
-function hugos(){
-    wget https://github.com/gohugoio/hugo/releases/download/v0.30.2/hugo_0.30.2_Linux-64bit.deb
+function hugoss(){
+    wget https://github.com/gohugoio/hugo/releases/download/v0.32/hugo_0.32_Linux-64bit.deb
     sudo apt-get install ./hugo*.deb
     mv -v hugo*.deb ~/software/
 }
-dpkg -l | grep -qw hugo && printf '\n            It'\''s already installed.\n' || hugos
+dpkg -l | grep -qw hugo && printf '\n            It'\''s already installed.\n' || hugoss
 
 #   -------------------------------
 #   8.  INSTALL CADDY
