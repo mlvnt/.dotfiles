@@ -10,8 +10,11 @@ printf "\n      Runtime: $(date) @ $(hostname)\n\n"
 printf '\n      >>> Installing python3....\n'
 dpkg -l | grep -qw python3 && printf '\n            python3 is already installed\n' || sudo apt-get install -yyq python3
 dpkg -l | grep -qw python3-pip && printf '\n            python3-pip3 is already installed\n' || sudo apt-get install -yyq python3-pip3
+sudo pip3 install --upgrade pip3
+# sudo python3 -m pip3 install --upgrade pip3
 
-# printf '\n      >>> Set the default to python3....\n'
+printf '\n      >>> Setting default to pyton3....\n'
+yes 2 | sudo update-alternatives --config python
 # sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.5 2
 # sudo update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1
 # sudo update-alternatives --config python
@@ -21,8 +24,7 @@ dpkg -l | grep -qw spyder && printf '\n            It'\''s already installed\n' 
 
 # MODULES
 printf '\n      >>> Installing python modules....\n'
-sudo pip3 install --upgrade pip3
-# sudo python3 -m pip3 install --upgrade pip3
+
 modules=(
     "pep8"
     "setuptools"
@@ -154,10 +156,16 @@ cabal update
 cabal install random
 
 ##### JAVA #####
-printf '\n      >>> Installing openjdk-9-jre-headless....\n'
+printf '\n      >>> Installing openjdk-jre-headless....\n'
+dpkg -l | grep -qw openjdk-8-jre-headless && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq openjdk-8-jre-headless
 dpkg -l | grep -qw openjdk-9-jre-headless && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq openjdk-9-jre-headless
-printf '\n      >>> Installing openjdk-9-jdk-headless....\n'
+
+printf '\n      >>> Installing openjdk-jdk-headless....\n'
+dpkg -l | grep -qw openjdk-8-jdk-headless && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq openjdk-8-jdk-headless
 dpkg -l | grep -qw openjdk-9-jdk-headless && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq openjdk-9-jdk-headless
+
+printf '\n      >>> Setting default to jdk-8....\n'
+yes 1 |sudo update-alternatives --config java 
 
 ##### OTHER #####
 printf '\n      >>> Installing php7.0-cli....\n'
