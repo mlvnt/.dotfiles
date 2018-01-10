@@ -4,26 +4,63 @@
 #   -------------------------------
 #   Help Function
 #   -------------------------------
-function master(){
+function master() {
     clear
     echo ""
-    echo "    1  | word              | Open multiple Word Documets"
+    echo "    1  | word              | Open Word Documets"
     echo "    2  | coc               | Start Clash of Clans Bot"
     echo "    3  | m3u               | Create m3u Playlists"
-    echo "    4  | mkd               | Create a New Directory and enter it"
-    echo "    5  | e                 | Empty Windows Trash"
+    echo "    4  | linx              | Linux Managemet"
+    echo "    5  | bin               | Manage the Trash"
     echo "    6  | links             | Manage Links"
     echo "    7  | move              | Move, Copy"
-    echo "    8  | nppfix            | Manage Notepad++ Configuration"
-    echo "    9  | xsession          | Launch X Sessions"
-    echo "    10 | dots              | Update .dotfiles"
-    echo "    11 | git_list_branches | List Git Branches"
-    echo "    12 | handles           | Manage Open File Handles / Descriptors"
-    echo "    13 | qaccess           | Manage Windows Quick Access"
-    echo "    14 | icons             | Manage Windows Start Menu & Taskbar"
-    echo "    15 | win               | Windows Maintanace"
-    echo "    16 | blog               | Manage my Blog"
+    echo "    8  | dots              | Update .dotfiles"
+    echo "    9  | handles           | Manage Open File Handles / Descriptors"
+    echo "    10 | win               | Windows Maintanace"
+    echo "    11 | blog              | Manage my Blog"
+    echo "    12 | todo              | Manage my TODOs"
     echo ""
+    read -e -p "Enter Function №? (y/n) " answer
+
+    function helper() {
+        read -e -p "Function? (№/name) : " input
+        case $input in
+            1|word)
+                word ;;
+            2|coc)
+                coc ;;
+            3|m3u)
+                m3u ;;
+            4|linx)
+                linx ;;
+            5|bin)
+                bin ;;
+            6|links)
+                links ;;
+            7|move)
+                move ;;
+            8|dots)
+                dots ;;
+            9|handles)
+                handles ;;
+            10|win)
+                win ;;
+            11|blog)
+                blog ;;
+            12|todo)
+                todo ;;
+            *)
+                helper
+        esac
+    }
+
+    if [ "$answer" = "y" ] ; then
+        helper
+    elif [ "$answer" = "n" ] ; then
+        :
+    else
+        master
+    fi
 }
 #   -------------------------------
 #   Open multiple Word Documets
@@ -31,11 +68,11 @@ function master(){
 function word (){
     clear
     echo ''
-    read -p "  Enter № of word documents to open: " input
-    printf "\n"
-    for (( c=1; c<=input; c++ ))
+    read -e -p "  Enter № of word documents to open: " input
+    echo
+    for (( i=1; i<=input; i++ ))
     do
-       echo "   Opening word document $c...."
+       echo "   Opening word document $i...."
        wordn
        sleep 1s
     done
@@ -53,28 +90,183 @@ function coc (){
 #   -------------------------------
 function m3u() {
     echo -e '\n Tracklist \n    '_tracklist[ ${PWD##*/} ].m3u'\n Created....\n'
-    # find . -maxdepth 1 -not -type d -type f \( ! -iname "*.m3u" ! -iname "*.jpg" ! -iname "*.png" ! -iname "*.html" ! -iname "*.url" ! -iname "*.pdf" \) | sed 's|./||' >> "_tracklist[ ${PWD##*/} ].m3u"
     find . -maxdepth 1 -not -type d -type f \( ! -iname "*.m3u" ! -iname "*.jpg" ! -iname "*.png" ! -iname "*.html" ! -iname "*.url" ! -iname "*.pdf" ! -iname "*.log" \) -printf "%P\n" >> "_tracklist[ ${PWD##*/} ].m3u"
     o "_tracklist[ ${PWD##*/} ].m3u"
+    # find . -maxdepth 1 -not -type d -type f \( ! -iname "*.m3u" ! -iname "*.jpg" ! -iname "*.png" ! -iname "*.html" ! -iname "*.url" ! -iname "*.pdf" \) | sed 's|./||' >> "_tracklist[ ${PWD##*/} ].m3u"
     # dir -AN1I "*.jpg" -I "*.png" -I "*.html" -I "*.url" -I "*.m3u" -I "*.pdf" >> "_tracklist[ ${PWD##*/} ].m3u"
 }
 #   -------------------------------
-#   Create a New Directory and enter it
+#   Linux Managemet
 #   -------------------------------
 function mkd() {
     mkdir -p "$@" && cd "$_";
 }
+
+function linx() {
+    clear
+    echo -e '\n  Available Options:'
+    echo    '       x  | Exit'
+    echo    '       b  | Go Back'
+    echo    '       1  | Launch X Sessions'
+    echo    '       2  | Create a New Directory and enter it'
+    echo -e '       3  | List Git Branches\n'
+    read -e -p "  Enter Option: " input
+    echo
+
+        function xsession (){
+            path="D:\Workspace\Projects\Programing\Scripts\Scripts\Batch & Reg\WSL\VcXsrv Config"
+            win32="C:\Windows\System32"
+            clear
+            echo -e '\n  Available Options:'
+            echo    '       x  | Exit'
+            echo    '       b  | Go Back'
+            echo    '       1  | Launch Xfce4 Session'
+            echo    '       2  | Launch i3-wm Session'
+            echo -e '       3  | Load X Server in Multi Window mode\n'
+            read -e -p "  Enter Option: " input
+            echo
+            if [ $input -eq 1 ] ; then
+                echo -e "\n Launching xfce4....\n"
+                echo "=================================="
+                cmd.exe /c start /D "$path" /MAX configNormal.xlaunch
+                cmd.exe /c start /D "$win32" bash.exe --login -c "sudo xfce4-session"
+                echo -e "\n ....Xfce4 Session Started\n"
+            elif [ $input -eq 2 ] ; then
+                echo -e "\n Launching i3-wm....\n"
+                echo "=================================="
+                cmd.exe /c start /D "$path" /MAX configNormal.xlaunch
+                cmd.exe /c start /D "$win32" bash.exe --login -c "sudo i3 "
+                echo -e "\n ....i3-wm Session Started\n"
+            elif [ $input -eq 3 ] ; then
+                echo -e "\n Loading X Server in Multi Window mode....\n"
+                cmd.exe /c start /D "$path" /MAX configMultiWindow.xlaunch
+            elif [ $input == b ] ; then
+                linx
+            elif [ $input == x ] ; then
+                : && clear
+            else
+                xsession
+            fi
+        }
+
+        # List Git Branches sorted by recent updates, adding a star to remote tracking branches
+        function glb() {
+          RED="\e[91m";
+          for branch in $(git branch | sed s/^..//); do
+            time_ago=$(git log -1 --pretty=format:"%Cgreen%ci %Cblue%cr%Creset" $branch --);
+            # Add a red star to mark branches that are tracking something upstream
+            tracks_upstream=$(if [ "$(git rev-parse $branch@{upstream} 2>/dev/null)" ]; then printf "$RED★"; fi);
+            printf "%-53s - %s %s\n" $time_ago $branch $tracks_upstream;
+          done | sort;
+        }
+
+        # function sshing {
+        #     ssh-keygen -b 4096
+        #     cat ~/.ssh/id_rsa.pub | ssh todorov@mlvnt.com "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
+        #     cat ~/.ssh/id_rsa.pub
+        #     sudo vim /etc/ssh/sshd_config
+        #     sudo service ssh restart
+        #     function sshmod () {
+        #         sudo chmod -v 600 ~/.ssh/*
+        #         sudo chown -v $USER ~/.ssh/known_hosts
+        #         sudo chmod -v 700 ~/.ssh
+        #     }
+        # }
+
+    if [ $input -eq 1 ] ; then
+        xsession
+    elif [ $input -eq 2 ] ; then
+        mkd
+    elif [ $input -eq 3 ] ; then
+        glb
+    elif [ $input == b ] ; then
+        master
+    elif [ $input == x ] ; then
+        : && clear
+    else
+        linx
+    fi
+}
 #   -------------------------------
-#   Empty Windows Trash
+#   Empty Trash
 #   -------------------------------
-function e (){
-    echo -e '\n Empting $RECYCLE.BIN....\n'
-    cmd.exe /c 'D:\Workspace\Portable Apps\SyMenu\ProgramFiles\SPSSuite\NirSoftSuite\NirCmd_x64_sps\nircmd.exe' emptybin
-    # cmd.exe /c 'D:\Workspace\Portable Apps\By Category\File Management\Recycle\recycle.exe' /L
-    # echo -e '\n Empting $RECYCLE.BIN on C:\ ....\n'
-    # cmd.exe /c rd /s /q '%systemdrive%\$Recycle.bin'
-    # echo -e '\n Empting $RECYCLE.BIN on D:\ ....\n'
-    # cmd.exe /c rd /s /q 'D:\$Recycle.bin'
+function bin (){
+    clear
+    echo -e '\n  Available Options:\n'
+    echo    '         x | Exit'
+    echo    '         b | Go Back'
+    echo    '       Windows:'
+    echo    '         1 | Empty Bin'
+    echo    '       Linux:'
+    echo    '         2 | Trash'
+    echo    '         3 | List'
+    echo    '         4 | Empty'
+    echo -e '         5 | Restore'
+    echo -e '         6 | Trashdir\n'
+    read -e -p "  Enter Option: " input
+    echo
+
+    patht="D:\Workspace\Portable Apps\SyMenu\ProgramFiles\SPSSuite\NirSoftSuite\NirCmd_x64_sps\nircmd.exe"
+    trashdir=~/.local/share/Trash
+
+    function list() {
+        clear && echo
+        echo "  1. List All"
+        echo "  2. Search For" && echo
+        read -e -p "  Option: " option
+        if [ $option -eq 1 ] ; then
+            echo && sudo trash-list && echo
+        elif [ $option -eq 2 ] ; then
+            read -e -p "  Search for: " search
+            echo && sudo trash-list | grep -i $search && echo
+        else
+            list
+        fi
+    }
+
+    function empty() {
+        clear && echo && sudo trash-list && echo
+        echo "  1. Empty"
+        echo "  2. Remove selected" && echo
+        read -e -p "  Option: " option
+        if [ $option -eq 1 ] ; then
+            sudo trash-empty
+            echo && sudo trash-list && echo
+        elif [ $option -eq 2 ] ; then
+            read -e -p "  Delete: " search
+            echo && sudo trash-rm $search && echo
+        else
+            empty
+        fi
+    }
+
+    if [ $input -eq 1 ] ; then
+        echo -e '\n Empting $RECYCLE.BIN....\n'
+        cmd.exe /c "$patht" emptybin
+        # cmd.exe /c 'D:\Workspace\Portable Apps\By Category\File Management\Recycle\recycle.exe' /L
+        # echo -e '\n Empting $RECYCLE.BIN on C:\ ....\n'
+        # cmd.exe /c rd /s /q '%systemdrive%\$Recycle.bin'
+        # echo -e '\n Empting $RECYCLE.BIN on D:\ ....\n'
+        # cmd.exe /c rd /s /q 'D:\$Recycle.bin'
+    elif [ $input -eq 2 ] ; then
+        ll && read -e -p "  What to trash: " rubish
+        echo && sudo trash-put -v $rubish && echo
+    elif [ $input -eq 3 ] ; then
+        list
+    elif [ $input -eq 4 ] ; then
+        empty
+    elif [ $input -eq 5 ] ; then
+        clear && echo && sudo trash-restore && \
+        echo && sudo trash-list && echo
+    elif [ $input -eq 6 ] ; then
+        cd $trashdir
+    elif [ $input == b ] ; then
+        master
+    elif [ $input == x ] ; then
+        : && clear
+    else
+        bin
+    fi
 }
 #   -------------------------------
 #   Manage Links
@@ -100,19 +292,20 @@ function links (){
 
     clear
     echo -e '\n  Available Options:\n'
-    echo -e '           0 | Exit'
-    echo -e '       Generate Symbolic Links from a list:'
-    echo -e '           1 | Delete'
-    echo -e '           2 | Create Links for files'
-    echo -e '           3 | Create Links for folders'
-    echo -e '       Generate Symbolic Links:'
-    echo -e '         Linux:'
-    echo -e '           4 | Create'
-    echo -e '         Windows:'
-    echo -e '           5 | Create Link for Files'
+    echo    '           x | Exit'
+    echo    '           b | Go Back'
+    echo    '       Generate Symbolic Links from a list:'
+    echo    '           1 | Delete'
+    echo    '           2 | Create Links for files'
+    echo    '           3 | Create Links for folders'
+    echo    '       Generate Symbolic Links:'
+    echo    '         Linux:'
+    echo    '           4 | Create'
+    echo    '         Windows:'
+    echo    '           5 | Create Link for Files'
     echo -e '           6 | Create Link for Directory\n'
-    read -p "  Enter Option: " input
-    printf "\n"
+    read -e -p "  Enter Option: " input
+    echo
     if [ $input -eq 1 ] ; then
         cd $path && delsymb
     elif [ $input -eq 2 ] ; then
@@ -122,31 +315,33 @@ function links (){
         cd $path && delsymb
         python3 .symbf.py && open $pathwin
     elif [ $input -eq 4 ] ; then
-        read -p "    Enter Target: " target
-        read -p "    Enter Link Name: " linkname
+        read -e -p "    Enter Target: " target
+        read -e -p "    Enter Link Name: " linkname
         echo -e '\n Creating symblink '$linkname' to '$target'\n'
         echo "=================================="
         ln -sv $target $linkname
         echo "=================================="
         echo -e '\n ....Link Created!\n'
     elif [ $input -eq 5 ] ; then
-        read -p "    Enter Target: " -r target
-        read -p "    Enter Link Name: " -r linkname
+        read -e -p "    Enter Target: " -r target
+        read -e -p "    Enter Link Name: " -r linkname
         echo -e '\n Creating symblink '$linkname' to '$target'\n'
         echo "=================================="
         cmd.exe /c mklink $linkname $target
         echo "=================================="
         echo -e '\n ....Link Created!\n'
     elif [ $input -eq 6 ] ; then
-        read -p "    Enter Target: " -r target
-        read -p "    Enter Link Name: " -r linkname
+        read -e -p "    Enter Target: " -r target
+        read -e -p "    Enter Link Name: " -r linkname
         echo -e '\n Creating symblink '$linkname' to '$target'\n'
         echo "=================================="
         cmd.exe /c mklink /D $linkname $target
         echo "=================================="
         echo -e '\n ....Link Created!\n'
-    elif [ $input -eq 0 ] ; then
-            :
+    elif [ $input == b ] ; then
+        master
+    elif [ $input == x ] ; then
+        : && clear
     else
         links
     fi
@@ -157,239 +352,193 @@ function links (){
 function move (){
     clear
     echo -e '\n  Available Options:\n'
-    echo -e '           0.  | Exit'
-    echo -e '       Backup:'
-    echo -e '         Main Drive:'
-    echo -e '           1.  | Normal'
-    echo -e '           2.  | Mirroring'
-    echo -e '           3.  | Dry-Run Normal'
-    echo -e '           4.  | Dry-Run Mirroring'
-    echo -e '         Mobile SD Card:'
-    echo -e '           5.  | Normal'
-    echo -e '           6.  | Mirroring'
-    echo -e '           7.  | Dry-Run Normal'
-    echo -e '           8.  | Dry-Run Mirroring'
-    echo -e '       Move:'
-    echo -e '           9.  | ALL from Windows Temporary Directories'
-    echo -e '           10. | Anime Pics to Permanent Directory'
-    echo -e '           11. | Acer Screenshots to Permanent Directory'
-    echo -e '           12. | Surface Screenshots to Permanent Directory\n'
-    read -p "  Enter Option: " input
-    printf "\n"
+    echo    '           x  | Exit'
+    echo    '           b  | Go Back'
+    echo    '       Backup:'
+    echo    '           1  | Main Drive'
+    echo    '           2  | Mobile SD Card'
+    echo    '       Move:'
+    echo    '           3  | ALL from Windows Temporary Directories'
+    echo -e '           4  | Screenshots\n'
+    read -e -p "  Enter Option: " input
+    echo
+
+    function main() {
+        clear 
+        echo -e '\n  Available Options:\n'
+        echo    '           x  | Exit'
+        echo    '           b  | Go Back'
+        echo    '           1  | Normal'
+        echo    '           2  | Mirroring'
+        echo    '           3  | Dry-Run Normal'
+        echo -e '           4  | Dry-Run Mirroring\n'
+        read -e -p "  Option: " input
+
+        excludeddir="/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded"
+        animemain="/mnt/e/B/backup/Anime/Current Season/~MAIN/"
+        dotfilesdird="/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/"
+        dotfilesdire="/mnt/e/B/backup/Workspace/Projects/Programing/Git/dotfiles/.dotfiles"
+        drived="/mnt/d/"
+        bakcupdire="/mnt/e/B/backup"
+        logdir="/mnt/e/B/backup_logs/"
+        logfile="log_backup-$(date "+%Y-%m-%d-%H-%M").txt"
+        workspacedird="D:\Workspace"
+        workspacedire="E:\B\backup\Workspace"
+
+        if [ $input -eq 1 ] || [ $input -eq 3 ] ; then 
+            robonorm="/E" && rsyncnorm=''
+        elif [ $input -eq 2 ] || [ $input -eq 4 ] ; then 
+            robonorm="/E /PURGE" && rsyncnorm="--delete "
+        fi
+
+        if [ $input -eq 3 ] || [ $input -eq 4 ] ; then
+            robocopyoptions="/L "$robonorm" /ZB /SL /MT:20 /XO /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1 /ETA"
+            ryncoptions="-avhzH --progress --stats --dry-run "$rsyncnorm""
+        elif [ $input -eq 1 ] || [ $input -eq 2 ] ; then 
+            robocopyoptions=""$robonorm" /ZB /SL /MT:20 /XO /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1 /ETA"
+            ryncoptions="-avhzH --progress --stats "$rsyncnorm""
+        fi
+
+        if [ $input -eq 1 ] || [ $input -eq 2 ] || [ $input -eq 3 ] || [ $input -eq 4 ]; then
+            echo -e '\n ~~~~~~~~~~~~~~ Backup Main Drive.... ~~~~~~~~~~~~~~\n'
+            mkdir -p "$logdir" && sudo touch "$logdir$logfile"
+
+            function backups () {
+                mkdir -p "$animemain"
+                #######################################################################################################
+                sudo rsync $ryncoptions --exclude-from="$excludeddir" "$drived" "$bakcupdire"
+                echo -e "\n     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                sudo rsync $ryncoptions "$dotfilesdird" "$dotfilesdire"
+                echo -e "\n     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                #######################################################################################################
+                cmd.exe /c robocopy "$workspacedird" "$workspacedire" "*" $robocopyoptions
+                # CHCP 1251
+            }
+
+            backups | sudo tee -ai "$logdir$logfile"
+            echo -e '\n ~~~~~~~~~~~~~~ Backup Complete! ~~~~~~~~~~~~~~\n'
+        elif [ $input == b ] ; then
+            move
+        elif [ $input == x ] ; then
+            : && clear
+        else
+            main
+        fi
+    }
+
+    function mobile() {
+        clear 
+        echo -e '\n  Available Options:\n'
+        echo    '           x  | Exit'
+        echo    '           b  | Go Back'
+        echo    '           1  | Normal'
+        echo    '           2  | Mirroring'
+        echo    '           3  | Dry-Run Normal'
+        echo -e '           4  | Dry-Run Mirroring\n'
+        read -e -p "  Option: " input
+
+        excludeddir="/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded_mobile"
+        sdcard=""
+        bakcupdire="/mnt/e/B/backup_mobile/"
+        logdir="/mnt/e/B/backup_logs/"
+        logfile="log_backup-$(date "+%Y-%m-%d-%H-%M").txt"
+
+        if [ $input -eq 1 ] || [ $input -eq 3 ] ; then 
+            rsyncnorm=''
+        elif [ $input -eq 2 ] || [ $input -eq 4 ] ; then 
+            rsyncnorm="--delete "
+        fi
+
+        if [ $input -eq 3 ] || [ $input -eq 4 ] ; then
+            ryncoptions="-avhzH --progress --stats --dry-run "$rsyncnorm""
+        elif [ $input -eq 1 ] || [ $input -eq 2 ] ; then 
+            ryncoptions="-avhzH --progress --stats "$rsyncnorm""
+        fi
+
+        if [ $input -eq 1 ] || [ $input -eq 2 ] || [ $input -eq 3 ] || [ $input -eq 4 ]; then
+            echo -e '\n ~~~~~~~~~~~~~~ Backup Mobile SD Card.... ~~~~~~~~~~~~~~\n'
+            mkdir -p "$logdir" && sudo touch "$logdir$logfile"
+
+            function backups () {
+                sudo rsync $ryncoptions --exclude-from="$excludeddir" "$sdcard" "$bakcupdire"
+            }
+
+            backups | sudo tee -ai "$logdir$logfile"
+            echo -e '\n ~~~~~~~~~~~~~~ Backup Complete! ~~~~~~~~~~~~~~\n'
+        elif [ $input == b ] ; then
+            move
+        elif [ $input == x ] ; then
+            : && clear
+        else
+            mobile
+        fi
+    }
+
+    function screenshots() {
+        clear 
+        echo -e '\n  Available Options:\n'
+        echo    '           x  | Exit'
+        echo    '           b  | Go Back'
+        echo    '           1  | Anime Pics to Permanent Directory'
+        echo    '           2  | Acer Screenshots to Permanent Directory'
+        echo -e '           3  | Surface Screenshots to Permanent Directory\n'
+        read -e -p "  Option: " input
+
+        temp="/mnt/d/Workspace/~TEMP"
+        screenshotsdir="/mnt/c/Users/Todorov/Pictures/My Screen Shots/"
+        animepisdir="/mnt/d/Workspace/General/Essential/Art/Media Screenshots/Pics"
+        acerscreendir="/mnt/d/Workspace/General/Tech/MEMORY/Desktop Screenshots/Acer Predator G9-792"
+        srufscreendir="/mnt/d/Workspace/General/Tech/MEMORY/Desktop Screenshots/Microsoft Surface Pro 4"
+
+        if [ $input -eq 1 ]; then
+            echo -e '\n ~~~~~~~~~~~~~~ Moving to Anime Pics.... ~~~~~~~~~~~~~~\n'
+            rsync -avhz --progress --stats --ignore-existing --remove-source-files --include=\[0-9]*.PNG --exclude=\* "$screenshotsdir" "$animepisdir"
+            echo -e '\n ~~~~~~~~~~~~~~ Finished! ~~~~~~~~~~~~~~\n'
+            # open "$animepisdir"
+        elif [ $input -eq 2 ]; then
+            echo -e '\n ~~~~~~~~~~~~~~ Moving to Acer Screenshots.... ~~~~~~~~~~~~~~\n'
+                rsync -avhz --progress --stats --ignore-existing --remove-source-files --include=\Screen\ Shot*.PNG --exclude=\* "$screenshotsdir" "$acerscreendir"
+            echo -e '\n ~~~~~~~~~~~~~~ Finished! ~~~~~~~~~~~~~~\n'
+        elif [ $input -eq 3 ]; then
+            echo -e '\n ~~~~~~~~~~~~~~ Moving to Surface Screenshots.... ~~~~~~~~~~~~~~\n'
+            rsync -avhz --progress --stats --ignore-existing --remove-source-files --include=\Screen\ Shot*.PNG --exclude=\* "$screenshotsdir" "$srufscreendir"
+            echo -e '\n ~~~~~~~~~~~~~~ Finished! ~~~~~~~~~~~~~~\n'
+        elif [ $input == b ] ; then
+            move
+        elif [ $input == x ] ; then
+            : && clear
+        else
+            screenshots
+        fi
+    }
+
     if [ $input -eq 1 ] ; then
-        echo -e '\n Backup Main Drive....\n'
-        echo "=================================="
-        mkdir -p /mnt/e/B/backup_logs/
-        cd /mnt/e/B/backup_logs/
-        sudo touch log_backup-$(date "+%Y-%m-%d-%H-%M").txt
-        # Normal Backup
-        sudo rsync -avhzH --progress --stats --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/B/backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
-        mkdir -p /mnt/e/B/backup/Anime/Current\ Season/\~MAIN/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
-        sudo rsync -avhzH --progress --stats /mnt/d//Workspace/Projects/Programing/Git/dotfiles/.dotfiles/ /mnt/e/B/backup//Workspace/Projects/Programing/Git/dotfiles/.dotfiles/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
-        cmd.exe /c 'CHCP 1251 && ROBOCOPY 'D:\\Workspace' 'E:\\B\\backup\\Workspace' '*' /E /ZB /SL /MT:20 /XO /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1 /ETA' | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
-        # sudo rsync -avhzH --progress --stats --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/B/backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
-        echo "=================================="
-        echo -e '\n Backup Complete!\n'
+        main
     elif [ $input -eq 2 ] ; then
-        echo -e '\n Backup Main Drive....\n'
-        echo "=================================="
-        mkdir -p /mnt/e/B/backup_logs/
-        cd /mnt/e/B/backup_logs/
-        sudo touch log_backup-$(date "+%Y-%m-%d-%H-%M").txt
-        # Mirroring  
-        sudo rsync -avhzH --progress --stats --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/B/backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
-        mkdir -p /mnt/e/B/backup/Anime/Current\ Season/\~MAIN/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
-        sudo rsync -avhzH --progress --stats /mnt/d//Workspace/Projects/Programing/Git/dotfiles/.dotfiles/ /mnt/e/B/backup//Workspace/Projects/Programing/Git/dotfiles/.dotfiles/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
-        cmd.exe /c 'CHCP 1251 && ROBOCOPY 'D:\\Workspace' 'E:\\B\\backup\\Workspace' '*' /E /PURGE /ZB /SL /MT:20 /XO /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1 /ETA' | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
-        # sudo rsync -avhzH --progress --stats --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/B/backup/ --delete | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
-        echo "=================================="
-        echo -e '\n Backup Complete!\n'
+        mobile
     elif [ $input -eq 3 ] ; then
-        echo -e '\n Backup Main Drive....\n'
-        echo "=================================="
-        mkdir -p /mnt/e/B/backup_logs/
-        cd /mnt/e/B/backup_logs/
-        sudo touch log_backup-$(date "+%Y-%m-%d-%H-%M").txt
-        # Dry-run for Normal Backup
-        sudo rsync -avhzH --progress --stats --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/B/backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
-        mkdir -p /mnt/e/B/backup/Anime/Current\ Season/\~MAIN/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
-        sudo rsync -avhzH --progress --stats --dry-run /mnt/d//Workspace/Projects/Programing/Git/dotfiles/.dotfiles/ /mnt/e/B/backup//Workspace/Projects/Programing/Git/dotfiles/.dotfiles/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
-        cmd.exe /c 'CHCP 1251 && ROBOCOPY 'D:\\Workspace' 'E:\\B\\backup\\Workspace' '*' /L /E /ZB /SL /MT:20 /XO /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1 /FP /ETA' | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
-        # sudo rsync -avhzH --progress --stats --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/B/backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
-        echo "=================================="
-        echo -e '\n Backup Complete!\n'
+
+        downloads="/mnt/c/Users/Todorov/Downloads/"
+        documents="/mnt/c/Users/Todorov/Documents/"
+        temp="/mnt/d/Workspace/~TEMP"
+
+        echo -e '\n ~~~~~~~~~~~~~~ Moving from Downloads.... ~~~~~~~~~~~~~~\n'
+        rsync -avhz --progress --stats --ignore-existing --remove-source-files --exclude desktop.ini "$downloads" "$temp"
+        find "$downloads" -depth -type d -empty -delete
+        echo -e '\n ~~~~~~~~~~~~~~ Moving from Documents.... ~~~~~~~~~~~~~~\n'
+        rsync -avhz --progress --stats --ignore-existing --remove-source-files --include=\*.docx --include=\*.doc --include=\*.pdf --include=\*xlsx --exclude=\*  "$documents" "$temp"
+        echo -e '\n ~~~~~~~~~~~~~~ Finished! ~~~~~~~~~~~~~~\n'
+        # find "$downloads"-mindepth 1 -not -name '*.ini' -print0 | xargs -0 mv -t "$temp"
+        # find "$downloads"-mindepth 1 -not -name '*.ini' -print0 | xargs -0 -I {} cp -p -r  {} "$temp"
+        # find "$downloads"-mindepth 1 -not -name '*.ini' -print0 -exec {} cp -p -r  {} "$temp" \;
     elif [ $input -eq 4 ] ; then
-        echo -e '\n Backup Main Drive....\n'
-        echo "=================================="
-        mkdir -p /mnt/e/B/backup_logs/
-        cd /mnt/e/B/backup_logs/
-        sudo touch log_backup-$(date "+%Y-%m-%d-%H-%M").txt 
-        # Dry-run for Mirroring
-        sudo rsync -avhzH --progress --stats --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/B/backup/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
-        mkdir -p /mnt/e/B/backup/Anime/Current\ Season/\~MAIN/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
-        sudo rsync -avhzH --progress --stats --dry-run /mnt/d//Workspace/Projects/Programing/Git/dotfiles/.dotfiles/ /mnt/e/B/backup//Workspace/Projects/Programing/Git/dotfiles/.dotfiles/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
-        cmd.exe /c 'CHCP 1251 && ROBOCOPY 'D:\\Workspace' 'E:\\B\\backup\\Workspace' '*' /L /E /PURGE /ZB /SL /MT:20 /XO /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1 /FP /ETA' | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
-        # sudo rsync -avhzH --progress --stats --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded' /mnt/d/ /mnt/e/B/backup/ --delete | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
-        echo "=================================="
-        echo -e '\n Backup Complete!\n'
-    elif [ $input -eq 5 ] ; then
-        echo -e '\n Backup Mobile SD Card....\n'
-        echo "=================================="
-        mkdir -p /mnt/e/B/backup_mobile_logs/
-        cd /mnt/e/B/backup_mobile_logs/
-        sudo touch log_backup-$(date "+%Y-%m-%d-%H-%M").txt
-        # Normal Backup
-        sudo rsync -avhzH --progress --stats --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded_mobile' /mnt/d/ /mnt/e/B/backup_mobile/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
-        echo "=================================="
-        echo -e '\n Backup Complete!\n'
-    elif [ $input -eq 6 ] ; then
-        echo -e '\n Backup Mobile SD Card....\n'
-        echo "=================================="
-        mkdir -p /mnt/e/B/backup_mobile_logs/
-        cd /mnt/e/B/backup_mobile_logs/
-        sudo touch log_backup-$(date "+%Y-%m-%d-%H-%M").txt
-        # Mirroring  
-        sudo rsync -avhzH --progress --stats --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded_mobile' /mnt/d/ /mnt/e/B/backup_mobile/ --delete | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
-        echo "=================================="
-        echo -e '\n Backup Complete!\n'
-    elif [ $input -eq 7 ] ; then
-        echo -e '\n Backup Mobile SD Card....\n'
-        echo "=================================="
-        mkdir -p /mnt/e/B/backup_mobile_logs/
-        cd /mnt/e/B/backup_mobile_logs/
-        sudo touch log_backup-$(date "+%Y-%m-%d-%H-%M").txt
-        # Dry-run for Normal Backup
-        sudo rsync -avhzH --progress --stats --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded_mobile' /mnt/d/ /mnt/e/B/backup_mobile/ | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt
-        echo "=================================="
-        echo -e '\n Backup Complete!\n'
-    elif [ $input -eq 8 ] ; then
-        echo -e '\n Backup Mobile SD Card....\n'
-        echo "=================================="
-        mkdir -p /mnt/e/B/backup_mobile_logs/
-        cd /mnt/e/B/backup_mobile_logs/
-        sudo touch log_backup-$(date "+%Y-%m-%d-%H-%M").txt
-        # Dry-run for Mirroring  
-        sudo rsync -avhzH --progress --stats --dry-run --exclude-from='/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded_mobile' /mnt/d/ /mnt/e/B/backup_mobile/ --delete | sudo tee -ai log_backup-$(date "+%Y-%m-%d-%H-%M").txt 
-        echo "=================================="
-        echo -e '\n Backup Complete!\n'
-    elif [ $input -eq 9 ] ; then
-        # find /mnt/c/Users/Todorov/Downloads -mindepth 1 -not -name '*.ini' -print0 | xargs -0 mv -t /mnt/d/Workspace/_TEMP
-        # find /mnt/c/Users/Todorov/Downloads -mindepth 1 -not -name '*.ini' -print0 | xargs -0 -I {} cp -p -r  {} /mnt/d/Workspace/_TEMP
-        # find /mnt/c/Users/Todorov/Downloads -mindepth 1 -not -name '*.ini' -print0 -exec {} cp -p -r  {} /mnt/d/Workspace/_TEMP \;
-        echo -e '\n Moving from Downloads....\n'
-        echo "=================================="
-        rsync -avhz --progress --stats --ignore-existing --remove-source-files --exclude desktop.ini /mnt/c/Users/Todorov/Downloads/ /mnt/d/Workspace/_TEMP
-        find /mnt/c/Users/Todorov/Downloads/ -depth -type d -empty -delete
-        echo "=================================="
-        echo -e '\n Moving from Documents....\n'
-        echo "=================================="
-        rsync -avhz --progress --stats --ignore-existing --remove-source-files --include=\*.docx --include=\*.doc --include=\*.pdf --include=\*xlsx --exclude=\* /mnt/c/Users/Todorov/Documents/ /mnt/d/Workspace/_TEMP
-        echo "=================================="
-        echo -e '\n Finished!\n'
-    elif [ $input -eq 10 ] ; then
-        echo -e "\n Moving to Anime Pics....\n"
-        echo "=================================="
-        rsync -avhz --progress --stats --ignore-existing --remove-source-files /mnt/c/Users/Todorov/Pictures/My\ Screen\ Shots/ /mnt/d/Workspace/General/Essential/Art/Media\ Screenshots/Pics --include=\[0-9]*.PNG --exclude=\*
-        echo "=================================="
-        echo -e '\n Finished!\n'
-        # open "D:\Workspace\General\Essential\Art\Media Screenshots\Pics"
-    elif [ $input -eq 11 ] ; then
-        echo -e "\n Moving to Acer Screenshots....\n"
-        echo "=================================="
-        rsync -avhz --progress --stats --ignore-existing --remove-source-files /mnt/c/Users/Todorov/Pictures/My\ Screen\ Shots/ /mnt/d/Workspace/General/Tech/MEMORY/Desktop\ Screenshots/Acer\ Predator\ G9-792 --include=\Screen\ Shot*.PNG --exclude=\*
-        echo "=================================="
-        echo -e '\n Finished!\n'
-    elif [ $input -eq 12 ] ; then
-        echo -e "\n Moving to Surface Screenshots....\n"
-        echo "=================================="
-        rsync -avhz --progress --stats --ignore-existing --remove-source-files /mnt/c/Users/Todorov/Pictures/My\ Screen\ Shots/ /mnt/d/Workspace/General/Tech/MEMORY/Desktop\ Screenshots/Microsoft\ Surface\ Pro\ 4 --include=\Screen\ Shot*.PNG --exclude=\*
-        echo "=================================="
-        echo -e '\n Finished!\n'
-    elif [ $input -eq 0 ] ; then
-            :
+        screenshots
+    elif [ $input == b ] ; then
+        master
+    elif [ $input == x ] ; then
+        : && clear
     else
         move
-    fi
-}
-#   -------------------------------
-#   Manage Notepad++ Configuration
-#   -------------------------------
-function nppfix (){
-    clear
-    echo -e '\n  Available Options:'
-    echo -e '       0.  | Exit'
-    echo -e '       1.  | Replace Corrupted Configuration'
-    echo -e '       2.  | Backup Configuration\n'
-    read -p "  Enter Option: " input
-    printf "\n"
-    if [ $input -eq 1 ] ; then
-        # Variables
-        origin=/mnt/d/Workspace/Portable\ Apps/PortableApps.com/PortableApps/Notepad++Portable/_Backup/ 
-        destination=/mnt/d/Workspace/Portable\ Apps/PortableApps.com/PortableApps/Notepad++Portable/App/Notepad++/    
-        # Function   
-        echo -e "\n Replacing corrupted configuration....\n"
-        echo "=================================="
-        sudo rsync -avhz --progress --stats --ignore-times "$origin" "$destination" --include=\*.xml --exclude=\*
-        echo "=================================="
-        echo -e "\n Finished\n"
-        echo -e "\n Opening Notepad++....\n"
-        npp
-    elif [ $input -eq 2 ] ; then
-        # set -x # Bash debuging
-        # Variables
-        origin=/mnt/d/Workspace/Portable\ Apps/PortableApps.com/PortableApps/Notepad++Portable/App/Notepad++/
-        destination=/mnt/d/Workspace/Portable\ Apps/PortableApps.com/PortableApps/Notepad++Portable/_Backup/
-        file1=stylers.model.xml
-        file2=stylers.xml
-        file3=config.xml
-        file4=contextMenu.xml
-        file5=session.xml
-        file6=shortcuts.xml
-        Array1=($file1 $file2 $file3 $file4 $file5 $file6)
-        # Function
-        echo -e "\n Backup configuration....\n"
-        echo "=================================="
-        sudo rsync -avhz --progress --stats --ignore-times "$origin${Array1[0]}" "$origin${Array1[1]}" "$origin${Array1[2]}" "$origin${Array1[3]}" "$origin${Array1[4]}" "$origin${Array1[5]}" "$destination"
-        echo "=================================="
-        echo -e "\n Finished!\n"
-    elif [ $input -eq 0 ] ; then
-            :
-    else
-        nppfix
-    fi
-}
-#   -------------------------------
-#   Launch X Sessions
-#   -------------------------------
-function xsession (){
-    # path='D:\Workspace\Projects\Programing\Scripts\Scripts\Batch & Reg\WSL\VcXsrv Config'
-    clear
-    echo -e '\n  Available Options:'
-    echo -e '       0.  | Exit'
-    echo -e '       1.  | Launch Xfce4 Session'
-    echo -e '       2.  | Launch i3-wm Session'
-    echo -e '       3.  | Load X Server in Multi Window mode\n'
-    read -p "  Enter Option: " input
-    printf "\n"
-    if [ $input -eq 1 ] ; then
-        echo -e "\n Launching xfce4....\n"
-        echo "=================================="
-        cmd.exe /c start /D 'D:\Workspace\Projects\Programing\Scripts\Scripts\Batch & Reg\WSL\VcXsrv Config' /MAX configNormal.xlaunch
-        cmd.exe /c start /D 'C:\Windows\System32\' bash.exe --login -c "sudo xfce4-session"
-        echo -e "\n ....Xfce4 Session Started\n"
-    elif [ $input -eq 2 ] ; then
-        echo -e "\n Launching i3-wm....\n"
-        echo "=================================="
-        cmd.exe /c start /D 'D:\Workspace\Projects\Programing\Scripts\Scripts\Batch & Reg\WSL\VcXsrv Config' /MAX configNormal.xlaunch
-        cmd.exe /c start /D 'C:\Windows\System32\' bash.exe --login -c "sudo i3 "
-        echo -e "\n ....i3-wm Session Started\n"
-    elif [ $input -eq 3 ] ; then
-        echo -e "\n Loading X Server in Multi Window mode....\n"
-        cmd.exe /c start /D 'D:\Workspace\Projects\Programing\Scripts\Scripts\Batch & Reg\WSL\VcXsrv Config' /MAX configMultiWindow.xlaunch
-    elif [ $input -eq 0 ] ; then
-            :
-    else
-        xsession
     fi
 }
 #   -------------------------------
@@ -398,11 +547,12 @@ function xsession (){
 function dots(){
     clear
     echo -e '\n  Available Options:'
-    echo -e '       0.  | Exit'
-    echo -e '       1.  | Update'
-    echo -e '       2.  | Update Clean'
-    read -p "  Enter Option: " input
-    printf "\n"
+    echo    '       x  | Exit'
+    echo    '       b  | Go Back'
+    echo    '       1  | Update'
+    echo    '       2  | Update Clean'
+    read -e -p "  Enter Option: " input
+    echo
     if [ $input -eq 1 ] ; then
         dotfiles && gac
         cd ~/.dotfiles/ && gl
@@ -427,23 +577,13 @@ function dots(){
         sca && clear
         echo "=================================="
         echo -e '\n Dotfiles Updated!\n'
-    elif [ $input -eq 0 ] ; then
-            :
+    elif [ $input == b ] ; then
+        master
+    elif [ $input == x ] ; then
+        : && clear
     else
         dots
     fi
-}
-#   -------------------------------
-#   List Git Branches on the local machine sorted by recent updates, adding a star to remote tracking branches
-#   -------------------------------
-function git_list_branches() {
-  RED="\e[91m";
-  for branch in $(git branch | sed s/^..//); do
-    time_ago=$(git log -1 --pretty=format:"%Cgreen%ci %Cblue%cr%Creset" $branch --);
-    # Add a red star to mark branches that are tracking something upstream
-    tracks_upstream=$(if [ "$(git rev-parse $branch@{upstream} 2>/dev/null)" ]; then printf "$RED★"; fi);
-    printf "%-53s - %s %s\n" $time_ago $branch $tracks_upstream;
-  done | sort;
 }
 #   -------------------------------
 #   Manage Open File Handles / Descriptors
@@ -451,21 +591,22 @@ function git_list_branches() {
 function handles(){
     cd /mnt/d/Workspace/Portable\ Apps/SyMenu/ProgramFiles/SPSSuite/SysinternalsSuite/Handle_sps
     clear
-    echo -e '\n  Available Options:'
-    echo -e '           0.  | Exit'
-    echo -e '       Windows File Handles:'
-    echo -e '           1.  | Show Handles for Particular Drive'
-    echo -e '           2.  | Show All File Handles'
-    echo -e '           3.  | Show All Process PIDs'
-    echo -e '           4.  | Close Handles for Particular Drive'
-    echo -e '           5.  | Help'
-    echo -e '       Linux File Handles'
-    echo -e '           6.  | Show the number of All Open Descriptors'
-    echo -e '           7.  | Show All Descriptors\n'
-    read -p "  Enter Option: " input
-    printf "\n"
+    echo -e '\n  Available Options:\n'
+    echo    '           x  | Exit'
+    echo    '           b  | Go Back'
+    echo    '       Windows File Handles:'
+    echo    '           1  | Show Handles for Particular Drive'
+    echo    '           2  | Show All File Handles'
+    echo    '           3  | Show All Process PIDs'
+    echo    '           4  | Close Handles for Particular Drive'
+    echo    '           5  | Help'
+    echo    '       Linux File Handles'
+    echo    '           6  | Show the number of All Open Descriptors'
+    echo -e '           7  | Show All Descriptors\n'
+    read -e -p "  Enter Option: " input
+    echo
     if [ $input -eq 1 ] ; then
-        read -p "    Enter Drive Letter: " input2
+        read -e -p "    Enter Drive Letter: " input2
         echo -e '\n Showing Handles for '$input2':\....\n'
         echo "=================================="
         cmd.exe /c 'handle.exe' | grep ''$input2':\\'
@@ -504,141 +645,12 @@ function handles(){
         ls /proc/*/fd
         echo "=================================="
         echo -e '\n ....Query Completed!\n'
-    elif [ $input -eq 0 ] ; then
-            :
+    elif [ $input == b ] ; then
+        master
+    elif [ $input == x ] ; then
+        : && clear
     else
         handles
-    fi
-}
-#   -------------------------------
-#   Manage Windows Quick Access
-#   -------------------------------
-function qaccess(){
-    clear
-    echo -e '\n  Available Options:'
-    echo -e '       0.  | Exit'
-    echo -e '       1.  | Pin Folders to Quick Access'
-    echo -e '       2.  | Unpin Folders to Quick Access\n'
-    read -p "  Enter Option: " input
-    echo ''
-
-    # Variables
-    powershellScript='D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick_Access\Set-QuickAccess.ps1'
-    p='Pin'
-    up='Unpin'
-    pins=(
-        "'D:\'"
-        "'D:\Workspace\~TEMP'"
-        "'D:\Anime'"
-        "'D:\Anime\Current Season'"
-        "'D:\Anime\Finished'"
-        "'D:\Workspace\Projects\Programing\~References\Programes\Browsers\Chrome\HTML Bookmarks\Archive'"
-        "'D:\Workspace\General'"
-        "'D:\Workspace\General\Essential'"
-        "'D:\Workspace\General\Personal'"
-        "'D:\Workspace\General\Personal\Professional\CV & Covering Letter'"
-        "'D:\Workspace\General\Essential\Cooking'"
-        "'D:\Workspace\General\Personal\My Blog'"
-        "'D:\Workspace\General\Tech\MEMORY'"
-        "'D:\Movies'"
-        "'D:\Series'"
-        "'D:\Workspace\Shortcuts'"
-        "'D:\Workspace\Portable Apps'"
-        "'D:\Workspace\Projects'"
-        "'D:\Workspace\Projects\Programing'"
-        "'D:\Workspace\Projects\Mathematics'"
-        "'D:\Workspace\University\Course\Year 2 - 2017-2018'"
-        "'D:\Videos'"
-        "'D:\Workspace\General\Essential\Art\Media Screenshots\Pics'"
-        "'C:\Users\Todorov\Pictures\My Screen Shots'"
-        "'C:\Users\Todorov\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs\home\todorov'"
-    )
-
-    if [ $input -eq 1 ] ; then
-        echo -e '\n Pinnig folders to Quick Access....\n'
-        echo "=================================="
-        for pin in "${pins[@]}"
-        do : 
-            powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& $powershellScript $p $pin"
-        done
-        echo "=================================="
-        echo -e '\n ....All folders are pinned!\n'
-    elif [ $input -eq 2 ] ; then
-        echo -e '\n Unpinnig folders to Quick Access....\n'
-        echo "=================================="
-        for pin in "${pins[@]}"
-        do : 
-            powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& $powershellScript $up $pin"
-        done
-        echo "=================================="
-        echo -e '\n ....All folders are unpinned!\n'
-    elif [ $input -eq 0 ] ; then
-            :
-    else
-        qaccess
-    fi
-}
-# cmd.exe /c "D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.cmd"
-
-#   -------------------------------
-#   Manage Windows Start Menu & Taskbar
-#   -------------------------------
-function icons(){
-    cd /mnt/d/Workspace/Portable\ Apps/By\ Category/Windows\ Tweaks/Syspin/
-    tpin=c:5386
-    tunpin=c:5387
-    spin=c:51201
-    sunpin=c:51394
-    clear
-    echo -e '\n  Available Options:'
-    echo -e '       0.  | Exit'
-    echo -e '       1.  | Pin icons to Taskbar'
-    echo -e '       2.  | Pin icons to Start Menu'
-    echo -e '       3.  | Unpin icons from Taskbar'
-    echo -e '       4.  | Unpin icons from Start Menu\n'
-    read -p "  Enter Option: " input
-    printf "\n"
-    if [ $input -eq 1 ] ; then
-        echo -e '\n Pinnig icons to Taskbar....\n'
-        echo "=================================="
-        cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\File Explorer.lnk" $tpin
-        cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Control Panel.lnk" $tpin
-        cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Task Manager.lnk" $tpin
-        cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Windows Mobility Center.lnk" $tpin
-        cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Registry Editor.lnk" $tpin
-        cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Command Prompt.lnk" $tpin
-        cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Ubuntu.lnk" $tpin
-        # C:\Windows\explorer.exe shell:Appsfolder\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc!ubuntu
-        cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Microsoft Edge.lnk" $tpin
-        cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\KeePass.lnk" $tpin
-        cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Google Chrome.lnk" $tpin
-        cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Notepad++.lnk" $tpin
-        cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\4K Video Downloader.lnk" $tpin
-        cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Sublime Text 3.lnk" $tpin
-        echo "=================================="
-        echo -e '\n ....All icons are pinned!\n'
-    elif [ $input -eq 2 ] ; then
-        echo -e '\n Pinnig icons to Start Menu....\n'
-        echo "=================================="
-        syspin.exe "C:\Users\Todorov\Desktop\Ubuntu.lnk" c:5386
-        echo "=================================="
-        echo -e '\n ....All icons are pinned!\n'
-    elif [ $input -eq 3 ] ; then
-        echo -e '\n Unpinnig icons to Taskbar....\n'
-        echo "=================================="
-        cmd.exe /c reg delete "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" /f
-        echo "=================================="
-        echo -e '\n ....All icons are unpinned!\n'
-    elif [ $input -eq 4 ] ; then
-        echo -e '\n Unpinnig icons to Start Menu....\n'
-        echo "=================================="
-        syspin.exe "C:\Users\Todorov\Desktop\Ubuntu.lnk" c:5386
-        echo "=================================="
-        echo -e '\n ....All icons are unpinned!\n'
-    elif [ $input -eq 0 ] ; then
-            :
-    else
-        icons
     fi
 }
 #   -------------------------------
@@ -647,27 +659,214 @@ function icons(){
 function win(){
     clear
     echo -e '\n  Available Options:\n'
-    echo -e '           0.  | Exit'
-    echo -e '       Fixing NFTS:'
-    echo -e '           1.  | Dry-Run'
-    echo -e '           2.  | Fix'
-    echo -e '           3.  | Help'
-    echo -e '       Repairing Windows System Files'
-    echo -e '           4.  | Repair'
-    echo -e '           5.  | Help'
-    echo -e '       Delete Services'
-    echo -e '           6.  | Delete a Service\n'
-    read -p "  Enter Option: " input
-    printf "\n"
+    echo    '           x  | Exit'
+    echo    '           b  | Go Back'
+    echo    '       Fixing NFTS:'
+    echo    '           1  | Dry-Run'
+    echo    '           2  | Fix'
+    echo    '           3  | Help'
+    echo    '       Repairing Windows System Files'
+    echo    '           4  | Repair'
+    echo    '           5  | Help'
+    echo    '       Delete Services'
+    echo    '           6  | Delete a Service'
+    echo    '       Shotcuts'
+    echo    '           7  | Quick Access'
+    echo    '           8  | Start Menu & Taskbar Icons'
+    echo    '       Programs'
+    echo -e '           9  | Notepad++ Configuration Fix\n'
+    read -e -p "  Enter Option: " input
+    echo
+
+    function nppfix (){
+        clear
+        echo -e '\n  Available Options:'
+        echo    '       x  | Exit'
+        echo    '       b  | Go Back'
+        echo    '       1  | Replace Corrupted Configuration'
+        echo -e '       2  | Backup Configuration\n'
+        read -e -p "  Enter Option: " input
+        echo
+        if [ $input -eq 1 ] ; then
+            # Variables
+            origin=/mnt/d/Workspace/Portable\ Apps/PortableApps.com/PortableApps/Notepad++Portable/_Backup/ 
+            destination=/mnt/d/Workspace/Portable\ Apps/PortableApps.com/PortableApps/Notepad++Portable/App/Notepad++/    
+            # Function   
+            echo -e "\n Replacing corrupted configuration....\n"
+            echo "=================================="
+            sudo rsync -avhz --progress --stats --ignore-times "$origin" "$destination" --include=\*.xml --exclude=\*
+            echo "=================================="
+            echo -e "\n Finished\n"
+            echo -e "\n Opening Notepad++....\n"
+            npp
+        elif [ $input -eq 2 ] ; then
+            # set -x # Bash debuging
+            # Variables
+            origin=/mnt/d/Workspace/Portable\ Apps/PortableApps.com/PortableApps/Notepad++Portable/App/Notepad++/
+            destination=/mnt/d/Workspace/Portable\ Apps/PortableApps.com/PortableApps/Notepad++Portable/_Backup/
+            file1=stylers.model.xml
+            file2=stylers.xml
+            file3=config.xml
+            file4=contextMenu.xml
+            file5=session.xml
+            file6=shortcuts.xml
+            Array1=($file1 $file2 $file3 $file4 $file5 $file6)
+            # Function
+            echo -e "\n Backup configuration....\n"
+            echo "=================================="
+            sudo rsync -avhz --progress --stats --ignore-times "$origin${Array1[0]}" "$origin${Array1[1]}" "$origin${Array1[2]}" "$origin${Array1[3]}" "$origin${Array1[4]}" "$origin${Array1[5]}" "$destination"
+            echo "=================================="
+            echo -e "\n Finished!\n"
+            elif [ $input == b ] ; then
+                win
+            elif [ $input == x ] ; then
+                : && clear
+            else
+                nppfix
+            fi
+    }
+
+    function icons(){
+        cd /mnt/d/Workspace/Portable\ Apps/By\ Category/Windows\ Tweaks/Syspin/
+        tpin=c:5386
+        tunpin=c:5387
+        spin=c:51201
+        sunpin=c:51394
+        clear
+        echo -e '\n  Available Options:'
+        echo    '       x  | Exit'
+        echo    '       b  | Go Back'
+        echo    '       1  | Pin icons to Taskbar'
+        echo    '       2  | Pin icons to Start Menu'
+        echo    '       3  | Unpin icons from Taskbar'
+        echo -e '       4  | Unpin icons from Start Menu\n'
+        read -e -p "  Enter Option: " input
+        echo
+        if [ $input -eq 1 ] ; then
+            echo -e '\n Pinnig icons to Taskbar....\n'
+            echo "=================================="
+            cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\File Explorer.lnk" $tpin
+            cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Control Panel.lnk" $tpin
+            cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Task Manager.lnk" $tpin
+            cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Windows Mobility Center.lnk" $tpin
+            cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Registry Editor.lnk" $tpin
+            cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Command Prompt.lnk" $tpin
+            cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Ubuntu.lnk" $tpin
+            # C:\Windows\explorer.exe shell:Appsfolder\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc!ubuntu
+            cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Microsoft Edge.lnk" $tpin
+            cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\KeePass.lnk" $tpin
+            cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Google Chrome.lnk" $tpin
+            cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Notepad++.lnk" $tpin
+            cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\4K Video Downloader.lnk" $tpin
+            cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Sublime Text 3.lnk" $tpin
+            echo "=================================="
+            echo -e '\n ....All icons are pinned!\n'
+        elif [ $input -eq 2 ] ; then
+            echo -e '\n Pinnig icons to Start Menu....\n'
+            echo "=================================="
+            syspin.exe "C:\Users\Todorov\Desktop\Ubuntu.lnk" c:5386
+            echo "=================================="
+            echo -e '\n ....All icons are pinned!\n'
+        elif [ $input -eq 3 ] ; then
+            echo -e '\n Unpinnig icons to Taskbar....\n'
+            echo "=================================="
+            cmd.exe /c reg delete "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" /f
+            echo "=================================="
+            echo -e '\n ....All icons are unpinned!\n'
+        elif [ $input -eq 4 ] ; then
+            echo -e '\n Unpinnig icons to Start Menu....\n'
+            echo "=================================="
+            syspin.exe "C:\Users\Todorov\Desktop\Ubuntu.lnk" c:5386
+            echo "=================================="
+            echo -e '\n ....All icons are unpinned!\n'
+        elif [ $input == b ] ; then
+            win
+        elif [ $input == x ] ; then
+            : && clear
+        else
+            icons
+        fi
+    }
+
+    function qaccess(){
+        clear
+        echo -e '\n  Available Options:'
+        echo    '       x  | Exit'
+        echo    '       b  | Go Back'
+        echo    '       1  | Pin Folders to Quick Access'
+        echo -e '       2  | Unpin Folders to Quick Access\n'
+        read -e -p "  Enter Option: " input
+        echo ''
+
+        # Variables
+        powershellScript='D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick_Access\Set-QuickAccess.ps1'
+        p='Pin'
+        up='Unpin'
+        pins=(
+            "'D:\'"
+            "'D:\Workspace\~TEMP'"
+            "'D:\Anime'"
+            "'D:\Anime\Current Season'"
+            "'D:\Anime\Finished'"
+            "'D:\Workspace\Projects\Programing\~References\Programes\Browsers\Chrome\HTML Bookmarks\Archive'"
+            "'D:\Workspace\General'"
+            "'D:\Workspace\General\Essential'"
+            "'D:\Workspace\General\Personal'"
+            "'D:\Workspace\General\Personal\Professional\CV & Covering Letter'"
+            "'D:\Workspace\General\Essential\Cooking'"
+            "'D:\Workspace\General\Personal\My Blog'"
+            "'D:\Workspace\General\Tech\MEMORY'"
+            "'D:\Movies'"
+            "'D:\Series'"
+            "'D:\Workspace\Shortcuts'"
+            "'D:\Workspace\Portable Apps'"
+            "'D:\Workspace\Projects'"
+            "'D:\Workspace\Projects\Programing'"
+            "'D:\Workspace\Projects\Mathematics'"
+            "'D:\Workspace\University\Course\Year 2 - 2017-2018'"
+            "'D:\Videos'"
+            "'D:\Workspace\General\Essential\Art\Media Screenshots\Pics'"
+            "'C:\Users\Todorov\Pictures\My Screen Shots'"
+            "'C:\Users\Todorov\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs\home\todorov'"
+        )
+
+        if [ $input -eq 1 ] ; then
+            echo -e '\n Pinnig folders to Quick Access....\n'
+            echo "=================================="
+            for pin in "${pins[@]}"
+            do : 
+                powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& $powershellScript $p $pin"
+            done
+            echo "=================================="
+            echo -e '\n ....All folders are pinned!\n'
+        elif [ $input -eq 2 ] ; then
+            echo -e '\n Unpinnig folders to Quick Access....\n'
+            echo "=================================="
+            for pin in "${pins[@]}"
+            do : 
+                powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& $powershellScript $up $pin"
+            done
+            echo "=================================="
+            echo -e '\n ....All folders are unpinned!\n'
+        elif [ $input == b ] ; then
+            win
+        elif [ $input == x ] ; then
+            : && clear
+        else
+            qaccess
+        fi
+    }
+    # cmd.exe /c "D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.cmd"
+
     if [ $input -eq 1 ] ; then
-        read -p "    Enter Drive Letter: " input2
+        read -e -p "    Enter Drive Letter: " input2
         echo -e '\n Fixing NFTS for Drive '$input2':....\n'
         echo "=================================="
         cmd.exe /c chkdsk ''$input2':'
         echo "=================================="
         echo -e '\n ....Query Completed!\n'
     elif [ $input -eq 2 ] ; then
-        read -p "    Enter Drive Letter: " input3
+        read -e -p "    Enter Drive Letter: " input3
         echo -e '\n Fixing NFTS for Drive '$input3':....\n'
         echo "=================================="
         cmd.exe /c chkdsk /f ''$input3':'
@@ -687,13 +886,21 @@ function win(){
         echo "=================================="
         echo -e '\n ....Query Completed!\n'
     elif [ $input -eq 6 ] ; then
-        read -p "    Enter Process to Delete: " input4
+        read -e -p "    Enter Process to Delete: " input4
         echo -e '\n Deleting '$input4'....\n'
         cmd.exe /c sc delete ''$input4''
         echo "=================================="
         echo -e '\n ....Query Completed!\n'
-    elif [ $input -eq 0 ] ; then
-            :
+    elif [ $input -eq 7 ] ; then
+        qaccess
+    elif [ $input -eq 8 ] ; then
+        icons
+    elif [ $input -eq 9 ] ; then
+        nppfix
+    elif [ $input == b ] ; then
+        master
+    elif [ $input == x ] ; then
+        : && clear
     else
         win
     fi
@@ -704,28 +911,258 @@ function win(){
 function blog(){
     clear
     echo -e '\n  Available Options:'
-    echo -e '       0.  | Exit'
-    echo -e '       1.  | Go to My Blog'
-    echo -e '       2.  | Go to My Blog & Run Hugo'
-    echo -e '       3.  | Clean the baked Blog'
-    read -p "  Enter Option: " input
-    printf "\n"
+    echo    '           x  | Exit'
+    echo    '           b  | Go Back'
+    echo    '       My Blog:'
+    echo    '           1  | Go to'
+    echo    '           2  | Go to & Run'
+    echo    '           3  | Go to & Bake'
+    echo    '           4  | Clean Baked'
+    echo    '           5  | New Post'
+    echo    '       Game Site:'
+    echo    '           6  | Go to'
+    echo    '           7  | Go to & Run'
+    echo    '       Manage:'
+    echo    '           8  | Rsync'
+    echo -e '           9  | SFTP\n'
+    read -e -p "  Enter Option: " input
+    echo
 
-    blogpath='/mnt/d/Workspace/General/Personal/My\ Blog/Blog/mlvnt.com/mvlnt'
-    bakedpath='/mnt/d/Workspace/General/Personal/My Blog/Blog/mlvnt.com/public_html/'
+    gamespath="/mnt/d/Workspace/General/Personal/My Blog/Blog/bgrebbels.mlvnt.com/public_html"
+    blogpath="/mnt/d/Workspace/General/Personal/My Blog/Blog/mlvnt.com/mvlnt"
+    content="/mnt/d/Workspace/General/Personal/My Blog/Blog/mlvnt.com/mlvnt/content"
+    bakedpath="/mnt/d/Workspace/General/Personal/My Blog/Blog/mlvnt.com/public_html"
+    filezilladir="D:\Workspace\Portable Apps\PortableApps.com\PortableApps\FileZillaPortable"
 
-    if [ $input -eq 1 ] ; then
-        cd "$blogpath"
-    elif [ $input -eq 2 ] ; then
-        cd "$blogpath"
-        hugos
-    elif [ $input -eq 3 ] ; then
-        rm -rfv "$bakedpath"
-        mkdir -p -v "$bakedpath"
-    elif [ $input -eq 0 ] ; then
-            :
+    case $input in
+        1)
+            cd "$blogpath" ;;
+        2)
+            cd "$blogpath" && hugos ;;
+        3)
+            cd "$blogpath" && hugo ;;
+        4)
+            rm -rfv "$bakedpath" && mkdir -p -v "$bakedpath" ;;
+        5)
+            clear && ls "$content" && echo
+            read -e -p "  Post? " post
+            read -e -p "  Type? " types
+            cd "$blogpath" && echo && hugo new $post $types && echo ;;
+        6)
+            cd "$gamespath" ;;
+        7)
+            cd "$gamespath" && caddy ;;
+        8)
+            # rsync -a ~/testfile todorov@mlvnt.com:~/ 
+            ;;
+        9)
+            cmd.exe /c start /D "$filezilladir" FileZillaPortable.exe ;;
+            # sftp -b ~/.dotfiles/wsl/net/sftpbatch todorovfiles@mlvnt.com
+            # sftp todorovfiles@mlvnt.com:uploads/
+        b)
+            master ;;
+        x)
+            : && clear ;;
+        *)
+            blog
+    esac
+}
+#   -------------------------------
+#   Manage my TODOs
+#   -------------------------------
+function todo(){
+    guipath='D:\Workspace\Portable Apps\By Category\Office\Notes\jdotxt'
+    syncpath='D:\Workspace\Portable Apps\By Category\Net\File Sharing\SyncTrayzorPortable-x64'
+    todotxtpath="/mnt/d/Workspace/General/ToDo/ToDos"
+    todopath=~/bin/todo.txt-cli/todo.sh
+    clear 
+    echo && $todopath -z -P -@ -+ list && echo
+    read -e -p "Show options? (y/n)" answer
+    echo
+    if [ "$answer" = "y" ] ; then
+
+        echo -e '\n  Available Options:\n'
+        echo    '           x  | Exit'
+        echo    '           b  | Go Back'
+        echo    '       CLI:'
+        echo    '           1  | Add'
+        echo    '           2  | Done'
+        echo    '           3  | Delete, Replace, Append'
+        echo    '           4  | List'
+        echo    '           5  | Help'
+        echo    '           6  | Open ToDo.txt Dir'
+        echo    '       GUI:'
+        echo    '           7  | Start GUI'
+        echo    '       Syncing:'
+        echo -e '           8  | Sync\n'
+        read -e -p "  Enter Option: " input
+        echo
+
+        function manage (){
+            clear
+            echo -e '\n  Available Options:\n'
+            echo    '       x  | Exit'
+            echo    '       b  | Go Back'
+            echo    '       1  | Delete'
+            echo    '       2  | Replace'
+            echo -e '       3  | Append\n'
+            read -e -p "  Your Choice: " input
+                if [ $input -eq 1 ] ; then
+                    clear && echo && $todopath -z -P -@ -+ list && echo
+                    echo "  Delete TASK"
+                    echo "  Delete TASK [TERM]" && echo
+                    read -e -p "  Task ID to delete: " ID
+                    read -e -p "  Term to delete: " term
+                    $todopath del $ID $term
+                    echo && $todopath -z -P -@ -+ list && echo
+                elif [ $input -eq 2 ] ; then
+                    clear && echo && $todopath -z -P -@ -+ list && echo
+                    echo "  Replace TASK [NEW TERM]" && echo
+                    read -e -p "  Task ID to replace: " ID
+                    read -e -p "  Term to replace: " term
+                    $todopath replace $ID $term
+                    echo && $todopath -z -P -@ -+ list && echo
+                elif [ $input -eq 3 ] ; then
+                    clear && echo && $todopath -z -P -@ -+ list && echo
+                    echo "  Append TASK [NEW TERM]" && echo
+                    read -e -p "  Task ID to append to: " ID
+                    read -e -p "  Term to append: " term
+                    $todopath append $ID $term
+                    echo && $todopath -z -P -@ -+ list && echo
+                elif [ $input == b ] ; then
+                    todo
+                elif [ $input == x ] ; then
+                    : && clear
+                else
+                    manage
+                fi
+        }
+
+        function list (){
+            clear
+            echo -e '\n  Available Options:\n'
+            echo    '       x  | Exit'
+            echo    '       b  | Go Back'
+            echo    '       1  | List ToDo'
+            echo    '       2  | List ToDo [yy-mm-dd @ +]'
+            echo    '       3  | List Done'
+            echo    '       4  | List by Project'
+            echo -e '       5  | List by Tag\n'
+            read -e -p "  Your Choice: " input
+                if [ $input -eq 1 ] ; then
+                    clear && echo && $todopath -z -P -@ -+ list && echo
+                elif [ $input -eq 2 ] ; then
+                    clear && echo && $todopath -P list && echo
+                elif [ $input -eq 3 ] ; then
+                    clear && echo && $todopath listfile done.txt && echo
+                elif [ $input -eq 4 ] ; then
+                    clear && echo -e "\nProjecs Available:\n" && $todopath listcon
+                    echo && read -e -p "  Project : " project
+                    echo && clear && echo && $todopath -z -@ list @$project && echo
+                elif [ $input -eq 5 ] ; then
+                    clear && echo -e "\nTags Available:\n" && $todopath listproj
+                    echo && read -e -p "  Tag : " tag
+                    echo && clear && echo && $todopath -z -+ list +$tag && echo
+                elif [ $input == b ] ; then
+                    todo
+                elif [ $input == x ] ; then
+                    : && clear
+                else
+                    list
+                fi
+        }
+
+        function helpt (){
+            clear
+            echo -e '\n  Available Options:\n'
+            echo    '       x  | Exit'
+            echo    '       b  | Go Back'
+            echo    '       1  | Short'
+            echo -e '       2  | Long\n'
+            read -e -p "  Your Choice: " input
+                if [ $input -eq 1 ] ; then
+                    $todopath shorthelp && todo
+                elif [ $input -eq 2 ] ; then
+                    $todopath help && todo
+                elif [ $input == b ] ; then
+                    todo
+                elif [ $input == x ] ; then
+                    : && clear
+                else
+                    helpt
+                fi
+        }
+
+        if [ $input -eq 1 ] ; then
+            clear
+            echo "  New TASK [PRIORITY TASK PROJECT TAG DUE]" && echo
+            read -e -p "  Priority [A-Z] : " priority
+            read -e -p "  Task: " task
+            read -e -p "  Project : " project
+            read -e -p "  Tag : " tag
+            read -e -p "  Due Date [yy-mm-dd]: " due
+
+            if [ -z "$tag" ] ; then
+                $tag
+            else
+                tag=+$tag
+            fi
+
+            if [ -z "$project" ] ; then
+                $project
+            else
+                project=@$project
+            fi
+
+            if [ -z "$priority" ] ; then
+                $priority
+            else
+                priority='('$priority')'
+            fi
+
+            if [ -z "$due" ] ; then
+                $due
+            else
+                due=due:$due
+            fi
+
+            if [ -z "$task" ] ; then
+                :
+            else
+                echo && $todopath -t add $priority $task $project $tag $due
+            fi
+
+            echo && $todopath -z -P list && echo
+        elif [ $input -eq 2 ] ; then
+            clear && echo && $todopath -z -P -@ -+ list && echo
+            read -e -p "  Task ID to mark as done: " ID
+            echo && $todopath -A do $ID && echo
+            echo && $todopath listfile done.txt && echo
+        elif [ $input -eq 3 ] ; then
+            manage
+        elif [ $input -eq 4 ] ; then
+            list
+        elif [ $input -eq 5 ] ; then
+            helpt
+        elif [ $input -eq 6 ] ; then
+            cd $todotxtpath
+        elif [ $input -eq 7 ] ; then
+            cmd.exe /c start /D "$guipath" jdotxt-0.4.8.jar
+            # java -jar jdotxt-0.4.8.jar
+        elif [ $input -eq 8 ] ; then
+            cmd.exe /c start /D "$syncpath" SyncTrayzor.exe
+            # java -jar jdotxt-0.4.8.jar
+        elif [ $input == b ] ; then
+            master
+        elif [ $input == x ] ; then
+            : && clear
+        else
+            todo
+        fi
+    elif [ "$answer" = "n" ] ; then
+        :
     else
-        blog
+        todo
     fi
 }
 #=========================================================================================
@@ -910,7 +1347,7 @@ function extract() {
     local didfolderexist=false
     if [ -d "$foldername" ]; then
       didfolderexist=true
-      read -p "$foldername already exists, do you want to overwrite it? (y/n) " -n 1
+      read -e -p "$foldername already exists, do you want to overwrite it? (y/n) " -n 1
       echo
       if [[ $REPLY =~ ^[Nn]$ ]]; then
         return
@@ -1002,20 +1439,20 @@ cp_p () {
 # function mvall(){
 #     echo -e "\n Moving from Downloads....\n"
 #     echo "=================================="
-#     cmd.exe /c ROBOCOPY 'C:\Users\Todorov\Downloads' 'D:\Workspace\_TEMP' * /MOVE /E /COPY:DAT /DCOPY:DAT /XF *.ini
+#     cmd.exe /c ROBOCOPY 'C:\Users\Todorov\Downloads' 'D:\Workspace\~TEMP' * /MOVE /E /COPY:DAT /DCOPY:DAT /XF *.ini
 #     echo "=================================="
 #     echo -e "\n Moving from Documents....\n"
 #     echo "=================================="  
-#     cmd.exe /c ROBOCOPY 'C:\Users\Todorov\Documents' 'D:\Workspace\_TEMP' * /MOV /COPY:DAT /XF *.ini
+#     cmd.exe /c ROBOCOPY 'C:\Users\Todorov\Documents' 'D:\Workspace\~TEMP' * /MOV /COPY:DAT /XF *.ini
 #     echo "=================================="
 #     echo -e "\n Finished\n"
 # }
 
 # Rsync
 # function mvall(){
-#     find /mnt/c/Users/Todorov/Downloads -mindepth 1 -not -name '*.ini' -print0 | xargs -0 mv -t /mnt/d/Workspace/_TEMP
-#     find /mnt/c/Users/Todorov/Downloads -mindepth 1 -not -name '*.ini' -print0 | xargs -0 -I {} cp -p -r  {} /mnt/d/Workspace/_TEMP
-#     find /mnt/c/Users/Todorov/Downloads -mindepth 1 -not -name '*.ini' -print0 -exec {} cp -p -r  {} /mnt/d/Workspace/_TEMP \;
+#     find /mnt/c/Users/Todorov/Downloads -mindepth 1 -not -name '*.ini' -print0 | xargs -0 mv -t /mnt/d/Workspace/~TEMP
+#     find /mnt/c/Users/Todorov/Downloads -mindepth 1 -not -name '*.ini' -print0 | xargs -0 -I {} cp -p -r  {} /mnt/d/Workspace/~TEMP
+#     find /mnt/c/Users/Todorov/Downloads -mindepth 1 -not -name '*.ini' -print0 -exec {} cp -p -r  {} /mnt/d/Workspace/~TEMP \;
 # }
 
 # function nppb(){

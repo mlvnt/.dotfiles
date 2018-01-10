@@ -349,6 +349,9 @@ dpkg -l | grep -qw wireless-tools && printf '\n            It'\''s already insta
 printf '\n      >>> Installing libwww-perl....\n'
 dpkg -l | grep -qw wireless-tools && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq libwww-perl
 
+printf '\n      >>> Installing sshfs....\n'
+dpkg -l | grep -qw sshfs && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq sshfs
+
 # printf '\n      >>> Installing sudo apt-get install wireshark....\n'
 # dpkg -l | grep -qw wireshark && printf '\n            It'\''s already installed.\n' || sudo apt-get install wireshark
 
@@ -392,6 +395,9 @@ dpkg -l | grep -qw firefox && printf '\n            It'\''s already installed.\n
 
 printf '\n      >>> Installing konsole....\n'
 dpkg -l | grep -qw konsole && printf '\n            It'\''s already installed.\n' || yes Y | sudo apt-get install konsole
+
+printf '\n      >>> Installing filezilla....\n'
+dpkg -l | grep -qw filezilla && printf '\n            It'\''s already installed.\n' || yes Y | sudo apt-get install filezilla
 
 # printf '\n      >>> Installing clementine....\n'
 # dpkg -l | grep -qw clementine && printf '\n            It'\''s already installed.\n' || yes Y | sudo apt-get install clementine
@@ -557,11 +563,12 @@ pip3 freeze | grep -qw powerline && printf '\n            powerline is already i
 
 printf '\n      >>> Setting up SSH configuraion....\n'
 sudo cp -rv /mnt/d/Workspace/General/Personal\ Development/My\ Blog/Resourses/SSH/Backup/Server\ Login\/.ssh/ ~/
-sudo chmod -v 644 ~/.ssh/id_rsa
-sudo chmod -v 644 ~/.ssh/id_rsa.pub
-sudo chmod -v 644 ~/.ssh/known_hosts
-sudo chmod -v 755 ~/.ssh
-
+function sshmod () {
+    sudo chmod -v 600 ~/.ssh/*
+    sudo chown -v $USER ~/.ssh/known_hosts
+    sudo chmod -v 700 ~/.ssh
+}
+sshmod
 #   -------------------------------
 #   12.  REMOVE EXISTING CONFIG
 #   -------------------------------

@@ -46,18 +46,6 @@ alias uni="cd /mnt/d/Workspace/University/Course/Year\ 2\ -\ 2017-2018/"
 alias hex="/mnt/d/Workspace/University/Sport & Societies/Project Hex/Repository"
 
 #   -------------------------------
-#   2.  TRASHCAN
-#   -------------------------------
-
-alias trash="sudo trash-put -v"
-alias tl="sudo trash-list"
-alias tls="sudo trash-list | grep"
-alias te="sudo trash-empty"
-alias tre="sudo trash-restore"
-alias trm="sudo trash-rm" #Remove individual files from the trashcan
-alias trashcan="cd ~/.local/share/Trash"
-
-#   -------------------------------
 #   3.  FILE MANAGEMENT
 #   -------------------------------
 
@@ -115,7 +103,7 @@ alias vrc="sudo vim ~/.vimrc"
 alias scb="source ~/.bashrc && echo 'Shell config reloaded from ~/.bahrc'"
 alias scz="source ~/.zshrc && echo 'Shell config reloaded from ~/.zshrc'"
 alias scv="source ~/.vimrc && echo 'Shell config reloaded from ~/.vimrc'"
-alias sca="source ~/.*rc ~/.bash* ~/.oh-my-zsh-custom/*"
+alias sca="source ~/.*rc ~/.bash* ~/.oh-my-zsh-custom/* && clear"
 
 # File size
 alias fs="stat -f \"%z bytes\""
@@ -175,6 +163,7 @@ alias hostse='$EDITOR /etc/hosts'
 # BLOG
 alias server="ssh todorov@mlvnt.com"
 alias hugos="hugo server -w -v"
+alias caddy="caddy -conf /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/net/Caddyfile"
 
 # Copy my public key to the pasteboard
 alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | printf '=> Public key copied to pasteboard.\n'"
@@ -244,7 +233,7 @@ alias open="explorer.exe"
 alias openh=" open ."
 alias openi="gnome-open ." # Inside a Desktop environment
 alias o="open"
-alias tempe="open 'D:\Workspace\_TEMP'"
+alias tempe="open 'D:\Workspace\~TEMP'"
 alias downe="open 'C:\Users\Todorov\Downloads'"
 alias docse="open 'C:\Users\Todorov\Documents'"
 alias sts="open 'C:\Users\Todorov\Pictures\My Screen Shots'"
@@ -262,9 +251,9 @@ alias pbcopy="clip.exe"
 alias cpath="pwd && pwd | pbcopy"
 
 # Microsoft Office
-alias wordn="cmd.exe /c start /D 'C:\Program Files\Microsoft Office\Office16'  /MAX WINWORD.EXE /w"
+alias wordn="cmd.exe /c start /D 'C:\Program Files\Microsoft Office\Office16' /MAX WINWORD.EXE /w"
 # alias word="cmd.exe /c start /D "C:\\Program\ Files\ \(x86\)\\Microsoft\ Office\\Root\\Office16"  /MAX WINWORD.EXE /w"
-alias excel="cmd.exe /c start /D 'C:\Program Files\Microsoft Office\Office16'  /MAX EXCEL.EXE /x"
+alias excel="cmd.exe /c start /D 'C:\Program Files\Microsoft Office\Office16' /MAX EXCEL.EXE /x"
 alias ppoint="cmd.exe /c start /D 'C:\Program Files (x86)\Microsoft Office\Root\Office16'  /MAX POWERPNT.EXE /B"
 
 # Notepad++
