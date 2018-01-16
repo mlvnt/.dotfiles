@@ -352,6 +352,9 @@ dpkg -l | grep -qw wireless-tools && printf '\n            It'\''s already insta
 printf '\n      >>> Installing sshfs....\n'
 dpkg -l | grep -qw sshfs && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq sshfs
 
+printf '\n      >>> Installing gpg....\n'
+dpkg -l | grep -qw gpg && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq gpa gnupg2
+
 # printf '\n      >>> Installing sudo apt-get install wireshark....\n'
 # dpkg -l | grep -qw wireshark && printf '\n            It'\''s already installed.\n' || sudo apt-get install wireshark
 

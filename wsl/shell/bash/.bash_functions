@@ -173,6 +173,16 @@ function linx() {
         #     }
         # }
 
+        # function pgp ()
+        #     # tip: first list your keys in GPG
+        #     gpg -K --keyid-format long --with-colons --with-fingerprint
+
+        #     # then export the one you want (look next to `fpr`)
+        #     gpg --export -a A4AA3A5BDBD40EA549CABAF9FBC07D6A97016CB3
+        #     # curl + gpg pro tip: import mlvnt's keys
+        #     curl https://keybase.io/mlvnt/pgp_keys.asc | gpg --import
+        # }
+
     if [ $input -eq 1 ] ; then
         xsession
     elif [ $input -eq 2 ] ; then
@@ -384,6 +394,8 @@ function move (){
         logfile="log_backup-$(date "+%Y-%m-%d-%H-%M").txt"
         workspacedird="D:\Workspace"
         workspacedire="E:\B\backup\Workspace"
+        link_dir_1="/mnt/d/Workspace/General"
+        link_dir_2="/mnt/d/Workspace/Shared"
 
         if [ $input -eq 1 ] || [ $input -eq 3 ] ; then 
             robonorm="/E" && rsyncnorm=''
@@ -411,6 +423,7 @@ function move (){
                 sudo rsync $ryncoptions "$dotfilesdird" "$dotfilesdire"
                 echo -e "\n     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
                 #######################################################################################################
+                find $link_dir_1 $link_dir_2 -type l -print | xargs rm -v --
                 cmd.exe /c robocopy "$workspacedird" "$workspacedire" "*" $robocopyoptions
                 # CHCP 1251
             }
@@ -916,15 +929,14 @@ function blog(){
     echo    '       My Blog:'
     echo    '           1  | Go to'
     echo    '           2  | Go to & Run'
-    echo    '           3  | Go to & Bake'
-    echo    '           4  | Clean Baked'
-    echo    '           5  | New Post'
+    echo    '           3  | Clean Bake'
+    echo    '           4  | New Post'
     echo    '       Game Site:'
-    echo    '           6  | Go to'
-    echo    '           7  | Go to & Run'
+    echo    '           5  | Go to'
+    echo    '           6  | Go to & Run'
     echo    '       Manage:'
-    echo    '           8  | Rsync'
-    echo -e '           9  | SFTP\n'
+    echo    '           7  | Rsync'
+    echo -e '           8  | SFTP\n'
     read -e -p "  Enter Option: " input
     echo
 
@@ -940,22 +952,20 @@ function blog(){
         2)
             cd "$blogpath" && hugos ;;
         3)
-            cd "$blogpath" && hugo ;;
+            rm -rfv "$bakedpath" && mkdir -p -v "$bakedpath" && hugo ;;
         4)
-            rm -rfv "$bakedpath" && mkdir -p -v "$bakedpath" ;;
-        5)
             clear && ls "$content" && echo
             read -e -p "  Post? " post
             read -e -p "  Type? " types
             cd "$blogpath" && echo && hugo new $post $types && echo ;;
-        6)
+        5)
             cd "$gamespath" ;;
-        7)
+        6)
             cd "$gamespath" && caddy ;;
-        8)
+        7)
             # rsync -a ~/testfile todorov@mlvnt.com:~/ 
             ;;
-        9)
+        8)
             cmd.exe /c start /D "$filezilladir" FileZillaPortable.exe ;;
             # sftp -b ~/.dotfiles/wsl/net/sftpbatch todorovfiles@mlvnt.com
             # sftp todorovfiles@mlvnt.com:uploads/

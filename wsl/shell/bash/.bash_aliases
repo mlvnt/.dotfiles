@@ -243,8 +243,10 @@ alias cv="o 'D:\Workspace\General\Personal\Professional\CV & Covering Letter\CV.
 alias index="o 'D:\Workspace\General\Tech\MEMORY\Index\Index.xlsx'"
 alias music="o 'D:\Workspace\General\Essential\Music\Music.xlsx'"
 alias pics="o 'D:\Workspace\General\Essential\Art\Media Screenshots\Pics.xlsx'"
-alias quotes="o 'D:\Workspace\General\Personal\Social\MyAnimeList\My Profile\Intro\Quotes.xlsx'"
+alias quotes="o 'D:\Workspace\General\Personal\My Blog\Intro\Quotes\Quotes.xlsx'"
 alias recipies="o 'D:\Workspace\General\Essential\Cooking\I. Recipes & Weekly Menu.docx'"
+alias mail="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\ThunderbirdPortable' ThunderbirdPortable.exe"
+alias torrent="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\qBittorrentPortable' qBittorrentPortable.exe"
 
 # Clipboard
 alias pbcopy="clip.exe"
