@@ -127,13 +127,13 @@ function linx() {
             echo
             if [ $input -eq 1 ] ; then
                 echo -e "\n Launching xfce4....\n"
-                echo "=================================="
+                echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
                 cmd.exe /c start /D "$path" /MAX configNormal.xlaunch
                 cmd.exe /c start /D "$win32" bash.exe --login -c "sudo xfce4-session"
                 echo -e "\n ....Xfce4 Session Started\n"
             elif [ $input -eq 2 ] ; then
                 echo -e "\n Launching i3-wm....\n"
-                echo "=================================="
+                echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
                 cmd.exe /c start /D "$path" /MAX configNormal.xlaunch
                 cmd.exe /c start /D "$win32" bash.exe --login -c "sudo i3 "
                 echo -e "\n ....i3-wm Session Started\n"
@@ -286,14 +286,14 @@ function links (){
     # Delete Specified symbilic links
     function delsymb(){
     echo -e '\n Deleting Symbolic Links....\n'
-    echo "=================================="
+    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
     find -type l -print | while IFS= read -r lnk
     do
       if readlink "$lnk" | grep '/mnt/' ; then
         rm "$lnk"
       fi
     done
-    echo "=================================="
+    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
     echo -e '\n Symbolic Links Deleted!\n'
     }
 
@@ -328,25 +328,25 @@ function links (){
         read -e -p "    Enter Target: " target
         read -e -p "    Enter Link Name: " linkname
         echo -e '\n Creating symblink '$linkname' to '$target'\n'
-        echo "=================================="
+        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         ln -sv $target $linkname
-        echo "=================================="
+        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         echo -e '\n ....Link Created!\n'
     elif [ $input -eq 5 ] ; then
         read -e -p "    Enter Target: " -r target
         read -e -p "    Enter Link Name: " -r linkname
         echo -e '\n Creating symblink '$linkname' to '$target'\n'
-        echo "=================================="
+        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         cmd.exe /c mklink $linkname $target
-        echo "=================================="
+        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         echo -e '\n ....Link Created!\n'
     elif [ $input -eq 6 ] ; then
         read -e -p "    Enter Target: " -r target
         read -e -p "    Enter Link Name: " -r linkname
         echo -e '\n Creating symblink '$linkname' to '$target'\n'
-        echo "=================================="
+        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         cmd.exe /c mklink /D $linkname $target
-        echo "=================================="
+        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         echo -e '\n ....Link Created!\n'
     elif [ $input == b ] ; then
         master
@@ -572,23 +572,23 @@ function dots(){
         sca && clear
     elif [ $input -eq 2 ] ; then
         echo -e '\n Removing old .dotfiles....\n'
-        echo "=================================="
+        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         sudo rm -rfv ~/.dotfiles 
-        echo "=================================="
+        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         echo -e '\n Cloning new .dotfiles....\n'
-        echo "=================================="
+        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         git clone /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/ ~/.dotfiles
         # oh-my-zsh
         sudo cp -rv /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/shell/zsh/.oh-my-zsh ~/.dotfiles/wsl/shell/zsh/
-        echo "=================================="
+        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         echo -e '\n Converting .dotfiles to LF endings....\n'
-        echo "=================================="
+        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         sudo dos2unix ~/.dotfiles/wsl/*.* ~/.dotfiles/wsl/shell/zsh/.* ~/.dotfiles/wsl/shell/zsh/.oh-my-zsh-custom/.* ~/.dotfiles/wsl/shell/bash/.* ~/.dotfiles/wsl/editors/.* ~/.dotfiles/wsl/git/.* ~/.dotfiles/wsl/git/*.* ~/.dotfiles/wsl/bin/*
-        echo "=================================="
+        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         echo -e '\n Sourcing .dotfiles....\n'
-        echo "=================================="
+        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         sca && clear
-        echo "=================================="
+        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         echo -e '\n Dotfiles Updated!\n'
     elif [ $input == b ] ; then
         master
@@ -621,42 +621,42 @@ function handles(){
     if [ $input -eq 1 ] ; then
         read -e -p "    Enter Drive Letter: " input2
         echo -e '\n Showing Handles for '$input2':\....\n'
-        echo "=================================="
+        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         cmd.exe /c 'handle.exe' | grep ''$input2':\\'
         # cmd.exe /c 'handle.exe | findstr /i d:\'
-        echo "=================================="
+        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         echo -e '\n ....Query Completed!\n'
     elif [ $input -eq 2 ] ; then
         echo -e '\n Showing All File Handles....\n'
         cmd.exe /c 'handle.exe'
-        echo "=================================="
+        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         echo -e '\n ....Query Completed!\n'
     elif [ $input -eq 3 ] ; then
         echo -e '\n Showing All Process PIDs....\n'
         cmd.exe /c 'handle.exe' | grep 'pid'
-        echo "=================================="
+        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         echo -e '\n ....Query Completed!\n'
     elif [ $input -eq 4 ] ; then
         echo -e '\n Closig File Handles....\n'
         cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\ProcessExplorerPortable' ProcessExplorerPortable.exe
-        echo "=================================="
+        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         echo -e '\n ....Query Completed!\n'
     elif [ $input -eq 5 ] ; then
         cmd.exe /c handle.exe /?
-        echo "=================================="
+        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         echo -e '\n ....Query Completed!\n'
     elif [ $input -eq 6 ] ; then
         echo -e '\n Showing the number of All Open Descriptors....\n'
-        echo "=================================="
+        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         echo -e "\n     The number of all open descriptors is: $(lsof | wc -l)\n"
-        echo "=================================="
+        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         echo -e '\n ....Query Completed!\n'
     elif [ $input -eq 7 ] ; then
         echo -e '\n Showing All Descriptors....\n'
-        echo "=================================="
+        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         # lsof
         ls /proc/*/fd
-        echo "=================================="
+        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         echo -e '\n ....Query Completed!\n'
     elif [ $input == b ] ; then
         master
@@ -687,13 +687,13 @@ function win(){
     echo    '           7  | Quick Access'
     echo    '           8  | Start Menu & Taskbar Icons'
     echo    '       Programs'
-    echo -e '           9  | Notepad++ Configuration Fix\n'
+    echo -e '           9  | List Available\n'
     read -e -p "  Enter Option: " input
     echo
 
     function nppfix (){
         clear
-        echo -e '\n  Available Options:'
+        echo -e '\n  Available Options:\n'
         echo    '       x  | Exit'
         echo    '       b  | Go Back'
         echo    '       1  | Replace Corrupted Configuration'
@@ -706,9 +706,9 @@ function win(){
             destination=/mnt/d/Workspace/Portable\ Apps/PortableApps.com/PortableApps/Notepad++Portable/App/Notepad++/    
             # Function   
             echo -e "\n Replacing corrupted configuration....\n"
-            echo "=================================="
+            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
             sudo rsync -avhz --progress --stats --ignore-times "$origin" "$destination" --include=\*.xml --exclude=\*
-            echo "=================================="
+            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
             echo -e "\n Finished\n"
             echo -e "\n Opening Notepad++....\n"
             npp
@@ -726,17 +726,134 @@ function win(){
             Array1=($file1 $file2 $file3 $file4 $file5 $file6)
             # Function
             echo -e "\n Backup configuration....\n"
-            echo "=================================="
+            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
             sudo rsync -avhz --progress --stats --ignore-times "$origin${Array1[0]}" "$origin${Array1[1]}" "$origin${Array1[2]}" "$origin${Array1[3]}" "$origin${Array1[4]}" "$origin${Array1[5]}" "$destination"
-            echo "=================================="
+            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
             echo -e "\n Finished!\n"
             elif [ $input == b ] ; then
-                win
+                apps
             elif [ $input == x ] ; then
                 : && clear
             else
                 nppfix
             fi
+    }
+
+    function msoffice(){
+        clear
+        echo -e '\n  Available Options:\n'
+        echo    '       x  | Exit'
+        echo    '       b  | Go Back'
+        echo    '       1  | Word'
+        echo    '       2  | Excel'
+        echo    '       3  | PowerPoint'
+        echo    '       4  | Access'
+        echo    '       5  | OneNote'
+        echo    '       6  | Publisher'
+        echo -e '       7  | Outlook\n'
+        read -e -p "  Enter Option: " input
+        echo
+
+        path="C:\Program Files\Microsoft Office\Office16"
+        options='cmd.exe /c start'
+
+        case $input in
+            1)
+                $options "$path" WINWORD.EXE ;;
+            2)
+                $options "$path" EXCEL.EXE ;;
+            3)
+                $options "$path" POWERPNT.EXE ;;
+            4)
+                $options "$path" MSACCESS.EXE ;;
+            5)
+                $options "$path" ONENOTE.EXE ;;
+            6)
+                $options "$path" MSPUB.EXE ;;
+            7)
+                $options "$path" OUTLOOK.EXE ;;
+            b)
+                apps ;;
+            x)
+                : && clear ;;
+            *)
+                msoffice
+        esac
+    }
+
+    function adobe(){
+        clear
+        echo -e '\n  Available Options:\n'
+        echo    '       x  | Exit'
+        echo    '       b  | Go Back'
+        echo    '       1  | Acrobat DC'
+        echo    '       2  | Photoshop CC'
+        echo    '       3  | Illustrator CC'
+        echo    '       4  | After Effects CC'
+        echo    '       5  | Audition CC'
+        echo    '       6  | Premiere Pro CC'
+        echo -e '       7  | Media Encoder CC\n'
+        read -e -p "  Enter Option: " input
+        echo
+
+        options='cmd.exe /c start'
+        path_acrobat="C:\Program Files (x86)\Adobe\Acrobat DC\Acrobat"
+        path_photo="C:\Program Files\Adobe\Adobe Photoshop CC 2017"
+        path_illust="C:\Program Files\Adobe\Adobe Illustrator CC 2017\Support Files\Contents\Windows"
+        path_after="C:\Program Files\Adobe\Adobe After Effects CC 2017\Support Files"
+        path_audition="C:\Program Files\Adobe\Adobe Audition CC 2017"
+        path_premiere="C:\Program Files\Adobe\Adobe Premiere Pro CC 2017"
+        path_encoder="C:\Program Files\Adobe\Adobe Media Encoder CC 2017"
+
+        case $input in
+            1)
+                $options "$path_acrobat" Acrobat.exe;;
+            2)
+                $options "$path_photo" Photoshop.exe ;;
+            3)
+                $options "$path_illust" Illustrator.exe ;;
+            4)
+                $options "$path_after" AfterFX.exe ;;
+            5)
+                $options "$path_audition" 'Adobe Audition CC.exe' ;;
+            6)
+                $options "$path_premiere" 'Adobe Premiere Pro.exe' ;;
+            7)
+                $options "$path_encoder" 'Adobe Media Encoder.exe' ;;
+            b)
+                apps ;;
+            x)
+                : && clear ;;
+            *)
+                adobe
+        esac
+    }
+
+    function apps(){
+        clear
+        echo -e '\n  Available Options:\n'
+        echo    '       x  | Exit'
+        echo    '       b  | Go Back'
+        echo    '       1  | Microsoft Office'
+        echo    '       2  | Adobe'
+        echo -e '       3  | Notepad++ Configuration Fix\n'
+        read -e -p "  Enter Option: " input
+        echo
+
+        case $input in
+            1)
+                msoffice ;;
+            2)
+                adobe ;;
+            3)
+                nppfix ;;
+            b)
+                win ;;
+            x)
+                : && clear ;;
+            *)
+                apps
+        esac
     }
 
     function icons(){
@@ -757,7 +874,7 @@ function win(){
         echo
         if [ $input -eq 1 ] ; then
             echo -e '\n Pinnig icons to Taskbar....\n'
-            echo "=================================="
+            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
             cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\File Explorer.lnk" $tpin
             cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Control Panel.lnk" $tpin
             cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Task Manager.lnk" $tpin
@@ -772,25 +889,25 @@ function win(){
             cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Notepad++.lnk" $tpin
             cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\4K Video Downloader.lnk" $tpin
             cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Sublime Text 3.lnk" $tpin
-            echo "=================================="
+            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
             echo -e '\n ....All icons are pinned!\n'
         elif [ $input -eq 2 ] ; then
             echo -e '\n Pinnig icons to Start Menu....\n'
-            echo "=================================="
+            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
             syspin.exe "C:\Users\Todorov\Desktop\Ubuntu.lnk" c:5386
-            echo "=================================="
+            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
             echo -e '\n ....All icons are pinned!\n'
         elif [ $input -eq 3 ] ; then
             echo -e '\n Unpinnig icons to Taskbar....\n'
-            echo "=================================="
+            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
             cmd.exe /c reg delete "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" /f
-            echo "=================================="
+            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
             echo -e '\n ....All icons are unpinned!\n'
         elif [ $input -eq 4 ] ; then
             echo -e '\n Unpinnig icons to Start Menu....\n'
-            echo "=================================="
+            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
             syspin.exe "C:\Users\Todorov\Desktop\Ubuntu.lnk" c:5386
-            echo "=================================="
+            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
             echo -e '\n ....All icons are unpinned!\n'
         elif [ $input == b ] ; then
             win
@@ -845,21 +962,21 @@ function win(){
 
         if [ $input -eq 1 ] ; then
             echo -e '\n Pinnig folders to Quick Access....\n'
-            echo "=================================="
+            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
             for pin in "${pins[@]}"
             do : 
                 powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& $powershellScript $p $pin"
             done
-            echo "=================================="
+            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
             echo -e '\n ....All folders are pinned!\n'
         elif [ $input -eq 2 ] ; then
             echo -e '\n Unpinnig folders to Quick Access....\n'
-            echo "=================================="
+            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
             for pin in "${pins[@]}"
             do : 
                 powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& $powershellScript $up $pin"
             done
-            echo "=================================="
+            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
             echo -e '\n ....All folders are unpinned!\n'
         elif [ $input == b ] ; then
             win
@@ -871,52 +988,53 @@ function win(){
     }
     # cmd.exe /c "D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.cmd"
 
-    if [ $input -eq 1 ] ; then
-        read -e -p "    Enter Drive Letter: " input2
-        echo -e '\n Fixing NFTS for Drive '$input2':....\n'
-        echo "=================================="
-        cmd.exe /c chkdsk ''$input2':'
-        echo "=================================="
-        echo -e '\n ....Query Completed!\n'
-    elif [ $input -eq 2 ] ; then
-        read -e -p "    Enter Drive Letter: " input3
-        echo -e '\n Fixing NFTS for Drive '$input3':....\n'
-        echo "=================================="
-        cmd.exe /c chkdsk /f ''$input3':'
-        echo "=================================="
-        echo -e '\n ....Query Completed!\n'
-    elif [ $input -eq 3 ] ; then
-        cmd.exe /c chkdsk /?
-        echo "=================================="
-        echo -e '\n ....Query Completed!\n'
-    elif [ $input -eq 4 ] ; then
-        echo -e '\n Repairing Windows System Files....\n'
-        cmd.exe /c sfc /SCANNOW
-        echo "=================================="
-        echo -e '\n ....Query Completed!\n'
-    elif [ $input -eq 5 ] ; then
-        cmd.exe /c sfc /?
-        echo "=================================="
-        echo -e '\n ....Query Completed!\n'
-    elif [ $input -eq 6 ] ; then
-        read -e -p "    Enter Process to Delete: " input4
-        echo -e '\n Deleting '$input4'....\n'
-        cmd.exe /c sc delete ''$input4''
-        echo "=================================="
-        echo -e '\n ....Query Completed!\n'
-    elif [ $input -eq 7 ] ; then
-        qaccess
-    elif [ $input -eq 8 ] ; then
-        icons
-    elif [ $input -eq 9 ] ; then
-        nppfix
-    elif [ $input == b ] ; then
-        master
-    elif [ $input == x ] ; then
-        : && clear
-    else
-        win
-    fi
+    case $input in
+        1)
+            read -e -p "    Enter Drive Letter: " input2
+            echo -e '\n Fixing NFTS for Drive '$input2':....\n'
+            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+            cmd.exe /c chkdsk ''$input2':'
+            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+            echo -e '\n ....Query Completed!\n' ;;
+        2)
+            read -e -p "    Enter Drive Letter: " input3
+            echo -e '\n Fixing NFTS for Drive '$input3':....\n'
+            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+            cmd.exe /c chkdsk /f ''$input3':'
+            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+            echo -e '\n ....Query Completed!\n' ;;
+        3)
+            cmd.exe /c chkdsk /?
+            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+            echo -e '\n ....Query Completed!\n' ;;
+        4)
+            echo -e '\n Repairing Windows System Files....\n'
+            cmd.exe /c sfc /SCANNOW
+            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+            echo -e '\n ....Query Completed!\n' ;;
+        5)
+            cmd.exe /c sfc /?
+            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+            echo -e '\n ....Query Completed!\n' ;;
+        6)
+            read -e -p "    Enter Process to Delete: " input4
+            echo -e '\n Deleting '$input4'....\n'
+            cmd.exe /c sc delete ''$input4''
+            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+            echo -e '\n ....Query Completed!\n' ;;
+        7)
+            qaccess ;;
+        8)
+            icons ;;
+        9)
+            apps ;;
+        b)
+            master ;;
+        x)
+            : && clear ;;
+        *)
+            win
+    esac
 }
 #   -------------------------------
 #   Manage my Blog
@@ -1448,13 +1566,13 @@ cp_p () {
 # Robocopy
 # function mvall(){
 #     echo -e "\n Moving from Downloads....\n"
-#     echo "=================================="
+#     echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 #     cmd.exe /c ROBOCOPY 'C:\Users\Todorov\Downloads' 'D:\Workspace\~TEMP' * /MOVE /E /COPY:DAT /DCOPY:DAT /XF *.ini
-#     echo "=================================="
+#     echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 #     echo -e "\n Moving from Documents....\n"
-#     echo "=================================="  
+#     echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"  
 #     cmd.exe /c ROBOCOPY 'C:\Users\Todorov\Documents' 'D:\Workspace\~TEMP' * /MOV /COPY:DAT /XF *.ini
-#     echo "=================================="
+#     echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 #     echo -e "\n Finished\n"
 # }
 

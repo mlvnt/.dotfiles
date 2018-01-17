@@ -228,7 +228,7 @@ alias gbt=git_list_branches
 #   7.  WINDOWS
 #   -------------------------------
 
-# Opening files & directories
+# Opening Directories
 alias open="explorer.exe"
 alias openh=" open ."
 alias openi="gnome-open ." # Inside a Desktop environment
@@ -245,8 +245,15 @@ alias music="o 'D:\Workspace\General\Essential\Music\Music.xlsx'"
 alias pics="o 'D:\Workspace\General\Essential\Art\Media Screenshots\Pics.xlsx'"
 alias quotes="o 'D:\Workspace\General\Personal\My Blog\Intro\Quotes\Quotes.xlsx'"
 alias recipies="o 'D:\Workspace\General\Essential\Cooking\I. Recipes & Weekly Menu.docx'"
+
+# Launch Applications
 alias mail="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\ThunderbirdPortable' ThunderbirdPortable.exe"
 alias torrent="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\qBittorrentPortable' qBittorrentPortable.exe"
+alias vpn="cmd.exe /c start /D 'C:\Program Files (x86)\PureVPN' purevpn.exe"
+alias vm="cmd.exe /c start /D 'C:\Program Files\Oracle\VirtualBox' VirtualBox.exe"
+alias dashlane="cmd.exe /c start /D 'C:\Users\Todorov\AppData\Roaming\Dashlane' Dashlane.exe"
+alias memu="cmd.exe /c start /D 'C:\ProgramData\Microvirt\MEmu' MEmuConsole.exe MEmu"
+alias photoshop="cmd.exe /c start /D 'C:\Program Files\Adobe\Adobe Photoshop CC 2017' Photoshop.exe"
 
 # Clipboard
 alias pbcopy="clip.exe"
