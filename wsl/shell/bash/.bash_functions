@@ -759,19 +759,19 @@ function win(){
 
         case $input in
             1)
-                $options "$path" WINWORD.EXE ;;
+                $options "$path" WINWORD.EXE && clear ;;
             2)
-                $options "$path" EXCEL.EXE ;;
+                $options "$path" EXCEL.EXE && clear ;;
             3)
-                $options "$path" POWERPNT.EXE ;;
+                $options "$path" POWERPNT.EXE && clear ;;
             4)
-                $options "$path" MSACCESS.EXE ;;
+                $options "$path" MSACCESS.EXE && clear ;;
             5)
-                $options "$path" ONENOTE.EXE ;;
+                $options "$path" ONENOTE.EXE && clear ;;
             6)
-                $options "$path" MSPUB.EXE ;;
+                $options "$path" MSPUB.EXE && clear ;;
             7)
-                $options "$path" OUTLOOK.EXE ;;
+                $options "$path" OUTLOOK.EXE && clear ;;
             b)
                 apps ;;
             x)
@@ -807,19 +807,19 @@ function win(){
 
         case $input in
             1)
-                $options "$path_acrobat" Acrobat.exe;;
+                $options "$path_acrobat" Acrobat.exe && clear ;;
             2)
-                $options "$path_photo" Photoshop.exe ;;
+                $options "$path_photo" Photoshop.exe && clear ;;
             3)
-                $options "$path_illust" Illustrator.exe ;;
+                $options "$path_illust" Illustrator.exe && clear ;;
             4)
-                $options "$path_after" AfterFX.exe ;;
+                $options "$path_after" AfterFX.exe && clear ;;
             5)
-                $options "$path_audition" 'Adobe Audition CC.exe' ;;
+                $options "$path_audition" 'Adobe Audition CC.exe' && clear ;;
             6)
-                $options "$path_premiere" 'Adobe Premiere Pro.exe' ;;
+                $options "$path_premiere" 'Adobe Premiere Pro.exe' && clear ;;
             7)
-                $options "$path_encoder" 'Adobe Media Encoder.exe' ;;
+                $options "$path_encoder" 'Adobe Media Encoder.exe' && clear ;;
             b)
                 apps ;;
             x)
