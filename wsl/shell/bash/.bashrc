@@ -63,7 +63,7 @@ fi
 # unset file;
 
 # Neofetch
-neofetch
+# neofetch
 
 # X Server Multi-Window
 # multis
