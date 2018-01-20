@@ -394,49 +394,51 @@ function move (){
         logfile="log_backup-$(date "+%Y-%m-%d-%H-%M").txt"
         workspacedird="D:\Workspace"
         workspacedire="E:\B\backup\Workspace"
-        link_dir_1="/mnt/d/Workspace/General"
-        link_dir_2="/mnt/d/Workspace/Shared"
+        link_dir_1="/mnt/e/B/backup/Workspace/General"
+        link_dir_2="/mnt/e/B/backup/Workspace/Shared"
 
-        if [ $input -eq 1 ] || [ $input -eq 3 ] ; then 
-            robonorm="/E" && rsyncnorm=''
-        elif [ $input -eq 2 ] || [ $input -eq 4 ] ; then 
-            robonorm="/E /PURGE" && rsyncnorm="--delete "
-        fi
+        case $input in
+            1|3) robonorm="/E" && rsyncnorm='' ;;
+            2|4) robonorm="/E /PURGE" && rsyncnorm="--delete " ;;
+        esac
 
-        if [ $input -eq 3 ] || [ $input -eq 4 ] ; then
-            robocopyoptions="/L "$robonorm" /ZB /SL /MT:20 /XO /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1 /ETA"
-            ryncoptions="-avhzH --progress --stats --dry-run "$rsyncnorm""
-        elif [ $input -eq 1 ] || [ $input -eq 2 ] ; then 
-            robocopyoptions=""$robonorm" /ZB /SL /MT:20 /XO /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1 /ETA"
-            ryncoptions="-avhzH --progress --stats "$rsyncnorm""
-        fi
+        case $input in
+            1|2) robocopyoptions=""$robonorm" /ZB /SL /MT:20 /XO /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1 /ETA"
+                 ryncoptions="-avhzH --progress --stats "$rsyncnorm"" ;;
+            3|4) robocopyoptions="/L "$robonorm" /ZB /SL /MT:20 /XO /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1 /ETA"
+                 ryncoptions="-avhzH --progress --stats --dry-run "$rsyncnorm"" ;;
+        esac
 
-        if [ $input -eq 1 ] || [ $input -eq 2 ] || [ $input -eq 3 ] || [ $input -eq 4 ]; then
-            echo -e '\n ~~~~~~~~~~~~~~ Backup Main Drive.... ~~~~~~~~~~~~~~\n'
-            mkdir -p "$logdir" && sudo touch "$logdir$logfile"
+        case $input in 
+            1|2|3|4)
+                    echo -e '\n ~~~~~~~~~~~~~~ Backup Main Drive.... ~~~~~~~~~~~~~~\n'
+                    mkdir -p "$logdir" && sudo touch "$logdir$logfile"
 
-            function backups () {
-                mkdir -p "$animemain"
-                #######################################################################################################
-                sudo rsync $ryncoptions --exclude-from="$excludeddir" "$drived" "$bakcupdire"
-                echo -e "\n     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                sudo rsync $ryncoptions "$dotfilesdird" "$dotfilesdire"
-                echo -e "\n     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                #######################################################################################################
-                find $link_dir_1 $link_dir_2 -type l -print | xargs rm -v --
-                cmd.exe /c robocopy "$workspacedird" "$workspacedire" "*" $robocopyoptions
-                # CHCP 1251
-            }
+                    function backups () {
+                        mkdir -p "$animemain"
+                        # #######################################################################################################
+                        sudo rsync $ryncoptions --exclude-from="$excludeddir" "$drived" "$bakcupdire"
+                        echo -e "\n     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                        sudo rsync $ryncoptions "$dotfilesdird" "$dotfilesdire"
+                        echo -e "\n     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                        #######################################################################################################
+                        case $input in
+                            1|2) find "$link_dir_1" "$link_dir_2" -type l -print0 | xargs -0 rm -v -- ;;
+                            3|4) find "$link_dir_1" "$link_dir_2" -type l ;;
+                        esac
+                        cmd.exe /c robocopy "$workspacedird" "$workspacedire" "*" $robocopyoptions
+                        # CHCP 1251
+                    }
 
-            backups | sudo tee -ai "$logdir$logfile"
-            echo -e '\n ~~~~~~~~~~~~~~ Backup Complete! ~~~~~~~~~~~~~~\n'
-        elif [ $input == b ] ; then
-            move
-        elif [ $input == x ] ; then
-            : && clear
-        else
-            main
-        fi
+                    backups | sudo tee -ai "$logdir$logfile"
+                    echo -e '\n ~~~~~~~~~~~~~~ Backup Complete! ~~~~~~~~~~~~~~\n' ;;
+            b)
+                    move ;;
+            x)
+                    : && clear ;;
+            *)
+                    main
+        esac
     }
 
     function mobile() {
@@ -1047,14 +1049,15 @@ function blog(){
     echo    '       My Blog:'
     echo    '           1  | Go to'
     echo    '           2  | Go to & Run'
-    echo    '           3  | Clean Bake'
-    echo    '           4  | New Post'
+    echo    '           3  | Go to & Run on Web Server'
+    echo    '           4  | Clean Bake'
+    echo    '           5  | New Post'
     echo    '       Game Site:'
-    echo    '           5  | Go to'
-    echo    '           6  | Go to & Run'
+    echo    '           6  | Go to'
+    echo    '           7  | Go to & Run'
     echo    '       Manage:'
-    echo    '           7  | Rsync'
-    echo -e '           8  | SFTP\n'
+    echo    '           8  | Rsync'
+    echo -e '           9  | SFTP\n'
     read -e -p "  Enter Option: " input
     echo
 
@@ -1070,20 +1073,25 @@ function blog(){
         2)
             cd "$blogpath" && hugos ;;
         3)
-            rm -rfv "$bakedpath" && mkdir -p -v "$bakedpath" && hugo ;;
+            rm -rfv "$bakedpath" && mkdir -p -v "$bakedpath"
+            cd "$blogpath" && hugo 
+            cd "$bakedpath" && caddy ;;
         4)
+            rm -rfv "$bakedpath" && mkdir -p -v "$bakedpath" 
+            cd "$blogpath" && hugo ;;
+        5)
             clear && ls "$content" && echo
             read -e -p "  Post? " post
             read -e -p "  Type? " types
             cd "$blogpath" && echo && hugo new $post $types && echo ;;
-        5)
-            cd "$gamespath" ;;
         6)
-            cd "$gamespath" && caddy ;;
+            cd "$gamespath" ;;
         7)
+            cd "$gamespath" && caddy ;;
+        8)
             # rsync -a ~/testfile todorov@mlvnt.com:~/ 
             ;;
-        8)
+        9)
             cmd.exe /c start /D "$filezilladir" FileZillaPortable.exe ;;
             # sftp -b ~/.dotfiles/wsl/net/sftpbatch todorovfiles@mlvnt.com
             # sftp todorovfiles@mlvnt.com:uploads/

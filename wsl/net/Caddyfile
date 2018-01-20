@@ -1,7 +1,6 @@
 localhost
 gzip
 # log ../access.log
-
-        errors {
-       404 404.html
-    }
+errors {
+    404 404.html
+}
