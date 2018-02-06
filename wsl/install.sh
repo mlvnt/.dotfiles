@@ -63,8 +63,15 @@ done
 
 ##### RUBY #####
 printf '\n      >>> Installing ruby....\n'
-dpkg -l | grep -qw ruby && printf '\n            ruby is already installed.\n' || sudo apt-get install -yyq ruby
-dpkg -l | grep -qw ruby-dev && printf '\n            ruby-dev is already installed.\n' || yes Y | sudo apt-get install ruby-dev
+# dpkg -l | grep -qw ruby && printf '\n            ruby is already installed.\n' || sudo apt-get install -yyq ruby
+# dpkg -l | grep -qw ruby-dev && printf '\n            ruby-dev is already installed.\n' || yes Y | sudo apt-get install ruby-dev
+function rvm_intall(){
+    gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+    update
+    sudo apt-get install libpq-dev
+    curl -sSL https://get.rvm.io | bash -s stable  --ruby=2.3.1 --rails
+}
+which rvm | grep -qw rvm && printf '\n            It'\''s already installed.\n' || rvm_intall
 
 # GEMS
 printf '\n      >>> Installing ruby gems....\n'
@@ -104,10 +111,10 @@ which http-server | grep -qw http-server && printf '\n            http-server is
 printf '\n      >>> Installing sqlite3....\n'
 dpkg -l | grep -qw sqlite3 && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq sqlite3
 
-printf '\n      >>> Installing mysql....\n'
-dpkg -l | grep -qw mysql-client && printf '\n            mysql-client is already installed.\n' || yes Y | sudo apt-get install mysql-client
-dpkg -l | grep -qw mysql-server && printf '\n            mysql-server is already installed.\n' || sudo apt-get -y install mysql-server
-dpkg -l | grep -qw mysql-workbench && printf '\n            mysql-workbench is already installed.\n' || yes Y | sudo apt-get install mysql-workbench
+# printf '\n      >>> Installing mysql....\n'
+# dpkg -l | grep -qw mysql-client && printf '\n            mysql-client is already installed.\n' || yes Y | sudo apt-get install mysql-client
+# dpkg -l | grep -qw mysql-server && printf '\n            mysql-server is already installed.\n' || sudo apt-get -y install mysql-server
+# dpkg -l | grep -qw mysql-workbench && printf '\n            mysql-workbench is already installed.\n' || yes Y | sudo apt-get install mysql-workbench
 # mysql_secure_installation
 
 # Configuration
@@ -117,9 +124,9 @@ dpkg -l | grep -qw mysql-workbench && printf '\n            mysql-workbench is a
 # sudo service mysql start
 
 # # Completely remove mysql
-# sudo apt-get remove --purge 'mysql*'
-# sudo rm -rfv /etc/mysql /var/lib/mysql
-# sudo apt-get autoremove
+# sudo apt-get remove --purge 'mysql*' && \
+# sudo rm -rfv /etc/mysql /var/lib/mysql && \
+# sudo apt-get autoremove && \
 # sudo apt-get autoclean
 
 # # Change the directory for the mysql user:
@@ -145,6 +152,18 @@ dpkg -l | grep -qw mysql-workbench && printf '\n            mysql-workbench is a
 
 # printf '\n      >>> Installing apache2....\n'
 # sudo apt-get install apache2
+
+printf '\n      >>> Installing postgresql....\n'
+# function postgresql(){
+#     sudo touch /etc/apt/sources.list.d/pgdg.list
+#     echo 'deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main' | sudo tee --append /etc/apt/sources.list.d/pgdg.list
+#     wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
+#     sudo apt-key add -
+#     sudo apt-get update
+# }
+
+sudo apt-get install postgresql-9.5
+# sudo service postgresql start
 
 ##### HASKELL #####
 printf '\n      >>> Installing haskell....\n'
@@ -265,6 +284,9 @@ dpkg -l | grep -qw rsync && printf '\n            It'\''s already installed.\n' 
 printf '\n      >>> Installing luckybackup....\n'
 dpkg -l | grep -qw luckybackup && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq luckybackup
 
+printf '\n      >>> Installing espeak....\n'
+dpkg -l | grep -qw espeak && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq espeak
+
 ##### NEOFETCH #####
 printf '\n      >>> Installing neofetch....\n'
 function neofetchs(){
@@ -290,11 +312,11 @@ function imagemagicks(){
                  libjpeg-dev libfreetype6-dev libxml2-dev
     sudo apt-get build-dep imagemagick
     mkdir -v $HOME/imagemagick_build && cd $HOME/imagemagick_build
-    wget http://www.imagemagick.org/download/ImageMagick-7.0.7-11.tar.bz2 && \
-    tar xzvf ImageMagick-7.0.7-11.tar.bz2 && cd ImageMagick-7.0.7-11 && ./configure && make && \
+    wget http://www.imagemagick.org/download/ImageMagick-7.0.7-22.tar.bz2 && \
+    tar xzvf ImageMagick-7.0.7-22.tar.bz2 && cd ImageMagick-7.0.7-22 && ./configure && make && \
     sudo checkinstall -D --install=yes --fstrans=no --pakdir "$HOME/imagemagick_build" \
          --pkgname imagemagick --backup=no --deldoc=yes --deldesc=yes --delspec=yes --default \
-         --pkgversion "7.0.7-11" && \
+         --pkgversion "7.0.7-22" && \
     make distclean && sudo ldconfig
     sudo apt update
     yes Y | sudo apt upgrade
@@ -349,8 +371,8 @@ dpkg -l | grep -qw wireless-tools && printf '\n            It'\''s already insta
 printf '\n      >>> Installing libwww-perl....\n'
 dpkg -l | grep -qw wireless-tools && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq libwww-perl
 
-printf '\n      >>> Installing sshfs....\n'
-dpkg -l | grep -qw sshfs && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq sshfs
+# printf '\n      >>> Installing sshfs....\n'
+# dpkg -l | grep -qw sshfs && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq sshfs
 
 printf '\n      >>> Installing gpg....\n'
 dpkg -l | grep -qw gpg && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq gpa gnupg2
@@ -389,18 +411,18 @@ function sublime-texts(){
 }
 dpkg -l | grep -qw sublime-text && printf '\n            It'\''s already installed.\n' || sublime-texts
 
-printf '\n      >>> Installing vlc....\n'
-dpkg -l | grep -qw vlc && printf '\n            It'\''s already installed.\n' || yes Y | sudo apt-get install vlc
+# printf '\n      >>> Installing vlc....\n'
+# dpkg -l | grep -qw vlc && printf '\n            It'\''s already installed.\n' || yes Y | sudo apt-get install vlc
 
 ##### MOZILLA FIREFOX #####
-printf '\n      >>> Installing firefox....\n'
-dpkg -l | grep -qw firefox && printf '\n            It'\''s already installed.\n' || yes Y | sudo apt-get install firefox
+# printf '\n      >>> Installing firefox....\n'
+# dpkg -l | grep -qw firefox && printf '\n            It'\''s already installed.\n' || yes Y | sudo apt-get install firefox
 
-printf '\n      >>> Installing konsole....\n'
-dpkg -l | grep -qw konsole && printf '\n            It'\''s already installed.\n' || yes Y | sudo apt-get install konsole
+# printf '\n      >>> Installing konsole....\n'
+# dpkg -l | grep -qw konsole && printf '\n            It'\''s already installed.\n' || yes Y | sudo apt-get install konsole
 
-printf '\n      >>> Installing filezilla....\n'
-dpkg -l | grep -qw filezilla && printf '\n            It'\''s already installed.\n' || yes Y | sudo apt-get install filezilla
+# printf '\n      >>> Installing filezilla....\n'
+# dpkg -l | grep -qw filezilla && printf '\n            It'\''s already installed.\n' || yes Y | sudo apt-get install filezilla
 
 # printf '\n      >>> Installing clementine....\n'
 # dpkg -l | grep -qw clementine && printf '\n            It'\''s already installed.\n' || yes Y | sudo apt-get install clementine
@@ -430,6 +452,16 @@ function trashs(){
     sudo rm -rfv ~/trash-cli/
 }
 which trash | grep -qw trash && printf '\n            It'\''s already installed.\n' || trashs
+
+printf '\n      >>> Installing heroku....\n'
+function heroku_install(){
+    wget https://cli-assets.heroku.com/heroku-cli/channels/stable/heroku-cli-linux-x64.tar.gz -O heroku.tar.gz
+    tar -xvzf heroku.tar.gz
+    mkdir -p /usr/local/lib /usr/local/bin
+    sudo mv heroku-cli-v6.15.22-3f1c4bd-linux-x64 /usr/local/lib/heroku
+    sudo ln -s /usr/local/lib/heroku/bin/heroku /usr/local/bin/heroku
+}
+which heroku | grep -qw heroku && printf '\n            It'\''s already installed.\n' || heroku_install
 
 #   -------------------------------
 #   5.  INSTALL ZSH
@@ -495,7 +527,7 @@ dpkg -l | grep -qw vim-gui-common && printf '\n            vim-gui-common is alr
 
 printf '\n      >>> Installing hugo....\n'
 function hugoss(){
-    wget https://github.com/gohugoio/hugo/releases/download/v0.32/hugo_0.32_Linux-64bit.deb
+    wget https://github.com/gohugoio/hugo/releases/download/v0.36/hugo_0.36_Linux-64bit.deb
     sudo apt-get install ./hugo*.deb
     mv -v hugo*.deb ~/software/
 }
@@ -520,7 +552,7 @@ which caddy | grep -qw caddy && printf '\n            It'\''s already installed.
 
 printf '\n      >>> Installing ipfs....\n'
 function ipfss(){
-    wget https://dist.ipfs.io/go-ipfs/v0.4.12/go-ipfs_v0.4.12_linux-amd64.tar.gz
+    wget https://dist.ipfs.io/go-ipfs/v0.4.13/go-ipfs_v0.4.13_linux-amd64.tar.gz
     tar -xzvf go-ipfs*.tar.gz
     sudo cp -v ~/go-ipfs/ipfs /usr/bin/
     sudo cp -v ~/go-ipfs/ipfs /usr/local/bin/
@@ -565,7 +597,7 @@ pip3 freeze | grep -qw powerline && printf '\n            powerline is already i
 #   -------------------------------
 
 printf '\n      >>> Setting up SSH configuraion....\n'
-sudo cp -rv /mnt/d/Workspace/General/Personal\ Development/My\ Blog/Resourses/SSH/Backup/Server\ Login\/.ssh/ ~/
+sudo cp -rv /mnt/d/Workspace/General/Personal\ Development/My\ Blog/Resourses/SSH/Backup/.ssh/ ~/
 function sshmod () {
     sudo chmod -v 600 ~/.ssh/*
     sudo chown -v $USER ~/.ssh/known_hosts

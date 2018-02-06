@@ -367,13 +367,19 @@ function move (){
     echo    '       Backup:'
     echo    '           1  | Main Drive'
     echo    '           2  | Mobile SD Card'
+    echo    '       Restore:'
+    echo    '           3  | Main Drive'
+    echo    '           4  | Mobile SD Card'
+    echo    '       Clone:'
+    echo    '           5  | Main Drive'
+    echo    '           6  | Mobile SD Card'
     echo    '       Move:'
-    echo    '           3  | ALL from Windows Temporary Directories'
-    echo -e '           4  | Screenshots\n'
+    echo    '           7  | ALL from Windows Temporary Directories'
+    echo -e '           8  | Screenshots\n'
     read -e -p "  Enter Option: " input
     echo
 
-    function main() {
+    function main_backup() {
         clear 
         echo -e '\n  Available Options:\n'
         echo    '           x  | Exit'
@@ -441,7 +447,108 @@ function move (){
         esac
     }
 
-    function mobile() {
+    function main_clone() {
+        clear 
+        echo -e '\n  Available Options:\n'
+        echo    '           x  | Exit'
+        echo    '           b  | Go Back'
+        echo -e '           1  | Proceed\n'
+        read -e -p "  Option: " input
+
+        case $input in 
+            1)
+                    echo
+                    read -e -p "  Enter Drive Letter/Path [c]:" backdir
+                    dotfilesdird="/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/"
+                    dotfilesdire="/mnt/"$backdir"/Workspace/Projects/Programing/Git/dotfiles"
+                    drived="/mnt/d/"
+                    drivedwin="D:\\"
+
+                    robocopyoptions="/E /ZB /SL /MT:20 /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1 /ETA"
+                    ryncoptions="-avhzH --progress --stats"
+
+                    echo -e '\n ~~~~~~~~~~~~~~ Cloning Main Drive.... ~~~~~~~~~~~~~~\n'
+                    function clone () {
+                        echo -e "\n     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                        mkdir -p "/mnt/"$backdir"/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/"
+                        sudo rsync $ryncoptions "$dotfilesdird" "$dotfilesdire"
+                        echo -e "\n     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                        cmd.exe /c robocopy "$drivedwin" "$backdir:\\" "*" $robocopyoptions
+                    }
+                    clone 
+                    echo -e '\n ~~~~~~~~~~~~~~ Cloning Complete! ~~~~~~~~~~~~~~\n' 
+                    ;;
+            b)
+                    move ;;
+            x)
+                    : && clear ;;
+            *)
+                    main
+        esac
+    }
+
+    function main_restore() {
+        clear 
+        echo -e '\n  Available Options:\n'
+        echo    '           x  | Exit'
+        echo    '           b  | Go Back'
+        echo    '           1  | Normal'
+        echo    '           2  | Mirroring'
+        echo    '           3  | Dry-Run Normal'
+        echo -e '           4  | Dry-Run Mirroring\n'
+        read -e -p "  Option: " input
+
+        dotfilesdird="/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles"
+        dotfilesdire="/mnt/e/B/backup/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/"
+        drived="/mnt/d"
+        bakcupdire="/mnt/e/B/backup/"
+        logdir="/mnt/e/B/restore_logs/"
+        logfile="log_restore-$(date "+%Y-%m-%d-%H-%M").txt"
+        workspacedird="D:\Workspace"
+        workspacedire="E:\B\backup\Workspace"
+        link_dir_1="/mnt/d/Workspace/General"
+        link_dir_2="/mnt/d/Workspace/Shared"
+
+        case $input in
+            1|3) robonorm="/E" && rsyncnorm='' ;;
+            2|4) robonorm="/E /PURGE" && rsyncnorm="--delete " ;;
+        esac
+
+        case $input in
+            1|2) robocopyoptions=""$robonorm" /ZB /SL /MT:20 /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1 /ETA"
+                 ryncoptions="-avhzH --progress --stats --ignore-times "$rsyncnorm"" ;;
+            3|4) robocopyoptions="/L "$robonorm" /ZB /SL /MT:20 /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1 /ETA"
+                 ryncoptions="-avhzH --progress --stats --ignore-times --dry-run "$rsyncnorm"" ;;
+        esac
+
+        case $input in 
+            1|2|3|4)
+                    echo -e '\n ~~~~~~~~~~~~~~ Backup Main Drive.... ~~~~~~~~~~~~~~\n'
+                    mkdir -p "$logdir" && sudo touch "$logdir$logfile"
+
+                    function backups () {
+                        sudo rsync $ryncoptions "$dotfilesdire" "$dotfilesdird"
+                        echo -e "\n     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                        case $input in
+                            1|2) find "$link_dir_1" "$link_dir_2" -type l -print0 | xargs -0 rm -v -- ;;
+                            3|4) find "$link_dir_1" "$link_dir_2" -type l ;;
+                        esac
+                        cmd.exe /c robocopy "$workspacedire" "$workspacedird" "*" $robocopyoptions
+                        # CHCP 1251
+                    }
+
+                    backups | sudo tee -ai "$logdir$logfile"
+                    echo -e '\n ~~~~~~~~~~~~~~ Backup Complete! ~~~~~~~~~~~~~~\n' ;;
+            b)
+                    move ;;
+            x)
+                    : && clear ;;
+            *)
+                    main
+        esac
+    }
+
+    function mobile_backup() {
         clear 
         echo -e '\n  Available Options:\n'
         echo    '           x  | Exit'
@@ -489,6 +596,92 @@ function move (){
         fi
     }
 
+    function mobile_clone(){
+        clear 
+        echo -e '\n  Available Options:\n'
+        echo    '           x  | Exit'
+        echo    '           b  | Go Back'
+        echo -e '           1  | Proceed\n'
+        read -e -p "  Option: " input
+
+        case $input in 
+            1)
+                    echo
+                    read -e -p "  Enter Drive Letter/Path [c]:" backdir
+                    dotfilesdird="/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/"
+                    dotfilesdire="/mnt/"$backdir"/Workspace/Projects/Programing/Git/dotfiles"
+                    drived="/mnt/e/B/backup_mobile/"
+                    drivedwin="E:\\B\\backup_mobile"
+                    ryncoptions="-avhzH --progress --stats"
+
+                    echo -e '\n ~~~~~~~~~~~~~~ Cloning Main Drive.... ~~~~~~~~~~~~~~\n'
+                    function clone () {
+                        sudo rsync $ryncoptions "$dotfilesdird" "$dotfilesdire"
+                    }
+                    clone 
+                    echo -e '\n ~~~~~~~~~~~~~~ Cloning Complete! ~~~~~~~~~~~~~~\n' 
+                    ;;
+            b)
+                    move ;;
+            x)
+                    : && clear ;;
+            *)
+                    main
+        esac
+    }
+
+    function mobile_restore(){
+        clear 
+        echo -e '\n  Available Options:\n'
+        echo    '           x  | Exit'
+        echo    '           b  | Go Back'
+        echo    '           1  | Normal'
+        echo    '           2  | Mirroring'
+        echo    '           3  | Dry-Run Normal'
+        echo -e '           4  | Dry-Run Mirroring\n'
+        read -e -p "  Option: " input
+
+        dotfilesdird="/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles"
+        dotfilesdire="/mnt/e/B/backup/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/"
+        drived="/mnt/d"
+        bakcupdire="/mnt/e/B/backup/"
+        logdir="/mnt/e/B/restore_logs/"
+        logfile="log_restore-$(date "+%Y-%m-%d-%H-%M").txt"
+        workspacedird="D:\Workspace"
+        workspacedire="E:\B\backup\Workspace"
+        link_dir_1="/mnt/d/Workspace/General"
+        link_dir_2="/mnt/d/Workspace/Shared"
+
+        case $input in
+            1|3) robonorm="/E" && rsyncnorm='' ;;
+            2|4) robonorm="/E /PURGE" && rsyncnorm="--delete " ;;
+        esac
+
+        case $input in
+            1|2) ryncoptions="-avhzH --progress --stats --ignore-times "$rsyncnorm"" ;;
+            3|4) ryncoptions="-avhzH --progress --stats --ignore-times --dry-run "$rsyncnorm"" ;;
+        esac
+
+        case $input in 
+            1|2|3|4)
+                    echo -e '\n ~~~~~~~~~~~~~~ Backup Main Drive.... ~~~~~~~~~~~~~~\n'
+                    mkdir -p "$logdir" && sudo touch "$logdir$logfile"
+
+                    function backups () {
+                        sudo rsync $ryncoptions "$dotfilesdire" "$dotfilesdird"
+                    }
+
+                    backups | sudo tee -ai "$logdir$logfile"
+                    echo -e '\n ~~~~~~~~~~~~~~ Backup Complete! ~~~~~~~~~~~~~~\n' ;;
+            b)
+                    move ;;
+            x)
+                    : && clear ;;
+            *)
+                    main
+        esac
+    }
+
     function screenshots() {
         clear 
         echo -e '\n  Available Options:\n'
@@ -527,34 +720,42 @@ function move (){
         fi
     }
 
-    if [ $input -eq 1 ] ; then
-        main
-    elif [ $input -eq 2 ] ; then
-        mobile
-    elif [ $input -eq 3 ] ; then
+    case $input in
+        1)
+            main_backup ;;
+        2)
+            mobile_backup ;;
+        3)
+            main_restore ;;
+        4)
+            mobile_restore ;;
+        5)
+            main_clone ;;
+        6)
+            mobile_clone ;;
+        7)
+            downloads="/mnt/c/Users/Todorov/Downloads/"
+            documents="/mnt/c/Users/Todorov/Documents/"
+            temp="/mnt/d/Workspace/~TEMP"
 
-        downloads="/mnt/c/Users/Todorov/Downloads/"
-        documents="/mnt/c/Users/Todorov/Documents/"
-        temp="/mnt/d/Workspace/~TEMP"
-
-        echo -e '\n ~~~~~~~~~~~~~~ Moving from Downloads.... ~~~~~~~~~~~~~~\n'
-        rsync -avhz --progress --stats --ignore-existing --remove-source-files --exclude desktop.ini "$downloads" "$temp"
-        find "$downloads" -depth -type d -empty -delete
-        echo -e '\n ~~~~~~~~~~~~~~ Moving from Documents.... ~~~~~~~~~~~~~~\n'
-        rsync -avhz --progress --stats --ignore-existing --remove-source-files --include=\*.docx --include=\*.doc --include=\*.pdf --include=\*xlsx --exclude=\*  "$documents" "$temp"
-        echo -e '\n ~~~~~~~~~~~~~~ Finished! ~~~~~~~~~~~~~~\n'
-        # find "$downloads"-mindepth 1 -not -name '*.ini' -print0 | xargs -0 mv -t "$temp"
-        # find "$downloads"-mindepth 1 -not -name '*.ini' -print0 | xargs -0 -I {} cp -p -r  {} "$temp"
-        # find "$downloads"-mindepth 1 -not -name '*.ini' -print0 -exec {} cp -p -r  {} "$temp" \;
-    elif [ $input -eq 4 ] ; then
-        screenshots
-    elif [ $input == b ] ; then
-        master
-    elif [ $input == x ] ; then
-        : && clear
-    else
-        move
-    fi
+            echo -e '\n ~~~~~~~~~~~~~~ Moving from Downloads.... ~~~~~~~~~~~~~~\n'
+            rsync -avhz --progress --stats --ignore-existing --remove-source-files --exclude desktop.ini "$downloads" "$temp"
+            find "$downloads" -depth -type d -empty -delete
+            echo -e '\n ~~~~~~~~~~~~~~ Moving from Documents.... ~~~~~~~~~~~~~~\n'
+            rsync -avhz --progress --stats --ignore-existing --remove-source-files --include=\*.docx --include=\*.doc --include=\*.pdf --include=\*xlsx --exclude=\*  "$documents" "$temp"
+            echo -e '\n ~~~~~~~~~~~~~~ Finished! ~~~~~~~~~~~~~~\n' ;;
+            # find "$downloads"-mindepth 1 -not -name '*.ini' -print0 | xargs -0 mv -t "$temp"
+            # find "$downloads"-mindepth 1 -not -name '*.ini' -print0 | xargs -0 -I {} cp -p -r  {} "$temp"
+            # find "$downloads"-mindepth 1 -not -name '*.ini' -print0 -exec {} cp -p -r  {} "$temp" \;
+        8)
+            screenshots ;;
+        b)
+            master ;;
+        x)
+            : && clear ;;
+        *)
+            move
+    esac
 }
 #   -------------------------------
 #   Update .dotfiles

@@ -191,6 +191,9 @@ done
 # IPFS
 alias ipfs="sudo ipfs daemon"
 
+# Heroku
+alias heroku="sudo heroku"
+
 # Docker
 
 # Weather

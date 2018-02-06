@@ -55,6 +55,9 @@ else
     print "404: ~/.bash_functions not found."
 fi
 
+# RVM
+source /home/todorov/.rvm/scripts/rvm
+
 # # Load the shell dotfiles, and then some:
 # # * ~/.private can be used for other settings you don’t want to commit.
 # for file in ~/.{private,bash_prompt,exports,aliases,functions,vimrc}; do

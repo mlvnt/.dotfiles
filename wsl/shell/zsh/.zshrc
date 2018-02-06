@@ -25,7 +25,7 @@ export DISPLAY=:0.0
 #   THEMING                                                                   #
 ###############################################################################
 # Neofetch
-neofetch
+# neofetch
 
 # X Server Multi-Window
 # multis
@@ -132,20 +132,20 @@ fi
 ###############################################################################
 
 # ALIASES
-if [ -f ~/.bash_aliases ]; then
-    source ~/.bash_aliases
-else
-    print "404: ~/.bash_aliases not found."
-fi
+# if [ -f ~/.bash_aliases ]; then
+#     source ~/.bash_aliases
+# else
+#     print "404: ~/.bash_aliases not found."
+# fi
+
+#FUNCTIONS
+# if [ -f $ZSH_CUSTOM/.bash_functions ]; then
+#     source $ZSH_CUSTOM/.bash_functions
+# else
+#     print "404: $ZSH_CUSTOM/.bash_functions not found."
+# fi
 
 source $ZSH_CUSTOM/aliases
 source $ZSH_CUSTOM/functions
-
-#FUNCTIONS
-if [ -f $ZSH_CUSTOM/.bash_functions ]; then
-    source $ZSH_CUSTOM/.bash_functions
-else
-    print "404: $ZSH_CUSTOM/.bash_functions not found."
-fi
 
 #=============================================================================================================
