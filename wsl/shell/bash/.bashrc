@@ -56,7 +56,7 @@ else
 fi
 
 # RVM
-source /home/todorov/.rvm/scripts/rvm
+# source /home/todorov/.rvm/scripts/rvm
 
 # # Load the shell dotfiles, and then some:
 # # * ~/.private can be used for other settings you don’t want to commit.

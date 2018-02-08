@@ -67,7 +67,7 @@ printf '\n      >>> Installing ruby....\n'
 # dpkg -l | grep -qw ruby-dev && printf '\n            ruby-dev is already installed.\n' || yes Y | sudo apt-get install ruby-dev
 function rvm_intall(){
     gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
-    update
+    yes Y | update
     sudo apt-get install libpq-dev
     curl -sSL https://get.rvm.io | bash -s stable  --ruby=2.3.1 --rails
 }
@@ -162,7 +162,7 @@ printf '\n      >>> Installing postgresql....\n'
 #     sudo apt-get update
 # }
 
-sudo apt-get install postgresql-9.5
+yes Y | sudo apt-get install postgresql-9.5
 # sudo service postgresql start
 
 ##### HASKELL #####
@@ -596,14 +596,19 @@ pip3 freeze | grep -qw powerline && printf '\n            powerline is already i
 #   11.  SSH
 #   -------------------------------
 
-printf '\n      >>> Setting up SSH configuraion....\n'
-sudo cp -rv /mnt/d/Workspace/General/Personal\ Development/My\ Blog/Resourses/SSH/Backup/.ssh/ ~/
+
 function sshmod () {
+    printf '\n      >>> Setting up SSH configuraion....\n'
+    sudo cp -rv /mnt/d/Workspace/General/Personal/My\ Blog/Resourses/SSH/Backup/.ssh ~/
     sudo chmod -v 600 ~/.ssh/*
-    sudo chown -v $USER ~/.ssh/known_hosts
     sudo chmod -v 700 ~/.ssh
+    sudo chown -Rv $USER ~/.ssh/
 }
 sshmod
+
+# Windows Autoload Scipt
+cp /mnt/d/Workspace/Projects/Programing/Scripts/Scripts/Batch\ \&\ Reg/workspace.cmd /mnt/c/Users/Todorov/AppData/Roaming/Microsoft/Windows/Start\ Menu/Programs/Startup
+
 #   -------------------------------
 #   12.  REMOVE EXISTING CONFIG
 #   -------------------------------

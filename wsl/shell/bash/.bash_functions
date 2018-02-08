@@ -19,6 +19,7 @@ function master() {
     echo "    10 | win               | Windows Maintanace"
     echo "    11 | blog              | Manage my Blog"
     echo "    12 | todo              | Manage my TODOs"
+    echo "    13 | apps              | My Programs"
     echo ""
     read -e -p "Enter Function №? (y/n) " answer
 
@@ -49,8 +50,10 @@ function master() {
                 blog ;;
             12|todo)
                 todo ;;
+            13|apps)
+                apps ;;
             *)
-                helper
+                helper ;;
         esac
     }
 
@@ -82,7 +85,7 @@ function word (){
 #   -------------------------------
 function coc (){
     echo -e '\n Opening Clash of Clans Bot....\n'
-    path='C:\Users\Todorov\Desktop\MyBotRun\MyBot-MBR_v7.3.5\MyBot.run.exe'
+    path='C:\Users\Todorov\Downloads\MyBot-MBR_v7.4.3\MyBot.run.exe'
     timeout 1s cmd.exe /c $path MyVillage1 MEmu MEmu
 }
 #   -------------------------------
@@ -443,7 +446,7 @@ function move (){
             x)
                     : && clear ;;
             *)
-                    main
+                    main ;;
         esac
     }
 
@@ -460,7 +463,7 @@ function move (){
                     echo
                     read -e -p "  Enter Drive Letter/Path [c]:" backdir
                     dotfilesdird="/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/"
-                    dotfilesdire="/mnt/"$backdir"/Workspace/Projects/Programing/Git/dotfiles"
+                    dotfilesdire="/mnt/"$backdir"/Workspace/Projects/Programing/Git/dotfiles/.dotfiles"
                     drived="/mnt/d/"
                     drivedwin="D:\\"
 
@@ -483,7 +486,7 @@ function move (){
             x)
                     : && clear ;;
             *)
-                    main
+                    main ;;
         esac
     }
 
@@ -544,7 +547,7 @@ function move (){
             x)
                     : && clear ;;
             *)
-                    main
+                    main ;;
         esac
     }
 
@@ -626,7 +629,7 @@ function move (){
             x)
                     : && clear ;;
             *)
-                    main
+                    main ;;
         esac
     }
 
@@ -678,7 +681,7 @@ function move (){
             x)
                     : && clear ;;
             *)
-                    main
+                    main ;;
         esac
     }
 
@@ -754,7 +757,7 @@ function move (){
         x)
             : && clear ;;
         *)
-            move
+            move ;;
     esac
 }
 #   -------------------------------
@@ -888,176 +891,9 @@ function win(){
     echo    '           6  | Delete a Service'
     echo    '       Shotcuts'
     echo    '           7  | Quick Access'
-    echo    '           8  | Start Menu & Taskbar Icons'
-    echo    '       Programs'
-    echo -e '           9  | List Available\n'
+    echo -e '           8  | Start Menu & Taskbar Icons\n'
     read -e -p "  Enter Option: " input
     echo
-
-    function nppfix (){
-        clear
-        echo -e '\n  Available Options:\n'
-        echo    '       x  | Exit'
-        echo    '       b  | Go Back'
-        echo    '       1  | Replace Corrupted Configuration'
-        echo -e '       2  | Backup Configuration\n'
-        read -e -p "  Enter Option: " input
-        echo
-        if [ $input -eq 1 ] ; then
-            # Variables
-            origin=/mnt/d/Workspace/Portable\ Apps/PortableApps.com/PortableApps/Notepad++Portable/_Backup/ 
-            destination=/mnt/d/Workspace/Portable\ Apps/PortableApps.com/PortableApps/Notepad++Portable/App/Notepad++/    
-            # Function   
-            echo -e "\n Replacing corrupted configuration....\n"
-            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-            sudo rsync -avhz --progress --stats --ignore-times "$origin" "$destination" --include=\*.xml --exclude=\*
-            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-            echo -e "\n Finished\n"
-            echo -e "\n Opening Notepad++....\n"
-            npp
-        elif [ $input -eq 2 ] ; then
-            # set -x # Bash debuging
-            # Variables
-            origin=/mnt/d/Workspace/Portable\ Apps/PortableApps.com/PortableApps/Notepad++Portable/App/Notepad++/
-            destination=/mnt/d/Workspace/Portable\ Apps/PortableApps.com/PortableApps/Notepad++Portable/_Backup/
-            file1=stylers.model.xml
-            file2=stylers.xml
-            file3=config.xml
-            file4=contextMenu.xml
-            file5=session.xml
-            file6=shortcuts.xml
-            Array1=($file1 $file2 $file3 $file4 $file5 $file6)
-            # Function
-            echo -e "\n Backup configuration....\n"
-            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-            sudo rsync -avhz --progress --stats --ignore-times "$origin${Array1[0]}" "$origin${Array1[1]}" "$origin${Array1[2]}" "$origin${Array1[3]}" "$origin${Array1[4]}" "$origin${Array1[5]}" "$destination"
-            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-            echo -e "\n Finished!\n"
-            elif [ $input == b ] ; then
-                apps
-            elif [ $input == x ] ; then
-                : && clear
-            else
-                nppfix
-            fi
-    }
-
-    function msoffice(){
-        clear
-        echo -e '\n  Available Options:\n'
-        echo    '       x  | Exit'
-        echo    '       b  | Go Back'
-        echo    '       1  | Word'
-        echo    '       2  | Excel'
-        echo    '       3  | PowerPoint'
-        echo    '       4  | Access'
-        echo    '       5  | OneNote'
-        echo    '       6  | Publisher'
-        echo -e '       7  | Outlook\n'
-        read -e -p "  Enter Option: " input
-        echo
-
-        path="C:\Program Files\Microsoft Office\Office16"
-        options='cmd.exe /c start'
-
-        case $input in
-            1)
-                $options "$path" WINWORD.EXE && clear ;;
-            2)
-                $options "$path" EXCEL.EXE && clear ;;
-            3)
-                $options "$path" POWERPNT.EXE && clear ;;
-            4)
-                $options "$path" MSACCESS.EXE && clear ;;
-            5)
-                $options "$path" ONENOTE.EXE && clear ;;
-            6)
-                $options "$path" MSPUB.EXE && clear ;;
-            7)
-                $options "$path" OUTLOOK.EXE && clear ;;
-            b)
-                apps ;;
-            x)
-                : && clear ;;
-            *)
-                msoffice
-        esac
-    }
-
-    function adobe(){
-        clear
-        echo -e '\n  Available Options:\n'
-        echo    '       x  | Exit'
-        echo    '       b  | Go Back'
-        echo    '       1  | Acrobat DC'
-        echo    '       2  | Photoshop CC'
-        echo    '       3  | Illustrator CC'
-        echo    '       4  | After Effects CC'
-        echo    '       5  | Audition CC'
-        echo    '       6  | Premiere Pro CC'
-        echo -e '       7  | Media Encoder CC\n'
-        read -e -p "  Enter Option: " input
-        echo
-
-        options='cmd.exe /c start'
-        path_acrobat="C:\Program Files (x86)\Adobe\Acrobat DC\Acrobat"
-        path_photo="C:\Program Files\Adobe\Adobe Photoshop CC 2017"
-        path_illust="C:\Program Files\Adobe\Adobe Illustrator CC 2017\Support Files\Contents\Windows"
-        path_after="C:\Program Files\Adobe\Adobe After Effects CC 2017\Support Files"
-        path_audition="C:\Program Files\Adobe\Adobe Audition CC 2017"
-        path_premiere="C:\Program Files\Adobe\Adobe Premiere Pro CC 2017"
-        path_encoder="C:\Program Files\Adobe\Adobe Media Encoder CC 2017"
-
-        case $input in
-            1)
-                $options "$path_acrobat" Acrobat.exe && clear ;;
-            2)
-                $options "$path_photo" Photoshop.exe && clear ;;
-            3)
-                $options "$path_illust" Illustrator.exe && clear ;;
-            4)
-                $options "$path_after" AfterFX.exe && clear ;;
-            5)
-                $options "$path_audition" 'Adobe Audition CC.exe' && clear ;;
-            6)
-                $options "$path_premiere" 'Adobe Premiere Pro.exe' && clear ;;
-            7)
-                $options "$path_encoder" 'Adobe Media Encoder.exe' && clear ;;
-            b)
-                apps ;;
-            x)
-                : && clear ;;
-            *)
-                adobe
-        esac
-    }
-
-    function apps(){
-        clear
-        echo -e '\n  Available Options:\n'
-        echo    '       x  | Exit'
-        echo    '       b  | Go Back'
-        echo    '       1  | Microsoft Office'
-        echo    '       2  | Adobe'
-        echo -e '       3  | Notepad++ Configuration Fix\n'
-        read -e -p "  Enter Option: " input
-        echo
-
-        case $input in
-            1)
-                msoffice ;;
-            2)
-                adobe ;;
-            3)
-                nppfix ;;
-            b)
-                win ;;
-            x)
-                : && clear ;;
-            *)
-                apps
-        esac
-    }
 
     function icons(){
         cd /mnt/d/Workspace/Portable\ Apps/By\ Category/Windows\ Tweaks/Syspin/
@@ -1161,6 +997,7 @@ function win(){
             "'D:\Workspace\General\Essential\Art\Media Screenshots\Pics'"
             "'C:\Users\Todorov\Pictures\My Screen Shots'"
             "'C:\Users\Todorov\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs\home\todorov'"
+            "'C:\ProgramData\Microsoft\Windows\Start Menu\Programs'"
         )
 
         if [ $input -eq 1 ] ; then
@@ -1229,14 +1066,12 @@ function win(){
             qaccess ;;
         8)
             icons ;;
-        9)
-            apps ;;
         b)
             master ;;
         x)
             : && clear ;;
         *)
-            win
+            win ;;
     esac
 }
 #   -------------------------------
@@ -1301,7 +1136,7 @@ function blog(){
         x)
             : && clear ;;
         *)
-            blog
+            blog ;;
     esac
 }
 #   -------------------------------
@@ -1501,6 +1336,515 @@ function todo(){
     else
         todo
     fi
+}
+#   -------------------------------
+#   My Programs
+#   -------------------------------
+function apps(){
+    clear
+    echo -e '\n  Available Options:\n'
+    echo    '       x  | Exit'
+    echo    '       b  | Go Back'
+    echo    '       1  | Portable'
+    echo -e '       2  | Installed\n'
+    read -e -p "  Enter Option: " input
+    echo
+
+    function portable_apps() {
+        clear
+        echo -e '\n  Available Options:'
+        echo    '           x   Exit'
+        echo    '           b   Go Back'
+        echo -e '\n   >>> Portable Apps Suites\n'
+        echo    '           1   Apps by Category'
+        echo    '           2   PortableApps Client'
+        echo    '           3   PortableApps Apps'
+        echo    '           4   SyMenu'
+        echo    '           5   SyMenu Apps'
+        echo    '           6   GeGeek ToolKit'
+        echo    '           7   LiberKey'
+        echo -e '\n   >>> Net\n'
+        echo    '           8   MyBotRun'
+        echo    '           9   AnyDesk'
+        echo    '           10  aTubeCatcher'
+        echo    '           11  FileZilla'
+        echo    '           12  HexChat'
+        echo    '           13  JDownloader'
+        echo    '           14  Mozilla Firefox'
+        echo    '           15  Mozilla Thunderbird'
+        echo    '           16  Opera'
+        echo    '           17  Popcorn-Time'
+        echo    '           18  qBittorrent'
+        echo    '           19  QuiteRSS'
+        echo    '           20  Skype'
+        echo    '           21  SyncTrayzor'
+        echo    '           22  Taiga'
+        echo    '           23  Tor Browser'
+        echo    '           24  Torrents Open Regisration'
+        echo    '           25  Wireshark'
+        echo    '           26  XAMPP'
+        echo -e '\n   >>> Development\n'
+        echo    '           27  CodeBlocks'
+        echo    '           28  Eclipse'
+        echo    '           29  Java Decompiler'
+        echo    '           30  Matlab'
+        echo    '           31  Meld'
+        echo    '           32  NetBeans'
+        echo    '           33  Notepad++'
+        echo    '           34  R-Studio'
+        echo    '           35  RegexBuddy4'
+        echo    '           36  RegExr'
+        echo    '           37  Sublime Text'
+        echo    '           38  Visual Studio Code'
+        echo -e '\n   >>> Productivity & Office\n'
+        echo    '           39  KeePass'
+        echo    '           40  Calibre'
+        echo    '           41  draw.io'
+        echo    '           42  GnuCash'
+        echo    '           43  jdotxt'
+        echo    '           44  LibreOffice'
+        echo    '           45  MikTex Options'
+        echo    '           46  MikTex Update'
+        echo    '           47  TeXstudio'
+        echo    '           48  SA Dictionary'
+        echo    '           49  Vym'
+        echo    '           50  yEd'
+        echo    '           51  Zim'
+        echo -e '\n   >>> Media Editing\n'
+        echo    '           52  Audacity'
+        echo    '           53  Bino'
+        echo    '           54  Blender'
+        echo    '           55  GIMP'
+        echo    '           56  Inkscape'
+        echo    '           57  Instant Eyedropper'
+        echo    '           58  MKVToolNix'
+        echo    '           59  MKVExtractGUI2'
+        echo    '           60  OBS Studio'
+        echo -e '\n   >>> OS Management\n'
+        echo    '           61  Everything'
+        echo    '           62  MultiCommander'
+        echo    '           63  ProcessExplorer'
+        echo    '           64  RegSeeker'
+        echo    '           65  Revo Uninstaller'
+        echo    '           66  Rufus'
+        echo    '           67  Snap2HTML'
+        echo    '           68  Spybot Anit-Beacon'
+        echo    '           69  Spyglass'
+        echo -e '           70  WinDirStat\n'
+        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        echo -e '\n   >>> Main\n'
+        echo    '           39  KeePass'
+        echo    '           14  Mozilla Firefox'
+        echo    '           15  Mozilla Thunderbird'
+        echo    '           65  Revo Uninstaller'
+        echo    '           66  Rufus'
+        echo    '           56  Inkscape'
+        echo    '           41  draw.io'
+        echo    '           42  GnuCash'
+        echo    '           43  jdotxt'
+        echo    '           18  qBittorrent'
+        echo    '           21  SyncTrayzor'
+        echo    '           11  FileZilla'
+        echo    '           19  QuiteRSS'
+        echo    '           22  Taiga'
+        echo    '           12  HexChat'
+        echo    '           2   PortableApps Client'
+        echo    '           3   PortableApps Apps'
+        echo    '           4   SyMenu'
+        echo -e '           5   SyMenu Apps\n'
+        read -e -p "  Enter Option: " input
+        echo
+
+        case $input in
+            1)
+                o "D:\Workspace\Portable Apps\By Category" && clear ;;
+            2)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com" Start.exe && clear ;;
+            3)
+                o "D:\Workspace\Portable Apps\PortableApps.com\PortableApps" && clear ;;
+            4)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\SyMenu" SyMenu.exe && clear ;;
+            5)
+                o "D:\Workspace\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite" && clear ;;
+            6)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\GEGeek_Toolkit" SyMenu.exe && clear ;;
+            7)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\LiberKey" LiberKey.exe && clear ;;
+            8)
+                o "D:\Workspace\Shortcuts\Recent\MyBotRun" && clear ;;
+            9)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite\AnyDesk_sps" AnyDesk.exe && clear ;;
+            10)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Net\File Sharing\Downloading\aTube Catcher 2.0" yct.exe && clear ;;
+            11)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\FileZillaPortable" FileZillaPortable.exe && clear ;;
+            12)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\HexChatPortable" HexChatPortable.exe && clear ;;
+            13)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite\JDownloader_2_sps" JDownloader.jar && clear ;;
+            14)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\FirefoxPortable" FirefoxPortable.exe && clear ;;
+            15)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\ThunderbirdPortable" ThunderbirdPortable.exe && clear ;;
+            16)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\OperaPortable" OperaPortable.exe && clear ;;
+            17)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Net\File Sharing\Popcorn Time\Popcorn-Time" Popcorn-Time.exe && clear ;;
+            18)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\qBittorrentPortable" qBittorrentPortable.exe && clear ;;
+            19)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\QuiteRSSPortable" QuiteRSSPortable.exe && clear ;;
+            20)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\sPortable\App\Skype\Phone" Skype.exe && clear ;;
+            21)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Net\File Sharing\SyncTrayzorPortable-x64" SyncTrayzor.exe && clear ;;
+            22)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Net\Social\Taiga" Taiga.exe && clear ;;
+            23)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Net\Browsers\Tor Browser 7.0.6\Browser" firefox.exe && clear ;;
+            24)
+                cmd.exe /c "D:\Workspace\Portable Apps\By Category\Net\File Sharing\Torrents Open Registrations Checker\Torrents Open Registrations Checker.exe" && clear ;;
+            25)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Net\WiresharkPortable" WiresharkPortable.exe && clear ;;
+            26)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\XAMPP" XAMPPLauncher.exe && clear ;;
+            27)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Development\IDEs & Editors\CodeBlocks\CodeBlocks-16.01mingw-nosetup" codeblocks.exe && clear ;;
+            28)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Development\IDEs & Editors\Eclipse" eclipse.exe && clear ;;
+            29)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Development\Java Decompiler - gui-windows-1.4.0" jd-gui.exe && clear ;;
+            30)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Development\MATLAB\R2017a\bin" matlab.exe && clear ;;
+            31)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\File Management\Compare\Meld" Meld.exe && clear ;;
+            32)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Development\IDEs & Editors\NetBeans 8.2\bin" netbeans64.exe && clear ;;
+            33)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Development\IDEs & Editors\Notepad++\Notepad++ 7.5.1" notepad++.exe && clear ;;
+            34)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\File Management\Recovery\R-StudioPortable 8.5.Build 170117" R-StudioPortable.exe && clear ;;
+            35)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Development\Regex\RegexBuddy4" RegexBuddy4.exe && clear ;;
+            36)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Development\Regex\RegExr" RegExr.exe && clear ;;
+            37)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Development\IDEs & Editors\Sublime Text" sublime_text.exe && clear ;;
+            38)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Development\IDEs & Editors\VSCodePortable_1.16.1" VSCodePortable.exe && clear ;;
+            39)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite\KeePass_Professional_sps" KeePass.exe && clear ;;
+            40)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Office\eBooks\Calibre Portable" calibre-portable.exe && clear ;;
+            41)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Office\Diagrams\draw.io" draw.io.exe && clear ;;
+            42)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\GnuCashPortable" GnuCashPortable.exe && clear ;;
+            43)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Office\Notes\jdotxt" jdotxt-0.4.8.jar && clear ;;
+            44)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\LibreOfficePortable" LibreOfficePortable.exe && clear ;;
+            45)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Office\Office\TeX\MikTEX\texmfs\install\miktex\bin" mo.exe && clear ;;
+            46)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Office\Office\TeX\MikTEX\texmfs\install\miktex\bin\internal" miktex-update.exe && clear ;;
+            47)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Office\Office\TeX\texstudio-2.12.6" texstudio.exe && clear ;;
+            48)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Office\Dictionaries\SA Dictionary 2013" Diction.exe && clear ;;
+            49)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Office\Diagrams\Mind Mapping\vym" vym.exe && clear ;;
+            50)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Office\Diagrams\yEd-3.17.2" yed.jar && clear ;;
+            51)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Office\Notes\Zim Desktop Wiki Portable" zim.exe && clear ;;
+            52)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\AudacityPortable" AudacityPortable.exe && clear ;;
+            53)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\File Management\Video\Bino\bin" bino.exe && clear ;;
+            54)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\BlenderPortable" BlenderPortable.exe && clear ;;
+            55)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\GIMPPortable" GIMPPortable.exe && clear ;;
+            56)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\InkscapePortable" InkscapePortable.exe && clear ;;
+            57)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\File Management\Images\Instant-eyedropper" instanteyedropper.exe && clear ;;
+            58)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite\MKVToolNix_(x64)_sps" MKVExtractGUI2.exe && clear ;;
+            59)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite\MKVToolNix_(x64)_sps" mkvtoolnix-gui.exe && clear ;;
+            60)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\File Management\Video\Screen Recording\OBS Studio\bin\64bit" obs64.exe && clear ;;
+            61)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite\Everything_(x64)_sps" Everything.exe && clear ;;
+            62)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\File Management\File Managers\MultiCommander_x64_Portable" MultiCommander.exe && clear ;;
+            63)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\ProcessExplorerPortable" ProcessExplorerPortable.exe && clear ;;
+            64)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite\RegSeeker_sps" RegSeeker.exe && clear ;;
+            65)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Program Management\Uninstallers\RevoPortable64" RevoUninstallerPortable.exe && clear ;;
+            66)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\RufusPortable" RufusPortable.exe && clear ;;
+            67)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite\Snap2HTML_sps" Snap2HTML.exe && clear ;;
+            68)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite\Spybot_Anti-Beacon_sps" SDAntiBeacon.exe && clear ;;
+            69)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\File Management\Stats\Spyglass" Spyglass.exe && clear ;;
+            70)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\WinDirStatPortable" WinDirStatPortable.exe && clear ;;
+            b)
+                apps ;;
+            x)
+                : && clear ;;
+            *)
+                portable_apps ;;
+        esac
+    }
+
+    function msoffice(){
+        clear
+        echo -e '\n  Available Options:\n'
+        echo    '       x  | Exit'
+        echo    '       b  | Go Back'
+        echo    '       1  | Word'
+        echo    '       2  | Excel'
+        echo    '       3  | PowerPoint'
+        echo    '       4  | Access'
+        echo    '       5  | OneNote'
+        echo    '       6  | Publisher'
+        echo -e '       7  | Outlook\n'
+        read -e -p "  Enter Option: " input
+        echo
+
+        path="C:\Program Files\Microsoft Office\Office16"
+        options='cmd.exe /c start'
+
+        case $input in
+            1)
+                $options "$path" WINWORD.EXE && clear ;;
+            2)
+                $options "$path" EXCEL.EXE && clear ;;
+            3)
+                $options "$path" POWERPNT.EXE && clear ;;
+            4)
+                $options "$path" MSACCESS.EXE && clear ;;
+            5)
+                $options "$path" ONENOTE.EXE && clear ;;
+            6)
+                $options "$path" MSPUB.EXE && clear ;;
+            7)
+                $options "$path" OUTLOOK.EXE && clear ;;
+            b)
+                apps ;;
+            x)
+                : && clear ;;
+            *)
+                msoffice ;;
+        esac
+    }
+
+    function adobe(){
+        clear
+        echo -e '\n  Available Options:\n'
+        echo    '       x  | Exit'
+        echo    '       b  | Go Back'
+        echo    '       1  | Acrobat DC'
+        echo    '       2  | Photoshop CC'
+        echo    '       3  | Illustrator CC'
+        echo    '       4  | After Effects CC'
+        echo    '       5  | Audition CC'
+        echo    '       6  | Premiere Pro CC'
+        echo -e '       7  | Media Encoder CC\n'
+        read -e -p "  Enter Option: " input
+        echo
+
+        options='cmd.exe /c start'
+        path_acrobat="C:\Program Files (x86)\Adobe\Acrobat DC\Acrobat"
+        path_photo="C:\Program Files\Adobe\Adobe Photoshop CC 2017"
+        path_illust="C:\Program Files\Adobe\Adobe Illustrator CC 2017\Support Files\Contents\Windows"
+        path_after="C:\Program Files\Adobe\Adobe After Effects CC 2017\Support Files"
+        path_audition="C:\Program Files\Adobe\Adobe Audition CC 2017"
+        path_premiere="C:\Program Files\Adobe\Adobe Premiere Pro CC 2017"
+        path_encoder="C:\Program Files\Adobe\Adobe Media Encoder CC 2017"
+
+        case $input in
+            1)
+                $options "$path_acrobat" Acrobat.exe && clear ;;
+            2)
+                $options "$path_photo" Photoshop.exe && clear ;;
+            3)
+                $options "$path_illust" Illustrator.exe && clear ;;
+            4)
+                $options "$path_after" AfterFX.exe && clear ;;
+            5)
+                $options "$path_audition" 'Adobe Audition CC.exe' && clear ;;
+            6)
+                $options "$path_premiere" 'Adobe Premiere Pro.exe' && clear ;;
+            7)
+                $options "$path_encoder" 'Adobe Media Encoder.exe' && clear ;;
+            b)
+                apps ;;
+            x)
+                : && clear ;;
+            *)
+                adobe ;;
+        esac
+    }
+
+    function installed_apps(){
+        clear
+        echo -e '\n  Available Options:'
+        echo    '           x   Exit'
+        echo    '           b   Go Back'
+        echo -e '\n   >>> Apps Suites\n'
+        echo    '           1   Microsoft Office'
+        echo    '           2   Adobe Creative Cloud'
+        echo -e '\n   >>> Basic Utilities\n'
+        echo    '           3   Dashlane'
+        echo    '           4   PureVPN'
+        echo    '           5   VirtualBox'
+        echo    '           6   MEmu-Multi'
+        echo    '           7   MEmu'
+        echo    '           8   Wondershare Streaming Audio Recorder'
+        echo    '           9   IsoBuster'
+        echo    '           10  MagicISO'
+        echo    '           11  TechSmith Camtasia'
+        echo    '           12  Acronis True Image'
+        echo    '           13  Keybase'
+        echo    '           14  iTunes'
+        echo    '           15  KeepVID'
+        echo    '           16  IObit Advanced SystemCare'
+        echo    '           17  IDM UltraCompare'
+        echo    '           18  DVDFab'
+        echo    '           19  '
+        echo -e '\n   >>> Utilities\n'
+        echo    '           20  7zip'
+        echo    '           21  Gadwin PrintScreen'
+        echo    '           22  Windows10 DPI Fix'
+        echo    '           23  VLC Media Player'
+        echo    '           24  AIMP'
+        echo    '           25  Stardock Fences'
+        echo    '           26  Windows 10 Upgrade Assistant'
+        echo    '           27  Sandboxie Web Browser'
+        echo    '           28  Sandboxie Any Program'
+        echo    '           29  EssentialPIM'
+        echo    '           30  SolidWorks'
+        echo -e '\n   >>> Development\n'
+        echo    '           31  VcXsrv'
+        echo    '           32  Sublime Text'
+        echo    '           33  Android Studio'
+        echo    '           34  Unity'
+        echo -e '\n   >>> Games\n'
+        echo -e '           35  Steam\n'
+        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        echo -e '\n   >>> Main\n'
+        echo    '           1   Microsoft Office'
+        echo    '           2   Adobe Creative Cloud'
+        echo    '           3   Dashlane'
+        echo    '           4   PureVPN'
+        echo    '           6   MEmu-Multi'
+        echo    '           7   MEmu'
+        echo    '           26  Windows 10 Upgrade Assistant'
+        echo -e '           16  IObit Advanced SystemCare\n'
+        read -e -p "  Enter Option: " input
+        echo
+
+        case $input in
+            1)
+                msoffice && clear ;;
+            2)
+                adobe && clear ;;
+            3)
+                cmd.exe /c start /D "C:\Users\Todorov\AppData\Roaming\Dashlane" Dashlane.exe && clear ;;
+            4)
+                cmd.exe /c start /D "C:\Program Files (x86)\PureVPN" purevpn.exe && clear ;;
+            5)
+                cmd.exe /c start /D "C:\Program Files\Oracle\VirtualBox" VirtualBox.exe && clear ;;
+            6)
+                cmd.exe /c start /D "C:\Program Files\Microvirt\MEmu" MEmuConsole.exe && clear ;;
+            7)
+                cmd.exe /c start /D "C:\Program Files\Microvirt\MEmu" MEmu.exe && clear ;;
+            8)
+                cmd.exe /c start /D "C:\Program Files (x86)\Wondershare\Streaming Audio Recorder" StreamingAudioRecorder.exe && clear ;;
+            9)
+                cmd.exe /c start /D "C:\Program Files (x86)\Smart Projects\IsoBuster" IsoBuster.exe && clear ;;
+            10)
+                cmd.exe /c start /D "C:\Program Files (x86)\MagicISO" MagicISO.exe && clear ;;
+            11)
+                cmd.exe /c start /D "C:\Program Files\TechSmith\Camtasia 9" CamtasiaStudio.exe && clear ;;
+            12)
+                cmd.exe /c start /D ""  && clear ;;
+            13)
+                cmd.exe /c start /D "C:\Users\Todorov\AppData\Local\Keybase\Gui" Keybase.exe && clear ;;
+            14)
+                cmd.exe /c start /D ""  && clear ;;
+            15)
+                cmd.exe /c start /D "C:\Program Files (x86)\KeepVid\KeepVid Pro" KeepVidPro.exe && clear ;;
+            16)
+                cmd.exe /c start /D "C:\Program Files (x86)\IObit\Advanced SystemCare" ASC.exe && clear ;;
+            17)
+                cmd.exe /c start /D "C:\Program Files\IDM Computer Solutions\UltraCompare" uc.exe && clear ;;
+            18)
+                cmd.exe /c start /D ""  && clear ;;
+            19)
+                cmd.exe /c start /D ""  && clear ;;
+            20)
+                cmd.exe /c start /D "C:\Program Files\7-Zip" 7zFM.exe && clear ;;
+            21)
+                cmd.exe /c start /D "C:\Program Files\Gadwin\Gadwin PrintScreen" PrintScreen64.exe && clear ;;
+            22)
+                cmd.exe /c start /D "C:\Program Files (x86)\XPE Windows 10 DPI Fix" XPEWindows10_DPI_FIX.exe && clear ;;
+            23)
+                cmd.exe /c start /D "C:\Program Files\VideoLAN\VLC" vlc.exe && clear ;;
+            24)
+                cmd.exe /c start /D "C:\Program Files (x86)\AIMP" AIMP.exe && clear ;;
+            25)
+                cmd.exe /c start /D "C:\Program Files (x86)\Stardock\Fences" Fences.exe && clear ;;
+            26)
+                cmd.exe /c start /D "C:\Windows10Upgrade" Windows10UpgraderApp.exe && clear ;;
+            27)
+                cmd.exe /c start /D ""  && clear ;;
+            28)
+                cmd.exe /c start /D ""  && clear ;;
+            29)
+                cmd.exe /c start /D ""  && clear ;;
+            30)
+                cmd.exe /c start /D ""  && clear ;;
+            31)
+                cmd.exe /c start /D "C:\Program Files\VcXsrv" xlaunch.exe && clear ;;
+            32)
+                cmd.exe /c start /D ""  && clear ;;
+            33)
+                cmd.exe /c start /D ""  && clear ;;
+            34)
+                cmd.exe /c start /D ""  && clear ;;
+            35)
+                cmd.exe /c start /D "C:\Program Files (x86)\Steam" Steam.exe && clear ;;
+            b)
+                apps ;;
+            x)
+                : && clear ;;
+            *)
+                installed_apps ;;
+        esac
+    }
+
+    case $input in 
+        1)
+            portable_apps ;;
+        2)
+            installed_apps ;;
+        b)
+            master ;;
+        x)
+            : && clear ;;
+        *)
+            apps ;;
+    esac
 }
 #=========================================================================================
 #=========================================================================================
@@ -1817,3 +2161,91 @@ cp_p () {
 # }
 
 # ll | ws -l
+
+# function nppfix (){
+#     clear
+#     echo -e '\n  Available Options:\n'
+#     echo    '       x  | Exit'
+#     echo    '       b  | Go Back'
+#     echo    '       1  | Replace Corrupted Configuration'
+#     echo -e '       2  | Backup Configuration\n'
+#     read -e -p "  Enter Option: " input
+#     echo
+#     if [ $input -eq 1 ] ; then
+#         # Variables
+#         origin=/mnt/d/Workspace/Portable\ Apps/PortableApps.com/PortableApps/Notepad++Portable/_Backup/ 
+#         destination=/mnt/d/Workspace/Portable\ Apps/PortableApps.com/PortableApps/Notepad++Portable/App/Notepad++/    
+#         # Function   
+#         echo -e "\n Replacing corrupted configuration....\n"
+#         echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+#         sudo rsync -avhz --progress --stats --ignore-times "$origin" "$destination" --include=\*.xml --exclude=\*
+#         echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+#         echo -e "\n Finished\n"
+#         echo -e "\n Opening Notepad++....\n"
+#         npp
+#     elif [ $input -eq 2 ] ; then
+#         # set -x # Bash debuging
+#         # Variables
+#         origin=/mnt/d/Workspace/Portable\ Apps/PortableApps.com/PortableApps/Notepad++Portable/App/Notepad++/
+#         destination=/mnt/d/Workspace/Portable\ Apps/PortableApps.com/PortableApps/Notepad++Portable/_Backup/
+#         file1=stylers.model.xml
+#         file2=stylers.xml
+#         file3=config.xml
+#         file4=contextMenu.xml
+#         file5=session.xml
+#         file6=shortcuts.xml
+#         Array1=($file1 $file2 $file3 $file4 $file5 $file6)
+#         # Function
+#         echo -e "\n Backup configuration....\n"
+#         echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+#         sudo rsync -avhz --progress --stats --ignore-times "$origin${Array1[0]}" "$origin${Array1[1]}" "$origin${Array1[2]}" "$origin${Array1[3]}" "$origin${Array1[4]}" "$origin${Array1[5]}" "$destination"
+#         echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+#         echo -e "\n Finished!\n"
+#         elif [ $input == b ] ; then
+#             apps
+#         elif [ $input == x ] ; then
+#             : && clear
+#         else
+#             nppfix
+#         fi
+# }
+
+# function main_clone() {
+#     clear 
+#     echo -e '\n  Available Options:\n'
+#     echo    '           x  | Exit'
+#     echo    '           b  | Go Back'
+#     echo -e '           1  | Proceed\n'
+#     read -e -p "  Option: " input
+
+#     case $input in 
+#         1)
+#                 echo
+#                 read -e -p "  Enter Drive Letter/Path [c]:" backdir
+#                 dotfilesdird="/mnt/e/B/backup/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/"
+#                 dotfilesdire="/mnt/"$backdir"/Workspace/Projects/Programing/Git/dotfiles/.dotfiles"
+#                 drived="/mnt/e/B/backup/Workspace"
+#                 drivedwin="E:\B\backup\Workspace"
+
+#                 robocopyoptions="/E /ZB /SL /MT:20 /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1 /ETA"
+#                 ryncoptions="-avhzH --progress --stats"
+
+#                 echo -e '\n ~~~~~~~~~~~~~~ Cloning Main Drive.... ~~~~~~~~~~~~~~\n'
+#                 function clone () {
+#                     echo -e "\n     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+#                     mkdir -p "/mnt/"$backdir"/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/"
+#                     sudo rsync $ryncoptions "$dotfilesdird" "$dotfilesdire"
+#                     echo -e "\n     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+#                     cmd.exe /c robocopy "$drivedwin" "$backdir:\\Workspace" "*" $robocopyoptions
+#                 }
+#                 clone 
+#                 echo -e '\n ~~~~~~~~~~~~~~ Cloning Complete! ~~~~~~~~~~~~~~\n' 
+#                 ;;
+#         b)
+#                 move ;;
+#         x)
+#                 : && clear ;;
+#         *)
+#                 main ;;
+#     esac
+# }
