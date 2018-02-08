@@ -774,7 +774,7 @@ function dots(){
     echo
     if [ $input -eq 1 ] ; then
         dotfiles && gac
-        cd ~/.dotfiles/ && gl
+        cd ~/.dotfiles/ && git stash && gl
         sca && clear
     elif [ $input -eq 2 ] ; then
         echo -e '\n Removing old .dotfiles....\n'
