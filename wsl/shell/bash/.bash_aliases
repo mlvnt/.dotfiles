@@ -240,6 +240,9 @@ alias tempe="open 'D:\Workspace\~TEMP'"
 alias downe="open 'C:\Users\Todorov\Downloads'"
 alias docse="open 'C:\Users\Todorov\Documents'"
 alias sts="open 'C:\Users\Todorov\Pictures\My Screen Shots'"
+alias appdata="open 'C:\Users\Todorov\AppData'"
+alias startmenu="open 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs'"
+alias autostart="open 'C:\Users\Todorov\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup'"
 
 # Edit Documents
 alias cv="o 'D:\Workspace\General\Personal\Professional\CV & Covering Letter\CV.docx'"
