@@ -68,12 +68,10 @@ function master() {
 #   -------------------------------
 #   Open multiple Word Documets
 #   -------------------------------
-function word (){
+function word(){
     clear
-    echo ''
-    read -e -p "  Enter № of word documents to open: " input
     echo
-    for (( i=1; i<=input; i++ ))
+    for (( i=1; i<=$1; i++ ))
     do
        echo "   Opening word document $i...."
        wordn
@@ -775,6 +773,7 @@ function dots(){
     if [ $input -eq 1 ] ; then
         dotfiles && gac
         cd ~/.dotfiles/ && git stash && gl
+        cd ~/.dotfiles/wsl/ && sudo chmod -Rv +x ./*.sh ./bin/*
         sca && clear
     elif [ $input -eq 2 ] ; then
         echo -e '\n Removing old .dotfiles....\n'
@@ -793,6 +792,7 @@ function dots(){
         echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         echo -e '\n Sourcing .dotfiles....\n'
         echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        cd ~/.dotfiles/wsl/ && sudo chmod -Rv +x ./*.sh ./bin/*
         sca && clear
         echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         echo -e '\n Dotfiles Updated!\n'
@@ -1341,15 +1341,6 @@ function todo(){
 #   My Programs
 #   -------------------------------
 function apps(){
-    clear
-    echo -e '\n  Available Options:\n'
-    echo    '       x  | Exit'
-    echo    '       b  | Go Back'
-    echo    '       1  | Portable'
-    echo -e '       2  | Installed\n'
-    read -e -p "  Enter Option: " input
-    echo
-
     function portable_apps() {
         clear
         echo -e '\n  Available Options:'
@@ -1434,14 +1425,13 @@ function apps(){
         echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         echo -e '\n   >>> Main\n'
         echo    '           39  KeePass'
+        echo    '           42  GnuCash'
         echo    '           14  Mozilla Firefox'
         echo    '           15  Mozilla Thunderbird'
         echo    '           65  Revo Uninstaller'
         echo    '           66  Rufus'
         echo    '           56  Inkscape'
         echo    '           41  draw.io'
-        echo    '           42  GnuCash'
-        echo    '           43  jdotxt'
         echo    '           18  qBittorrent'
         echo    '           21  SyncTrayzor'
         echo    '           11  FileZilla'
@@ -1833,18 +1823,29 @@ function apps(){
         esac
     }
 
-    case $input in 
-        1)
-            portable_apps ;;
-        2)
-            installed_apps ;;
-        b)
-            master ;;
-        x)
-            : && clear ;;
-        *)
-            apps ;;
-    esac
+    if [ -z "$1" ] ; then
+        clear
+        echo -e '\n  Available Options:\n'
+        echo    '       x  | Exit'
+        echo    '       b  | Go Back'
+        echo    '       1  | Portable'
+        echo -e '       2  | Installed\n'
+        read -e -p "  Enter Option: " input
+        echo
+        case $input in
+            1)  portable_apps ;;
+            2)  installed_apps ;;
+            b)  master ;;
+            x)  : && clear ;;
+            *)  apps ;;
+        esac
+    else
+        case $1 in
+            1)  portable_apps ;;
+            2)  installed_apps ;;
+            *)  apps ;;
+        esac
+    fi
 }
 #=========================================================================================
 #=========================================================================================
@@ -2248,4 +2249,17 @@ cp_p () {
 #         *)
 #                 main ;;
 #     esac
+# }
+
+# function word (){
+#     clear
+#     echo ''
+#     read -e -p "  Enter № of word documents to open: " input
+#     echo
+#     for (( i=1; i<=input; i++ ))
+#     do
+#        echo "   Opening word document $i...."
+#        wordn
+#        sleep 1s
+#     done
 # }
