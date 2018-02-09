@@ -70,27 +70,25 @@ function master() {
 #   -------------------------------
 function word(){
     if [ -z $1 ] ; then 
-        clear
-        echo ''
+        clear && echo
         read -e -p "  Enter № of word documents to open: " input
         echo
         for (( i=1; i<=input; i++ ))
         do
            echo "   Opening word document $i...."
-           wordn
-           sleep 1s
+           wordn && sleep 1s
         done
+        clear
     else 
         re='^[0-9]+$'
         if [[ $1 =~ $re ]] ; then
-            clear
-            echo
+            clear && echo
             for (( i=1; i<=$1; i++ ))
             do
                echo "   Opening word document $i...."
-               wordn
-               sleep 1s
+               wordn && sleep 1s
             done
+            clear
         else
             word
         fi
