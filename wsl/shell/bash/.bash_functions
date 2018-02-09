@@ -69,14 +69,32 @@ function master() {
 #   Open multiple Word Documets
 #   -------------------------------
 function word(){
-    clear
-    echo
-    for (( i=1; i<=$1; i++ ))
-    do
-       echo "   Opening word document $i...."
-       wordn
-       sleep 1s
-    done
+    if [ -z $1 ] ; then 
+        clear
+        echo ''
+        read -e -p "  Enter № of word documents to open: " input
+        echo
+        for (( i=1; i<=input; i++ ))
+        do
+           echo "   Opening word document $i...."
+           wordn
+           sleep 1s
+        done
+    else 
+        re='^[0-9]+$'
+        if [[ $1 =~ $re ]] ; then
+            clear
+            echo
+            for (( i=1; i<=$1; i++ ))
+            do
+               echo "   Opening word document $i...."
+               wordn
+               sleep 1s
+            done
+        else
+            word
+        fi
+    fi
 }
 #   -------------------------------
 #   Start Clash of Clans Bot
@@ -1823,7 +1841,7 @@ function apps(){
         esac
     }
 
-    if [ -z "$1" ] ; then
+    if [ -z $1 ] ; then
         clear
         echo -e '\n  Available Options:\n'
         echo    '       x  | Exit'
@@ -2249,17 +2267,4 @@ cp_p () {
 #         *)
 #                 main ;;
 #     esac
-# }
-
-# function word (){
-#     clear
-#     echo ''
-#     read -e -p "  Enter № of word documents to open: " input
-#     echo
-#     for (( i=1; i<=input; i++ ))
-#     do
-#        echo "   Opening word document $i...."
-#        wordn
-#        sleep 1s
-#     done
 # }
