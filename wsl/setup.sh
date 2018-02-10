@@ -37,10 +37,6 @@ dpkg -l | grep -qw git && printf '\n            It'\''s already installed.\n\n' 
 sudo cp -v /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/git/.git-credentials ~/
 sudo cp -v /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/git/.gitconfig-local ~/
 sudo cp -v /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/git/.gitconfig ~/
-# git config --global user.email "malvintodorov@gmail.com"
-# git config --global user.name "mlvnt"
-# git config --global color.ui auto
-# git config --global push.default matching
 
 ###############################################################################
 # DOTFILES                                                                    #

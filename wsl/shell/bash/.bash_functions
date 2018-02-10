@@ -26,34 +26,20 @@ function master() {
     function helper() {
         read -e -p "Function? (№/name) : " input
         case $input in
-            1|word)
-                word ;;
-            2|coc)
-                coc ;;
-            3|m3u)
-                m3u ;;
-            4|linx)
-                linx ;;
-            5|bin)
-                bin ;;
-            6|links)
-                links ;;
-            7|move)
-                move ;;
-            8|dots)
-                dots ;;
-            9|handles)
-                handles ;;
-            10|win)
-                win ;;
-            11|blog)
-                blog ;;
-            12|todo)
-                todo ;;
-            13|apps)
-                apps ;;
-            *)
-                helper ;;
+            1|word)      word ;;
+            2|coc)       coc ;;
+            3|m3u)       m3u ;;
+            4|linx)      linx ;;
+            5|bin)       bin ;;
+            6|links)     links ;;
+            7|move)      move ;;
+            8|dots)      dots ;;
+            9|handles)   handles ;;
+            10|win)      win ;;
+            11|blog)     blog ;;
+            12|todo)     todo ;;
+            13|apps)     apps ;;
+            *)           helper ;;
         esac
     }
 
@@ -126,7 +112,9 @@ function linx() {
     echo    '       b  | Go Back'
     echo    '       1  | Launch X Sessions'
     echo    '       2  | Create a New Directory and enter it'
-    echo -e '       3  | List Git Branches\n'
+    echo    '       3  | SSH Managemet'
+    echo    '       4  | GPG Managemet'
+    echo -e '       5  | List Git Branches\n'
     read -e -p "  Enter Option: " input
     echo
 
@@ -142,28 +130,27 @@ function linx() {
             echo -e '       3  | Load X Server in Multi Window mode\n'
             read -e -p "  Enter Option: " input
             echo
-            if [ $input -eq 1 ] ; then
-                echo -e "\n Launching xfce4....\n"
-                echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-                cmd.exe /c start /D "$path" /MAX configNormal.xlaunch
-                cmd.exe /c start /D "$win32" bash.exe --login -c "sudo xfce4-session"
-                echo -e "\n ....Xfce4 Session Started\n"
-            elif [ $input -eq 2 ] ; then
-                echo -e "\n Launching i3-wm....\n"
-                echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-                cmd.exe /c start /D "$path" /MAX configNormal.xlaunch
-                cmd.exe /c start /D "$win32" bash.exe --login -c "sudo i3 "
-                echo -e "\n ....i3-wm Session Started\n"
-            elif [ $input -eq 3 ] ; then
-                echo -e "\n Loading X Server in Multi Window mode....\n"
-                cmd.exe /c start /D "$path" /MAX configMultiWindow.xlaunch
-            elif [ $input == b ] ; then
-                linx
-            elif [ $input == x ] ; then
-                : && clear
-            else
-                xsession
-            fi
+
+            case $input in
+                1)
+                    echo -e "\n Launching xfce4....\n"
+                    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+                    cmd.exe /c start /D "$path" /MAX configNormal.xlaunch
+                    cmd.exe /c start /D "$win32" bash.exe --login -c "sudo xfce4-session"
+                    echo -e "\n ....Xfce4 Session Started\n" ;;
+                2)
+                    echo -e "\n Launching i3-wm....\n"
+                    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+                    cmd.exe /c start /D "$path" /MAX configNormal.xlaunch
+                    cmd.exe /c start /D "$win32" bash.exe --login -c "sudo i3 "
+                    echo -e "\n ....i3-wm Session Started\n";;
+                3)
+                    echo -e "\n Loading X Server in Multi Window mode....\n"
+                    cmd.exe /c start /D "$path" /MAX configMultiWindow.xlaunch;;
+                b)  linx ;;
+                x)  : && clear ;;
+                *)  xsession ;;
+            esac
         }
 
         # List Git Branches sorted by recent updates, adding a star to remote tracking branches
@@ -177,42 +164,295 @@ function linx() {
           done | sort;
         }
 
-        # function sshing {
-        #     ssh-keygen -b 4096
-        #     cat ~/.ssh/id_rsa.pub | ssh todorov@mlvnt.com "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
-        #     cat ~/.ssh/id_rsa.pub
-        #     sudo vim /etc/ssh/sshd_config
-        #     sudo service ssh restart
-        #     function sshmod () {
-        #         sudo chmod -v 600 ~/.ssh/*
-        #         sudo chown -v $USER ~/.ssh/known_hosts
-        #         sudo chmod -v 700 ~/.ssh
-        #     }
-        # }
+        function ssh_man() {
+            clear
+            echo -e '\n  Available Options:\n'
+            echo    '       x  | Exit'
+            echo -e '       b  | Go Back\n'
+            echo    '       1  | Generate a Key'
+            echo    '       2  | Manage Permissions'
+            echo    '       3  | Copy Public Key (Windows)'
+            echo    '       4  | Copy Public Key (Linux)'
+            echo    '       5  | Copy Public Key to Remote'
+            echo    '       6  | Edit User Config'
+            echo    '       7  | Edit OpenSSH Config'
+            echo    '       8  | Backup'
+            echo -e '       9  | Update\n'
+            read -e -p "  Enter Option: " input
+            echo
 
-        # function pgp ()
-        #     # tip: first list your keys in GPG
-        #     gpg -K --keyid-format long --with-colons --with-fingerprint
+            function ssh_manage () {
+                sudo chmod -v 600 ~/.ssh/*
+                sudo chmod -v 700 ~/.ssh
+                sudo chown -Rv $USER ~/.ssh/
+            }
 
-        #     # then export the one you want (look next to `fpr`)
-        #     gpg --export -a A4AA3A5BDBD40EA549CABAF9FBC07D6A97016CB3
-        #     # curl + gpg pro tip: import mlvnt's keys
-        #     curl https://keybase.io/mlvnt/pgp_keys.asc | gpg --import
-        # }
+            case $input in
+                1)
+                    read -e -p "  Enter Comment (Mail): " comment
+                    read -e -p "  Enter File Name: " output_file
+                    ssh-keygen -b 4096 -t rsa -C "$comment" -f "$output_file" ;;
+                2)
+                    ssh_manage ;;
+                3)
+                    ls ~/.ssh/ | grep .pub && echo
+                    read -e -p "  Enter Public Key to Copy: " pub_key
+                    echo && cat ~/.ssh/"$pub_key" && echo
+                    cat ~/.ssh/"$pub_key" | cmd.exe /c clip ;;
+                4)
+                    ls ~/.ssh/ | grep .pub && echo
+                    read -e -p "  Enter Public Key to Copy: " pub_key
+                    echo && cat ~/.ssh/"$pub_key" && echo
+                    xclip -sel clip < ~/.ssh/"$pub_key" ;;
+                5)
+                    ls ~/.ssh/ | grep .pub && echo
+                    read -e -p "  Enter Remote Server: " remote
+                    read -e -p "  Enter Public Key to Copy: " pub_key
+                    echo && cat ~/.ssh/"$pub_key" && echo
+                    cat ~/.ssh/"$pub_key" | ssh "$remote" "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys";;
+                6)
+                    sudo vim ~/.ssh/config ;;
+                7)
+                    sudo vim /etc/ssh/sshd_config
+                    sudo service ssh restart ;;
+                8)
+                    sudo cp -r ~/.ssh/* /mnt/d/Workspace/General/Personal/My\ Blog/Resourses/SSH/Backup/.ssh/ ;;
+                9)
+                    sudo cp -r /mnt/d/Workspace/General/Personal/My\ Blog/Resourses/SSH/Backup/.ssh/* ~/.ssh/
+                    ssh_manage ;;
+                b)
+                    linx ;;
+                x)
+                    : && clear ;;
+                *)
+                    ssh_manage ;;
+            esac
+        }
 
-    if [ $input -eq 1 ] ; then
-        xsession
-    elif [ $input -eq 2 ] ; then
-        mkd
-    elif [ $input -eq 3 ] ; then
-        glb
-    elif [ $input == b ] ; then
-        master
-    elif [ $input == x ] ; then
-        : && clear
-    else
-        linx
-    fi
+        function gpg_manage () {
+            clear
+            echo -e '\n  Available Options:\n'
+            echo    '       x   | Exit'
+            echo -e '       b   | Go Back\n'
+            echo    '       1   | Generate a Key'
+            echo    '       2   | Import'
+            echo    '       3   | Export'
+            echo    '       4   | Revoke'
+            echo    '       5   | List'
+            echo    '       6   | Delete'
+            echo    '       7   | Edit'
+            echo    '       8   | Sign'
+            echo    '       9   | Encrypt'
+            echo -e '       10  | Decrypt\n'
+            read -e -p "  Enter Option: " input
+            echo
+
+            function list(){
+                clear && echo -e '\n   >>> Public Key Ring\n'
+                sudo gpg --list-keys --with-fingerprint
+                sudo gpg --list-keys --with-colons --with-fingerprint
+                echo -e '\n   >>> Secret Key Ring\n'
+                sudo gpg --list-secret-keys --with-fingerprint
+                sudo gpg --list-secret-keys --with-colons --with-fingerprint
+                echo
+            }
+
+            function import_key(){
+                clear
+                echo -e '\n  Available Options:\n'
+                echo    '       x  | Exit'
+                echo -e '       b  | Go Back\n'
+                echo    '       1  | Import Key Pair'
+                echo    '       2  | Import Public Key'
+                echo -e '       3  | Import Private Key\n'
+                read -e -p "  Enter Option: " input
+                echo
+
+                case $input in
+                    1)
+                        clear
+                        read -e -p "  Enter Path to Key: " path
+                        read -e -p "  Enter Key Name (Filename): " key
+                        sudo gpg --import "$path$key.pub.asc"
+                        sudo gpg --import "$path$key.sec.asc" ;;
+                    2)
+                        clear
+                        read -e -p "  Enter Path to Key: " path
+                        read -e -p "  Enter Key Name (Filename): " key
+                        sudo gpg --import "$path$key.pub.asc" ;;
+                    3)
+                        clear
+                        read -e -p "  Enter Path to Key: " path
+                        read -e -p "  Enter Key Name (Filename): " key
+                        sudo gpg --import "$path$key.sec.asc" ;;
+                    b)
+                        gpg_manage ;;
+                    x)
+                        : && clear ;;
+                    *)
+                        import_key ;;
+                esac
+                # # import form keybase
+                # curl https://keybase.io/mlvnt/pgp_keys.asc | gpg --import
+            }
+
+            function export_key(){
+                clear
+                echo -e '\n  Available Options:\n'
+                echo    '       x  | Exit'
+                echo -e '       b  | Go Back\n'
+                echo -e '    Export To a File\n'
+                echo    '       1  | Key Pair'
+                echo    '       2  | Public Key'
+                echo    '       3  | Private Key'
+                echo -e '    Export To the Clipbard\n'
+                echo    '       4  | Public Key'
+                echo -e '       5  | Private Key\n'
+                read -e -p "  Enter Option: " input
+                echo
+
+                case $input in
+                    1)
+                        clear && list
+                        read -e -p "  Enter Path to Save: " path
+                        read -e -p "  Enter Key Name (Filename): " key
+                        read -e -p "  Enter Key UID (User Name): " uid
+                        sudo gpg -o "$path$key.pub.asc" --export -a "$uid"
+                        sudo gpg -o "$path$key.sec.asc" --export-secret-key -a "$uid" ;;
+                    2)
+                        clear && list
+                        read -e -p "  Enter Path to Save: " path
+                        read -e -p "  Enter Key Name (Filename): " key
+                        read -e -p "  Enter Key UID (User Name): " uid
+                        sudo gpg -o "$path$key.pub.asc" --export -a "$uid" ;;
+                    3)
+                        clear && list
+                        read -e -p "  Enter Path to Save: " path
+                        read -e -p "  Enter Key Name (Filename): " key
+                        read -e -p "  Enter Key UID (User Name): " uid
+                        sudo gpg -o "$path$key.sec.asc" --export-secret-key -a "$uid" ;;
+                    4)
+                        clear && list
+                        read -e -p "  Enter Key UID (User Name): " uid
+                        sudo gpg --export -a "$uid"
+                        sudo gpg --export -a "$uid" | cmd.exe /c clip ;;
+                    5)
+                        clear && list
+                        read -e -p "  Enter Key UID (User Name): " uid
+                        sudo gpg --export-secret-key -a "$uid"
+                        sudo gpg --export-secret-key -a "$uid" | cmd.exe /c clip ;;
+                    b)
+                        gpg_manage ;;
+                    x)
+                        : && clear ;;
+                    *)
+                        export_key ;;
+                esac
+                # # export using fingerprint
+                # gpg --export -a A4AA3A5BDBD40EA549CABAF9FBC07D6A97016CB3
+            }
+
+            function delete_key(){
+                clear
+                echo -e '\n  Available Options:\n'
+                echo    '       x  | Exit'
+                echo -e '       b  | Go Back\n'
+                echo    '       1  | Delete Key Pair'
+                echo    '       2  | Delete Public Key'
+                echo -e '       3  | Delete Private Key\n'
+                read -e -p "  Enter Option: " input
+                echo
+
+                case $input in
+                    1)
+                        clear
+                        read -e -p "  Enter Key UID (User Name): " uid
+                        sudo gpg --delete-key "$uid"
+                        sudo gpg --delete-secret-key "$uid" ;;
+                    2)
+                        clear
+                        read -e -p "  Enter Key UID (User Name): " uid
+                        sudo gpg --delete-key "$uid" ;;
+                    3)
+                        clear
+                        read -e -p "  Enter Key UID (User Name): " uid
+                        sudo gpg --delete-secret-key "$uid" ;;
+                    b)
+                        gpg_manage ;;
+                    x)
+                        : && clear ;;
+                    *)
+                        delete_key ;;
+                esac
+            }
+
+            function revoke_key(){
+                clear
+                echo -e '\n  Available Options:\n'
+                echo    '       x  | Exit'
+                echo -e '       b  | Go Back\n'
+                echo    '       1  | Generate'
+                echo    '       2  | Import'
+                echo -e '       3  | Revoke Key Pair\n'
+                read -e -p "  Enter Option: " input
+                echo
+
+                case $input in
+                    1)
+                        clear
+                        read -e -p "  Enter Path to Save: " path
+                        read -e -p "  Enter Key Name (Filename): " key
+                        read -e -p "  Enter Key UID (User Name): " uid
+                        sudo gpg --output "$path$key.rev.asc" --gen-revoke "$uid"
+                        echo && cat "$path$key.rev.asc" && echo ;;
+                    2)
+                        clear
+                        read -e -p "  Enter Path to Save: " path
+                        read -e -p "  Enter Key Name (Filename): " key
+                        sudo gpg --import "$path$key.rev.asc" ;;
+                    3)
+                        clear
+                        read -e -p "  Enter Key UID (User Name): " uid
+                        sudo gpg --keyserver keyserver.ubuntu.com --send-key "$uid"
+                        sudo gpg --keyserver keyserver.mozilla.org --send-key "$uid" ;;
+                    b)
+                        gpg_manage ;;
+                    x)
+                        : && clear ;;
+                    *)
+                        revoke_key ;;
+                esac
+            }
+
+            case $input in
+                1)  sudo gpg --gen-key ;;
+                2)  import_key ;;
+                3)  export_key ;;
+                4)  revoke_key ;;
+                5)  list ;;
+                6)  delete_key ;;
+                7)
+                     ;;
+                8)
+                     ;;
+                9)
+                     ;;
+                b)  linx ;;
+                x)  : && clear ;;
+                *)  gpg_manage ;;
+            esac
+        }
+
+    case $input in
+        1)  xsession ;;
+        2)  mkd ;;
+        3)  ssh_manage ;;
+        4)  gpg_manage ;;
+        5)  glb ;;
+        b)  master ;;
+        x)  : && clear ;;
+        *)  linx ;;
+    esac
 }
 #   -------------------------------
 #   Empty Trash
@@ -907,9 +1147,17 @@ function win(){
     echo    '           6  | Delete a Service'
     echo    '       Shotcuts'
     echo    '           7  | Quick Access'
-    echo -e '           8  | Start Menu & Taskbar Icons\n'
+    echo    '           8  | Start Menu & Taskbar Icons'
+    echo    '       Programs'
+    echo -e '           9  | Clean SysMenu Trash\n'
     read -e -p "  Enter Option: " input
     echo
+
+    function sysmenu_clean(){
+        rm -rfv /mnt/d/Workspace/Portable\ Apps/SyMenu/ProgramFiles/SPSSuite/SyMenuSuite/_Trash/*
+        rm -rfv /mnt/d/Workspace/Portable\ Apps/SyMenu/ProgramFiles/SPSSuite/NirSoftSuite/_Trash/*
+        rm -rfv /mnt/d/Workspace/Portable\ Apps/SyMenu/ProgramFiles/SPSSuite/SysinternalsSuite/_Trash/*
+    }
 
     function icons(){
         cd /mnt/d/Workspace/Portable\ Apps/By\ Category/Windows\ Tweaks/Syspin/
@@ -1082,6 +1330,8 @@ function win(){
             qaccess ;;
         8)
             icons ;;
+        9)
+            sysmenu_clean ;;
         b)
             master ;;
         x)

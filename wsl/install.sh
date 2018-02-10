@@ -3,7 +3,7 @@
 printf "\n      Runtime: $(date) @ $(hostname)\n\n"
 
 #   -------------------------------
-#   1.  INSTALL RUNTIMES
+#   INSTALL RUNTIMES
 #   -------------------------------
 
 ##### PYTHON #####
@@ -194,7 +194,7 @@ printf '\n      >>> Installing ghostscript....\n'
 dpkg -l | grep -qw ghostscript && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq ghostscript
 
 #   -------------------------------
-#   2.  INSTALL TOOLS-NON-GUI
+#   INSTALL TOOLS-NON-GUI
 #   -------------------------------
 
 printf '\n      >>> Installing fontconfig....\n'
@@ -383,7 +383,7 @@ dpkg -l | grep -qw gpg && printf '\n            It'\''s already installed.\n' ||
 ##### DOCKER #####
 
 #   -------------------------------
-#   3.  INSTALL TOOLS-GUI
+#   INSTALL TOOLS-GUI
 #   -------------------------------
 
 ##### XFCE4 #####
@@ -440,7 +440,7 @@ dpkg -l | grep -qw sublime-text && printf '\n            It'\''s already install
 # sudo apt-get install -yyq zim
 
 #   -------------------------------
-#   4.  INSTALL TRASH-CLI
+#   INSTALL TRASH-CLI
 #   -------------------------------
 
 printf '\n      >>> Installing trash-cli....\n'
@@ -464,7 +464,7 @@ function heroku_install(){
 which heroku | grep -qw heroku && printf '\n            It'\''s already installed.\n' || heroku_install
 
 #   -------------------------------
-#   5.  INSTALL ZSH
+#   INSTALL ZSH
 #   -------------------------------
 
 printf '\n      >>> Installing zsh....\n'
@@ -494,7 +494,7 @@ dpkg -l | grep -qw zsh && printf '\n            It'\''s already installed.\n' ||
 # cd ~/
 
 #   -------------------------------
-#   6.  INSTALL VIM
+#   INSTALL VIM
 #   ------------------------------- 
 
 printf '\n      >>> Installing vim....\n'
@@ -522,7 +522,7 @@ dpkg -l | grep -qw vim-gui-common && printf '\n            vim-gui-common is alr
 # cd ~/
 
 #   -------------------------------
-#   7.  INSTALL HUGO
+#   INSTALL HUGO
 #   -------------------------------
 
 printf '\n      >>> Installing hugo....\n'
@@ -534,7 +534,7 @@ function hugoss(){
 dpkg -l | grep -qw hugo && printf '\n            It'\''s already installed.\n' || hugoss
 
 #   -------------------------------
-#   8.  INSTALL CADDY
+#   INSTALL CADDY
 #   -------------------------------
 
 printf '\n      >>> Installing caddy....\n'
@@ -547,7 +547,7 @@ function caddys(){
 which caddy | grep -qw caddy && printf '\n            It'\''s already installed.\n' || caddys
 
 #   -------------------------------
-#   9.  INSTALL IPFS
+#   INSTALL IPFS
 #   -------------------------------
 
 printf '\n      >>> Installing ipfs....\n'
@@ -565,7 +565,7 @@ which ipfs | grep -qw ipfs && printf '\n            It'\''s already installed.\n
 # ipfs daemon
 
 #   -------------------------------
-#   10.  INSTALL POWERLINE
+#   INSTALL POWERLINE
 #   -------------------------------
 
 printf '\n      >>> Installing powerline....\n'
@@ -593,28 +593,42 @@ pip3 freeze | grep -qw powerline && printf '\n            powerline is already i
 # rm -rvf fonts
 
 #   -------------------------------
-#   11.  SSH
+#   SECURITY
 #   -------------------------------
 
-
-function sshmod () {
+function ssh_import () {
     printf '\n      >>> Setting up SSH configuraion....\n'
     sudo cp -rv /mnt/d/Workspace/General/Personal/My\ Blog/Resourses/SSH/Backup/.ssh ~/
     sudo chmod -v 600 ~/.ssh/*
     sudo chmod -v 700 ~/.ssh
     sudo chown -Rv $USER ~/.ssh/
 }
-sshmod
+ssh_import
+
+function gpg_import(){
+    printf '\n      >>> Setting up GPG configuraion....\n'
+    path="/mnt/d/Workspace/General/Personal/My Blog/Resourses/PGP - Pretty Good Privacy/Keys/Malvin Todorov malvintodorov@gmail.com (0x74B79CF7)"
+    sudo gpg --import "$path"/mlvnt-pub.asc
+    sudo gpg --import "$path"/mlvnt-sec.asc
+}
+gpg_import
 
 # Windows Autoload Scipt
-cp /mnt/d/Workspace/Projects/Programing/Scripts/Scripts/Batch\ \&\ Reg/workspace.cmd /mnt/c/Users/Todorov/AppData/Roaming/Microsoft/Windows/Start\ Menu/Programs/Startup
+function windows_onload(){
+    printf '\n      >>> Setting up Windows onload scripts....\n'
+    cp /mnt/d/Workspace/Projects/Programing/Scripts/Scripts/Batch\ \&\ Reg/workspace.cmd /mnt/c/Users/Todorov/AppData/Roaming/Microsoft/Windows/Start\ Menu/Programs/Startup
+}
+windows_onload
 
 #   -------------------------------
-#   12.  REMOVE EXISTING CONFIG
+#   REMOVE EXISTING CONFIG
 #   -------------------------------
 
-printf '\n      >>> Removing existing configuraion....\n'
-sudo rm -rfv ~/.bashrc ~/.zshrc ~/.bash_profile ~/.profile ~/.bash_logout ~/.local
-sudo cp -rv /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/shell/zsh/.oh-my-zsh ~/.dotfiles/wsl/shell/zsh/
+function shell_config(){
+    printf '\n      >>> Removing existing configuraion....\n'
+    sudo rm -rfv ~/.bashrc ~/.zshrc ~/.bash_profile ~/.profile ~/.bash_logout ~/.local
+    sudo cp -rv /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/shell/zsh/.oh-my-zsh ~/.dotfiles/wsl/shell/zsh/
+}
+shell_config
 
 #=============================================================================================================
