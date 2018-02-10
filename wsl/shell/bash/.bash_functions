@@ -164,7 +164,7 @@ function linx() {
           done | sort;
         }
 
-        function ssh_man() {
+        function ssh_manage() {
             clear
             echo -e '\n  Available Options:\n'
             echo    '       x  | Exit'
@@ -181,7 +181,7 @@ function linx() {
             read -e -p "  Enter Option: " input
             echo
 
-            function ssh_manage () {
+            function ssh_permissons () {
                 sudo chmod -v 600 ~/.ssh/*
                 sudo chmod -v 700 ~/.ssh
                 sudo chown -Rv $USER ~/.ssh/
@@ -193,7 +193,7 @@ function linx() {
                     read -e -p "  Enter File Name: " output_file
                     ssh-keygen -b 4096 -t rsa -C "$comment" -f "$output_file" ;;
                 2)
-                    ssh_manage ;;
+                    ssh_permissons ;;
                 3)
                     ls ~/.ssh/ | grep .pub && echo
                     read -e -p "  Enter Public Key to Copy: " pub_key
@@ -219,7 +219,7 @@ function linx() {
                     sudo cp -r ~/.ssh/* /mnt/d/Workspace/General/Personal/My\ Blog/Resourses/SSH/Backup/.ssh/ ;;
                 9)
                     sudo cp -r /mnt/d/Workspace/General/Personal/My\ Blog/Resourses/SSH/Backup/.ssh/* ~/.ssh/
-                    ssh_manage ;;
+                    ssh_permissons ;;
                 b)
                     linx ;;
                 x)
