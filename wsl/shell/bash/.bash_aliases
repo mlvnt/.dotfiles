@@ -181,7 +181,7 @@ alias get="curl -O -L"
 alias headers='curl -I'
 
 alias wgeta="wget -r -l1 -A"
-alias ping="gping"
+# alias ping="gping"
 
 # HTTP Requests. One of @janmoesen’s ProTip™s
 for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
@@ -248,7 +248,7 @@ alias autostart="open 'C:\Users\Todorov\AppData\Roaming\Microsoft\Windows\Start 
 alias cv="o 'D:\Workspace\General\Personal\Professional\CV & Covering Letter\CV.docx'"
 alias index="o 'D:\Workspace\General\Tech\MEMORY\Index\Index.xlsx'"
 alias music="o 'D:\Workspace\General\Essential\Music\Music.xlsx'"
-alias pics="o 'D:\Workspace\General\Essential\Art\Media Screenshots\Pics.xlsx'"
+alias pics="o 'D:\Workspace\General\Essential\Art\Screenshots\Pics.xlsx'"
 alias quotes="o 'D:\Workspace\General\Personal\My Blog\Intro\Quotes\Quotes.xlsx'"
 alias recipies="o 'D:\Workspace\General\Essential\Cooking\I. Recipes & Weekly Menu.docx'"
 alias habbits="o 'D:\Workspace\General\Time & Goals\Habits & Goals\2018 - Habit Tracking.xlsx'"

@@ -9,6 +9,7 @@ printf "\n      Runtime: $(date) @ $(hostname)\n\n"
 ##### PYTHON #####
 printf '\n      >>> Installing python3....\n'
 dpkg -l | grep -qw python3 && printf '\n            python3 is already installed\n' || sudo apt-get install -yyq python3
+dpkg -l | grep -qw python-pip && printf '\n            python3-pip3 is already installed\n' || sudo apt-get install -yyq python-pip
 dpkg -l | grep -qw python3-pip && printf '\n            python3-pip3 is already installed\n' || sudo apt-get install -yyq python3-pip3
 sudo pip3 install --upgrade pip3
 # sudo python3 -m pip3 install --upgrade pip3
@@ -70,6 +71,7 @@ function rvm_intall(){
     yes Y | update
     sudo apt-get install libpq-dev
     curl -sSL https://get.rvm.io | bash -s stable  --ruby=2.3.1 --rails
+    sudo chown -R todorov /usr/local/rvm/gems/
 }
 which rvm | grep -qw rvm && printf '\n            It'\''s already installed.\n' || rvm_intall
 
@@ -154,13 +156,14 @@ dpkg -l | grep -qw sqlite3 && printf '\n            It'\''s already installed.\n
 # sudo apt-get install apache2
 
 printf '\n      >>> Installing postgresql....\n'
-# function postgresql(){
+# function postgresql_repositories(){
 #     sudo touch /etc/apt/sources.list.d/pgdg.list
 #     echo 'deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main' | sudo tee --append /etc/apt/sources.list.d/pgdg.list
 #     wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
 #     sudo apt-key add -
 #     sudo apt-get update
 # }
+# postgresql_repositories
 
 yes Y | sudo apt-get install postgresql-9.5
 # sudo service postgresql start
@@ -287,15 +290,19 @@ dpkg -l | grep -qw luckybackup && printf '\n            It'\''s already installe
 printf '\n      >>> Installing espeak....\n'
 dpkg -l | grep -qw espeak && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq espeak
 
-##### NEOFETCH #####
+printf '\n      >>> Installing xclip....\n'
+dpkg -l | grep -qw xclip && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq xclip
+
+#   -------------------------------
+#   NEOFETCH
+#   -------------------------------
+
 printf '\n      >>> Installing neofetch....\n'
 function neofetchs(){
     cd ~/
     wget https://github.com/dylanaraps/neofetch/archive/3.3.0.tar.gz -O ~/neofetch
-    tar -zxvf ~/neofetch
-    cd ~/neofetch*/
-    sudo make install
-    cd ~/
+    tar -zxvf ~/neofetch && cd ~/neofetch*/
+    sudo make install && cd ~/
     sudo mv -v ~/neofetch ~/software/neofetch.tar.gz
     rm -rfv ~/neofetch*/
 }
@@ -304,16 +311,20 @@ which neofetch | grep -qw neofetch && printf '\n            It'\''s already inst
 # printf '\n      >>> Installing screenfetch....\n'
 # sudo apt-get install screenfetch
 
-##### ImageMagick #####
+#   -------------------------------
+#   IMAGEMAGICK
+#   -------------------------------
+
 printf '\n      >>> Installing ImageMagick....\n'
 function imagemagicks(){
+    name='ImageMagick-7.0.7-22.tar.bz2'
     yes Y | sudo apt-get install build-essential checkinstall \
                  libx11-dev libxext-dev zlib1g-dev libpng12-dev \
                  libjpeg-dev libfreetype6-dev libxml2-dev
     sudo apt-get build-dep imagemagick
     mkdir -v $HOME/imagemagick_build && cd $HOME/imagemagick_build
-    wget http://www.imagemagick.org/download/ImageMagick-7.0.7-22.tar.bz2 && \
-    tar xzvf ImageMagick-7.0.7-22.tar.bz2 && cd ImageMagick-7.0.7-22 && ./configure && make && \
+    wget http://www.imagemagick.org/download/"$name" && \
+    tar xzvf "$name" && cd ImageMagick-7.0.7-22 && ./configure && make && \
     sudo checkinstall -D --install=yes --fstrans=no --pakdir "$HOME/imagemagick_build" \
          --pkgname imagemagick --backup=no --deldoc=yes --deldesc=yes --delspec=yes --default \
          --pkgversion "7.0.7-22" && \
@@ -342,11 +353,10 @@ dpkg -l | grep -qw imagemagick && printf '\n            It'\''s already installe
 # sudo mv ~/ImageMagick.tar.gz ~/software
 # rm -rfv ~/ImageMagick*
 
-##### XCLIP #####
-printf '\n      >>> Installing xclip....\n'
-dpkg -l | grep -qw xclip && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq xclip
+#   -------------------------------
+#   NET TOOLS
+#   -------------------------------
 
-##### NET TOOLS #####
 printf '\n      >>> Installing curl....\n'
 dpkg -l | grep -qw curl && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq curl
 
@@ -371,6 +381,15 @@ dpkg -l | grep -qw wireless-tools && printf '\n            It'\''s already insta
 printf '\n      >>> Installing libwww-perl....\n'
 dpkg -l | grep -qw wireless-tools && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq libwww-perl
 
+printf '\n      >>> Installing avahi-daemon....\n'
+dpkg -l | grep -qw avahi-daemon && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq avahi-daemon
+
+printf '\n      >>> Installing nmap....\n'
+dpkg -l | grep -qw nmap && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq nmap
+
+printf '\n      >>> Installing sshpass....\n'
+dpkg -l | grep -qw sshpass && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq sshpass
+
 # printf '\n      >>> Installing sshfs....\n'
 # dpkg -l | grep -qw sshfs && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq sshfs
 
@@ -383,7 +402,7 @@ dpkg -l | grep -qw gpg && printf '\n            It'\''s already installed.\n' ||
 ##### DOCKER #####
 
 #   -------------------------------
-#   INSTALL TOOLS-GUI
+#   TOOLS-GUI
 #   -------------------------------
 
 ##### XFCE4 #####
@@ -440,31 +459,34 @@ dpkg -l | grep -qw sublime-text && printf '\n            It'\''s already install
 # sudo apt-get install -yyq zim
 
 #   -------------------------------
-#   INSTALL TRASH-CLI
+#   TRASH-CLI
 #   -------------------------------
 
 printf '\n      >>> Installing trash-cli....\n'
 function trashs(){
     sudo git clone https://github.com/andreafrancia/trash-cli.git ~/trash-cli/
-    cd ~/trash-cli/
-    sudo python3 setup.py install
-    cd ~/
-    sudo rm -rfv ~/trash-cli/
+    cd ~/trash-cli/ && sudo python3 setup.py install
+    cd ~/ && sudo rm -rfv ~/trash-cli/
 }
 which trash | grep -qw trash && printf '\n            It'\''s already installed.\n' || trashs
 
+#   -------------------------------
+#   HEROKU
+#   -------------------------------
+
 printf '\n      >>> Installing heroku....\n'
 function heroku_install(){
-    wget https://cli-assets.heroku.com/heroku-cli/channels/stable/heroku-cli-linux-x64.tar.gz -O heroku.tar.gz
-    tar -xvzf heroku.tar.gz
-    mkdir -p /usr/local/lib /usr/local/bin
+    name='heroku-cli-linux-x64.tar.gz'
+    wget https://cli-assets.heroku.com/heroku-cli/channels/stable/"$name" -O "$name"
+    tar -xvzf "$name" && mkdir -p /usr/local/lib /usr/local/bin
     sudo mv heroku-cli-v6.15.22-3f1c4bd-linux-x64 /usr/local/lib/heroku
     sudo ln -s /usr/local/lib/heroku/bin/heroku /usr/local/bin/heroku
+    mv -v "$name" ~/software/
 }
 which heroku | grep -qw heroku && printf '\n            It'\''s already installed.\n' || heroku_install
 
 #   -------------------------------
-#   INSTALL ZSH
+#   ZSH
 #   -------------------------------
 
 printf '\n      >>> Installing zsh....\n'
@@ -494,7 +516,7 @@ dpkg -l | grep -qw zsh && printf '\n            It'\''s already installed.\n' ||
 # cd ~/
 
 #   -------------------------------
-#   INSTALL VIM
+#   VIM
 #   ------------------------------- 
 
 printf '\n      >>> Installing vim....\n'
@@ -522,50 +544,89 @@ dpkg -l | grep -qw vim-gui-common && printf '\n            vim-gui-common is alr
 # cd ~/
 
 #   -------------------------------
-#   INSTALL HUGO
+#   HUGO
 #   -------------------------------
 
 printf '\n      >>> Installing hugo....\n'
 function hugoss(){
-    wget https://github.com/gohugoio/hugo/releases/download/v0.36/hugo_0.36_Linux-64bit.deb
-    sudo apt-get install ./hugo*.deb
-    mv -v hugo*.deb ~/software/
+    name='hugo_0.36_Linux-64bit.deb'
+    wget https://github.com/gohugoio/hugo/releases/download/v0.36/"$name"
+    sudo apt-get install ./"$name" && mv -v "$name" ~/software/
 }
 dpkg -l | grep -qw hugo && printf '\n            It'\''s already installed.\n' || hugoss
 
 #   -------------------------------
-#   INSTALL CADDY
+#   CADDY
 #   -------------------------------
 
 printf '\n      >>> Installing caddy....\n'
 function caddys(){
-    wget https://github.com/mholt/caddy/releases/download/v0.10.10/caddy_v0.10.10_linux_amd64.tar.gz
-    tar -xzvf caddy*.tar.gz caddy
-    mv -v ./caddy /usr/local/bin
-    mv -v caddy*.tar.gz ~/software/
+    name='caddy_v0.10.10_linux_amd64.tar.gz'
+    wget https://github.com/mholt/caddy/releases/download/v0.10.10/"$name"
+    tar -xzvf "$name" caddy
+    mv -v ./caddy /usr/local/bin && mv -v "$name" ~/software/
 }
 which caddy | grep -qw caddy && printf '\n            It'\''s already installed.\n' || caddys
 
 #   -------------------------------
-#   INSTALL IPFS
+#   IPFS
 #   -------------------------------
 
 printf '\n      >>> Installing ipfs....\n'
 function ipfss(){
-    wget https://dist.ipfs.io/go-ipfs/v0.4.13/go-ipfs_v0.4.13_linux-amd64.tar.gz
-    tar -xzvf go-ipfs*.tar.gz
+    name='go-ipfs_v0.4.13_linux-amd64.tar.gz'
+    wget https://dist.ipfs.io/go-ipfs/v0.4.13/"$name" && tar -xzvf "$name"
     sudo cp -v ~/go-ipfs/ipfs /usr/bin/
     sudo cp -v ~/go-ipfs/ipfs /usr/local/bin/
-    rm -rfv ~/go-ipfs/
-    mv -v go-ipfs*.tar.gz ~/software/
-    ipfs init
-    return
+    rm -rfv ~/go-ipfs/ && mv -v "$name" ~/software/ && ipfs init
 }
 which ipfs | grep -qw ipfs && printf '\n            It'\''s already installed.\n' || ipfss
 # ipfs daemon
 
 #   -------------------------------
-#   INSTALL POWERLINE
+#   NUSMV
+#   -------------------------------
+
+# function nusmv(){
+#     # name='NuSMV-2.6.0-linux64.tar.gz'
+#     # wget http://nusmv.fbk.eu/distrib/"$name" && tar -xzf "$name"
+#     # mv ~/"$name" ~/software/
+#     name='NuSMV-2.6.0-zchaff-linux64.tar.gz'
+#     foldername='NuSMV-2.6.0-Linux'
+#     wget http://nusmv.fbk.eu/distrib/"$name" && tar -xzf "$name"
+#     sudo mv ~/"$foldername" ~/software/ && sudo mv ~/"$name" ~/software/
+#     # ~/software/NuSMV-2.6.0-Linux/bin/ltl2smv
+#     # ~/software/NuSMV-2.6.0-Linux/bin/NuSMV
+# }
+# nusmv
+
+#   -------------------------------
+#   ISABELLE
+#   -------------------------------
+
+# function isabelle(){
+#     name='Isabelle2017_app.tar.gz'
+#     foldername='Isabelle2017'
+#     wget https://isabelle.in.tum.de/dist/"$name" && tar -xzf "$name"
+#     sudo mv ~/"$foldername" ~/software/ && sudo mv ~/"$name" ~/software/
+#     # ~/software/Isabelle2017/Isabelle2017.run
+#     # ~/software/Isabelle2017/bin/isabelle
+# }
+# isabelle
+
+#   -------------------------------
+#   CAPYLE
+#   -------------------------------
+
+# function capyle(){
+#     git clone https://github.com/pjworsley/capyle.git ~/software/capyle
+#     sudo apt-get install python3-tk
+#     # python3 ~/software/capyle/main.py
+# }
+# capyle
+
+#   -------------------------------
+#   POWERLINE
 #   -------------------------------
 
 printf '\n      >>> Installing powerline....\n'

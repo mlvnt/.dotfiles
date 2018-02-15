@@ -1,9 +1,11 @@
 ###############################################################################
-# FUNCTIONS                                                                   #
+######################### FUNCTIONS ###########################################
 ###############################################################################
+
 #   -------------------------------
-#   Help Function
+#   Helper Function
 #   -------------------------------
+
 function master() {
     clear
     echo ""
@@ -51,9 +53,11 @@ function master() {
         master
     fi
 }
+
 #   -------------------------------
 #   Open multiple Word Documets
 #   -------------------------------
+
 function word(){
     if [ -z $1 ] ; then 
         clear && echo
@@ -80,17 +84,21 @@ function word(){
         fi
     fi
 }
+
 #   -------------------------------
 #   Start Clash of Clans Bot
 #   -------------------------------
+
 function coc (){
     echo -e '\n Opening Clash of Clans Bot....\n'
     path='C:\Users\Todorov\Downloads\MyBot-MBR_v7.4.3\MyBot.run.exe'
     timeout 1s cmd.exe /c $path MyVillage1 MEmu MEmu
 }
+
 #   -------------------------------
 #   Create m3u Playlists
 #   -------------------------------
+
 function m3u() {
     echo -e '\n Tracklist \n    '_tracklist[ ${PWD##*/} ].m3u'\n Created....\n'
     find . -maxdepth 1 -not -type d -type f \( ! -iname "*.m3u" ! -iname "*.jpg" ! -iname "*.png" ! -iname "*.html" ! -iname "*.url" ! -iname "*.pdf" ! -iname "*.log" \) -printf "%P\n" >> "_tracklist[ ${PWD##*/} ].m3u"
@@ -98,9 +106,11 @@ function m3u() {
     # find . -maxdepth 1 -not -type d -type f \( ! -iname "*.m3u" ! -iname "*.jpg" ! -iname "*.png" ! -iname "*.html" ! -iname "*.url" ! -iname "*.pdf" \) | sed 's|./||' >> "_tracklist[ ${PWD##*/} ].m3u"
     # dir -AN1I "*.jpg" -I "*.png" -I "*.html" -I "*.url" -I "*.m3u" -I "*.pdf" >> "_tracklist[ ${PWD##*/} ].m3u"
 }
+
 #   -------------------------------
 #   Linux Managemet
 #   -------------------------------
+
 function mkd() {
     mkdir -p "$@" && cd "$_";
 }
@@ -454,9 +464,11 @@ function linx() {
         *)  linx ;;
     esac
 }
+
 #   -------------------------------
 #   Empty Trash
 #   -------------------------------
+
 function bin (){
     clear
     echo -e '\n  Available Options:\n'
@@ -535,9 +547,11 @@ function bin (){
         bin
     fi
 }
+
 #   -------------------------------
 #   Manage Links
 #   -------------------------------
+
 function links (){
 
     # Delete Specified symbilic links
@@ -613,9 +627,11 @@ function links (){
         links
     fi
 }
+
 #   -------------------------------
 #   Move, Copy
 #   -------------------------------
+
 function move (){
     clear
     echo -e '\n  Available Options:\n'
@@ -838,7 +854,7 @@ function move (){
             echo -e '\n ~~~~~~~~~~~~~~ Backup Mobile SD Card.... ~~~~~~~~~~~~~~\n'
             mkdir -p "$logdir" && sudo touch "$logdir$logfile"
 
-            function backups () {
+            function backups (){
                 sudo rsync $ryncoptions --exclude-from="$excludeddir" "$sdcard" "$bakcupdire"
             }
 
@@ -939,8 +955,8 @@ function move (){
         esac
     }
 
-    function screenshots() {
-        clear 
+    function move_screenshots(){
+        clear
         echo -e '\n  Available Options:\n'
         echo    '           x  | Exit'
         echo    '           b  | Go Back'
@@ -951,72 +967,66 @@ function move (){
 
         temp="/mnt/d/Workspace/~TEMP"
         screenshotsdir="/mnt/c/Users/Todorov/Pictures/My Screen Shots/"
-        animepisdir="/mnt/d/Workspace/General/Essential/Art/Media Screenshots/Pics"
+        animepicsdir="/mnt/d/Workspace/General/Essential/Art/Media Screenshots/Pics"
+        animepicsdirwin="D:\Workspace\General\Essential\Art\Media Screenshots\Pics"
         acerscreendir="/mnt/d/Workspace/General/Tech/MEMORY/Desktop Screenshots/Acer Predator G9-792"
-        srufscreendir="/mnt/d/Workspace/General/Tech/MEMORY/Desktop Screenshots/Microsoft Surface Pro 4"
+        surfscreendir="/mnt/d/Workspace/General/Tech/MEMORY/Desktop Screenshots/Microsoft Surface Pro 4"
 
-        if [ $input -eq 1 ]; then
-            echo -e '\n ~~~~~~~~~~~~~~ Moving to Anime Pics.... ~~~~~~~~~~~~~~\n'
-            rsync -avhz --progress --stats --ignore-existing --remove-source-files --include=\[0-9]*.PNG --exclude=\* "$screenshotsdir" "$animepisdir"
-            echo -e '\n ~~~~~~~~~~~~~~ Finished! ~~~~~~~~~~~~~~\n'
-            # open "$animepisdir"
-        elif [ $input -eq 2 ]; then
-            echo -e '\n ~~~~~~~~~~~~~~ Moving to Acer Screenshots.... ~~~~~~~~~~~~~~\n'
-                rsync -avhz --progress --stats --ignore-existing --remove-source-files --include=\Screen\ Shot*.PNG --exclude=\* "$screenshotsdir" "$acerscreendir"
-            echo -e '\n ~~~~~~~~~~~~~~ Finished! ~~~~~~~~~~~~~~\n'
-        elif [ $input -eq 3 ]; then
-            echo -e '\n ~~~~~~~~~~~~~~ Moving to Surface Screenshots.... ~~~~~~~~~~~~~~\n'
-            rsync -avhz --progress --stats --ignore-existing --remove-source-files --include=\Screen\ Shot*.PNG --exclude=\* "$screenshotsdir" "$srufscreendir"
-            echo -e '\n ~~~~~~~~~~~~~~ Finished! ~~~~~~~~~~~~~~\n'
-        elif [ $input == b ] ; then
-            move
-        elif [ $input == x ] ; then
-            : && clear
-        else
-            screenshots
-        fi
+        case $input in
+            1)
+                echo -e '\n ~~~~~~~~~~~~~~ Moving to Anime Pics.... ~~~~~~~~~~~~~~\n'
+                rsync -avhz --progress --stats --ignore-existing --remove-source-files --include=\[0-9\]*.PNG --exclude=\* "$screenshotsdir" "$animepicsdir"
+                echo -e '\n ~~~~~~~~~~~~~~ Finished! ~~~~~~~~~~~~~~\n'
+                o "$animepicsdirwin" ;;
+            2)
+                echo -e '\n ~~~~~~~~~~~~~~ Moving to Acer Screenshots.... ~~~~~~~~~~~~~~\n'
+                    rsync -avhz --progress --stats --ignore-existing --remove-source-files --include=\Screen\ Shot*.PNG --exclude=\* "$screenshotsdir" "$acerscreendir"
+                echo -e '\n ~~~~~~~~~~~~~~ Finished! ~~~~~~~~~~~~~~\n' ;;
+            3)
+                echo -e '\n ~~~~~~~~~~~~~~ Moving to Surface Screenshots.... ~~~~~~~~~~~~~~\n'
+                rsync -avhz --progress --stats --ignore-existing --remove-source-files --include=\Screen\ Shot*.PNG --exclude=\* "$screenshotsdir" "$surfscreendir"
+                echo -e '\n ~~~~~~~~~~~~~~ Finished! ~~~~~~~~~~~~~~\n' ;;
+            b)  move ;;
+            x)  : && clear ;;
+            *)  move_screenshots ;;
+        esac
+    }
+
+    function move_all(){
+        downloads="/mnt/c/Users/Todorov/Downloads/"
+        documents="/mnt/c/Users/Todorov/Documents/"
+        temp="/mnt/d/Workspace/~TEMP"
+
+        echo -e '\n ~~~~~~~~~~~~~~ Moving from Downloads.... ~~~~~~~~~~~~~~\n'
+        rsync -avhz --progress --stats --ignore-existing --remove-source-files --exclude desktop.ini "$downloads" "$temp"
+        find "$downloads" -depth -type d -empty -delete
+        echo -e '\n ~~~~~~~~~~~~~~ Moving from Documents.... ~~~~~~~~~~~~~~\n'
+        rsync -avhz --progress --stats --ignore-existing --remove-source-files --include=\*.docx --include=\*.doc --include=\*.pdf --include=\*xlsx --exclude=\*  "$documents" "$temp"
+        echo -e '\n ~~~~~~~~~~~~~~ Finished! ~~~~~~~~~~~~~~\n'
+        # find "$downloads"-mindepth 1 -not -name '*.ini' -print0 | xargs -0 mv -t "$temp"
+        # find "$downloads"-mindepth 1 -not -name '*.ini' -print0 | xargs -0 -I {} cp -p -r  {} "$temp"
+        # find "$downloads"-mindepth 1 -not -name '*.ini' -print0 -exec {} cp -p -r  {} "$temp" \;
     }
 
     case $input in
-        1)
-            main_backup ;;
-        2)
-            mobile_backup ;;
-        3)
-            main_restore ;;
-        4)
-            mobile_restore ;;
-        5)
-            main_clone ;;
-        6)
-            mobile_clone ;;
-        7)
-            downloads="/mnt/c/Users/Todorov/Downloads/"
-            documents="/mnt/c/Users/Todorov/Documents/"
-            temp="/mnt/d/Workspace/~TEMP"
-
-            echo -e '\n ~~~~~~~~~~~~~~ Moving from Downloads.... ~~~~~~~~~~~~~~\n'
-            rsync -avhz --progress --stats --ignore-existing --remove-source-files --exclude desktop.ini "$downloads" "$temp"
-            find "$downloads" -depth -type d -empty -delete
-            echo -e '\n ~~~~~~~~~~~~~~ Moving from Documents.... ~~~~~~~~~~~~~~\n'
-            rsync -avhz --progress --stats --ignore-existing --remove-source-files --include=\*.docx --include=\*.doc --include=\*.pdf --include=\*xlsx --exclude=\*  "$documents" "$temp"
-            echo -e '\n ~~~~~~~~~~~~~~ Finished! ~~~~~~~~~~~~~~\n' ;;
-            # find "$downloads"-mindepth 1 -not -name '*.ini' -print0 | xargs -0 mv -t "$temp"
-            # find "$downloads"-mindepth 1 -not -name '*.ini' -print0 | xargs -0 -I {} cp -p -r  {} "$temp"
-            # find "$downloads"-mindepth 1 -not -name '*.ini' -print0 -exec {} cp -p -r  {} "$temp" \;
-        8)
-            screenshots ;;
-        b)
-            master ;;
-        x)
-            : && clear ;;
-        *)
-            move ;;
+        1)  main_backup ;;
+        2)  mobile_backup ;;
+        3)  main_restore ;;
+        4)  mobile_restore ;;
+        5)  main_clone ;;
+        6)  mobile_clone ;;
+        7)  move_all ;;
+        8)  move_screenshots ;;
+        b)  master ;;
+        x)  : && clear ;;
+        *)  move ;;
     esac
 }
+
 #   -------------------------------
 #   Update .dotfiles
 #   -------------------------------
+
 function dots(){
     clear
     echo -e '\n  Available Options:'
@@ -1060,9 +1070,11 @@ function dots(){
         dots
     fi
 }
+
 #   -------------------------------
 #   Manage Open File Handles / Descriptors
 #   -------------------------------
+
 function handles(){
     cd /mnt/d/Workspace/Portable\ Apps/SyMenu/ProgramFiles/SPSSuite/SysinternalsSuite/Handle_sps
     clear
@@ -1128,9 +1140,11 @@ function handles(){
         handles
     fi
 }
+
 #   -------------------------------
 #   Windows Maintanace
 #   -------------------------------
+
 function win(){
     clear
     echo -e '\n  Available Options:\n'
@@ -1157,6 +1171,7 @@ function win(){
         rm -rfv /mnt/d/Workspace/Portable\ Apps/SyMenu/ProgramFiles/SPSSuite/SyMenuSuite/_Trash/*
         rm -rfv /mnt/d/Workspace/Portable\ Apps/SyMenu/ProgramFiles/SPSSuite/NirSoftSuite/_Trash/*
         rm -rfv /mnt/d/Workspace/Portable\ Apps/SyMenu/ProgramFiles/SPSSuite/SysinternalsSuite/_Trash/*
+        clear
     }
 
     function icons(){
@@ -1258,7 +1273,7 @@ function win(){
             "'D:\Workspace\Projects\Mathematics'"
             "'D:\Workspace\University\Course\Year 2 - 2017-2018'"
             "'D:\Videos'"
-            "'D:\Workspace\General\Essential\Art\Media Screenshots\Pics'"
+            "'D:\Workspace\General\Essential\Art\Screenshots\Pics'"
             "'C:\Users\Todorov\Pictures\My Screen Shots'"
             "'C:\Users\Todorov\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs\home\todorov'"
             "'C:\ProgramData\Microsoft\Windows\Start Menu\Programs'"
@@ -1340,9 +1355,11 @@ function win(){
             win ;;
     esac
 }
+
 #   -------------------------------
 #   Manage my Blog
 #   -------------------------------
+
 function blog(){
     clear
     echo -e '\n  Available Options:'
@@ -1405,9 +1422,11 @@ function blog(){
             blog ;;
     esac
 }
+
 #   -------------------------------
 #   Manage my TODOs
 #   -------------------------------
+
 function todo(){
     guipath='D:\Workspace\Portable Apps\By Category\Office\Notes\jdotxt'
     syncpath='D:\Workspace\Portable Apps\By Category\Net\File Sharing\SyncTrayzorPortable-x64'
@@ -1603,9 +1622,11 @@ function todo(){
         todo
     fi
 }
+
 #   -------------------------------
 #   My Programs
 #   -------------------------------
+
 function apps(){
     function portable_apps() {
         clear
@@ -1674,7 +1695,7 @@ function apps(){
         echo    '           55  GIMP'
         echo    '           56  Inkscape'
         echo    '           57  Instant Eyedropper'
-        echo    '           58  MKVToolNix'
+        echo    '           58  gMKVExtractGUI'
         echo    '           59  MKVExtractGUI2'
         echo    '           60  OBS Studio'
         echo -e '\n   >>> OS Management\n'
@@ -1684,10 +1705,12 @@ function apps(){
         echo    '           64  RegSeeker'
         echo    '           65  Revo Uninstaller'
         echo    '           66  Rufus'
-        echo    '           67  Snap2HTML'
-        echo    '           68  Spybot Anit-Beacon'
-        echo    '           69  Spyglass'
-        echo -e '           70  WinDirStat\n'
+        echo    '           67  Etcher'
+        echo    '           68  Snap2HTML'
+        echo    '           69  Spybot Anit-Beacon'
+        echo    '           70  Spyglass'
+        echo    '           71  WinDirStat'
+        echo -e '           72  RealVNC\n'
         echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         echo -e '\n   >>> Main\n'
         echo    '           39  KeePass'
@@ -1827,7 +1850,7 @@ function apps(){
             57)
                 cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\File Management\Images\Instant-eyedropper" instanteyedropper.exe && clear ;;
             58)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite\MKVToolNix_(x64)_sps" MKVExtractGUI2.exe && clear ;;
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite\MKVToolNix_(x64)_sps" gMKVExtractGUI.exe && clear ;;
             59)
                 cmd.exe /c start /D "D:\Workspace\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite\MKVToolNix_(x64)_sps" mkvtoolnix-gui.exe && clear ;;
             60)
@@ -1845,13 +1868,17 @@ function apps(){
             66)
                 cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\RufusPortable" RufusPortable.exe && clear ;;
             67)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite\Snap2HTML_sps" Snap2HTML.exe && clear ;;
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\File Management\Flashing\Etcher" Etcher-Portable-1.3.1-x64.exe && clear ;;
             68)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite\Spybot_Anti-Beacon_sps" SDAntiBeacon.exe && clear ;;
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite\Snap2HTML_sps" Snap2HTML.exe && clear ;;
             69)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\File Management\Stats\Spyglass" Spyglass.exe && clear ;;
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite\Spybot_Anti-Beacon_sps" SDAntiBeacon.exe && clear ;;
             70)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\File Management\Stats\Spyglass" Spyglass.exe && clear ;;
+            71)
                 cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\WinDirStatPortable" WinDirStatPortable.exe && clear ;;
+            72)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\File Management\RealVNC" VNC-Viewer-6.17.1113-Windows-64bit.exe && clear ;;
             b)
                 apps ;;
             x)
@@ -2113,6 +2140,7 @@ function apps(){
         esac
     fi
 }
+
 #=========================================================================================
 #=========================================================================================
 #=========================================================================================
