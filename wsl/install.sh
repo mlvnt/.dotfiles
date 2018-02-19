@@ -9,6 +9,7 @@ printf "\n      Runtime: $(date) @ $(hostname)\n\n"
 ##### PYTHON #####
 printf '\n      >>> Installing python3....\n'
 dpkg -l | grep -qw python3 && printf '\n            python3 is already installed\n' || sudo apt-get install -yyq python3
+dpkg -l | grep -qw ipython3 && printf '\n            ipython3 is already installed\n' || sudo apt-get install -yyq ipython3
 dpkg -l | grep -qw python-pip && printf '\n            python3-pip3 is already installed\n' || sudo apt-get install -yyq python-pip
 dpkg -l | grep -qw python3-pip && printf '\n            python3-pip3 is already installed\n' || sudo apt-get install -yyq python3-pip3
 sudo pip3 install --upgrade pip3
@@ -36,6 +37,8 @@ modules=(
     "pillow"
     "coverage"
     "pygments"
+    "bs4"
+    "selenium"
 # SciPy
     "matplotlib"
     "numpy"
@@ -429,6 +432,11 @@ function sublime-texts(){
     sudo apt-get install sublime-text
 }
 dpkg -l | grep -qw sublime-text && printf '\n            It'\''s already installed.\n' || sublime-texts
+
+
+printf '\n      >>> Installing chrome....\n'
+dpkg -l | grep -qw chromium-browser && printf '\n            It'\''s already installed.\n' || yes Y | sudo apt-get install chromium-browser
+dpkg -l | grep -qw chromium-chromedriver && printf '\n            It'\''s already installed.\n' || yes Y | sudo apt-get install chromium-chromedriver
 
 # printf '\n      >>> Installing vlc....\n'
 # dpkg -l | grep -qw vlc && printf '\n            It'\''s already installed.\n' || yes Y | sudo apt-get install vlc

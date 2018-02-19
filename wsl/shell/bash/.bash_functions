@@ -7,41 +7,24 @@
 #   -------------------------------
 
 function master() {
-    clear
-    echo ""
-    echo "    1  | word              | Open Word Documets"
-    echo "    2  | coc               | Start Clash of Clans Bot"
-    echo "    3  | m3u               | Create m3u Playlists"
-    echo "    4  | linx              | Linux Managemet"
-    echo "    5  | bin               | Manage the Trash"
-    echo "    6  | links             | Manage Links"
-    echo "    7  | move              | Move, Copy"
-    echo "    8  | dots              | Update .dotfiles"
-    echo "    9  | handles           | Manage Open File Handles / Descriptors"
-    echo "    10 | win               | Windows Maintanace"
-    echo "    11 | blog              | Manage my Blog"
-    echo "    12 | todo              | Manage my TODOs"
-    echo "    13 | apps              | My Programs"
-    echo ""
+    clear && echo
+    echo "    1  | linx              | Linux Managemet"
+    echo "    2  | win               | Windows Managemet"
+    echo "    3  | manage            | System Management"
+    echo "    4  | mywork            | Daily Work"
+    echo "    5  | apps              | My Programs"
+    echo
     read -e -p "Enter Function №? (y/n) " answer
 
     function helper() {
         read -e -p "Function? (№/name) : " input
         case $input in
-            1|word)      word ;;
-            2|coc)       coc ;;
-            3|m3u)       m3u ;;
-            4|linx)      linx ;;
-            5|bin)       bin ;;
-            6|links)     links ;;
-            7|move)      move ;;
-            8|dots)      dots ;;
-            9|handles)   handles ;;
-            10|win)      win ;;
-            11|blog)     blog ;;
-            12|todo)     todo ;;
-            13|apps)     apps ;;
-            *)           helper ;;
+            1|linx)     linx ;;
+            2|win)      win ;;
+            3|manage)   manage ;;
+            4|mywork)   mywork ;;
+            5|apps)     apps ;;
+            *)          helper ;;
         esac
     }
 
@@ -52,6 +35,67 @@ function master() {
     else
         master
     fi
+}
+
+#   -------------------------------
+#   Daily Work
+#   -------------------------------
+
+function mywork(){
+    clear
+    echo -e '\n  Available Options:'
+    echo    '       x  | Exit'
+    echo -e '       b  | Go Back\n'
+    echo    "    1  | todo                | TODOs"
+    echo    "    2  | blog                | Blog"
+    echo    "    3  | money               | Money"
+    echo -e "    4  | coc                 | Start Clash of Clans Bot\n"
+    read -e -p "  Enter Option: " input
+    echo
+
+    function money(){
+        path='/mnt/d/Workspace/Projects/Programing/Scripts/Scripts/Python/Money'
+        clear && python3 $path/bulbank.py && python3 $path/santander.py
+    }
+
+    case $input in
+        1|todo)   todo ;;
+        2|blog)   blog ;;
+        3|money)  money ;;
+        4|coc)    coc ;;
+        b)  master ;;
+        x) : && clear ;;
+        *) mywork ;;
+    esac
+}
+
+#   -------------------------------
+#   System Management
+#   -------------------------------
+
+function manage(){
+    clear
+    echo -e '\n  Available Options:'
+    echo    '       x  | Exit'
+    echo -e '       b  | Go Back\n'
+    echo    "    1  | m3u                 | Create m3u Playlists"
+    echo    "    2  | bin                 | Manage the Trash"
+    echo    "    3  | move                | Move, Copy"
+    echo    "    4  | links               | Manage Links"
+    echo -e "    5  | handles             | Manage File Handles / Descriptors\n"
+    read -e -p "  Enter Option: " input
+    echo
+
+    case $input in
+        1|m3u)      m3u ;;
+        2|bin)      bin ;;
+        3|move)     move ;;
+        4|links)    links ;;
+        5|handles)  handles ;;
+        b)  master ;;
+        x) : && clear ;;
+        *) manage ;;
+    esac
 }
 
 #   -------------------------------
@@ -119,22 +163,23 @@ function linx() {
     clear
     echo -e '\n  Available Options:'
     echo    '       x  | Exit'
-    echo    '       b  | Go Back'
+    echo -e '       b  | Go Back\n'
     echo    '       1  | Launch X Sessions'
     echo    '       2  | Create a New Directory and enter it'
     echo    '       3  | SSH Managemet'
     echo    '       4  | GPG Managemet'
-    echo -e '       5  | List Git Branches\n'
+    echo    '       5  | Update .dotfiles'
+    echo -e '       6  | List Git Branches\n'
     read -e -p "  Enter Option: " input
     echo
 
         function xsession (){
-            path="D:\Workspace\Projects\Programing\Scripts\Scripts\Batch & Reg\WSL\VcXsrv Config"
+            path="D:\Workspace\Projects\Programing\Git\dotfiles\.dotfiles\wsl\vcxsrv"
             win32="C:\Windows\System32"
             clear
             echo -e '\n  Available Options:'
             echo    '       x  | Exit'
-            echo    '       b  | Go Back'
+            echo -e '       b  | Go Back\n'
             echo    '       1  | Launch Xfce4 Session'
             echo    '       2  | Launch i3-wm Session'
             echo -e '       3  | Load X Server in Multi Window mode\n'
@@ -143,20 +188,17 @@ function linx() {
 
             case $input in
                 1)
-                    echo -e "\n Launching xfce4....\n"
-                    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-                    cmd.exe /c start /D "$path" /MAX configNormal.xlaunch
-                    cmd.exe /c start /D "$win32" bash.exe --login -c "sudo xfce4-session"
-                    echo -e "\n ....Xfce4 Session Started\n" ;;
+                    echo -e "\n Launching xfce4....\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+                    cmd.exe /c start /D "$path" /MAX configNormal.xlaunch && sudo xfce4-session ;;
+                    # cmd.exe /c start /D "$win32" bash.exe --login -c "sudo xfce4-session"
+                    # sudo chown -v $USER ~/.ICEauthority
                 2)
-                    echo -e "\n Launching i3-wm....\n"
-                    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-                    cmd.exe /c start /D "$path" /MAX configNormal.xlaunch
-                    cmd.exe /c start /D "$win32" bash.exe --login -c "sudo i3 "
-                    echo -e "\n ....i3-wm Session Started\n";;
+                    echo -e "\n Launching i3-wm....\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+                    cmd.exe /c start /D "$path" /MAX configNormal.xlaunch && sudo i3 ;;
+                    # cmd.exe /c start /D "$win32" bash.exe --login -c "sudo i3"
                 3)
                     echo -e "\n Loading X Server in Multi Window mode....\n"
-                    cmd.exe /c start /D "$path" /MAX configMultiWindow.xlaunch;;
+                    cmd.exe /c start /D "$path" /MAX configMultiWindow.xlaunch ;;
                 b)  linx ;;
                 x)  : && clear ;;
                 *)  xsession ;;
@@ -458,7 +500,8 @@ function linx() {
         2)  mkd ;;
         3)  ssh_manage ;;
         4)  gpg_manage ;;
-        5)  glb ;;
+        5)  dots ;;
+        6)  glb ;;
         b)  master ;;
         x)  : && clear ;;
         *)  linx ;;
@@ -540,7 +583,7 @@ function bin (){
     elif [ $input -eq 6 ] ; then
         cd $trashdir
     elif [ $input == b ] ; then
-        master
+        manage
     elif [ $input == x ] ; then
         : && clear
     else
@@ -620,7 +663,7 @@ function links (){
         echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         echo -e '\n ....Link Created!\n'
     elif [ $input == b ] ; then
-        master
+        manage
     elif [ $input == x ] ; then
         : && clear
     else
@@ -967,8 +1010,8 @@ function move (){
 
         temp="/mnt/d/Workspace/~TEMP"
         screenshotsdir="/mnt/c/Users/Todorov/Pictures/My Screen Shots/"
-        animepicsdir="/mnt/d/Workspace/General/Essential/Art/Media Screenshots/Pics"
-        animepicsdirwin="D:\Workspace\General\Essential\Art\Media Screenshots\Pics"
+        animepicsdir="/mnt/d/Workspace/General/Essential/Art/Screenshots/Pics"
+        animepicsdirwin="D:\Workspace\General\Essential\Art\Screenshots\Pics"
         acerscreendir="/mnt/d/Workspace/General/Tech/MEMORY/Desktop Screenshots/Acer Predator G9-792"
         surfscreendir="/mnt/d/Workspace/General/Tech/MEMORY/Desktop Screenshots/Microsoft Surface Pro 4"
 
@@ -1017,7 +1060,7 @@ function move (){
         6)  mobile_clone ;;
         7)  move_all ;;
         8)  move_screenshots ;;
-        b)  master ;;
+        b)  manage ;;
         x)  : && clear ;;
         *)  move ;;
     esac
@@ -1063,7 +1106,7 @@ function dots(){
         echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         echo -e '\n Dotfiles Updated!\n'
     elif [ $input == b ] ; then
-        master
+        linx
     elif [ $input == x ] ; then
         : && clear
     else
@@ -1072,7 +1115,7 @@ function dots(){
 }
 
 #   -------------------------------
-#   Manage Open File Handles / Descriptors
+#   Manage File Handles / Descriptors
 #   -------------------------------
 
 function handles(){
@@ -1133,7 +1176,7 @@ function handles(){
         echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         echo -e '\n ....Query Completed!\n'
     elif [ $input == b ] ; then
-        master
+        manage
     elif [ $input == x ] ; then
         : && clear
     else
@@ -1142,7 +1185,7 @@ function handles(){
 }
 
 #   -------------------------------
-#   Windows Maintanace
+#   Windows Managemet
 #   -------------------------------
 
 function win(){
@@ -1244,7 +1287,7 @@ function win(){
         echo    '       1  | Pin Folders to Quick Access'
         echo -e '       2  | Unpin Folders to Quick Access\n'
         read -e -p "  Enter Option: " input
-        echo ''
+        echo
 
         # Variables
         powershellScript='D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick_Access\Set-QuickAccess.ps1'
@@ -1414,12 +1457,9 @@ function blog(){
             cmd.exe /c start /D "$filezilladir" FileZillaPortable.exe ;;
             # sftp -b ~/.dotfiles/wsl/net/sftpbatch todorovfiles@mlvnt.com
             # sftp todorovfiles@mlvnt.com:uploads/
-        b)
-            master ;;
-        x)
-            : && clear ;;
-        *)
-            blog ;;
+        b)  mywork ;;
+        x)  : && clear ;;
+        *)  blog ;;
     esac
 }
 
@@ -1434,7 +1474,7 @@ function todo(){
     todopath=~/bin/todo.txt-cli/todo.sh
     clear 
     echo && $todopath -z -P -@ -+ list && echo
-    read -e -p "Show options? (y/n)" answer
+    read -e -p "Show options? (y/n) " answer
     echo
     if [ "$answer" = "y" ] ; then
 
@@ -1610,7 +1650,7 @@ function todo(){
             cmd.exe /c start /D "$syncpath" SyncTrayzor.exe
             # java -jar jdotxt-0.4.8.jar
         elif [ $input == b ] ; then
-            master
+            mywork
         elif [ $input == x ] ; then
             : && clear
         else
@@ -1710,7 +1750,8 @@ function apps(){
         echo    '           69  Spybot Anit-Beacon'
         echo    '           70  Spyglass'
         echo    '           71  WinDirStat'
-        echo -e '           72  RealVNC\n'
+        echo    '           72  RealVNC'
+        echo -e '           73  TigerVNC\n'
         echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         echo -e '\n   >>> Main\n'
         echo    '           39  KeePass'
@@ -1878,7 +1919,9 @@ function apps(){
             71)
                 cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\WinDirStatPortable" WinDirStatPortable.exe && clear ;;
             72)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\File Management\RealVNC" VNC-Viewer-6.17.1113-Windows-64bit.exe && clear ;;
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Net\VNC" VNC-Viewer-6.17.1113-Windows-64bit.exe && clear ;;
+            73)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Net\VNC" TigerVNC-VncViewer-1.8.0.jar && clear ;;
             b)
                 apps ;;
             x)
@@ -2118,16 +2161,18 @@ function apps(){
 
     if [ -z $1 ] ; then
         clear
-        echo -e '\n  Available Options:\n'
+        echo -e '\n  Available Options:'
         echo    '       x  | Exit'
-        echo    '       b  | Go Back'
-        echo    '       1  | Portable'
-        echo -e '       2  | Installed\n'
+        echo -e '       b  | Go Back\n'
+        echo    "    1  | portable_apps        | Portable"
+        echo    "    2  | installed_apps       | Installed"
+        echo -e "    3  | word                 | Open Word Documets\n"
         read -e -p "  Enter Option: " input
         echo
         case $input in
-            1)  portable_apps ;;
-            2)  installed_apps ;;
+            1|portable_apps)   portable_apps ;;
+            2|installed_apps)  installed_apps ;;
+            3|word)            word ;;
             b)  master ;;
             x)  : && clear ;;
             *)  apps ;;

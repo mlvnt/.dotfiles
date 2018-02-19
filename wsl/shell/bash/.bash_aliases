@@ -247,12 +247,14 @@ alias autostart="open 'C:\Users\Todorov\AppData\Roaming\Microsoft\Windows\Start 
 # Edit Documents
 alias cv="o 'D:\Workspace\General\Personal\Professional\CV & Covering Letter\CV.docx'"
 alias index="o 'D:\Workspace\General\Tech\MEMORY\Index\Index.xlsx'"
-alias music="o 'D:\Workspace\General\Essential\Music\Music.xlsx'"
+alias music="o 'D:\Workspace\General\Essential\Media\Music\Music.xlsx'"
 alias pics="o 'D:\Workspace\General\Essential\Art\Screenshots\Pics.xlsx'"
 alias quotes="o 'D:\Workspace\General\Personal\My Blog\Intro\Quotes\Quotes.xlsx'"
 alias recipies="o 'D:\Workspace\General\Essential\Cooking\I. Recipes & Weekly Menu.docx'"
 alias habbits="o 'D:\Workspace\General\Time & Goals\Habits & Goals\2018 - Habit Tracking.xlsx'"
-alias packlist="o 'D:\Workspace\General\Essential\Packs & Shopping Lists\I. Pack List.xlsx'"
+alias packlist="o 'D:\Workspace\General\Essential\Packs & Shopping Lists\Pack_List.xlsx'"
+alias techlist="o 'D:\Workspace\General\Tech\Equipment List\Tech_List.xlsx'"
+alias clothlist="o 'D:\Workspace\General\Essential\Clothing\Clothes_List.xlsx'"
 
 # Launch Applications
 alias mail="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\ThunderbirdPortable' ThunderbirdPortable.exe"
@@ -262,6 +264,8 @@ alias vm="cmd.exe /c start /D 'C:\Program Files\Oracle\VirtualBox' VirtualBox.ex
 alias dashlane="cmd.exe /c start /D 'C:\Users\Todorov\AppData\Roaming\Dashlane' Dashlane.exe"
 alias memu="cmd.exe /c start /D 'C:\ProgramData\Microvirt\MEmu' MEmuConsole.exe MEmu"
 alias photoshop="cmd.exe /c start /D 'C:\Program Files\Adobe\Adobe Photoshop CC 2017' Photoshop.exe"
+alias firefox="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\FirefoxPortable' FirefoxPortable.exe"
+# alias chromium-browser='sudo chromium-browser --no-sandbox'
 
 # Clipboard
 alias pbcopy="clip.exe"

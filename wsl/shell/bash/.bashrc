@@ -12,6 +12,7 @@ export PATH="$PATH:/usr/local/sbin/"
 export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:/mnt/c/Users/Todorov/Downloads/VSCode-win32-x64-1.17.0/bin"
+export PATH="$PATH:/usr/lib/chromium-browser"
 
 # Language
 export LANG=en_US.UTF-8 sublime_text
