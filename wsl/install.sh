@@ -39,6 +39,9 @@ modules=(
     "pygments"
     "bs4"
     "selenium"
+    "secretstorage"
+    "python-dateutil"
+    "requests"
 # SciPy
     "matplotlib"
     "numpy"
@@ -295,6 +298,9 @@ dpkg -l | grep -qw espeak && printf '\n            It'\''s already installed.\n'
 
 printf '\n      >>> Installing xclip....\n'
 dpkg -l | grep -qw xclip && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq xclip
+
+printf '\n      >>> Installing lsb-release....\n'
+dpkg -l | grep -qw lsb-release && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq lsb-release
 
 #   -------------------------------
 #   NEOFETCH

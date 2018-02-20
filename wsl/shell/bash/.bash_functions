@@ -49,20 +49,27 @@ function mywork(){
     echo    "    1  | todo                | TODOs"
     echo    "    2  | blog                | Blog"
     echo    "    3  | money               | Money"
-    echo -e "    4  | coc                 | Start Clash of Clans Bot\n"
+    echo    "    4  | series              | Series"
+    echo -e "    5  | coc                 | Start Clash of Clans Bot\n"
     read -e -p "  Enter Option: " input
     echo
 
     function money(){
         path='/mnt/d/Workspace/Projects/Programing/Scripts/Scripts/Python/Money'
-        clear && python3 $path/bulbank.py && python3 $path/santander.py
+        clear && python3 $path/bg.py && python3 $path/uk.py
+    }
+
+    function series(){
+        path='/mnt/d/Workspace/Projects/Programing/Scripts/Scripts/Python/Web'
+        clear && python3 $path/series.py
     }
 
     case $input in
-        1|todo)   todo ;;
-        2|blog)   blog ;;
-        3|money)  money ;;
-        4|coc)    coc ;;
+        1|todo)    todo ;;
+        2|blog)    blog ;;
+        3|money)   money ;;
+        4|series)  series ;;
+        5|coc)     coc ;;
         b)  master ;;
         x) : && clear ;;
         *) mywork ;;
@@ -164,12 +171,12 @@ function linx() {
     echo -e '\n  Available Options:'
     echo    '       x  | Exit'
     echo -e '       b  | Go Back\n'
-    echo    '       1  | Launch X Sessions'
-    echo    '       2  | Create a New Directory and enter it'
-    echo    '       3  | SSH Managemet'
-    echo    '       4  | GPG Managemet'
-    echo    '       5  | Update .dotfiles'
-    echo -e '       6  | List Git Branches\n'
+    echo    "    1  | xsession            | Launch X Sessions"
+    echo    "    2  | mkd                 | Create a New Directory and enter it"
+    echo    "    3  | ssh_manage          | SSH Managemet"
+    echo    "    4  | gpg_manage          | GPG Managemet"
+    echo    "    5  | dots                | Update .dotfiles"
+    echo -e "    6  | glb                 | List Git Branches\n"
     read -e -p "  Enter Option: " input
     echo
 
@@ -233,7 +240,7 @@ function linx() {
             read -e -p "  Enter Option: " input
             echo
 
-            function ssh_permissons () {
+            function ssh_permissons() {
                 sudo chmod -v 600 ~/.ssh/*
                 sudo chmod -v 700 ~/.ssh
                 sudo chown -Rv $USER ~/.ssh/
@@ -281,7 +288,7 @@ function linx() {
             esac
         }
 
-        function gpg_manage () {
+        function gpg_manage() {
             clear
             echo -e '\n  Available Options:\n'
             echo    '       x   | Exit'
@@ -496,12 +503,12 @@ function linx() {
         }
 
     case $input in
-        1)  xsession ;;
-        2)  mkd ;;
-        3)  ssh_manage ;;
-        4)  gpg_manage ;;
-        5)  dots ;;
-        6)  glb ;;
+        1|xsession)    xsession ;;
+        2|mkd)         mkd ;;
+        3|ssh_manage)  ssh_manage ;;
+        4|gpg_manage)  gpg_manage ;;
+        5|dots)        dots ;;
+        6|glb)         glb ;;
         b)  master ;;
         x)  : && clear ;;
         *)  linx ;;
@@ -513,6 +520,48 @@ function linx() {
 #   -------------------------------
 
 function bin (){
+    patht="D:\Workspace\Portable Apps\SyMenu\ProgramFiles\SPSSuite\NirSoftSuite\NirCmd_x64_sps\nircmd.exe"
+    trashdir=~/.local/share/Trash
+
+    function list() {
+        clear && echo
+        echo    '         x | Exit'
+        echo    '         b | Go Back'
+        echo    '         1 | List All'
+        echo -e '         2 | Search For\n'
+        read -e -p "  Option: " input
+        case $input in
+            1)
+                echo && sudo trash-list && echo ;;
+            2)
+                read -e -p "  Search For: " search
+                echo && sudo trash-list | grep -i $search && echo ;;
+            b)  bin ;;
+            x)  : && clear ;;
+            *)  list ;;
+        esac
+    }
+
+    function empty() {
+        clear && echo && sudo trash-list && echo
+        echo    '         x | Exit'
+        echo    '         b | Go Back'
+        echo    '         1 | Empty'
+        echo -e '         2 | Remove Selected\n'
+        read -e -p "  Option: " input
+        case $input in
+            1)
+                sudo trash-empty
+                echo && sudo trash-list && echo ;;
+            2)
+                read -e -p "  Delete: " search
+                echo && sudo trash-rm $search && echo ;;
+            b)  bin ;;
+            x)  : && clear ;;
+            *)  empty ;;
+        esac
+    }
+
     clear
     echo -e '\n  Available Options:\n'
     echo    '         x | Exit'
@@ -528,67 +577,31 @@ function bin (){
     read -e -p "  Enter Option: " input
     echo
 
-    patht="D:\Workspace\Portable Apps\SyMenu\ProgramFiles\SPSSuite\NirSoftSuite\NirCmd_x64_sps\nircmd.exe"
-    trashdir=~/.local/share/Trash
-
-    function list() {
-        clear && echo
-        echo "  1. List All"
-        echo "  2. Search For" && echo
-        read -e -p "  Option: " option
-        if [ $option -eq 1 ] ; then
-            echo && sudo trash-list && echo
-        elif [ $option -eq 2 ] ; then
-            read -e -p "  Search for: " search
-            echo && sudo trash-list | grep -i $search && echo
-        else
-            list
-        fi
-    }
-
-    function empty() {
-        clear && echo && sudo trash-list && echo
-        echo "  1. Empty"
-        echo "  2. Remove selected" && echo
-        read -e -p "  Option: " option
-        if [ $option -eq 1 ] ; then
-            sudo trash-empty
-            echo && sudo trash-list && echo
-        elif [ $option -eq 2 ] ; then
-            read -e -p "  Delete: " search
-            echo && sudo trash-rm $search && echo
-        else
-            empty
-        fi
-    }
-
-    if [ $input -eq 1 ] ; then
-        echo -e '\n Empting $RECYCLE.BIN....\n'
-        cmd.exe /c "$patht" emptybin
-        # cmd.exe /c 'D:\Workspace\Portable Apps\By Category\File Management\Recycle\recycle.exe' /L
-        # echo -e '\n Empting $RECYCLE.BIN on C:\ ....\n'
-        # cmd.exe /c rd /s /q '%systemdrive%\$Recycle.bin'
-        # echo -e '\n Empting $RECYCLE.BIN on D:\ ....\n'
-        # cmd.exe /c rd /s /q 'D:\$Recycle.bin'
-    elif [ $input -eq 2 ] ; then
-        ll && read -e -p "  What to trash: " rubish
-        echo && sudo trash-put -v $rubish && echo
-    elif [ $input -eq 3 ] ; then
-        list
-    elif [ $input -eq 4 ] ; then
-        empty
-    elif [ $input -eq 5 ] ; then
-        clear && echo && sudo trash-restore && \
-        echo && sudo trash-list && echo
-    elif [ $input -eq 6 ] ; then
-        cd $trashdir
-    elif [ $input == b ] ; then
-        manage
-    elif [ $input == x ] ; then
-        : && clear
-    else
-        bin
-    fi
+    case $input in
+        1)
+            echo -e '\n Empting $RECYCLE.BIN....\n'
+            cmd.exe /c "$patht" emptybin ;;
+            # cmd.exe /c 'D:\Workspace\Portable Apps\By Category\File Management\Recycle\recycle.exe' /L
+            # echo -e '\n Empting $RECYCLE.BIN on C:\ ....\n'
+            # cmd.exe /c rd /s /q '%systemdrive%\$Recycle.bin'
+            # echo -e '\n Empting $RECYCLE.BIN on D:\ ....\n'
+            # cmd.exe /c rd /s /q 'D:\$Recycle.bin'
+        2)
+            ll && read -e -p "  What to trash: " rubish
+            echo && sudo trash-put -v $rubish && echo ;;
+        3)
+            list;;
+        4)
+            empty;;
+        5)
+            clear && echo && sudo trash-restore && \
+            echo && sudo trash-list && echo ;;
+        6)
+            cd $trashdir ;;
+        b)  bin ;;
+        x)  : && clear ;;
+        *)  list ;;
+    esac
 }
 
 #   -------------------------------
@@ -596,7 +609,6 @@ function bin (){
 #   -------------------------------
 
 function links (){
-
     # Delete Specified symbilic links
     function delsymb(){
     echo -e '\n Deleting Symbolic Links....\n'
@@ -630,45 +642,44 @@ function links (){
     echo -e '           6 | Create Link for Directory\n'
     read -e -p "  Enter Option: " input
     echo
-    if [ $input -eq 1 ] ; then
-        cd $path && delsymb
-    elif [ $input -eq 2 ] ; then
-        cd $path && delsymb
-        python3 .symb.py && open $pathwin
-    elif [ $input -eq 3 ] ; then
-        cd $path && delsymb
-        python3 .symbf.py && open $pathwin
-    elif [ $input -eq 4 ] ; then
-        read -e -p "    Enter Target: " target
-        read -e -p "    Enter Link Name: " linkname
-        echo -e '\n Creating symblink '$linkname' to '$target'\n'
-        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        ln -sv $target $linkname
-        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        echo -e '\n ....Link Created!\n'
-    elif [ $input -eq 5 ] ; then
-        read -e -p "    Enter Target: " -r target
-        read -e -p "    Enter Link Name: " -r linkname
-        echo -e '\n Creating symblink '$linkname' to '$target'\n'
-        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        cmd.exe /c mklink $linkname $target
-        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        echo -e '\n ....Link Created!\n'
-    elif [ $input -eq 6 ] ; then
-        read -e -p "    Enter Target: " -r target
-        read -e -p "    Enter Link Name: " -r linkname
-        echo -e '\n Creating symblink '$linkname' to '$target'\n'
-        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        cmd.exe /c mklink /D $linkname $target
-        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        echo -e '\n ....Link Created!\n'
-    elif [ $input == b ] ; then
-        manage
-    elif [ $input == x ] ; then
-        : && clear
-    else
-        links
-    fi
+
+    case $input in
+        1)
+            cd $path && delsymb ;;
+        2)
+            cd $path && delsymb
+            python3 .symb.py && open $pathwin ;;
+        3)
+            cd $path && delsymb
+            python3 .symbf.py && open $pathwin ;;
+        4)
+            read -e -p "    Enter Target: " target
+            read -e -p "    Enter Link Name: " linkname
+            echo -e '\n Creating symblink '$linkname' to '$target'\n'
+            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+            ln -sv $target $linkname
+            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+            echo -e '\n ....Link Created!\n' ;;
+        5)
+            read -e -p "    Enter Target: " -r target
+            read -e -p "    Enter Link Name: " -r linkname
+            echo -e '\n Creating symblink '$linkname' to '$target'\n'
+            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+            cmd.exe /c mklink $linkname $target
+            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+            echo -e '\n ....Link Created!\n' ;;
+        6)
+            read -e -p "    Enter Target: " -r target
+            read -e -p "    Enter Link Name: " -r linkname
+            echo -e '\n Creating symblink '$linkname' to '$target'\n'
+            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+            cmd.exe /c mklink /D $linkname $target
+            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+            echo -e '\n ....Link Created!\n' ;;
+        b)  manage ;;
+        x)  : && clear ;;
+        *)  links ;;
+    esac
 }
 
 #   -------------------------------
@@ -1472,12 +1483,11 @@ function todo(){
     syncpath='D:\Workspace\Portable Apps\By Category\Net\File Sharing\SyncTrayzorPortable-x64'
     todotxtpath="/mnt/d/Workspace/General/ToDo/ToDos"
     todopath=~/bin/todo.txt-cli/todo.sh
-    clear 
-    echo && $todopath -z -P -@ -+ list && echo
+    clear && echo && $todopath -z -P -@ -+ list && echo
     read -e -p "Show options? (y/n) " answer
     echo
-    if [ "$answer" = "y" ] ; then
 
+    if [ "$answer" = "y" ] ; then
         echo -e '\n  Available Options:\n'
         echo    '           x  | Exit'
         echo    '           b  | Go Back'
@@ -1504,35 +1514,34 @@ function todo(){
             echo    '       2  | Replace'
             echo -e '       3  | Append\n'
             read -e -p "  Your Choice: " input
-                if [ $input -eq 1 ] ; then
+
+            case $input in
+                1)
                     clear && echo && $todopath -z -P -@ -+ list && echo
                     echo "  Delete TASK"
                     echo "  Delete TASK [TERM]" && echo
                     read -e -p "  Task ID to delete: " ID
                     read -e -p "  Term to delete: " term
                     $todopath del $ID $term
-                    echo && $todopath -z -P -@ -+ list && echo
-                elif [ $input -eq 2 ] ; then
+                    echo && $todopath -z -P -@ -+ list && echo ;;
+                2)
                     clear && echo && $todopath -z -P -@ -+ list && echo
                     echo "  Replace TASK [NEW TERM]" && echo
                     read -e -p "  Task ID to replace: " ID
                     read -e -p "  Term to replace: " term
                     $todopath replace $ID $term
-                    echo && $todopath -z -P -@ -+ list && echo
-                elif [ $input -eq 3 ] ; then
+                    echo && $todopath -z -P -@ -+ list && echo ;;
+                3)
                     clear && echo && $todopath -z -P -@ -+ list && echo
                     echo "  Append TASK [NEW TERM]" && echo
                     read -e -p "  Task ID to append to: " ID
                     read -e -p "  Term to append: " term
                     $todopath append $ID $term
-                    echo && $todopath -z -P -@ -+ list && echo
-                elif [ $input == b ] ; then
-                    todo
-                elif [ $input == x ] ; then
-                    : && clear
-                else
-                    manage
-                fi
+                    echo && $todopath -z -P -@ -+ list && echo ;;
+                b)  todo ;;
+                x)  : && clear ;;
+                *)  manage ;;
+            esac
         }
 
         function list (){
@@ -1546,27 +1555,26 @@ function todo(){
             echo    '       4  | List by Project'
             echo -e '       5  | List by Tag\n'
             read -e -p "  Your Choice: " input
-                if [ $input -eq 1 ] ; then
-                    clear && echo && $todopath -z -P -@ -+ list && echo
-                elif [ $input -eq 2 ] ; then
-                    clear && echo && $todopath -P list && echo
-                elif [ $input -eq 3 ] ; then
-                    clear && echo && $todopath listfile done.txt && echo
-                elif [ $input -eq 4 ] ; then
+
+            case $input in
+                1)
+                    clear && echo && $todopath -z -P -@ -+ list && echo ;;
+                2)
+                    clear && echo && $todopath -P list && echo ;;
+                3)
+                    clear && echo && $todopath listfile done.txt && echo ;;
+                4)
                     clear && echo -e "\nProjecs Available:\n" && $todopath listcon
                     echo && read -e -p "  Project : " project
-                    echo && clear && echo && $todopath -z -@ list @$project && echo
-                elif [ $input -eq 5 ] ; then
+                    echo && clear && echo && $todopath -z -@ list @$project && echo ;;
+                5)
                     clear && echo -e "\nTags Available:\n" && $todopath listproj
                     echo && read -e -p "  Tag : " tag
-                    echo && clear && echo && $todopath -z -+ list +$tag && echo
-                elif [ $input == b ] ; then
-                    todo
-                elif [ $input == x ] ; then
-                    : && clear
-                else
-                    list
-                fi
+                    echo && clear && echo && $todopath -z -+ list +$tag && echo ;;
+                b)  todo ;;
+                x)  : && clear ;;
+                *)  list ;;
+            esac
         }
 
         function helpt (){
@@ -1577,85 +1585,80 @@ function todo(){
             echo    '       1  | Short'
             echo -e '       2  | Long\n'
             read -e -p "  Your Choice: " input
-                if [ $input -eq 1 ] ; then
-                    $todopath shorthelp && todo
-                elif [ $input -eq 2 ] ; then
-                    $todopath help && todo
-                elif [ $input == b ] ; then
-                    todo
-                elif [ $input == x ] ; then
-                    : && clear
-                else
-                    helpt
-                fi
+
+            case $input in
+                1)  $todopath shorthelp && todo ;;
+                2)  $todopath help && todo ;;
+                b)  todo ;;
+                x)  : && clear ;;
+                *)  helpt ;;
+            esac
         }
 
-        if [ $input -eq 1 ] ; then
-            clear
-            echo "  New TASK [PRIORITY TASK PROJECT TAG DUE]" && echo
-            read -e -p "  Priority [A-Z] : " priority
-            read -e -p "  Task: " task
-            read -e -p "  Project : " project
-            read -e -p "  Tag : " tag
-            read -e -p "  Due Date [yy-mm-dd]: " due
+        case $input in
+            1)
+                clear
+                echo "  New TASK [PRIORITY TASK PROJECT TAG DUE]" && echo
+                read -e -p "  Priority [A-Z] : " priority
+                read -e -p "  Task: " task
+                read -e -p "  Project : " project
+                read -e -p "  Tag : " tag
+                read -e -p "  Due Date [yy-mm-dd]: " due
 
-            if [ -z "$tag" ] ; then
-                $tag
-            else
-                tag=+$tag
-            fi
+                if [ -z "$tag" ] ; then
+                    $tag
+                else
+                    tag=+$tag
+                fi
 
-            if [ -z "$project" ] ; then
-                $project
-            else
-                project=@$project
-            fi
+                if [ -z "$project" ] ; then
+                    $project
+                else
+                    project=@$project
+                fi
 
-            if [ -z "$priority" ] ; then
-                $priority
-            else
-                priority='('$priority')'
-            fi
+                if [ -z "$priority" ] ; then
+                    $priority
+                else
+                    priority='('$priority')'
+                fi
 
-            if [ -z "$due" ] ; then
-                $due
-            else
-                due=due:$due
-            fi
+                if [ -z "$due" ] ; then
+                    $due
+                else
+                    due=due:$due
+                fi
 
-            if [ -z "$task" ] ; then
-                :
-            else
-                echo && $todopath -t add $priority $task $project $tag $due
-            fi
+                if [ -z "$task" ] ; then
+                    :
+                else
+                    echo && $todopath -t add $priority $task $project $tag $due
+                fi
 
-            echo && $todopath -z -P list && echo
-        elif [ $input -eq 2 ] ; then
-            clear && echo && $todopath -z -P -@ -+ list && echo
-            read -e -p "  Task ID to mark as done: " ID
-            echo && $todopath -A do $ID && echo
-            echo && $todopath listfile done.txt && echo
-        elif [ $input -eq 3 ] ; then
-            manage
-        elif [ $input -eq 4 ] ; then
-            list
-        elif [ $input -eq 5 ] ; then
-            helpt
-        elif [ $input -eq 6 ] ; then
-            cd $todotxtpath
-        elif [ $input -eq 7 ] ; then
-            cmd.exe /c start /D "$guipath" jdotxt-0.4.8.jar
-            # java -jar jdotxt-0.4.8.jar
-        elif [ $input -eq 8 ] ; then
-            cmd.exe /c start /D "$syncpath" SyncTrayzor.exe
-            # java -jar jdotxt-0.4.8.jar
-        elif [ $input == b ] ; then
-            mywork
-        elif [ $input == x ] ; then
-            : && clear
-        else
-            todo
-        fi
+                echo && $todopath -z -P list && echo ;;
+            2)
+                clear && echo && $todopath -z -P -@ -+ list && echo
+                read -e -p "  Task ID to mark as done: " ID
+                echo && $todopath -A do $ID && echo
+                echo && $todopath listfile done.txt && echo ;;
+            3)
+                manage ;;
+            4)
+                list ;;
+            5)
+                helpt ;;
+            6)
+                cd $todotxtpath ;;
+            7)
+                cmd.exe /c start /D "$guipath" jdotxt-0.4.8.jar ;;
+                # java -jar jdotxt-0.4.8.jar
+            8)
+                cmd.exe /c start /D "$syncpath" SyncTrayzor.exe ;;
+                # java -jar jdotxt-0.4.8.jar
+            b)  mywork ;;
+            x)  : && clear ;;
+            *)  todo ;;
+        esac
     elif [ "$answer" = "n" ] ; then
         :
     else
