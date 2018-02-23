@@ -217,10 +217,10 @@ alias pingpi='cmd.exe /c ping -4 raspberrypi.local'
 #   -------------------------------
 
 alias undopush="git push -f origin HEAD^:master"  # Undo a `git push`
-# alias git="sudo git"
+alias git="sudo git"
 alias g="git"
 alias gf="git fetch && git pull"
-alias gac='sudo git add -A && git commit && git push'
+alias gac='git add -A && git commit && git push'
 alias ga='git add -A'
 alias gp='git push'
 alias gl='git pull'

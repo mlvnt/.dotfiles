@@ -1105,6 +1105,7 @@ function dots(){
         git clone /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/ ~/.dotfiles
         # oh-my-zsh
         sudo cp -rv /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/shell/zsh/.oh-my-zsh ~/.dotfiles/wsl/shell/zsh/
+        sudo cp -rv /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/.config/sublime-text-3 ~/.dotfiles/wsl/.config/
         echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         echo -e '\n Converting .dotfiles to LF endings....\n'
         echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
