@@ -125,7 +125,7 @@ alias distro="echo '' && uname -a && echo '' && lsb_release -a && echo ''"
 alias sudo="sudo "
 alias htop='sudo htop'
 alias kill="kill -9"
-alias update="sudo apt-get update && sudo apt-get upgrade"
+alias update="yes Y | sudo apt-get update && yes Y | sudo apt-get upgrade"
 alias upgrade="sudo do-release-upgrade"
 
 # EDITORS
