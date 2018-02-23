@@ -1,6 +1,6 @@
-###############################################################################
-######################### FUNCTIONS ###########################################
-###############################################################################
+################################################################################
+######################### FUNCTIONS ############################################
+################################################################################
 
 #   -------------------------------
 #   Helper Function
@@ -142,7 +142,7 @@ function word(){
 
 function coc (){
     echo -e '\n Opening Clash of Clans Bot....\n'
-    path='C:\Users\Todorov\Downloads\MyBot-MBR_v7.4.3\MyBot.run.exe'
+    path='C:\Users\Todorov\Downloads\MyBot-MBR_v7.4.4\MyBot.run.exe'
     timeout 1s cmd.exe /c $path MyVillage1 MEmu MEmu
 }
 
@@ -1215,18 +1215,9 @@ function win(){
     echo    '           6  | Delete a Service'
     echo    '       Shotcuts'
     echo    '           7  | Quick Access'
-    echo    '           8  | Start Menu & Taskbar Icons'
-    echo    '       Programs'
-    echo -e '           9  | Clean SysMenu Trash\n'
+    echo -e '           8  | Start Menu & Taskbar Icons\n'
     read -e -p "  Enter Option: " input
     echo
-
-    function sysmenu_clean(){
-        rm -rfv /mnt/d/Workspace/Portable\ Apps/SyMenu/ProgramFiles/SPSSuite/SyMenuSuite/_Trash/*
-        rm -rfv /mnt/d/Workspace/Portable\ Apps/SyMenu/ProgramFiles/SPSSuite/NirSoftSuite/_Trash/*
-        rm -rfv /mnt/d/Workspace/Portable\ Apps/SyMenu/ProgramFiles/SPSSuite/SysinternalsSuite/_Trash/*
-        clear
-    }
 
     function icons(){
         cd /mnt/d/Workspace/Portable\ Apps/By\ Category/Windows\ Tweaks/Syspin/
@@ -1252,7 +1243,7 @@ function win(){
             cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Task Manager.lnk" $tpin
             cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Windows Mobility Center.lnk" $tpin
             cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Registry Editor.lnk" $tpin
-            cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Command Prompt.lnk" $tpin
+            # cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Command Prompt.lnk" $tpin
             cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Ubuntu.lnk" $tpin
             # C:\Windows\explorer.exe shell:Appsfolder\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc!ubuntu
             cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Microsoft Edge.lnk" $tpin
@@ -1399,8 +1390,6 @@ function win(){
             qaccess ;;
         8)
             icons ;;
-        9)
-            sysmenu_clean ;;
         b)
             master ;;
         x)
@@ -2049,7 +2038,7 @@ function apps(){
         echo    '           16  IObit Advanced SystemCare'
         echo    '           17  IDM UltraCompare'
         echo    '           18  DVDFab'
-        echo    '           19  '
+        echo    '           19  Google Chrome'
         echo -e '\n   >>> Utilities\n'
         echo    '           20  7zip'
         echo    '           21  Gadwin PrintScreen'
@@ -2120,7 +2109,7 @@ function apps(){
             18)
                 cmd.exe /c start /D ""  && clear ;;
             19)
-                cmd.exe /c start /D ""  && clear ;;
+                cmd.exe /c start /D "C:\Program Files (x86)\Google\Chrome\Application" chrome.exe && clear ;;
             20)
                 cmd.exe /c start /D "C:\Program Files\7-Zip" 7zFM.exe && clear ;;
             21)
@@ -2162,6 +2151,39 @@ function apps(){
         esac
     }
 
+    function sysmenu_clean(){
+        rm -rfv /mnt/d/Workspace/Portable\ Apps/SyMenu/ProgramFiles/SPSSuite/SyMenuSuite/_Trash/*
+        rm -rfv /mnt/d/Workspace/Portable\ Apps/SyMenu/ProgramFiles/SPSSuite/NirSoftSuite/_Trash/*
+        rm -rfv /mnt/d/Workspace/Portable\ Apps/SyMenu/ProgramFiles/SPSSuite/SysinternalsSuite/_Trash/*
+        clear
+    }
+
+    function qbittorrent(){
+        rm -rfv /mnt/c/Users/Todorov/AppData/Local/qBittorrent
+        rm -rfv /mnt/c/Users/Todorov/AppData/Roaming/qBittorrent
+    }
+
+    function program_management(){
+        clear
+        echo -e '\n  Available Options:'
+        echo    '       x  | Exit'
+        echo -e '       b  | Go Back\n'
+        echo    "    1  | word                 | Open Word Documets"
+        echo    "    2  | sysmenu_clean        | Clean SysMenu Trash"
+        echo -e "    3  | qbittorrent          | Delete qBittorrent Config\n"
+        read -e -p "  Enter Option: " input
+        echo
+
+        case $input in
+            1|word)            word ;;
+            2|sysmenu_clean)   sysmenu_clean ;;
+            3|qbittorrent)     qbittorrent ;;
+            b)  apps ;;
+            x)  : && clear ;;
+            *)  program_management ;;
+        esac
+    }
+
     if [ -z $1 ] ; then
         clear
         echo -e '\n  Available Options:'
@@ -2169,13 +2191,13 @@ function apps(){
         echo -e '       b  | Go Back\n'
         echo    "    1  | portable_apps        | Portable"
         echo    "    2  | installed_apps       | Installed"
-        echo -e "    3  | word                 | Open Word Documets\n"
+        echo -e "    3  | program_management   | Program Management\n"
         read -e -p "  Enter Option: " input
         echo
         case $input in
-            1|portable_apps)   portable_apps ;;
-            2|installed_apps)  installed_apps ;;
-            3|word)            word ;;
+            1|portable_apps)       portable_apps ;;
+            2|installed_apps)      installed_apps ;;
+            3|program_management)  program_management ;;
             b)  master ;;
             x)  : && clear ;;
             *)  apps ;;
@@ -2184,6 +2206,7 @@ function apps(){
         case $1 in
             1)  portable_apps ;;
             2)  installed_apps ;;
+            3)  program_management ;;
             *)  apps ;;
         esac
     fi

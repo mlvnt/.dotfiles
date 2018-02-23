@@ -1,9 +1,9 @@
-###############################################################################
-# ALIASES                                                                     #
-###############################################################################
+################################################################################
+######################### ALIASES ##############################################
+################################################################################
 
 #   -------------------------------
-#   1.  DIRECTORIES
+#   DIRECTORIES
 #   -------------------------------
 
 # LS, DIR, Tree
@@ -16,14 +16,14 @@ alias tree='tree -lF'
 alias treei='tree -lhpuF'
 
 # CD
-cd() { builtin cd "$@"; ll; }               # Always list directory contents upon 'cd'
-alias cd..='cd ../'                         # Go back 1 directory level (for fast typers)
-alias ..='cd ../'                           # Go back 1 directory level
-alias ...='cd ../../'                       # Go back 2 directory levels
-alias .3='cd ../../../'                     # Go back 3 directory levels
-alias .4='cd ../../../../'                  # Go back 4 directory levels
-alias .5='cd ../../../../../'               # Go back 5 directory levels
-alias .6='cd ../../../../../../'            # Go back 6 directory levels
+cd() { builtin cd "$@"; ll; }         # Always list directory contents upon 'cd'
+alias cd..='cd ../'                   # Go back 1 directory level
+alias ..='cd ../'                     # Go back 1 directory level
+alias ...='cd ../../'                 # Go back 2 directory levels
+alias .3='cd ../../../'               # Go back 3 directory levels
+alias .4='cd ../../../../'            # Go back 4 directory levels
+alias .5='cd ../../../../../'         # Go back 5 directory levels
+alias .6='cd ../../../../../../'      # Go back 6 directory levels
 
 # SHORTCUTS
 alias home="cd ~"
@@ -46,7 +46,7 @@ alias uni="cd /mnt/d/Workspace/University/Course/Year\ 2\ -\ 2017-2018/"
 alias hex="/mnt/d/Workspace/University/Sport & Societies/Project Hex/Repository"
 
 #   -------------------------------
-#   3.  FILE MANAGEMENT
+#   FILE MANAGEMENT
 #   -------------------------------
 
 # ARCHIVES
@@ -103,7 +103,7 @@ alias vrc="sudo vim ~/.vimrc"
 alias scb="source ~/.bashrc && echo 'Shell config reloaded from ~/.bahrc'"
 alias scz="source ~/.zshrc && echo 'Shell config reloaded from ~/.zshrc'"
 alias scv="source ~/.vimrc && echo 'Shell config reloaded from ~/.vimrc'"
-alias sca="source ~/.*rc ~/.bash* ~/.oh-my-zsh-custom/* && clear"
+alias sca="source ~/.*rc ~/.bash* ~/.oh-my-zsh-custom/* && tmux source-file ~/.tmux* && clear"
 
 # File size
 alias fs="stat -f \"%z bytes\""
@@ -113,7 +113,7 @@ alias logs="cd ~/software/install_logs"
 alias logsc="rm ~/software/install_logs/*.txt"
 
 #   -------------------------------
-#   4.  PROGRAM MANAGEMENT
+#   PROGRAM MANAGEMENT
 #   -------------------------------
 
 # Stats
@@ -144,7 +144,7 @@ alias week='date +%V'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 #   -------------------------------
-#   5.  NETWORKING
+#   NETWORKING
 #   -------------------------------
 
 # Networking. IP address, dig, DNS
@@ -206,16 +206,21 @@ alias ms='sudo service mysql start && sudo mysql-workbench'
 alias mw='sudo mysql-workbench'
 alias mysql='sudo mysql -p'
 
+# Raspberry Pi
+# alias sshpi='ssh pi@raspberrypi.local'
+# alias pilocal='ping raspberrypi.local'
+alias sshpi='ssh pi@192.168.137.2'
+alias pingpi='cmd.exe /c ping -4 raspberrypi.local'
+
 #   -------------------------------
-#   6.  GIT
+#   GIT
 #   -------------------------------
 
-# Undo a `git push`
-alias undopush="git push -f origin HEAD^:master"
-alias git="sudo git"
+alias undopush="git push -f origin HEAD^:master"  # Undo a `git push`
+# alias git="sudo git"
 alias g="git"
 alias gf="git fetch && git pull"
-alias gac='git add -A && git commit && git push'
+alias gac='sudo git add -A && git commit && git push'
 alias ga='git add -A'
 alias gp='git push'
 alias gl='git pull'
@@ -225,10 +230,35 @@ alias gcl='git clone'
 alias gd='git diff'
 alias go='git checkout'
 alias gb='git branch'
+alias gbl='git blame'
 alias gbt=git_list_branches
 
 #   -------------------------------
-#   7.  WINDOWS
+#   TMUX
+#   -------------------------------
+
+alias tw='tmux new -s Workspace'
+alias tn='tmux new -s'
+alias tk='tmux kill-session -t'
+alias tka='tmux kill-server'
+alias tkw='tmux kill-window -t'
+alias td='tmux detach'
+alias ta='tmux attach'
+alias tat='tmux attach -t'
+alias ts='tmux switch -t'
+alias tl='tmux list-sessions'
+alias tlk='tmux list-keys'
+alias tlc='tmux list-commands'
+alias ti='tmux info'
+alias tsc='tmux source-file ~/.tmux.conf'
+alias tb='tmux break -t'
+alias tj='tmux join -t'
+alias trz='tmux resize'
+alias trnw='tmux rename-window -t'
+alias trns='tmux rename-session -t'
+
+#   -------------------------------
+#   WINDOWS
 #   -------------------------------
 
 # Opening Directories
@@ -257,6 +287,7 @@ alias techlist="o 'D:\Workspace\General\Tech\Equipment List\Tech_List.xlsx'"
 alias clothlist="o 'D:\Workspace\General\Essential\Clothing\Clothes_List.xlsx'"
 
 # Launch Applications
+alias cmdc='cmd.exe /c'
 alias mail="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\ThunderbirdPortable' ThunderbirdPortable.exe"
 alias torrent="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\qBittorrentPortable' qBittorrentPortable.exe"
 alias vpn="cmd.exe /c start /D 'C:\Program Files (x86)\PureVPN' purevpn.exe"
@@ -291,7 +322,7 @@ alias 4k="cmd.exe /c start /D 'C:\Program Files (x86)\4KDownload\4kvideodownload
 alias chrome="cmd.exe /c start /D 'C:\Program Files (x86)\Google\Chrome\Application' /MAX chrome.exe"
 
 #   -------------------------------
-#   8.  DESKTOP ENVIRONMENTS
+#   DESKTOP ENVIRONMENTS
 #   -------------------------------
 
 # XFCE

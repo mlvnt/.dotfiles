@@ -1,11 +1,8 @@
 #!/bin/bash
-#
 # Inspired by https://github.com/holman/dotfiles
-#
-
-###############################################################################
-#   SETUP                                                                     #
-###############################################################################
+################################################################################
+######################### SETUP ################################################
+################################################################################
 
 IGNORE=(
     ".git"
@@ -253,7 +250,7 @@ install_git () {
 
     src="$DOTFILES_ROOT/git/.gitignore"
     dst="$HOME/$(basename "$src")"
-    link_file "$src" "$dst"     
+    link_file "$src" "$dst"
 }
 
 # install_emacs () {
@@ -264,18 +261,18 @@ install_git () {
 #     link_file "$src" "$dst"
 # }
 
-# install_tmux () {
-#     info 'installing tmux'
-#     local overwrite_all=true backup_all=false skip_all=false
+install_tmux () {
+    info 'installing tmux'
+    local overwrite_all=true backup_all=false skip_all=false
 
-#     src="$DOTFILES_ROOT/tmux/.tmux.conf"
-#     dst="$HOME/$(basename "$src")"
-#     link_file "$src" "$dst"
+    src="$DOTFILES_ROOT/tmux/.tmux.conf"
+    dst="$HOME/$(basename "$src")"
+    link_file "$src" "$dst"
 
-#     src="$DOTFILES_ROOT/tmux/.tmuxcolors.conf"
-#     dst="$HOME/$(basename "$src")"
-#     link_file "$src" "$dst"
-# }
+    src="$DOTFILES_ROOT/tmux/.tmuxcolors.conf"
+    dst="$HOME/$(basename "$src")"
+    link_file "$src" "$dst"
+}
 
 # install_curl () {
 #     info 'installing curl'
@@ -317,8 +314,8 @@ echo ''
 install_bash
 # echo ''
 # install_emacs
-# echo ''
-# install_tmux
+echo ''
+install_tmux
 # echo ''
 # install_curl
 # echo ''

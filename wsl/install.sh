@@ -195,6 +195,16 @@ dpkg -l | grep -qw openjdk-9-jdk-headless && printf '\n            It'\''s alrea
 printf '\n      >>> Setting default to jdk-8....\n'
 yes 1 |sudo update-alternatives --config java 
 
+##### C #####
+printf '\n      >>> Installing cmake....\n'
+dpkg -l | grep -qw cmake && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq cmake
+
+printf '\n      >>> Installing gcc....\n'
+dpkg -l | grep -qw gcc && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq gcc
+
+printf '\n      >>> Installing clang....\n'
+dpkg -l | grep -qw clang && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq clang
+
 ##### OTHER #####
 printf '\n      >>> Installing php7.0-cli....\n'
 dpkg -l | grep -qw php7.0-cli && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq php7.0-cli
@@ -301,6 +311,12 @@ dpkg -l | grep -qw xclip && printf '\n            It'\''s already installed.\n' 
 
 printf '\n      >>> Installing lsb-release....\n'
 dpkg -l | grep -qw lsb-release && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq lsb-release
+
+printf '\n      >>> Installing most....\n'
+dpkg -l | grep -qw most && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq most
+
+printf '\n      >>> Installing irssi....\n'
+dpkg -l | grep -qw irssi && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq irssi
 
 #   -------------------------------
 #   NEOFETCH

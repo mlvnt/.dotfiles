@@ -3,7 +3,7 @@
 #   ENVIRONMETAL VARIABLES                                                    #
 ###############################################################################
 
-# PATH variable
+# PATH
 export PATH="$PATH:/bin/"
 export PATH="$PATH:/usr/bin/"
 export PATH="$PATH:/usr/sbin/"
@@ -14,20 +14,12 @@ export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:/mnt/c/Users/Todorov/Downloads/VSCode-win32-x64-1.17.0/bin"
 export PATH="$PATH:/usr/lib/chromium-browser"
 
-# Language
-export LANG=en_US.UTF-8 sublime_text
-export LC_CTYPE=en_US.UTF-8 sublime_text
+# PAGER
+export PAGER="most"
 
-# # exporer.exe
-# export PATH="$PATH:/mnt/c/Windows/SysWOW64"
-# export PATH="$PATH::/mnt/c/Windows/WinSxS/wow64_microsoft-windows-explorer_31bf3856ad364e35_10.0.16299.15_none_7ef57d571f41a3e4"
-# export PATH="$PATH::mnt/c/Windows:/mnt/c/Windows/WinSxS/amd64_microsoft-windows-explorer_31bf3856ad364e35_10.0.16299.15_none_74a0d304eae0e1e9"
-
-# # cmd.exe
-# export PATH="$PATH:/mnt/c/Windows/WinSxS/wow64_microsoft-windows-commandprompt_31bf3856ad364e35_10.0.16299.15_none_b84d9d01bfe1be94"
-# export PATH="$PATH::/mnt/c/Windows/WinSxS/wow64_microsoft-windows-commandprompt_31bf3856ad364e35_10.0.16299.15_none_b84d9d01bfe1be94"
-
-# export PATH=$PATH:"/mnt/d/"
+# LANGUAGE
+# export LANG=en_US.UTF-8 sublime_text
+# export LC_CTYPE=en_US.UTF-8 sublime_text
 
 # # Set Man Pages
 # export MANPATH="$(brew --prefix coreutils)/libexec/gnuman:$MANPATH"
@@ -59,8 +51,8 @@ fi
 # RVM
 # source /home/todorov/.rvm/scripts/rvm
 
-# # Load the shell dotfiles, and then some:
-# # * ~/.private can be used for other settings you don’t want to commit.
+# Load the shell dotfiles, and then some:
+# * ~/.private can be used for other settings you don’t want to commit.
 # for file in ~/.{private,bash_prompt,exports,aliases,functions,vimrc}; do
 #     [ -r "$file" ] && [ -f "$file" ] && source "$file";
 # done;
@@ -72,12 +64,24 @@ fi
 # X Server Multi-Window
 # multis
 
-# Windows Desktop
-# tempe
-# npp
-# chrome
-# 4k
-# chrome
+function tmux_workspace(){
+    SESSION_NAME="workspace"
+    tmux new -d -s ${SESSION_NAME}
+    tmux rename-window 'w0'
+    tmux split-window -h -p 50
+    tmux new-window -n w1
+    tmux split-window -h -p 50
+    tmux new-window -n w3
+    tmux split-window -v -p 50
+    tmux new-window -n w4
+    tmux split-window -v -p 50
+    tmux new-window -n w5
+    tmux select-window -t 0
+    tmux select-pane -t 0
+    tmux attach -t ${SESSION_NAME}
+}
+alias run_tmux='tmux_workspace'
+tmux ls | grep -qw workspace || run_tmux
 
 ###############################################################################
 #   TWEAKS                                                                    #
