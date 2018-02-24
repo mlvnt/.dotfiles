@@ -117,21 +117,22 @@ alias logsc="rm ~/software/install_logs/*.txt"
 #   -------------------------------
 
 # Stats
-alias ram="free -ht"
+alias ram='free -ht'
 alias stats="echo '' && inxi -xxx && echo '' && free -ht && echo ''"
 alias distro="echo '' && uname -a && echo '' && lsb_release -a && echo ''"
 
 # Enable aliases to be sudo’ed
-alias sudo="sudo "
+alias sudo='sudo '
 alias htop='sudo htop'
-alias kill="kill -9"
-alias update="yes Y | sudo apt-get update && yes Y | sudo apt-get upgrade"
-alias upgrade="sudo do-release-upgrade"
+alias kill='kill -9'
+alias update='yes Y | sudo apt-get update && yes Y | sudo apt-get upgrade'
+alias upgrade='sudo do-release-upgrade'
+alias fixinstall='sudo apt-get -f install'
 
 # EDITORS
-alias v="vim"
+alias v='vim'
 alias c='clear'
-alias jupyter="sudo jupyter notebook --allow-root"
+alias jupyter='sudo jupyter notebook --allow-root'
 alias edit='sudo subl'
 alias subl='sudo subl'
 alias vim='sudo vim'
@@ -296,6 +297,7 @@ alias dashlane="cmd.exe /c start /D 'C:\Users\Todorov\AppData\Roaming\Dashlane' 
 alias memu="cmd.exe /c start /D 'C:\ProgramData\Microvirt\MEmu' MEmuConsole.exe MEmu"
 alias photoshop="cmd.exe /c start /D 'C:\Program Files\Adobe\Adobe Photoshop CC 2017' Photoshop.exe"
 alias firefox="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\FirefoxPortable' FirefoxPortable.exe"
+alias realvnc="~/software/VNC-Viewer-6.17.1113-Linux-x64"
 # alias chromium-browser='sudo chromium-browser --no-sandbox'
 
 # Clipboard

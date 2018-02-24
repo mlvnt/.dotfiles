@@ -1,7 +1,5 @@
 #!/bin/bash
-
 printf "\n      Runtime: $(date) @ $(hostname)\n\n"
-
 #   -------------------------------
 #   INSTALL RUNTIMES
 #   -------------------------------
@@ -216,107 +214,62 @@ dpkg -l | grep -qw ghostscript && printf '\n            It'\''s already installe
 #   INSTALL TOOLS-NON-GUI
 #   -------------------------------
 
-printf '\n      >>> Installing fontconfig....\n'
-dpkg -l | grep -qw fontconfig && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq fontconfig
+appz=(
+    "fontconfig"
+    "htop"
+    "tree"
+    "pandoc"
+    "gparted"
+    "nano"
+    "tar"
+    "man"
+    "inxi"
+    "ffmpeg"
+    "mc"
+    "make"
+    "graphviz"
+    "tmux"
+    "emacs"
+    "zip"
+    "unzip"
+    "pcregrep"
+    "ngrep"
+    "lm-sensors"
+    "conky"
+    "meld"
+    "vnstat"
+    "moreutils"
+    "ncdu"
+    "pv"
+    "rsync"
+    "luckybackup"
+    "espeak"
+    "xclip"
+    "lsb-release"
+    "most"
+    "irssi"
+    "xinit"
+    "gnome-keyring"
+    "lsof"
+    # "florence"
+    "imagemagick"
+    )
 
-printf '\n      >>> Installing htop....\n'
-dpkg -l | grep -qw htop && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq htop
+installed=$(dpkg -l | grep '^.i')
+for appzs in "${appz[@]}"
+do :
+    printf '\n      >>> Installing '$appzs'....\n'
+    echo $installed | grep -qw $appzs && printf "\n            $appzs is already installed\n" || sudo apt-get install -yyq $appzs
+done
 
-printf '\n      >>> Installing tree....\n'
-dpkg -l | grep -qw tree && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq tree
-
-printf '\n      >>> Installing pandoc....\n'
-dpkg -l | grep -qw pandoc && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq pandoc
-
-printf '\n      >>> Installing gparted....\n'
-dpkg -l | grep -qw gparted && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq gparted
-
-printf '\n      >>> Installing nano....\n'
-dpkg -l | grep -qw nano && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq nano
-
-printf '\n      >>> Installing tar....\n'
-dpkg -l | grep -qw tar && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq tar
-
-printf '\n      >>> Installing man....\n'
-dpkg -l | grep -qw man && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq man
-
-printf '\n      >>> Installing inxi....\n'
-dpkg -l | grep -qw inxi && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq inxi
-
-printf '\n      >>> Installing ffmpeg....\n'
-dpkg -l | grep -qw ffmpeg && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq ffmpeg
-
-printf '\n      >>> Installing mc....\n'
-dpkg -l | grep -qw mc && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq mc
-
-printf '\n      >>> Installing make....\n'
-dpkg -l | grep -qw make && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq make
-
-printf '\n      >>> Installing graphviz....\n'
-dpkg -l | grep -qw graphviz && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq graphviz
-
-printf '\n      >>> Installing tee....\n'
-which tee && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq tee
-
-printf '\n      >>> Installing tmux....\n'
-dpkg -l | grep -qw tmux && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq tmux
-
-printf '\n      >>> Installing emacs....\n'
-dpkg -l | grep -qw emacs && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq emacs
-
-printf '\n      >>> Installing zip....\n'
-dpkg -l | grep -qw zip && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq zip
-
-printf '\n      >>> Installing unzip....\n'
-dpkg -l | grep -qw unzip && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq unzip
-
-printf '\n      >>> Installing pcregrep....\n'
-dpkg -l | grep -qw pcregrep && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq pcregrep
-
-printf '\n      >>> Installing ngrep....\n'
-dpkg -l | grep -qw ngrep && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq ngrep
-
-printf '\n      >>> Installing lm-sensors....\n'
-dpkg -l | grep -qw lm-sensors && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq lm-sensors
-
-printf '\n      >>> Installing conky....\n'
-dpkg -l | grep -qw conky && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq conky
-
-printf '\n      >>> Installing meld....\n'
-dpkg -l | grep -qw meld && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq meld
-
-printf '\n      >>> Installing vnstat....\n'
-dpkg -l | grep -qw vnstat && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq vnstat
-
-printf '\n      >>> Installing moreutils....\n'
-dpkg -l | grep -qw moreutils && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq moreutils
-
-printf '\n      >>> Installing ncdu....\n'
-dpkg -l | grep -qw ncdu && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq ncdu
-
-printf '\n      >>> Installing pv....\n'
-dpkg -l | grep -qw pv && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq pv
-
-printf '\n      >>> Installing rsync....\n'
-dpkg -l | grep -qw rsync && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq rsync
-
-printf '\n      >>> Installing luckybackup....\n'
-dpkg -l | grep -qw luckybackup && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq luckybackup
-
-printf '\n      >>> Installing espeak....\n'
-dpkg -l | grep -qw espeak && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq espeak
-
-printf '\n      >>> Installing xclip....\n'
-dpkg -l | grep -qw xclip && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq xclip
-
-printf '\n      >>> Installing lsb-release....\n'
-dpkg -l | grep -qw lsb-release && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq lsb-release
-
-printf '\n      >>> Installing most....\n'
-dpkg -l | grep -qw most && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq most
-
-printf '\n      >>> Installing irssi....\n'
-dpkg -l | grep -qw irssi && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq irssi
+apppz=(
+    "tee"
+    )
+for appzs in "${apppz[@]}"
+do :
+    printf '\n      >>> Installing '$appzs'....\n'
+    which $appzs | grep -qw $appzs && printf "\n            $appzs is already installed\n" || sudo apt-get install -yyq $appzs
+done
 
 #   -------------------------------
 #   NEOFETCH
@@ -340,27 +293,27 @@ which neofetch | grep -qw neofetch && printf '\n            It'\''s already inst
 #   IMAGEMAGICK
 #   -------------------------------
 
-printf '\n      >>> Installing ImageMagick....\n'
-function imagemagicks(){
-    name='ImageMagick-7.0.7-22.tar.bz2'
-    yes Y | sudo apt-get install build-essential checkinstall \
-                 libx11-dev libxext-dev zlib1g-dev libpng12-dev \
-                 libjpeg-dev libfreetype6-dev libxml2-dev
-    sudo apt-get build-dep imagemagick
-    mkdir -v $HOME/imagemagick_build && cd $HOME/imagemagick_build
-    wget http://www.imagemagick.org/download/"$name" && \
-    tar xzvf "$name" && cd ImageMagick-7.0.7-22 && ./configure && make && \
-    sudo checkinstall -D --install=yes --fstrans=no --pakdir "$HOME/imagemagick_build" \
-         --pkgname imagemagick --backup=no --deldoc=yes --deldesc=yes --delspec=yes --default \
-         --pkgversion "7.0.7-22" && \
-    make distclean && sudo ldconfig
-    sudo apt update
-    yes Y | sudo apt upgrade
-    cd ~/
-    sudo mv -v ~/imagemagick_build ~/software
-    rm -rfv ~/ImageMagick*
-}
-dpkg -l | grep -qw imagemagick && printf '\n            It'\''s already installed.\n' || imagemagicks
+# printf '\n      >>> Installing ImageMagick....\n'
+# function imagemagicks(){
+#     name='ImageMagick-7.0.7-22.tar.bz2'
+#     yes Y | sudo apt-get install build-essential checkinstall \
+#                  libx11-dev libxext-dev zlib1g-dev libpng12-dev \
+#                  libjpeg-dev libfreetype6-dev libxml2-dev
+#     sudo apt-get build-dep imagemagick
+#     mkdir -v $HOME/imagemagick_build && cd $HOME/imagemagick_build
+#     wget http://www.imagemagick.org/download/"$name" && \
+#     tar xzvf "$name" && cd ImageMagick-7.0.7-22 && ./configure && make && \
+#     sudo checkinstall -D --install=yes --fstrans=no --pakdir "$HOME/imagemagick_build" \
+#          --pkgname imagemagick --backup=no --deldoc=yes --deldesc=yes --delspec=yes --default \
+#          --pkgversion "7.0.7-22" && \
+#     make distclean && sudo ldconfig
+#     sudo apt update
+#     yes Y | sudo apt upgrade
+#     cd ~/
+#     sudo mv -v ~/imagemagick_build ~/software
+#     rm -rfv ~/ImageMagick*
+# }
+# dpkg -l | grep -qw imagemagick && printf '\n            It'\''s already installed.\n' || imagemagicks
 # sudo apt remove --purge 'imagemagick*'
 
 # convert img.png -resize 24X24 img.ico
@@ -382,49 +335,50 @@ dpkg -l | grep -qw imagemagick && printf '\n            It'\''s already installe
 #   NET TOOLS
 #   -------------------------------
 
-printf '\n      >>> Installing curl....\n'
-dpkg -l | grep -qw curl && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq curl
+net_apps=(
+    "curl"
+    "wget"
+    "whois"
+    "ipmiutil"
+    "nmap"
+    "sshpass"
+    # "sshfs"
+    "gpa"
+    "gnupg2"
+    # "wireshark"
+    "network-manager"
+    "net-tools"
+    "wireless-tools"
+    "libwww-perl"
+    "avahi-daemon"
+    "libnss3"
+    "libnss3-dbg"
+    "libnss3-dev"
+    "libnss3-tools"
+    "iptables"
+    "iproute2"
+    "ufw"
+    # "gufw"
+    )
 
-printf '\n      >>> Installing wget....\n'
-dpkg -l | grep -qw wget && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq wget
-
-printf '\n      >>> Installing whois....\n'
-dpkg -l | grep -qw whois && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq whois
-
-printf '\n      >>> Installing network-manager....\n'
-dpkg -l | grep -qw network-manager && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq network-manager
-
-printf '\n      >>> Installing ipmiutil....\n'
-dpkg -l | grep -qw ipmiutil && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq ipmiutil
-
-printf '\n      >>> Installing net-tools....\n'
-dpkg -l | grep -qw net-tools && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq net-tools
-
-printf '\n      >>> Installing wireless-tools....\n'
-dpkg -l | grep -qw wireless-tools && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq wireless-tools
-
-printf '\n      >>> Installing libwww-perl....\n'
-dpkg -l | grep -qw wireless-tools && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq libwww-perl
-
-printf '\n      >>> Installing avahi-daemon....\n'
-dpkg -l | grep -qw avahi-daemon && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq avahi-daemon
-
-printf '\n      >>> Installing nmap....\n'
-dpkg -l | grep -qw nmap && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq nmap
-
-printf '\n      >>> Installing sshpass....\n'
-dpkg -l | grep -qw sshpass && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq sshpass
-
-# printf '\n      >>> Installing sshfs....\n'
-# dpkg -l | grep -qw sshfs && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq sshfs
-
-printf '\n      >>> Installing gpg....\n'
-dpkg -l | grep -qw gpg && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq gpa gnupg2
-
-# printf '\n      >>> Installing sudo apt-get install wireshark....\n'
-# dpkg -l | grep -qw wireshark && printf '\n            It'\''s already installed.\n' || sudo apt-get install wireshark
+for appz in "${net_apps[@]}"
+do :
+    printf '\n      >>> Installing '$appz'....\n'
+    echo $installed | grep -qw $appz && printf "\n            $appz is already installed\n" || sudo apt-get install -yyq $appz
+done
 
 ##### DOCKER #####
+
+#   -------------------------------
+#   REALVNC
+#   -------------------------------
+
+function realvnc_install(){
+    name='VNC-Viewer-6.17.1113-Linux-x64'
+    wget https://www.realvnc.com/download/file/viewer.files/$name
+    mv ./$name ~/software/ && sudo chmod +x ~/software/$name
+}
+realvnc_install
 
 #   -------------------------------
 #   TOOLS-GUI
