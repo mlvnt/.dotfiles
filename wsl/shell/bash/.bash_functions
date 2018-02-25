@@ -998,7 +998,7 @@ function dots(){
     echo
     if [ $input -eq 1 ] ; then
         dotfiles && gac
-        cd ~/.dotfiles/ && git stash && gl
+        cd ~/.dotfiles/ && git stash && gf
         cd ~/.dotfiles/wsl/ && sudo chmod -Rv +x ./*.sh ./bin/*
         sca && clear
     elif [ $input -eq 2 ] ; then
@@ -2182,7 +2182,7 @@ function word(){
         for (( i=1; i<=input; i++ ))
         do
            echo "   Opening word document $i...."
-           wordn && sleep 1s
+           wordn && sleep 0.5s
         done
         clear
     else 
@@ -2192,7 +2192,7 @@ function word(){
             for (( i=1; i<=$1; i++ ))
             do
                echo "   Opening word document $i...."
-               wordn && sleep 1s
+               wordn && sleep 0.5s
             done
             clear
         else

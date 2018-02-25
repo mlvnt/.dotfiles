@@ -103,7 +103,7 @@ alias vrc="sudo vim ~/.vimrc"
 alias scb="source ~/.bashrc && echo 'Shell config reloaded from ~/.bahrc'"
 alias scz="source ~/.zshrc && echo 'Shell config reloaded from ~/.zshrc'"
 alias scv="source ~/.vimrc && echo 'Shell config reloaded from ~/.vimrc'"
-alias sca="source ~/.*rc ~/.bash* ~/.oh-my-zsh-custom/* && tmux source-file ~/.tmux* && clear"
+alias sca="source ~/.*rc ~/.bash* ~/.oh-my-zsh-custom/* && tmux source-file ~/.tmux.conf && clear"
 
 # File size
 alias fs="stat -f \"%z bytes\""
