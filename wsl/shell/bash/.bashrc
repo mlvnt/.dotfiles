@@ -71,9 +71,9 @@ function tmux_workspace(){
     tmux new-window -n w2
     tmux split-window -v -p 50
     tmux new-window -n w3
-    tmux split-window -h -p 50
+    tmux split-window -v -p 50
     tmux new-window -n w4
-    tmux split-window -h -p 50
+    tmux split-window -v -p 50
     tmux select-window -t 0
     # tmux select-pane -t 0
     tmux attach -t ${SESSION_NAME}

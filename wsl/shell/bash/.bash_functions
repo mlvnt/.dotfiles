@@ -3,7 +3,7 @@
 ################################################################################
 
 #   -------------------------------
-#   Helper Function
+#   MASTER FUNCTION
 #   -------------------------------
 
 function master() {
@@ -38,128 +38,7 @@ function master() {
 }
 
 #   -------------------------------
-#   Daily Work
-#   -------------------------------
-
-function mywork(){
-    clear
-    echo -e '\n  Available Options:'
-    echo    '       x  | Exit'
-    echo -e '       b  | Go Back\n'
-    echo    "    1  | todo                | TODOs"
-    echo    "    2  | blog                | Blog"
-    echo    "    3  | money               | Money"
-    echo    "    4  | series              | Series"
-    echo -e "    5  | coc                 | Start Clash of Clans Bot\n"
-    read -e -p "  Enter Option: " input
-    echo
-
-    function money(){
-        path='/mnt/d/Workspace/Projects/Programing/Scripts/Scripts/Python/Money'
-        clear && python3 $path/bg.py && python3 $path/uk.py
-    }
-
-    function series(){
-        path='/mnt/d/Workspace/Projects/Programing/Scripts/Scripts/Python/Web'
-        clear && python3 $path/series.py
-    }
-
-    case $input in
-        1|todo)    todo ;;
-        2|blog)    blog ;;
-        3|money)   money ;;
-        4|series)  series ;;
-        5|coc)     coc ;;
-        b)  master ;;
-        x) : && clear ;;
-        *) mywork ;;
-    esac
-}
-
-#   -------------------------------
-#   System Management
-#   -------------------------------
-
-function manage(){
-    clear
-    echo -e '\n  Available Options:'
-    echo    '       x  | Exit'
-    echo -e '       b  | Go Back\n'
-    echo    "    1  | m3u                 | Create m3u Playlists"
-    echo    "    2  | bin                 | Manage the Trash"
-    echo    "    3  | move                | Move, Copy"
-    echo    "    4  | links               | Manage Links"
-    echo -e "    5  | handles             | Manage File Handles / Descriptors\n"
-    read -e -p "  Enter Option: " input
-    echo
-
-    case $input in
-        1|m3u)      m3u ;;
-        2|bin)      bin ;;
-        3|move)     move ;;
-        4|links)    links ;;
-        5|handles)  handles ;;
-        b)  master ;;
-        x) : && clear ;;
-        *) manage ;;
-    esac
-}
-
-#   -------------------------------
-#   Open multiple Word Documets
-#   -------------------------------
-
-function word(){
-    if [ -z $1 ] ; then 
-        clear && echo
-        read -e -p "  Enter № of word documents to open: " input
-        echo
-        for (( i=1; i<=input; i++ ))
-        do
-           echo "   Opening word document $i...."
-           wordn && sleep 1s
-        done
-        clear
-    else 
-        re='^[0-9]+$'
-        if [[ $1 =~ $re ]] ; then
-            clear && echo
-            for (( i=1; i<=$1; i++ ))
-            do
-               echo "   Opening word document $i...."
-               wordn && sleep 1s
-            done
-            clear
-        else
-            word
-        fi
-    fi
-}
-
-#   -------------------------------
-#   Start Clash of Clans Bot
-#   -------------------------------
-
-function coc (){
-    echo -e '\n Opening Clash of Clans Bot....\n'
-    path='C:\Users\Todorov\Downloads\MyBot-MBR_v7.4.4\MyBot.run.exe'
-    timeout 1s cmd.exe /c $path MyVillage1 MEmu MEmu
-}
-
-#   -------------------------------
-#   Create m3u Playlists
-#   -------------------------------
-
-function m3u() {
-    echo -e '\n Tracklist \n    '_tracklist[ ${PWD##*/} ].m3u'\n Created....\n'
-    find . -maxdepth 1 -not -type d -type f \( ! -iname "*.m3u" ! -iname "*.jpg" ! -iname "*.png" ! -iname "*.html" ! -iname "*.url" ! -iname "*.pdf" ! -iname "*.log" \) -printf "%P\n" >> "_tracklist[ ${PWD##*/} ].m3u"
-    o "_tracklist[ ${PWD##*/} ].m3u"
-    # find . -maxdepth 1 -not -type d -type f \( ! -iname "*.m3u" ! -iname "*.jpg" ! -iname "*.png" ! -iname "*.html" ! -iname "*.url" ! -iname "*.pdf" \) | sed 's|./||' >> "_tracklist[ ${PWD##*/} ].m3u"
-    # dir -AN1I "*.jpg" -I "*.png" -I "*.html" -I "*.url" -I "*.m3u" -I "*.pdf" >> "_tracklist[ ${PWD##*/} ].m3u"
-}
-
-#   -------------------------------
-#   Linux Managemet
+#   LINUX MANAGEMET
 #   -------------------------------
 
 function mkd() {
@@ -516,6 +395,33 @@ function linx() {
 }
 
 #   -------------------------------
+#   SYSTEM MANAGEMENT
+#   -------------------------------
+
+function manage(){
+    clear
+    echo -e '\n  Available Options:'
+    echo    '       x  | Exit'
+    echo -e '       b  | Go Back\n'
+    echo    "    1  | bin                 | Manage the Trash"
+    echo    "    2  | move                | Move, Copy"
+    echo    "    3  | links               | Manage Links"
+    echo -e "    4  | handles             | Manage File Handles / Descriptors\n"
+    read -e -p "  Enter Option: " input
+    echo
+
+    case $input in
+        1|bin)      bin ;;
+        2|move)     move ;;
+        3|links)    links ;;
+        4|handles)  handles ;;
+        b)  master ;;
+        x) : && clear ;;
+        *) manage ;;
+    esac
+}
+
+#   -------------------------------
 #   Empty Trash
 #   -------------------------------
 
@@ -605,7 +511,7 @@ function bin (){
 }
 
 #   -------------------------------
-#   Manage Links
+#   MANAGE LINKS
 #   -------------------------------
 
 function links (){
@@ -683,7 +589,7 @@ function links (){
 }
 
 #   -------------------------------
-#   Move, Copy
+#   MOVE, COPY
 #   -------------------------------
 
 function move (){
@@ -1078,7 +984,7 @@ function move (){
 }
 
 #   -------------------------------
-#   Update .dotfiles
+#   UPDATE .DOTFILES
 #   -------------------------------
 
 function dots(){
@@ -1127,7 +1033,7 @@ function dots(){
 }
 
 #   -------------------------------
-#   Manage File Handles / Descriptors
+#   MANAGE FILE HANDLES / DESCRIPTORS
 #   -------------------------------
 
 function handles(){
@@ -1197,7 +1103,7 @@ function handles(){
 }
 
 #   -------------------------------
-#   Windows Managemet
+#   WINDOWS MANAGEMET
 #   -------------------------------
 
 function win(){
@@ -1401,7 +1307,56 @@ function win(){
 }
 
 #   -------------------------------
-#   Manage my Blog
+#   DAILY WORK
+#   -------------------------------
+
+function mywork(){
+    clear
+    echo -e '\n  Available Options:'
+    echo    '       x  | Exit'
+    echo -e '       b  | Go Back\n'
+    echo    "    1  | todo                | TODOs"
+    echo    "    2  | blog                | Blog"
+    echo    "    3  | money               | Money"
+    echo    "    4  | series              | Series"
+    echo -e "    5  | coc                 | Start Clash of Clans Bot\n"
+    read -e -p "  Enter Option: " input
+    echo
+
+    function money(){
+        path='/mnt/d/Workspace/Projects/Programing/Scripts/Scripts/Python/Money'
+        clear && python3 $path/bg.py && python3 $path/uk.py
+    }
+
+    function series(){
+        path='/mnt/d/Workspace/Projects/Programing/Scripts/Scripts/Python/Web'
+        clear && python3 $path/series.py
+    }
+
+    case $input in
+        1|todo)    todo ;;
+        2|blog)    blog ;;
+        3|money)   money ;;
+        4|series)  series ;;
+        5|coc)     coc ;;
+        b)  master ;;
+        x) : && clear ;;
+        *) mywork ;;
+    esac
+}
+
+#   -------------------------------
+#   START CLASH OF CLANS BOT
+#   -------------------------------
+
+function coc (){
+    echo -e '\n Opening Clash of Clans Bot....\n'
+    path='C:\Users\Todorov\Downloads\MyBot-MBR_v7.4.4\MyBot.run.exe'
+    timeout 1s cmd.exe /c $path MyVillage1 MEmu MEmu
+}
+
+#   -------------------------------
+#   MANAGE MY BLOG
 #   -------------------------------
 
 function blog(){
@@ -1465,7 +1420,7 @@ function blog(){
 }
 
 #   -------------------------------
-#   Manage my TODOs
+#   MANAGE MY TODOS
 #   -------------------------------
 
 function todo(){
@@ -1657,7 +1612,7 @@ function todo(){
 }
 
 #   -------------------------------
-#   My Programs
+#   MY PROGRAMS
 #   -------------------------------
 
 function apps(){
@@ -2170,15 +2125,17 @@ function apps(){
         echo    '       x  | Exit'
         echo -e '       b  | Go Back\n'
         echo    "    1  | word                 | Open Word Documets"
-        echo    "    2  | sysmenu_clean        | Clean SysMenu Trash"
-        echo -e "    3  | qbittorrent          | Delete qBittorrent Config\n"
+        echo    "    2  | m3u                  | Create m3u Playlists"
+        echo    "    3  | sysmenu_clean        | Clean SysMenu Trash"
+        echo -e "    4  | qbittorrent          | Delete qBittorrent Config\n"
         read -e -p "  Enter Option: " input
         echo
 
         case $input in
             1|word)            word ;;
-            2|sysmenu_clean)   sysmenu_clean ;;
-            3|qbittorrent)     qbittorrent ;;
+            2|m3u)             m3u ;;
+            3|sysmenu_clean)   sysmenu_clean ;;
+            4|qbittorrent)     qbittorrent ;;
             b)  apps ;;
             x)  : && clear ;;
             *)  program_management ;;
@@ -2211,6 +2168,49 @@ function apps(){
             *)  apps ;;
         esac
     fi
+}
+
+#   -------------------------------
+#   OPEN MULTIPLE WORD DOCUMETS
+#   -------------------------------
+
+function word(){
+    if [ -z $1 ] ; then 
+        clear && echo
+        read -e -p "  Enter № of word documents to open: " input
+        echo
+        for (( i=1; i<=input; i++ ))
+        do
+           echo "   Opening word document $i...."
+           wordn && sleep 1s
+        done
+        clear
+    else 
+        re='^[0-9]+$'
+        if [[ $1 =~ $re ]] ; then
+            clear && echo
+            for (( i=1; i<=$1; i++ ))
+            do
+               echo "   Opening word document $i...."
+               wordn && sleep 1s
+            done
+            clear
+        else
+            word
+        fi
+    fi
+}
+
+#   -------------------------------
+#   CREATE M3U PLAYLISTS
+#   -------------------------------
+
+function m3u() {
+    echo -e '\n Tracklist \n    '_tracklist[ ${PWD##*/} ].m3u'\n Created....\n'
+    find . -maxdepth 1 -not -type d -type f \( ! -iname "*.m3u" ! -iname "*.jpg" ! -iname "*.png" ! -iname "*.html" ! -iname "*.url" ! -iname "*.pdf" ! -iname "*.log" \) -printf "%P\n" >> "_tracklist[ ${PWD##*/} ].m3u"
+    o "_tracklist[ ${PWD##*/} ].m3u"
+    # find . -maxdepth 1 -not -type d -type f \( ! -iname "*.m3u" ! -iname "*.jpg" ! -iname "*.png" ! -iname "*.html" ! -iname "*.url" ! -iname "*.pdf" \) | sed 's|./||' >> "_tracklist[ ${PWD##*/} ].m3u"
+    # dir -AN1I "*.jpg" -I "*.png" -I "*.html" -I "*.url" -I "*.m3u" -I "*.pdf" >> "_tracklist[ ${PWD##*/} ].m3u"
 }
 
 #=========================================================================================
