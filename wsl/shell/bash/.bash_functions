@@ -1360,63 +1360,80 @@ function coc (){
 #   -------------------------------
 
 function blog(){
-    clear
-    echo -e '\n  Available Options:'
-    echo    '           x  | Exit'
-    echo    '           b  | Go Back'
-    echo    '       My Blog:'
-    echo    '           1  | Go to'
-    echo    '           2  | Go to & Run'
-    echo    '           3  | Go to & Run on Web Server'
-    echo    '           4  | Clean Bake'
-    echo    '           5  | New Post'
-    echo    '       Game Site:'
-    echo    '           6  | Go to'
-    echo    '           7  | Go to & Run'
-    echo    '       Manage:'
-    echo    '           8  | Rsync'
-    echo -e '           9  | SFTP\n'
-    read -e -p "  Enter Option: " input
-    echo
-
     gamespath="/mnt/d/Workspace/General/Personal/My Blog/Blog/bgrebbels.mlvnt.com/public_html"
     blogpath="/mnt/d/Workspace/General/Personal/My Blog/Blog/mlvnt.com/mvlnt"
     content="/mnt/d/Workspace/General/Personal/My Blog/Blog/mlvnt.com/mlvnt/content"
     bakedpath="/mnt/d/Workspace/General/Personal/My Blog/Blog/mlvnt.com/public_html"
     filezilladir="D:\Workspace\Portable Apps\PortableApps.com\PortableApps\FileZillaPortable"
 
-    case $input in
-        1)
-            cd "$blogpath" ;;
-        2)
-            cd "$blogpath" && hugos ;;
-        3)
-            rm -rfv "$bakedpath" && mkdir -p -v "$bakedpath"
-            cd "$blogpath" && hugo 
-            cd "$bakedpath" && caddy ;;
-        4)
-            rm -rfv "$bakedpath" && mkdir -p -v "$bakedpath" 
-            cd "$blogpath" && hugo ;;
-        5)
-            clear && ls "$content" && echo
-            read -e -p "  Post? " post
-            read -e -p "  Type? " types
-            cd "$blogpath" && echo && hugo new $post $types && echo ;;
-        6)
-            cd "$gamespath" ;;
-        7)
-            cd "$gamespath" && caddy ;;
-        8)
-            # rsync -a ~/testfile todorov@mlvnt.com:~/ 
-            ;;
-        9)
-            cmd.exe /c start /D "$filezilladir" FileZillaPortable.exe ;;
-            # sftp -b ~/.dotfiles/wsl/net/sftpbatch todorovfiles@mlvnt.com
-            # sftp todorovfiles@mlvnt.com:uploads/
-        b)  mywork ;;
-        x)  : && clear ;;
-        *)  blog ;;
-    esac
+    if [ -z $1 ] ; then
+        clear
+        echo -e '\n  Available Options:'
+        echo    '           x  | Exit'
+        echo    '           b  | Go Back'
+        echo    '       My Blog:'
+        echo    '           1  | Go to'
+        echo    '           2  | Go to & Run'
+        echo    '           3  | Go to & Run on Web Server'
+        echo    '           4  | Clean Bake'
+        echo    '           5  | New Post'
+        echo    '       Game Site:'
+        echo    '           6  | Go to'
+        echo    '           7  | Go to & Run'
+        echo    '       Manage:'
+        echo    '           8  | Rsync'
+        echo -e '           9  | SFTP\n'
+        read -e -p "  Enter Option: " input
+        echo
+
+        case $input in
+            1)  cd "$blogpath" ;;
+            2)  cd "$blogpath" && hugos ;;
+            3)  rm -rfv "$bakedpath" && mkdir -p -v "$bakedpath"
+                cd "$blogpath" && hugo 
+                cd "$bakedpath" && caddy ;;
+            4)  rm -rfv "$bakedpath" && mkdir -p -v "$bakedpath" 
+                cd "$blogpath" && hugo ;;
+            5)  clear && ls "$content" && echo
+                read -e -p "  Post? " post
+                read -e -p "  Type? " types
+                cd "$blogpath" && echo && hugo new $post $types && echo ;;
+            6)  cd "$gamespath" ;;
+            7)  cd "$gamespath" && caddy ;;
+            8)  # rsync -a ~/testfile todorov@mlvnt.com:~/ 
+                ;;
+            9)  cmd.exe /c start /D "$filezilladir" FileZillaPortable.exe ;;
+                # sftp -b ~/.dotfiles/wsl/net/sftpbatch todorovfiles@mlvnt.com
+                # sftp todorovfiles@mlvnt.com:uploads/
+            b)  mywork ;;
+            x)  : && clear ;;
+            *)  blog ;;
+        esac
+    else
+        case $1 in
+            1)  cd "$blogpath" ;;
+            2)  cd "$blogpath" && hugos ;;
+            3)  rm -rfv "$bakedpath" && mkdir -p -v "$bakedpath"
+                cd "$blogpath" && hugo 
+                cd "$bakedpath" && caddy ;;
+            4)  rm -rfv "$bakedpath" && mkdir -p -v "$bakedpath" 
+                cd "$blogpath" && hugo ;;
+            5)  clear && ls "$content" && echo
+                read -e -p "  Post? " post
+                read -e -p "  Type? " types
+                cd "$blogpath" && echo && hugo new $post $types && echo ;;
+            6)  cd "$gamespath" ;;
+            7)  cd "$gamespath" && caddy ;;
+            8)  # rsync -a ~/testfile todorov@mlvnt.com:~/ 
+                ;;
+            9)  cmd.exe /c start /D "$filezilladir" FileZillaPortable.exe ;;
+                # sftp -b ~/.dotfiles/wsl/net/sftpbatch todorovfiles@mlvnt.com
+                # sftp todorovfiles@mlvnt.com:uploads/
+            b)  mywork ;;
+            x)  : && clear ;;
+            *)  blog ;;
+        esac
+    fi
 }
 
 #   -------------------------------

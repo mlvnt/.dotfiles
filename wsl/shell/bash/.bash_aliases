@@ -289,6 +289,7 @@ alias clothlist="o 'D:\Workspace\General\Essential\Clothing\Clothes_List.xlsx'"
 
 # Launch Applications
 alias cmdc='cmd.exe /c'
+alias cmd='cmd.exe'
 alias mail="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\ThunderbirdPortable' ThunderbirdPortable.exe"
 alias torrent="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\qBittorrentPortable' qBittorrentPortable.exe"
 alias vpn="cmd.exe /c start /D 'C:\Program Files (x86)\PureVPN' purevpn.exe"

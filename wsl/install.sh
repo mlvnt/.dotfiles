@@ -253,6 +253,7 @@ appz=(
     "lsof"
     # "florence"
     "imagemagick"
+    "build-essential"
     )
 
 installed=$(dpkg -l | grep '^.i')
