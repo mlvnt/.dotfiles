@@ -46,22 +46,30 @@ function mkd() {
 }
 
 function linx() {
-    clear
-    echo -e '\n  Available Options:'
-    echo    '       x  | Exit'
-    echo -e '       b  | Go Back\n'
-    echo    "    1  | xsession            | Launch X Sessions"
-    echo    "    2  | mkd                 | Create a New Directory and enter it"
-    echo    "    3  | ssh_manage          | SSH Managemet"
-    echo    "    4  | gpg_manage          | GPG Managemet"
-    echo    "    5  | dots                | Update .dotfiles"
-    echo -e "    6  | glb                 | List Git Branches\n"
-    read -e -p "  Enter Option: " input
-    echo
+    if [ -z $1 ] ; then
+        clear
+        echo -e '\n  Available Options:'
+        echo    '       x  | Exit'
+        echo -e '       b  | Go Back\n'
+        echo    "    1  | xsession            | Launch X Sessions"
+        echo    "    2  | mkd                 | Create a New Directory and enter it"
+        echo    "    3  | ssh_manage          | SSH Managemet"
+        echo    "    4  | gpg_manage          | GPG Managemet"
+        echo    "    5  | dots                | Update .dotfiles"
+        echo -e "    6  | glb                 | List Git Branches\n"
+        read -e -p "  Enter Option: " input
+        echo
+    else
+        input=$1
+        input2=$2
+    fi
 
-        function xsession (){
-            path="D:\Workspace\Projects\Programing\Git\dotfiles\.dotfiles\wsl\vcxsrv"
-            win32="C:\Windows\System32"
+    function xsession (){
+
+        path="D:\Workspace\Projects\Programing\Git\dotfiles\.dotfiles\wsl\vcxsrv"
+        win32="C:\Windows\System32"
+
+        if [ -z $input2 ] ; then
             clear
             echo -e '\n  Available Options:'
             echo    '       x  | Exit'
@@ -71,315 +79,318 @@ function linx() {
             echo -e '       3  | Load X Server in Multi Window mode\n'
             read -e -p "  Enter Option: " input
             echo
+        else
+            input=$input2
+        fi
 
-            case $input in
-                1)
-                    echo -e "\n Launching xfce4....\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-                    cmd.exe /c start /D "$path" /MAX configNormal.xlaunch && sudo xfce4-session ;;
-                    # cmd.exe /c start /D "$win32" bash.exe --login -c "sudo xfce4-session"
-                    # sudo chown -v $USER ~/.ICEauthority
-                2)
-                    echo -e "\n Launching i3-wm....\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-                    cmd.exe /c start /D "$path" /MAX configNormal.xlaunch && sudo i3 ;;
-                    # cmd.exe /c start /D "$win32" bash.exe --login -c "sudo i3"
-                3)
-                    echo -e "\n Loading X Server in Multi Window mode....\n"
-                    cmd.exe /c start /D "$path" /MAX configMultiWindow.xlaunch ;;
-                b)  linx ;;
-                x)  : && clear ;;
-                *)  xsession ;;
-            esac
+        case $input in
+            1)
+                echo -e "\n Launching xfce4....\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+                cmd.exe /c start /D "$path" /MAX configNormal.xlaunch && sudo xfce4-session ;;
+                # cmd.exe /c start /D "$win32" bash.exe --login -c "sudo xfce4-session"
+                # sudo chown -v $USER ~/.ICEauthority
+            2)
+                echo -e "\n Launching i3-wm....\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+                cmd.exe /c start /D "$path" /MAX configNormal.xlaunch && sudo i3 ;;
+                # cmd.exe /c start /D "$win32" bash.exe --login -c "sudo i3"
+            3)
+                echo -e "\n Loading X Server in Multi Window mode....\n"
+                cmd.exe /c start /D "$path" /MAX configMultiWindow.xlaunch ;;
+            b)  linx ;;
+            x)  : && clear ;;
+            *)  xsession ;;
+        esac
+    }
+
+    # List Git Branches sorted by recent updates, adding a star to remote tracking branches
+    function glb() {
+      RED="\e[91m";
+      for branch in $(git branch | sed s/^..//); do
+        time_ago=$(git log -1 --pretty=format:"%Cgreen%ci %Cblue%cr%Creset" $branch --);
+        # Add a red star to mark branches that are tracking something upstream
+        tracks_upstream=$(if [ "$(git rev-parse $branch@{upstream} 2>/dev/null)" ]; then printf "$RED★"; fi);
+        printf "%-53s - %s %s\n" $time_ago $branch $tracks_upstream;
+      done | sort;
+    }
+
+    function ssh_manage() {
+        clear
+        echo -e '\n  Available Options:\n'
+        echo    '       x  | Exit'
+        echo -e '       b  | Go Back\n'
+        echo    '       1  | Generate a Key'
+        echo    '       2  | Manage Permissions'
+        echo    '       3  | Copy Public Key (Windows)'
+        echo    '       4  | Copy Public Key (Linux)'
+        echo    '       5  | Copy Public Key to Remote'
+        echo    '       6  | Edit User Config'
+        echo    '       7  | Edit OpenSSH Config'
+        echo    '       8  | Backup'
+        echo -e '       9  | Update\n'
+        read -e -p "  Enter Option: " input
+        echo
+
+        function ssh_permissons() {
+            sudo chmod -v 600 ~/.ssh/*
+            sudo chmod -v 700 ~/.ssh
+            sudo chown -Rv $USER ~/.ssh/
         }
 
-        # List Git Branches sorted by recent updates, adding a star to remote tracking branches
-        function glb() {
-          RED="\e[91m";
-          for branch in $(git branch | sed s/^..//); do
-            time_ago=$(git log -1 --pretty=format:"%Cgreen%ci %Cblue%cr%Creset" $branch --);
-            # Add a red star to mark branches that are tracking something upstream
-            tracks_upstream=$(if [ "$(git rev-parse $branch@{upstream} 2>/dev/null)" ]; then printf "$RED★"; fi);
-            printf "%-53s - %s %s\n" $time_ago $branch $tracks_upstream;
-          done | sort;
+        case $input in
+            1)
+                read -e -p "  Enter Comment (Mail): " comment
+                read -e -p "  Enter File Name: " output_file
+                ssh-keygen -b 4096 -t rsa -C "$comment" -f "$output_file" ;;
+            2)
+                ssh_permissons ;;
+            3)
+                ls ~/.ssh/ | grep .pub && echo
+                read -e -p "  Enter Public Key to Copy: " pub_key
+                echo && cat ~/.ssh/"$pub_key" && echo
+                cat ~/.ssh/"$pub_key" | cmd.exe /c clip ;;
+            4)
+                ls ~/.ssh/ | grep .pub && echo
+                read -e -p "  Enter Public Key to Copy: " pub_key
+                echo && cat ~/.ssh/"$pub_key" && echo
+                xclip -sel clip < ~/.ssh/"$pub_key" ;;
+            5)
+                ls ~/.ssh/ | grep .pub && echo
+                read -e -p "  Enter Remote Server: " remote
+                read -e -p "  Enter Public Key to Copy: " pub_key
+                echo && cat ~/.ssh/"$pub_key" && echo
+                cat ~/.ssh/"$pub_key" | ssh "$remote" "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys";;
+            6)
+                sudo vim ~/.ssh/config ;;
+            7)
+                sudo vim /etc/ssh/sshd_config
+                sudo service ssh restart ;;
+            8)
+                sudo cp -r ~/.ssh/* /mnt/d/Workspace/General/Personal/My\ Blog/Resourses/SSH/Backup/.ssh/ ;;
+            9)
+                sudo cp -r /mnt/d/Workspace/General/Personal/My\ Blog/Resourses/SSH/Backup/.ssh/* ~/.ssh/
+                ssh_permissons ;;
+            b)
+                linx ;;
+            x)
+                : && clear ;;
+            *)
+                ssh_manage ;;
+        esac
+    }
+
+    function gpg_manage() {
+        clear
+        echo -e '\n  Available Options:\n'
+        echo    '       x   | Exit'
+        echo -e '       b   | Go Back\n'
+        echo    '       1   | Generate a Key'
+        echo    '       2   | Import'
+        echo    '       3   | Export'
+        echo    '       4   | Revoke'
+        echo    '       5   | List'
+        echo    '       6   | Delete'
+        echo    '       7   | Edit'
+        echo    '       8   | Sign'
+        echo    '       9   | Encrypt'
+        echo -e '       10  | Decrypt\n'
+        read -e -p "  Enter Option: " input
+        echo
+
+        function list(){
+            clear && echo -e '\n   >>> Public Key Ring\n'
+            sudo gpg --list-keys --with-fingerprint
+            sudo gpg --list-keys --with-colons --with-fingerprint
+            echo -e '\n   >>> Secret Key Ring\n'
+            sudo gpg --list-secret-keys --with-fingerprint
+            sudo gpg --list-secret-keys --with-colons --with-fingerprint
+            echo
         }
 
-        function ssh_manage() {
+        function import_key(){
             clear
             echo -e '\n  Available Options:\n'
             echo    '       x  | Exit'
             echo -e '       b  | Go Back\n'
-            echo    '       1  | Generate a Key'
-            echo    '       2  | Manage Permissions'
-            echo    '       3  | Copy Public Key (Windows)'
-            echo    '       4  | Copy Public Key (Linux)'
-            echo    '       5  | Copy Public Key to Remote'
-            echo    '       6  | Edit User Config'
-            echo    '       7  | Edit OpenSSH Config'
-            echo    '       8  | Backup'
-            echo -e '       9  | Update\n'
+            echo    '       1  | Import Key Pair'
+            echo    '       2  | Import Public Key'
+            echo -e '       3  | Import Private Key\n'
             read -e -p "  Enter Option: " input
             echo
-
-            function ssh_permissons() {
-                sudo chmod -v 600 ~/.ssh/*
-                sudo chmod -v 700 ~/.ssh
-                sudo chown -Rv $USER ~/.ssh/
-            }
 
             case $input in
                 1)
-                    read -e -p "  Enter Comment (Mail): " comment
-                    read -e -p "  Enter File Name: " output_file
-                    ssh-keygen -b 4096 -t rsa -C "$comment" -f "$output_file" ;;
+                    clear
+                    read -e -p "  Enter Path to Key: " path
+                    read -e -p "  Enter Key Name (Filename): " key
+                    sudo gpg --import "$path$key.pub.asc"
+                    sudo gpg --import "$path$key.sec.asc" ;;
                 2)
-                    ssh_permissons ;;
+                    clear
+                    read -e -p "  Enter Path to Key: " path
+                    read -e -p "  Enter Key Name (Filename): " key
+                    sudo gpg --import "$path$key.pub.asc" ;;
                 3)
-                    ls ~/.ssh/ | grep .pub && echo
-                    read -e -p "  Enter Public Key to Copy: " pub_key
-                    echo && cat ~/.ssh/"$pub_key" && echo
-                    cat ~/.ssh/"$pub_key" | cmd.exe /c clip ;;
-                4)
-                    ls ~/.ssh/ | grep .pub && echo
-                    read -e -p "  Enter Public Key to Copy: " pub_key
-                    echo && cat ~/.ssh/"$pub_key" && echo
-                    xclip -sel clip < ~/.ssh/"$pub_key" ;;
-                5)
-                    ls ~/.ssh/ | grep .pub && echo
-                    read -e -p "  Enter Remote Server: " remote
-                    read -e -p "  Enter Public Key to Copy: " pub_key
-                    echo && cat ~/.ssh/"$pub_key" && echo
-                    cat ~/.ssh/"$pub_key" | ssh "$remote" "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys";;
-                6)
-                    sudo vim ~/.ssh/config ;;
-                7)
-                    sudo vim /etc/ssh/sshd_config
-                    sudo service ssh restart ;;
-                8)
-                    sudo cp -r ~/.ssh/* /mnt/d/Workspace/General/Personal/My\ Blog/Resourses/SSH/Backup/.ssh/ ;;
-                9)
-                    sudo cp -r /mnt/d/Workspace/General/Personal/My\ Blog/Resourses/SSH/Backup/.ssh/* ~/.ssh/
-                    ssh_permissons ;;
+                    clear
+                    read -e -p "  Enter Path to Key: " path
+                    read -e -p "  Enter Key Name (Filename): " key
+                    sudo gpg --import "$path$key.sec.asc" ;;
                 b)
-                    linx ;;
+                    gpg_manage ;;
                 x)
                     : && clear ;;
                 *)
-                    ssh_manage ;;
+                    import_key ;;
             esac
+            # # import form keybase
+            # curl https://keybase.io/mlvnt/pgp_keys.asc | gpg --import
         }
 
-        function gpg_manage() {
+        function export_key(){
             clear
             echo -e '\n  Available Options:\n'
-            echo    '       x   | Exit'
-            echo -e '       b   | Go Back\n'
-            echo    '       1   | Generate a Key'
-            echo    '       2   | Import'
-            echo    '       3   | Export'
-            echo    '       4   | Revoke'
-            echo    '       5   | List'
-            echo    '       6   | Delete'
-            echo    '       7   | Edit'
-            echo    '       8   | Sign'
-            echo    '       9   | Encrypt'
-            echo -e '       10  | Decrypt\n'
+            echo    '       x  | Exit'
+            echo -e '       b  | Go Back\n'
+            echo -e '    Export To a File\n'
+            echo    '       1  | Key Pair'
+            echo    '       2  | Public Key'
+            echo    '       3  | Private Key'
+            echo -e '    Export To the Clipbard\n'
+            echo    '       4  | Public Key'
+            echo -e '       5  | Private Key\n'
             read -e -p "  Enter Option: " input
             echo
 
-            function list(){
-                clear && echo -e '\n   >>> Public Key Ring\n'
-                sudo gpg --list-keys --with-fingerprint
-                sudo gpg --list-keys --with-colons --with-fingerprint
-                echo -e '\n   >>> Secret Key Ring\n'
-                sudo gpg --list-secret-keys --with-fingerprint
-                sudo gpg --list-secret-keys --with-colons --with-fingerprint
-                echo
-            }
+            case $input in
+                1)
+                    clear && list
+                    read -e -p "  Enter Path to Save: " path
+                    read -e -p "  Enter Key Name (Filename): " key
+                    read -e -p "  Enter Key UID (User Name): " uid
+                    sudo gpg -o "$path$key.pub.asc" --export -a "$uid"
+                    sudo gpg -o "$path$key.sec.asc" --export-secret-key -a "$uid" ;;
+                2)
+                    clear && list
+                    read -e -p "  Enter Path to Save: " path
+                    read -e -p "  Enter Key Name (Filename): " key
+                    read -e -p "  Enter Key UID (User Name): " uid
+                    sudo gpg -o "$path$key.pub.asc" --export -a "$uid" ;;
+                3)
+                    clear && list
+                    read -e -p "  Enter Path to Save: " path
+                    read -e -p "  Enter Key Name (Filename): " key
+                    read -e -p "  Enter Key UID (User Name): " uid
+                    sudo gpg -o "$path$key.sec.asc" --export-secret-key -a "$uid" ;;
+                4)
+                    clear && list
+                    read -e -p "  Enter Key UID (User Name): " uid
+                    sudo gpg --export -a "$uid"
+                    sudo gpg --export -a "$uid" | cmd.exe /c clip ;;
+                5)
+                    clear && list
+                    read -e -p "  Enter Key UID (User Name): " uid
+                    sudo gpg --export-secret-key -a "$uid"
+                    sudo gpg --export-secret-key -a "$uid" | cmd.exe /c clip ;;
+                b)
+                    gpg_manage ;;
+                x)
+                    : && clear ;;
+                *)
+                    export_key ;;
+            esac
+            # # export using fingerprint
+            # gpg --export -a A4AA3A5BDBD40EA549CABAF9FBC07D6A97016CB3
+        }
 
-            function import_key(){
-                clear
-                echo -e '\n  Available Options:\n'
-                echo    '       x  | Exit'
-                echo -e '       b  | Go Back\n'
-                echo    '       1  | Import Key Pair'
-                echo    '       2  | Import Public Key'
-                echo -e '       3  | Import Private Key\n'
-                read -e -p "  Enter Option: " input
-                echo
-
-                case $input in
-                    1)
-                        clear
-                        read -e -p "  Enter Path to Key: " path
-                        read -e -p "  Enter Key Name (Filename): " key
-                        sudo gpg --import "$path$key.pub.asc"
-                        sudo gpg --import "$path$key.sec.asc" ;;
-                    2)
-                        clear
-                        read -e -p "  Enter Path to Key: " path
-                        read -e -p "  Enter Key Name (Filename): " key
-                        sudo gpg --import "$path$key.pub.asc" ;;
-                    3)
-                        clear
-                        read -e -p "  Enter Path to Key: " path
-                        read -e -p "  Enter Key Name (Filename): " key
-                        sudo gpg --import "$path$key.sec.asc" ;;
-                    b)
-                        gpg_manage ;;
-                    x)
-                        : && clear ;;
-                    *)
-                        import_key ;;
-                esac
-                # # import form keybase
-                # curl https://keybase.io/mlvnt/pgp_keys.asc | gpg --import
-            }
-
-            function export_key(){
-                clear
-                echo -e '\n  Available Options:\n'
-                echo    '       x  | Exit'
-                echo -e '       b  | Go Back\n'
-                echo -e '    Export To a File\n'
-                echo    '       1  | Key Pair'
-                echo    '       2  | Public Key'
-                echo    '       3  | Private Key'
-                echo -e '    Export To the Clipbard\n'
-                echo    '       4  | Public Key'
-                echo -e '       5  | Private Key\n'
-                read -e -p "  Enter Option: " input
-                echo
-
-                case $input in
-                    1)
-                        clear && list
-                        read -e -p "  Enter Path to Save: " path
-                        read -e -p "  Enter Key Name (Filename): " key
-                        read -e -p "  Enter Key UID (User Name): " uid
-                        sudo gpg -o "$path$key.pub.asc" --export -a "$uid"
-                        sudo gpg -o "$path$key.sec.asc" --export-secret-key -a "$uid" ;;
-                    2)
-                        clear && list
-                        read -e -p "  Enter Path to Save: " path
-                        read -e -p "  Enter Key Name (Filename): " key
-                        read -e -p "  Enter Key UID (User Name): " uid
-                        sudo gpg -o "$path$key.pub.asc" --export -a "$uid" ;;
-                    3)
-                        clear && list
-                        read -e -p "  Enter Path to Save: " path
-                        read -e -p "  Enter Key Name (Filename): " key
-                        read -e -p "  Enter Key UID (User Name): " uid
-                        sudo gpg -o "$path$key.sec.asc" --export-secret-key -a "$uid" ;;
-                    4)
-                        clear && list
-                        read -e -p "  Enter Key UID (User Name): " uid
-                        sudo gpg --export -a "$uid"
-                        sudo gpg --export -a "$uid" | cmd.exe /c clip ;;
-                    5)
-                        clear && list
-                        read -e -p "  Enter Key UID (User Name): " uid
-                        sudo gpg --export-secret-key -a "$uid"
-                        sudo gpg --export-secret-key -a "$uid" | cmd.exe /c clip ;;
-                    b)
-                        gpg_manage ;;
-                    x)
-                        : && clear ;;
-                    *)
-                        export_key ;;
-                esac
-                # # export using fingerprint
-                # gpg --export -a A4AA3A5BDBD40EA549CABAF9FBC07D6A97016CB3
-            }
-
-            function delete_key(){
-                clear
-                echo -e '\n  Available Options:\n'
-                echo    '       x  | Exit'
-                echo -e '       b  | Go Back\n'
-                echo    '       1  | Delete Key Pair'
-                echo    '       2  | Delete Public Key'
-                echo -e '       3  | Delete Private Key\n'
-                read -e -p "  Enter Option: " input
-                echo
-
-                case $input in
-                    1)
-                        clear
-                        read -e -p "  Enter Key UID (User Name): " uid
-                        sudo gpg --delete-key "$uid"
-                        sudo gpg --delete-secret-key "$uid" ;;
-                    2)
-                        clear
-                        read -e -p "  Enter Key UID (User Name): " uid
-                        sudo gpg --delete-key "$uid" ;;
-                    3)
-                        clear
-                        read -e -p "  Enter Key UID (User Name): " uid
-                        sudo gpg --delete-secret-key "$uid" ;;
-                    b)
-                        gpg_manage ;;
-                    x)
-                        : && clear ;;
-                    *)
-                        delete_key ;;
-                esac
-            }
-
-            function revoke_key(){
-                clear
-                echo -e '\n  Available Options:\n'
-                echo    '       x  | Exit'
-                echo -e '       b  | Go Back\n'
-                echo    '       1  | Generate'
-                echo    '       2  | Import'
-                echo -e '       3  | Revoke Key Pair\n'
-                read -e -p "  Enter Option: " input
-                echo
-
-                case $input in
-                    1)
-                        clear
-                        read -e -p "  Enter Path to Save: " path
-                        read -e -p "  Enter Key Name (Filename): " key
-                        read -e -p "  Enter Key UID (User Name): " uid
-                        sudo gpg --output "$path$key.rev.asc" --gen-revoke "$uid"
-                        echo && cat "$path$key.rev.asc" && echo ;;
-                    2)
-                        clear
-                        read -e -p "  Enter Path to Save: " path
-                        read -e -p "  Enter Key Name (Filename): " key
-                        sudo gpg --import "$path$key.rev.asc" ;;
-                    3)
-                        clear
-                        read -e -p "  Enter Key UID (User Name): " uid
-                        sudo gpg --keyserver keyserver.ubuntu.com --send-key "$uid"
-                        sudo gpg --keyserver keyserver.mozilla.org --send-key "$uid" ;;
-                    b)
-                        gpg_manage ;;
-                    x)
-                        : && clear ;;
-                    *)
-                        revoke_key ;;
-                esac
-            }
+        function delete_key(){
+            clear
+            echo -e '\n  Available Options:\n'
+            echo    '       x  | Exit'
+            echo -e '       b  | Go Back\n'
+            echo    '       1  | Delete Key Pair'
+            echo    '       2  | Delete Public Key'
+            echo -e '       3  | Delete Private Key\n'
+            read -e -p "  Enter Option: " input
+            echo
 
             case $input in
-                1)  sudo gpg --gen-key ;;
-                2)  import_key ;;
-                3)  export_key ;;
-                4)  revoke_key ;;
-                5)  list ;;
-                6)  delete_key ;;
-                7)
-                     ;;
-                8)
-                     ;;
-                9)
-                     ;;
-                b)  linx ;;
-                x)  : && clear ;;
-                *)  gpg_manage ;;
+                1)
+                    clear
+                    read -e -p "  Enter Key UID (User Name): " uid
+                    sudo gpg --delete-key "$uid"
+                    sudo gpg --delete-secret-key "$uid" ;;
+                2)
+                    clear
+                    read -e -p "  Enter Key UID (User Name): " uid
+                    sudo gpg --delete-key "$uid" ;;
+                3)
+                    clear
+                    read -e -p "  Enter Key UID (User Name): " uid
+                    sudo gpg --delete-secret-key "$uid" ;;
+                b)
+                    gpg_manage ;;
+                x)
+                    : && clear ;;
+                *)
+                    delete_key ;;
             esac
         }
+
+        function revoke_key(){
+            clear
+            echo -e '\n  Available Options:\n'
+            echo    '       x  | Exit'
+            echo -e '       b  | Go Back\n'
+            echo    '       1  | Generate'
+            echo    '       2  | Import'
+            echo -e '       3  | Revoke Key Pair\n'
+            read -e -p "  Enter Option: " input
+            echo
+
+            case $input in
+                1)
+                    clear
+                    read -e -p "  Enter Path to Save: " path
+                    read -e -p "  Enter Key Name (Filename): " key
+                    read -e -p "  Enter Key UID (User Name): " uid
+                    sudo gpg --output "$path$key.rev.asc" --gen-revoke "$uid"
+                    echo && cat "$path$key.rev.asc" && echo ;;
+                2)
+                    clear
+                    read -e -p "  Enter Path to Save: " path
+                    read -e -p "  Enter Key Name (Filename): " key
+                    sudo gpg --import "$path$key.rev.asc" ;;
+                3)
+                    clear
+                    read -e -p "  Enter Key UID (User Name): " uid
+                    sudo gpg --keyserver keyserver.ubuntu.com --send-key "$uid"
+                    sudo gpg --keyserver keyserver.mozilla.org --send-key "$uid" ;;
+                b)
+                    gpg_manage ;;
+                x)
+                    : && clear ;;
+                *)
+                    revoke_key ;;
+            esac
+        }
+
+        case $input in
+            1)  sudo gpg --gen-key ;;
+            2)  import_key ;;
+            3)  export_key ;;
+            4)  revoke_key ;;
+            5)  list ;;
+            6)  delete_key ;;
+            7)
+                 ;;
+            8)
+                 ;;
+            9)
+                 ;;
+            b)  linx ;;
+            x)  : && clear ;;
+            *)  gpg_manage ;;
+        esac
+    }
 
     case $input in
         1|xsession)    xsession ;;
@@ -1385,55 +1396,33 @@ function blog(){
         echo -e '           9  | SFTP\n'
         read -e -p "  Enter Option: " input
         echo
-
-        case $input in
-            1)  cd "$blogpath" ;;
-            2)  cd "$blogpath" && hugos ;;
-            3)  rm -rfv "$bakedpath" && mkdir -p -v "$bakedpath"
-                cd "$blogpath" && hugo 
-                cd "$bakedpath" && caddy ;;
-            4)  rm -rfv "$bakedpath" && mkdir -p -v "$bakedpath" 
-                cd "$blogpath" && hugo ;;
-            5)  clear && ls "$content" && echo
-                read -e -p "  Post? " post
-                read -e -p "  Type? " types
-                cd "$blogpath" && echo && hugo new $post $types && echo ;;
-            6)  cd "$gamespath" ;;
-            7)  cd "$gamespath" && caddy ;;
-            8)  # rsync -a ~/testfile todorov@mlvnt.com:~/ 
-                ;;
-            9)  cmd.exe /c start /D "$filezilladir" FileZillaPortable.exe ;;
-                # sftp -b ~/.dotfiles/wsl/net/sftpbatch todorovfiles@mlvnt.com
-                # sftp todorovfiles@mlvnt.com:uploads/
-            b)  mywork ;;
-            x)  : && clear ;;
-            *)  blog ;;
-        esac
     else
-        case $1 in
-            1)  cd "$blogpath" ;;
-            2)  cd "$blogpath" && hugos ;;
-            3)  rm -rfv "$bakedpath" && mkdir -p -v "$bakedpath"
-                cd "$blogpath" && hugo 
-                cd "$bakedpath" && caddy ;;
-            4)  rm -rfv "$bakedpath" && mkdir -p -v "$bakedpath" 
-                cd "$blogpath" && hugo ;;
-            5)  clear && ls "$content" && echo
-                read -e -p "  Post? " post
-                read -e -p "  Type? " types
-                cd "$blogpath" && echo && hugo new $post $types && echo ;;
-            6)  cd "$gamespath" ;;
-            7)  cd "$gamespath" && caddy ;;
-            8)  # rsync -a ~/testfile todorov@mlvnt.com:~/ 
-                ;;
-            9)  cmd.exe /c start /D "$filezilladir" FileZillaPortable.exe ;;
-                # sftp -b ~/.dotfiles/wsl/net/sftpbatch todorovfiles@mlvnt.com
-                # sftp todorovfiles@mlvnt.com:uploads/
-            b)  mywork ;;
-            x)  : && clear ;;
-            *)  blog ;;
-        esac
+        input=$1
     fi
+
+    case $input in
+        1)  cd "$blogpath" ;;
+        2)  cd "$blogpath" && hugos ;;
+        3)  rm -rfv "$bakedpath" && mkdir -p -v "$bakedpath"
+            cd "$blogpath" && hugo 
+            cd "$bakedpath" && caddy ;;
+        4)  rm -rfv "$bakedpath" && mkdir -p -v "$bakedpath" 
+            cd "$blogpath" && hugo ;;
+        5)  clear && ls "$content" && echo
+            read -e -p "  Post? " post
+            read -e -p "  Type? " types
+            cd "$blogpath" && echo && hugo new $post $types && echo ;;
+        6)  cd "$gamespath" ;;
+        7)  cd "$gamespath" && caddy ;;
+        8)  # rsync -a ~/testfile todorov@mlvnt.com:~/ 
+            ;;
+        9)  cmd.exe /c start /D "$filezilladir" FileZillaPortable.exe ;;
+            # sftp -b ~/.dotfiles/wsl/net/sftpbatch todorovfiles@mlvnt.com
+            # sftp todorovfiles@mlvnt.com:uploads/
+        b)  mywork ;;
+        x)  : && clear ;;
+        *)  blog ;;
+    esac
 }
 
 #   -------------------------------
@@ -1558,8 +1547,7 @@ function todo(){
         }
 
         case $input in
-            1)
-                clear
+            1)  clear
                 echo "  New TASK [PRIORITY TASK PROJECT TAG DUE]" && echo
                 read -e -p "  Priority [A-Z] : " priority
                 read -e -p "  Task: " task
@@ -1598,24 +1586,17 @@ function todo(){
                 fi
 
                 echo && $todopath -z -P list && echo ;;
-            2)
-                clear && echo && $todopath -z -P -@ -+ list && echo
+            2)  clear && echo && $todopath -z -P -@ -+ list && echo
                 read -e -p "  Task ID to mark as done: " ID
                 echo && $todopath -A do $ID && echo
                 echo && $todopath listfile done.txt && echo ;;
-            3)
-                manage ;;
-            4)
-                list ;;
-            5)
-                helpt ;;
-            6)
-                cd $todotxtpath ;;
-            7)
-                cmd.exe /c start /D "$guipath" jdotxt-0.4.8.jar ;;
+            3)  manage ;;
+            4)  list ;;
+            5)  helpt ;;
+            6)  cd $todotxtpath ;;
+            7)  cmd.exe /c start /D "$guipath" jdotxt-0.4.8.jar ;;
                 # java -jar jdotxt-0.4.8.jar
-            8)
-                cmd.exe /c start /D "$syncpath" SyncTrayzor.exe ;;
+            8)  cmd.exe /c start /D "$syncpath" SyncTrayzor.exe ;;
                 # java -jar jdotxt-0.4.8.jar
             b)  mywork ;;
             x)  : && clear ;;
@@ -1634,111 +1615,115 @@ function todo(){
 
 function apps(){
     function portable_apps() {
-        clear
-        echo -e '\n  Available Options:'
-        echo    '           x   Exit'
-        echo    '           b   Go Back'
-        echo -e '\n   >>> Portable Apps Suites\n'
-        echo    '           1   Apps by Category'
-        echo    '           2   PortableApps Client'
-        echo    '           3   PortableApps Apps'
-        echo    '           4   SyMenu'
-        echo    '           5   SyMenu Apps'
-        echo    '           6   GeGeek ToolKit'
-        echo    '           7   LiberKey'
-        echo -e '\n   >>> Net\n'
-        echo    '           8   MyBotRun'
-        echo    '           9   AnyDesk'
-        echo    '           10  aTubeCatcher'
-        echo    '           11  FileZilla'
-        echo    '           12  HexChat'
-        echo    '           13  JDownloader'
-        echo    '           14  Mozilla Firefox'
-        echo    '           15  Mozilla Thunderbird'
-        echo    '           16  Opera'
-        echo    '           17  Popcorn-Time'
-        echo    '           18  qBittorrent'
-        echo    '           19  QuiteRSS'
-        echo    '           20  Skype'
-        echo    '           21  SyncTrayzor'
-        echo    '           22  Taiga'
-        echo    '           23  Tor Browser'
-        echo    '           24  Torrents Open Regisration'
-        echo    '           25  Wireshark'
-        echo    '           26  XAMPP'
-        echo -e '\n   >>> Development\n'
-        echo    '           27  CodeBlocks'
-        echo    '           28  Eclipse'
-        echo    '           29  Java Decompiler'
-        echo    '           30  Matlab'
-        echo    '           31  Meld'
-        echo    '           32  NetBeans'
-        echo    '           33  Notepad++'
-        echo    '           34  R-Studio'
-        echo    '           35  RegexBuddy4'
-        echo    '           36  RegExr'
-        echo    '           37  Sublime Text'
-        echo    '           38  Visual Studio Code'
-        echo -e '\n   >>> Productivity & Office\n'
-        echo    '           39  KeePass'
-        echo    '           40  Calibre'
-        echo    '           41  draw.io'
-        echo    '           42  GnuCash'
-        echo    '           43  jdotxt'
-        echo    '           44  LibreOffice'
-        echo    '           45  MikTex Options'
-        echo    '           46  MikTex Update'
-        echo    '           47  TeXstudio'
-        echo    '           48  SA Dictionary'
-        echo    '           49  Vym'
-        echo    '           50  yEd'
-        echo    '           51  Zim'
-        echo -e '\n   >>> Media Editing\n'
-        echo    '           52  Audacity'
-        echo    '           53  Bino'
-        echo    '           54  Blender'
-        echo    '           55  GIMP'
-        echo    '           56  Inkscape'
-        echo    '           57  Instant Eyedropper'
-        echo    '           58  gMKVExtractGUI'
-        echo    '           59  MKVExtractGUI2'
-        echo    '           60  OBS Studio'
-        echo -e '\n   >>> OS Management\n'
-        echo    '           61  Everything'
-        echo    '           62  MultiCommander'
-        echo    '           63  ProcessExplorer'
-        echo    '           64  RegSeeker'
-        echo    '           65  Revo Uninstaller'
-        echo    '           66  Rufus'
-        echo    '           67  Etcher'
-        echo    '           68  Snap2HTML'
-        echo    '           69  Spybot Anit-Beacon'
-        echo    '           70  Spyglass'
-        echo    '           71  WinDirStat'
-        echo    '           72  RealVNC'
-        echo -e '           73  TigerVNC\n'
-        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        echo -e '\n   >>> Main\n'
-        echo    '           39  KeePass'
-        echo    '           42  GnuCash'
-        echo    '           14  Mozilla Firefox'
-        echo    '           15  Mozilla Thunderbird'
-        echo    '           65  Revo Uninstaller'
-        echo    '           66  Rufus'
-        echo    '           56  Inkscape'
-        echo    '           41  draw.io'
-        echo    '           18  qBittorrent'
-        echo    '           21  SyncTrayzor'
-        echo    '           11  FileZilla'
-        echo    '           19  QuiteRSS'
-        echo    '           22  Taiga'
-        echo    '           12  HexChat'
-        echo    '           2   PortableApps Client'
-        echo    '           3   PortableApps Apps'
-        echo    '           4   SyMenu'
-        echo -e '           5   SyMenu Apps\n'
-        read -e -p "  Enter Option: " input
-        echo
+        if [ -z $input2 ] ; then
+            clear
+            echo -e '\n  Available Options:'
+            echo    '           x   Exit'
+            echo    '           b   Go Back'
+            echo -e '\n   >>> Portable Apps Suites\n'
+            echo    '           1   Apps by Category'
+            echo    '           2   PortableApps Client'
+            echo    '           3   PortableApps Apps'
+            echo    '           4   SyMenu'
+            echo    '           5   SyMenu Apps'
+            echo    '           6   GeGeek ToolKit'
+            echo    '           7   LiberKey'
+            echo -e '\n   >>> Net\n'
+            echo    '           8   MyBotRun'
+            echo    '           9   AnyDesk'
+            echo    '           10  aTubeCatcher'
+            echo    '           11  FileZilla'
+            echo    '           12  HexChat'
+            echo    '           13  JDownloader'
+            echo    '           14  Mozilla Firefox'
+            echo    '           15  Mozilla Thunderbird'
+            echo    '           16  Opera'
+            echo    '           17  Popcorn-Time'
+            echo    '           18  qBittorrent'
+            echo    '           19  QuiteRSS'
+            echo    '           20  Skype'
+            echo    '           21  SyncTrayzor'
+            echo    '           22  Taiga'
+            echo    '           23  Tor Browser'
+            echo    '           24  Torrents Open Regisration'
+            echo    '           25  Wireshark'
+            echo    '           26  XAMPP'
+            echo -e '\n   >>> Development\n'
+            echo    '           27  CodeBlocks'
+            echo    '           28  Eclipse'
+            echo    '           29  Java Decompiler'
+            echo    '           30  Matlab'
+            echo    '           31  Meld'
+            echo    '           32  NetBeans'
+            echo    '           33  Notepad++'
+            echo    '           34  R-Studio'
+            echo    '           35  RegexBuddy4'
+            echo    '           36  RegExr'
+            echo    '           37  Sublime Text'
+            echo    '           38  Visual Studio Code'
+            echo -e '\n   >>> Productivity & Office\n'
+            echo    '           39  KeePass'
+            echo    '           40  Calibre'
+            echo    '           41  draw.io'
+            echo    '           42  GnuCash'
+            echo    '           43  jdotxt'
+            echo    '           44  LibreOffice'
+            echo    '           45  MikTex Options'
+            echo    '           46  MikTex Update'
+            echo    '           47  TeXstudio'
+            echo    '           48  SA Dictionary'
+            echo    '           49  Vym'
+            echo    '           50  yEd'
+            echo    '           51  Zim'
+            echo -e '\n   >>> Media Editing\n'
+            echo    '           52  Audacity'
+            echo    '           53  Bino'
+            echo    '           54  Blender'
+            echo    '           55  GIMP'
+            echo    '           56  Inkscape'
+            echo    '           57  Instant Eyedropper'
+            echo    '           58  gMKVExtractGUI'
+            echo    '           59  MKVExtractGUI2'
+            echo    '           60  OBS Studio'
+            echo -e '\n   >>> OS Management\n'
+            echo    '           61  Everything'
+            echo    '           62  MultiCommander'
+            echo    '           63  ProcessExplorer'
+            echo    '           64  RegSeeker'
+            echo    '           65  Revo Uninstaller'
+            echo    '           66  Rufus'
+            echo    '           67  Etcher'
+            echo    '           68  Snap2HTML'
+            echo    '           69  Spybot Anit-Beacon'
+            echo    '           70  Spyglass'
+            echo    '           71  WinDirStat'
+            echo    '           72  RealVNC'
+            echo -e '           73  TigerVNC\n'
+            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+            echo -e '\n   >>> Main\n'
+            echo    '           39  KeePass'
+            echo    '           42  GnuCash'
+            echo    '           14  Mozilla Firefox'
+            echo    '           15  Mozilla Thunderbird'
+            echo    '           65  Revo Uninstaller'
+            echo    '           66  Rufus'
+            echo    '           56  Inkscape'
+            echo    '           41  draw.io'
+            echo    '           18  qBittorrent'
+            echo    '           21  SyncTrayzor'
+            echo    '           11  FileZilla'
+            echo    '           19  QuiteRSS'
+            echo    '           22  Taiga'
+            echo    '           12  HexChat'
+            echo    '           2   PortableApps Client'
+            echo    '           3   PortableApps Apps'
+            echo    '           4   SyMenu'
+            echo -e '           5   SyMenu Apps\n'
+            read -e -p "  Enter Option: " input
+            echo
+        else
+            input=$input2
+        fi
 
         case $input in
             1)
@@ -1897,19 +1882,23 @@ function apps(){
     }
 
     function msoffice(){
-        clear
-        echo -e '\n  Available Options:\n'
-        echo    '       x  | Exit'
-        echo    '       b  | Go Back'
-        echo    '       1  | Word'
-        echo    '       2  | Excel'
-        echo    '       3  | PowerPoint'
-        echo    '       4  | Access'
-        echo    '       5  | OneNote'
-        echo    '       6  | Publisher'
-        echo -e '       7  | Outlook\n'
-        read -e -p "  Enter Option: " input
-        echo
+        if [ -z $input2 ] ; then
+            clear
+            echo -e '\n  Available Options:\n'
+            echo    '       x  | Exit'
+            echo    '       b  | Go Back'
+            echo    '       1  | Word'
+            echo    '       2  | Excel'
+            echo    '       3  | PowerPoint'
+            echo    '       4  | Access'
+            echo    '       5  | OneNote'
+            echo    '       6  | Publisher'
+            echo -e '       7  | Outlook\n'
+            read -e -p "  Enter Option: " input
+            echo
+        else
+            input=$input2
+        fi
 
         path="C:\Program Files\Microsoft Office\Office16"
         options='cmd.exe /c start'
@@ -1939,19 +1928,23 @@ function apps(){
     }
 
     function adobe(){
-        clear
-        echo -e '\n  Available Options:\n'
-        echo    '       x  | Exit'
-        echo    '       b  | Go Back'
-        echo    '       1  | Acrobat DC'
-        echo    '       2  | Photoshop CC'
-        echo    '       3  | Illustrator CC'
-        echo    '       4  | After Effects CC'
-        echo    '       5  | Audition CC'
-        echo    '       6  | Premiere Pro CC'
-        echo -e '       7  | Media Encoder CC\n'
-        read -e -p "  Enter Option: " input
-        echo
+        if [ -z $input2 ] ; then
+            clear
+            echo -e '\n  Available Options:\n'
+            echo    '       x  | Exit'
+            echo    '       b  | Go Back'
+            echo    '       1  | Acrobat DC'
+            echo    '       2  | Photoshop CC'
+            echo    '       3  | Illustrator CC'
+            echo    '       4  | After Effects CC'
+            echo    '       5  | Audition CC'
+            echo    '       6  | Premiere Pro CC'
+            echo -e '       7  | Media Encoder CC\n'
+            read -e -p "  Enter Option: " input
+            echo
+        else
+            input=$input2
+        fi
 
         options='cmd.exe /c start'
         path_acrobat="C:\Program Files (x86)\Adobe\Acrobat DC\Acrobat"
@@ -1987,62 +1980,66 @@ function apps(){
     }
 
     function installed_apps(){
-        clear
-        echo -e '\n  Available Options:'
-        echo    '           x   Exit'
-        echo    '           b   Go Back'
-        echo -e '\n   >>> Apps Suites\n'
-        echo    '           1   Microsoft Office'
-        echo    '           2   Adobe Creative Cloud'
-        echo -e '\n   >>> Basic Utilities\n'
-        echo    '           3   Dashlane'
-        echo    '           4   PureVPN'
-        echo    '           5   VirtualBox'
-        echo    '           6   MEmu-Multi'
-        echo    '           7   MEmu'
-        echo    '           8   Wondershare Streaming Audio Recorder'
-        echo    '           9   IsoBuster'
-        echo    '           10  MagicISO'
-        echo    '           11  TechSmith Camtasia'
-        echo    '           12  Acronis True Image'
-        echo    '           13  Keybase'
-        echo    '           14  iTunes'
-        echo    '           15  KeepVID'
-        echo    '           16  IObit Advanced SystemCare'
-        echo    '           17  IDM UltraCompare'
-        echo    '           18  DVDFab'
-        echo    '           19  Google Chrome'
-        echo -e '\n   >>> Utilities\n'
-        echo    '           20  7zip'
-        echo    '           21  Gadwin PrintScreen'
-        echo    '           22  Windows10 DPI Fix'
-        echo    '           23  VLC Media Player'
-        echo    '           24  AIMP'
-        echo    '           25  Stardock Fences'
-        echo    '           26  Windows 10 Upgrade Assistant'
-        echo    '           27  Sandboxie Web Browser'
-        echo    '           28  Sandboxie Any Program'
-        echo    '           29  EssentialPIM'
-        echo    '           30  SolidWorks'
-        echo -e '\n   >>> Development\n'
-        echo    '           31  VcXsrv'
-        echo    '           32  Sublime Text'
-        echo    '           33  Android Studio'
-        echo    '           34  Unity'
-        echo -e '\n   >>> Games\n'
-        echo -e '           35  Steam\n'
-        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        echo -e '\n   >>> Main\n'
-        echo    '           1   Microsoft Office'
-        echo    '           2   Adobe Creative Cloud'
-        echo    '           3   Dashlane'
-        echo    '           4   PureVPN'
-        echo    '           6   MEmu-Multi'
-        echo    '           7   MEmu'
-        echo    '           26  Windows 10 Upgrade Assistant'
-        echo -e '           16  IObit Advanced SystemCare\n'
-        read -e -p "  Enter Option: " input
-        echo
+        if [ -z $input2 ] ; then
+            clear
+            echo -e '\n  Available Options:'
+            echo    '           x   Exit'
+            echo    '           b   Go Back'
+            echo -e '\n   >>> Apps Suites\n'
+            echo    '           1   Microsoft Office'
+            echo    '           2   Adobe Creative Cloud'
+            echo -e '\n   >>> Basic Utilities\n'
+            echo    '           3   Dashlane'
+            echo    '           4   PureVPN'
+            echo    '           5   VirtualBox'
+            echo    '           6   MEmu-Multi'
+            echo    '           7   MEmu'
+            echo    '           8   Wondershare Streaming Audio Recorder'
+            echo    '           9   IsoBuster'
+            echo    '           10  MagicISO'
+            echo    '           11  TechSmith Camtasia'
+            echo    '           12  Acronis True Image'
+            echo    '           13  Keybase'
+            echo    '           14  iTunes'
+            echo    '           15  KeepVID'
+            echo    '           16  IObit Advanced SystemCare'
+            echo    '           17  IDM UltraCompare'
+            echo    '           18  DVDFab'
+            echo    '           19  Google Chrome'
+            echo -e '\n   >>> Utilities\n'
+            echo    '           20  7zip'
+            echo    '           21  Gadwin PrintScreen'
+            echo    '           22  Windows10 DPI Fix'
+            echo    '           23  VLC Media Player'
+            echo    '           24  AIMP'
+            echo    '           25  Stardock Fences'
+            echo    '           26  Windows 10 Upgrade Assistant'
+            echo    '           27  Sandboxie Web Browser'
+            echo    '           28  Sandboxie Any Program'
+            echo    '           29  EssentialPIM'
+            echo    '           30  SolidWorks'
+            echo -e '\n   >>> Development\n'
+            echo    '           31  VcXsrv'
+            echo    '           32  Sublime Text'
+            echo    '           33  Android Studio'
+            echo    '           34  Unity'
+            echo -e '\n   >>> Games\n'
+            echo -e '           35  Steam\n'
+            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+            echo -e '\n   >>> Main\n'
+            echo    '           1   Microsoft Office'
+            echo    '           2   Adobe Creative Cloud'
+            echo    '           3   Dashlane'
+            echo    '           4   PureVPN'
+            echo    '           6   MEmu-Multi'
+            echo    '           7   MEmu'
+            echo    '           26  Windows 10 Upgrade Assistant'
+            echo -e '           16  IObit Advanced SystemCare\n'
+            read -e -p "  Enter Option: " input
+            echo
+        else
+            input=$input2
+        fi
 
         case $input in
             1)
@@ -2137,16 +2134,20 @@ function apps(){
     }
 
     function program_management(){
-        clear
-        echo -e '\n  Available Options:'
-        echo    '       x  | Exit'
-        echo -e '       b  | Go Back\n'
-        echo    "    1  | word                 | Open Word Documets"
-        echo    "    2  | m3u                  | Create m3u Playlists"
-        echo    "    3  | sysmenu_clean        | Clean SysMenu Trash"
-        echo -e "    4  | qbittorrent          | Delete qBittorrent Config\n"
-        read -e -p "  Enter Option: " input
-        echo
+        if [ -z $input2 ] ; then
+            clear
+            echo -e '\n  Available Options:'
+            echo    '       x  | Exit'
+            echo -e '       b  | Go Back\n'
+            echo    "    1  | word                 | Open Word Documets"
+            echo    "    2  | m3u                  | Create m3u Playlists"
+            echo    "    3  | sysmenu_clean        | Clean SysMenu Trash"
+            echo -e "    4  | qbittorrent          | Delete qBittorrent Config\n"
+            read -e -p "  Enter Option: " input
+            echo
+        else
+            input=$input2
+        fi
 
         case $input in
             1|word)            word ;;
@@ -2169,22 +2170,19 @@ function apps(){
         echo -e "    3  | program_management   | Program Management\n"
         read -e -p "  Enter Option: " input
         echo
-        case $input in
-            1|portable_apps)       portable_apps ;;
-            2|installed_apps)      installed_apps ;;
-            3|program_management)  program_management ;;
-            b)  master ;;
-            x)  : && clear ;;
-            *)  apps ;;
-        esac
     else
-        case $1 in
-            1)  portable_apps ;;
-            2)  installed_apps ;;
-            3)  program_management ;;
-            *)  apps ;;
-        esac
+        input=$1
+        input2=$2
     fi
+
+    case $input in
+        1|portable_apps)       portable_apps ;;
+        2|installed_apps)      installed_apps ;;
+        3|program_management)  program_management ;;
+        b)  master ;;
+        x)  : && clear ;;
+        *)  apps ;;
+    esac
 }
 
 #   -------------------------------
@@ -2192,26 +2190,29 @@ function apps(){
 #   -------------------------------
 
 function word(){
-    if [ -z $1 ] ; then 
+    function word2(){
         clear && echo
-        read -e -p "  Enter № of word documents to open: " input
-        echo
-        for (( i=1; i<=input; i++ ))
+        for (( i=1; i<=$input; i++ ))
         do
            echo "   Opening word document $i...."
            wordn && sleep 0.5s
         done
         clear
-    else 
-        re='^[0-9]+$'
+    }
+
+    re='^[0-9]+$'
+
+    if [[ -z $1 ]] ; then 
+        clear && echo
+        read -e -p "  Enter № of word documents to open: " input
+        if [[ $input =~ $re ]] ; then
+            input=$input && word2
+        else
+            word
+        fi
+    else
         if [[ $1 =~ $re ]] ; then
-            clear && echo
-            for (( i=1; i<=$1; i++ ))
-            do
-               echo "   Opening word document $i...."
-               wordn && sleep 0.5s
-            done
-            clear
+            input=$1 && word2
         else
             word
         fi

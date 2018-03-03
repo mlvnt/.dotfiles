@@ -165,6 +165,7 @@ alias hostse='$EDITOR /etc/hosts'
 alias server="ssh todorov@mlvnt.com"
 alias hugos="hugo server -w -v"
 alias caddy="caddy -conf /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/net/Caddyfile"
+alias caddyconf="sudo nano /etc/caddy/Caddyfile"
 
 # Copy my public key to the pasteboard
 alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | printf '=> Public key copied to pasteboard.\n'"

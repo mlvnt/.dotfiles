@@ -546,8 +546,8 @@ dpkg -l | grep -qw hugo && printf '\n            It'\''s already installed.\n' |
 
 printf '\n      >>> Installing caddy....\n'
 function caddys(){
-    name='caddy_v0.10.10_linux_amd64.tar.gz'
-    wget https://github.com/mholt/caddy/releases/download/v0.10.10/"$name"
+    name='caddy_v0.10.11_linux_amd64.tar.gz'
+    wget https://github.com/mholt/caddy/releases/download/v0.10.11/"$name"
     tar -xzvf "$name" caddy
     mv -v ./caddy /usr/local/bin && mv -v "$name" ~/software/
 }
