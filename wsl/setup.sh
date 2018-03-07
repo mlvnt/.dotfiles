@@ -93,6 +93,7 @@ sudo ~/.dotfiles/wsl/symblinks.sh | sudo tee -ai log_symblinks.sh-$(date "+%Y-%m
 
 printf '\n      >>> Sourcing shell....\n\n'
 cd ~/
+sudo chown $USER:$USER  ~/.*rc ~/.bash* ~/.tmux.conf
 source ~/.*rc ~/.bash* && tmux source-file ~/.tmux.conf
 
 function ending(){

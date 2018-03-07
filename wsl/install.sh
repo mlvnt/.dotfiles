@@ -9,7 +9,7 @@ printf '\n      >>> Installing python3....\n'
 dpkg -l | grep -qw python3 && printf '\n            python3 is already installed\n' || sudo apt-get install -yyq python3
 dpkg -l | grep -qw ipython3 && printf '\n            ipython3 is already installed\n' || sudo apt-get install -yyq ipython3
 dpkg -l | grep -qw python-pip && printf '\n            python3-pip3 is already installed\n' || sudo apt-get install -yyq python-pip
-dpkg -l | grep -qw python3-pip && printf '\n            python3-pip3 is already installed\n' || sudo apt-get install -yyq python3-pip3
+dpkg -l | grep -qw python3-pip && printf '\n            python3-pip3 is already installed\n' || sudo apt-get install -yyq python3-pip
 sudo pip3 install --upgrade pip3
 # sudo python3 -m pip3 install --upgrade pip3
 
@@ -254,6 +254,7 @@ appz=(
     # "florence"
     "imagemagick"
     "build-essential"
+    "bc"
     )
 
 installed=$(dpkg -l | grep '^.i')

@@ -149,7 +149,7 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 #   -------------------------------
 
 # Networking. IP address, dig, DNS
-alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias ipw="cmd.exe /c ipconfig /all"
 alias dig="dig +nocmd any +multiline +noall +answer"
 alias ipa="ifconfig -a"
@@ -299,7 +299,7 @@ alias dashlane="cmd.exe /c start /D 'C:\Users\Todorov\AppData\Roaming\Dashlane' 
 alias memu="cmd.exe /c start /D 'C:\ProgramData\Microvirt\MEmu' MEmuConsole.exe MEmu"
 alias photoshop="cmd.exe /c start /D 'C:\Program Files\Adobe\Adobe Photoshop CC 2017' Photoshop.exe"
 alias firefox="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\FirefoxPortable' FirefoxPortable.exe"
-alias realvnc="~/software/VNC-Viewer-6.17.1113-Linux-x64"
+alias vnc="~/software/VNC-Viewer-6.17.1113-Linux-x64"
 # alias chromium-browser='sudo chromium-browser --no-sandbox'
 
 # Clipboard

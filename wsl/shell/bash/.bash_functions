@@ -66,7 +66,7 @@ function linx() {
 
     function xsession (){
 
-        path="D:\Workspace\Projects\Programing\Git\dotfiles\.dotfiles\wsl\vcxsrv"
+        path="~/.dotfiles/wsl/vcxsrv"
         win32="C:\Windows\System32"
 
         if [ -z $input2 ] ; then
@@ -1322,17 +1322,21 @@ function win(){
 #   -------------------------------
 
 function mywork(){
-    clear
-    echo -e '\n  Available Options:'
-    echo    '       x  | Exit'
-    echo -e '       b  | Go Back\n'
-    echo    "    1  | todo                | TODOs"
-    echo    "    2  | blog                | Blog"
-    echo    "    3  | money               | Money"
-    echo    "    4  | series              | Series"
-    echo -e "    5  | coc                 | Start Clash of Clans Bot\n"
-    read -e -p "  Enter Option: " input
-    echo
+    if [ -z $1 ] ; then
+        clear
+        echo -e '\n  Available Options:'
+        echo    '       x  | Exit'
+        echo -e '       b  | Go Back\n'
+        echo    "    1  | todo                | TODOs"
+        echo    "    2  | blog                | Blog"
+        echo    "    3  | money               | Money"
+        echo    "    4  | series              | Series"
+        echo -e "    5  | coc                 | Start Clash of Clans Bot\n"
+        read -e -p "  Enter Option: " input
+        echo
+    else
+        input=$1
+    fi
 
     function money(){
         path='/mnt/d/Workspace/Projects/Programing/Scripts/Scripts/Python/Money'
@@ -1869,7 +1873,7 @@ function apps(){
             71)
                 cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\WinDirStatPortable" WinDirStatPortable.exe && clear ;;
             72)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Net\VNC" VNC-Viewer-6.17.1113-Windows-64bit.exe && clear ;;
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Net\VNC\RealVNC" VNC-Viewer-6.17.1113-Windows-64bit.exe && clear ;;
             73)
                 cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Net\VNC" TigerVNC-VncViewer-1.8.0.jar && clear ;;
             b)
