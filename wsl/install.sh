@@ -255,6 +255,8 @@ appz=(
     "imagemagick"
     "build-essential"
     "bc"
+    "groff"
+    "psutils"
     )
 
 installed=$(dpkg -l | grep '^.i')
@@ -361,6 +363,7 @@ net_apps=(
     "iproute2"
     "ufw"
     # "gufw"
+    "tcpdump"
     )
 
 for appz in "${net_apps[@]}"

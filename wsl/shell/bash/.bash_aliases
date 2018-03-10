@@ -1,3 +1,4 @@
+#!/bin/bash
 ################################################################################
 ######################### ALIASES ##############################################
 ################################################################################
@@ -226,6 +227,7 @@ alias gac='git add -A && git commit && git push'
 alias ga='git add -A'
 alias gp='git push'
 alias gl='git pull'
+alias glg='git log'
 alias gs='git status'
 alias gc='git commit'
 alias gcl='git clone'

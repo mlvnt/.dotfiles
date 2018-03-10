@@ -1,3 +1,4 @@
+#!/bin/bash
 ################################################################################
 ######################### FUNCTIONS ############################################
 ################################################################################
@@ -66,7 +67,8 @@ function linx() {
 
     function xsession (){
 
-        path="~/.dotfiles/wsl/vcxsrv"
+        path2="C:\Users\Todorov\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs\home\todorov\.dotfiles\wsl\vcxsrv"
+        path="C:\Program Files\VcXsrv"
         win32="C:\Windows\System32"
 
         if [ -z $input2 ] ; then
@@ -86,16 +88,16 @@ function linx() {
         case $input in
             1)
                 echo -e "\n Launching xfce4....\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-                cmd.exe /c start /D "$path" /MAX configNormal.xlaunch && sudo xfce4-session ;;
+                cmd.exe /c start /D "$path" /MAX "$path2"configNormal.xlaunch && sudo xfce4-session ;;
                 # cmd.exe /c start /D "$win32" bash.exe --login -c "sudo xfce4-session"
                 # sudo chown -v $USER ~/.ICEauthority
             2)
                 echo -e "\n Launching i3-wm....\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-                cmd.exe /c start /D "$path" /MAX configNormal.xlaunch && sudo i3 ;;
+                cmd.exe /c start /D "$path" /MAX "$path2"configNormal.xlaunch && sudo i3 ;;
                 # cmd.exe /c start /D "$win32" bash.exe --login -c "sudo i3"
             3)
                 echo -e "\n Loading X Server in Multi Window mode....\n"
-                cmd.exe /c start /D "$path" /MAX configMultiWindow.xlaunch ;;
+                cmd.exe /c start /D "$path" /MAX "$path2"configMultiWindow.xlaunch ;;
             b)  linx ;;
             x)  : && clear ;;
             *)  xsession ;;
