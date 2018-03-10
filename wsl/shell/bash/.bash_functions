@@ -67,7 +67,7 @@ function linx() {
 
     function xsession (){
 
-        path2="C:\Users\Todorov\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs\home\todorov\.dotfiles\wsl\vcxsrv"
+        path2="C:\Users\Todorov\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs\home\todorov\.dotfiles\wsl\vcxsrv\\"
         path="C:\Program Files\VcXsrv"
         win32="C:\Windows\System32"
 
