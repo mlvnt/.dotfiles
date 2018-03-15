@@ -40,6 +40,8 @@ modules=(
     "secretstorage"
     "python-dateutil"
     "requests"
+    "recommonmark"
+    "livereload"
 # SciPy
     "matplotlib"
     "numpy"
@@ -58,6 +60,8 @@ modules=(
     "sphinx"
     "sphinx_rtd_theme"
     "sphinx_gallery"
+    "sphinx-autobuild"
+    "sphinx_rtd_theme"
 )
 
 pipFreeze=$(pip3 freeze)
@@ -475,6 +479,19 @@ function heroku_install(){
 which heroku | grep -qw heroku && printf '\n            It'\''s already installed.\n' || heroku_install
 
 #   -------------------------------
+#   VIRTUALBOX
+#   -------------------------------
+
+# function vbox_install(){
+#     wget https://download.virtualbox.org/virtualbox/5.2.6/virtualbox-5.2_5.2.6-120293~Ubuntu~xenial_amd64.deb
+#     sudo apt install ~/virtualbox-5.2_5.2.6-120293~Ubuntu~xenial_amd64.deb
+#     sudo apt update && sudo apt upgrade
+#     wget https://download.virtualbox.org/virtualbox/5.2.6/Oracle_VM_VirtualBox_Extension_Pack-5.2.6-120293.vbox-extpack
+#     sudo VBoxManage extpack install ~/Oracle_VM_VirtualBox_Extension_Pack-5.2.6-120293.vbox-extpack
+# }
+# vbox_install
+
+#   -------------------------------
 #   ZSH
 #   -------------------------------
 
@@ -538,8 +555,8 @@ dpkg -l | grep -qw vim-gui-common && printf '\n            vim-gui-common is alr
 
 printf '\n      >>> Installing hugo....\n'
 function hugoss(){
-    name='hugo_0.36_Linux-64bit.deb'
-    wget https://github.com/gohugoio/hugo/releases/download/v0.36/"$name"
+    name='hugo_0.37.1_Linux-64bit.deb'
+    wget https://github.com/gohugoio/hugo/releases/download/v0.37.1/"$name"
     sudo apt-get install ./"$name" && mv -v "$name" ~/software/
 }
 dpkg -l | grep -qw hugo && printf '\n            It'\''s already installed.\n' || hugoss

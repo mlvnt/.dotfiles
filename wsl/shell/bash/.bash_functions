@@ -1811,7 +1811,7 @@ function apps(){
             39)
                 cmd.exe /c start /D "D:\Workspace\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite\KeePass_Professional_sps" KeePass.exe && clear ;;
             40)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Office\eBooks\Calibre Portable" calibre-portable.exe && clear ;;
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Office\eBooks\Calibre" calibre-portable.exe && clear ;;
             41)
                 cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Office\Diagrams\draw.io" draw.io.exe && clear ;;
             42)
@@ -2075,7 +2075,7 @@ function apps(){
             13)
                 cmd.exe /c start /D "C:\Users\Todorov\AppData\Local\Keybase\Gui" Keybase.exe && clear ;;
             14)
-                cmd.exe /c start /D ""  && clear ;;
+                cmd.exe /c start /D "C:\Program Files\iTunes" iTunes.exe && clear ;;
             15)
                 cmd.exe /c start /D "C:\Program Files (x86)\KeepVid\KeepVid Pro" KeepVidPro.exe && clear ;;
             16)
