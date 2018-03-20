@@ -545,22 +545,26 @@ function links (){
     path='/mnt/d/Workspace/General/Personal/Links/~genLinks/'
     pathwin='D:\Workspace\General\Personal\Links\~genLinks'
 
-    clear
-    echo -e '\n  Available Options:\n'
-    echo    '           x | Exit'
-    echo    '           b | Go Back'
-    echo    '       Generate Symbolic Links from a list:'
-    echo    '           1 | Delete'
-    echo    '           2 | Create Links for files'
-    echo    '           3 | Create Links for folders'
-    echo    '       Generate Symbolic Links:'
-    echo    '         Linux:'
-    echo    '           4 | Create'
-    echo    '         Windows:'
-    echo    '           5 | Create Link for Files'
-    echo -e '           6 | Create Link for Directory\n'
-    read -e -p "  Enter Option: " input
-    echo
+    if [ -z $1 ] ; then
+        clear
+        echo -e '\n  Available Options:\n'
+        echo    '           x | Exit'
+        echo    '           b | Go Back'
+        echo    '       Generate Symbolic Links from a list:'
+        echo    '           1 | Delete'
+        echo    '           2 | Create Links for files'
+        echo    '           3 | Create Links for folders'
+        echo    '       Generate Symbolic Links:'
+        echo    '         Linux:'
+        echo    '           4 | Create'
+        echo    '         Windows:'
+        echo    '           5 | Create Link for Files'
+        echo -e '           6 | Create Link for Directory\n'
+        read -e -p "  Enter Option: " input
+        echo
+    else
+        input=$1
+    fi
 
     case $input in
         1)
@@ -606,25 +610,6 @@ function links (){
 #   -------------------------------
 
 function move (){
-    clear
-    echo -e '\n  Available Options:\n'
-    echo    '           x  | Exit'
-    echo    '           b  | Go Back'
-    echo    '       Backup:'
-    echo    '           1  | Main Drive'
-    echo    '           2  | Mobile SD Card'
-    echo    '       Restore:'
-    echo    '           3  | Main Drive'
-    echo    '           4  | Mobile SD Card'
-    echo    '       Clone:'
-    echo    '           5  | Main Drive'
-    echo    '           6  | Mobile SD Card'
-    echo    '       Move:'
-    echo    '           7  | ALL from Windows Temporary Directories'
-    echo -e '           8  | Screenshots\n'
-    read -e -p "  Enter Option: " input
-    echo
-
     function main_backup() {
         clear 
         echo -e '\n  Available Options:\n'
@@ -980,6 +965,30 @@ function move (){
         # find "$downloads"-mindepth 1 -not -name '*.ini' -print0 | xargs -0 -I {} cp -p -r  {} "$temp"
         # find "$downloads"-mindepth 1 -not -name '*.ini' -print0 -exec {} cp -p -r  {} "$temp" \;
     }
+
+    if [ -z $1 ] ; then
+        clear
+        echo -e '\n  Available Options:\n'
+        echo    '           x  | Exit'
+        echo    '           b  | Go Back'
+        echo    '       Backup:'
+        echo    '           1  | Main Drive'
+        echo    '           2  | Mobile SD Card'
+        echo    '       Restore:'
+        echo    '           3  | Main Drive'
+        echo    '           4  | Mobile SD Card'
+        echo    '       Clone:'
+        echo    '           5  | Main Drive'
+        echo    '           6  | Mobile SD Card'
+        echo    '       Move:'
+        echo    '           7  | ALL from Windows Temporary Directories'
+        echo -e '           8  | Screenshots\n'
+        read -e -p "  Enter Option: " input
+        echo
+    else
+        input=$1
+        input2=$2
+    fi
 
     case $input in
         1)  main_backup ;;
@@ -2200,8 +2209,8 @@ function word(){
         clear && echo
         for (( i=1; i<=$input; i++ ))
         do
-           echo "   Opening word document $i...."
-           wordn && sleep 0.5s
+           # echo "   Opening word document $i...."
+           wordn && sleep 0.2s
         done
         clear
     }
