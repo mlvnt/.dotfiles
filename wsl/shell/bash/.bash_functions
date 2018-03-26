@@ -1377,7 +1377,7 @@ function mywork(){
 
 function coc (){
     echo -e '\n Opening Clash of Clans Bot....\n'
-    path='C:\Users\Todorov\Downloads\MyBot-MBR_v7.4.4\MyBot.run.exe'
+    path='C:\Users\Todorov\Downloads\MyBot-MBR_v7.5\MyBot.run.exe'
     timeout 1s cmd.exe /c $path MyVillage1 MEmu MEmu
 }
 
