@@ -1350,6 +1350,7 @@ function mywork(){
         input=$1
         input2=$2
         input3=$3
+        input4=$4
     fi
 
     function money(){
@@ -1368,7 +1369,7 @@ function mywork(){
         3|money)   money ;;
         4|series)  series ;;
         5|coc)     coc ;;
-        6|social)  social $input2 $input3 ;;
+        6|social)  social $input2 $input3 $input4 ;;
         b)  master ;;
         x)  : && clear ;;
         *) mywork ;;
@@ -1385,12 +1386,20 @@ function social(){
     sites=$(cat ~/.dotfiles/wsl/net/social)
 
     function show_all(){
-        chrome --new-window --start-maximized $sites
+        case $1 in
+            nt) window="" ;;
+            *)  window="--new-window" ;;
+        esac
+        chrome $window --start-maximized $sites
     }
 
     function show_one(){
         site=$(sed -n "$1"p $path)
-        chrome --new-window --start-maximized $site
+        case $2 in
+            nt) window="" ;;
+            *)  window="--new-window" ;;
+        esac
+        chrome $window --start-maximized $site
     }
 
     function social_import(){
@@ -1401,22 +1410,37 @@ function social(){
         sublime $path2 && social update
     }
 
-    if [[ -z $1 ]] ; then 
+    if [[ -z $1 ]]; then
         show_all
     else
         case $1 in
-            1|all)     mail && show_all ;;
-            2|one)     show_one $2 ;;
+            nt) show_all "nt" ;;
+            1|all)     mail && show_all $2 ;;
+            2|one)     show_one $2 $3 ;;
             3|update)  social_import ;;
             4|edit)    edit_site ;;
             b)  master ;;
             x)  : && clear ;;
-            *)  echo && echo "social OPTION" && echo
-                echo "    all        Open all"
-                echo "    one        Open one"
-                echo "    update     Update social media sites"
-                echo "    update     Update sites"
-                echo "    eidt       Edit sites" && echo ;;
+            *)  echo && echo "USAGE"
+                echo "        social [nt (new-window is default)]"
+                echo "        social [OPTION]"
+                echo "        social [OPTION] [nt]"
+                echo "        social one [ site-number | range-beginning-number,range-end-number ]" && echo
+                echo "OPTIONS"
+                echo "        all [nt]        Open all"
+                echo "        one № [nt]      Open one" && echo
+                echo "                            1   Facebook"
+                echo "                            2   MAL Profile"
+                echo "                            3   MAL Anime List"
+                echo "                            4   WhatsApp"
+                echo "                            5   LinkedIn"
+                echo "                            6   GitHubb"
+                echo "                            7   Twitter"
+                echo "                            8   Reddit"
+                echo "                            9   lobste.rs"
+                echo "                            10  Hacker News" && echo
+                echo "        update     Update sites"
+                echo "        eidt       Edit sites" && echo ;;
         esac
     fi
 }
