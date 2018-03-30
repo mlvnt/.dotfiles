@@ -1726,6 +1726,7 @@ function apps(){
             echo    '           45  MikTex Options'
             echo    '           46  MikTex Update'
             echo    '           47  TeXstudio'
+            echo    '           74  TikzEdt'
             echo    '           48  SA Dictionary'
             echo    '           49  Vym'
             echo    '           50  yEd'
@@ -1928,6 +1929,8 @@ function apps(){
                 cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Net\VNC\RealVNC" VNC-Viewer-6.17.1113-Windows-64bit.exe && clear ;;
             73)
                 cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Net\VNC" TigerVNC-VncViewer-1.8.0.jar && clear ;;
+            74)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Office\Office\TeX\TikzEdtBeta0_2_3" TikzEdt.exe && clear ;;
             b)
                 apps ;;
             x)
