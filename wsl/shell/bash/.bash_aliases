@@ -281,6 +281,7 @@ alias autostart="open 'C:\Users\Todorov\AppData\Roaming\Microsoft\Windows\Start 
 # Edit Documents
 alias cv="o 'D:\Workspace\General\Personal\Professional\CV & Covering Letter\CV.docx'"
 alias index="o 'D:\Workspace\General\Tech\MEMORY\Index\Index.xlsx'"
+alias memory="o 'D:\Workspace\General\Tech\MEMORY\Index\Index.html'"
 alias music="o 'D:\Workspace\General\Essential\Media\Music\Music.xlsx'"
 alias pics="o 'D:\Workspace\General\Essential\Art\Screenshots\Pics.xlsx'"
 alias quotes="o 'D:\Workspace\General\Personal\My Blog\Intro\Quotes\Quotes.xlsx'"
@@ -303,6 +304,9 @@ alias photoshop="cmd.exe /c start /D 'C:\Program Files\Adobe\Adobe Photoshop CC 
 alias firefox="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\FirefoxPortable' FirefoxPortable.exe"
 alias vnc="~/software/VNC-Viewer-6.17.1113-Linux-x64"
 # alias chromium-browser='sudo chromium-browser --no-sandbox'
+alias mal="cmd.exe /c start /D 'D:\Workspace\Portable Apps\By Category\Net\Social\Taiga' Taiga.exe"
+alias pass="cmd.exe /c start /D 'D:\Workspace\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite\KeePass_Professional_sps' KeePass.exe"
+alias money="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\GnuCashPortable' GnuCashPortable.exe"
 
 # Clipboard
 alias pbcopy="clip.exe"
@@ -316,9 +320,7 @@ alias ppoint="cmd.exe /c start /D 'C:\Program Files (x86)\Microsoft Office\Root\
 
 # Notepad++
 alias npp="cmd.exe /c start /D 'D:\Workspace\Portable Apps\By Category\Development\IDEs & Editors\Notepad++\Notepad++ 7.5.1' /MAX notepad++.exe"
-
 # alias npp="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\Notepad++Portable' /MAX Notepad++Portable.exe"
-
 # alias npp="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\Notepad++Portable\App\Notepad++' /MAX notepad++.exe"
 
 # 4KDownloader

@@ -663,6 +663,7 @@ pip3 freeze | grep -qw powerline && printf '\n            powerline is already i
 #   SECURITY
 #   -------------------------------
 
+# Import SSH Keys
 function ssh_import () {
     printf '\n      >>> Setting up SSH configuraion....\n'
     sudo cp -rv /mnt/d/Workspace/General/Personal/My\ Blog/Resourses/SSH/Backup/.ssh ~/
@@ -672,6 +673,7 @@ function ssh_import () {
 }
 ssh_import
 
+# Import GPG Keys
 function gpg_import(){
     printf '\n      >>> Setting up GPG configuraion....\n'
     path="/mnt/d/Workspace/General/Personal/My Blog/Resourses/PGP - Pretty Good Privacy/Keys/Malvin Todorov malvintodorov@gmail.com (0x74B79CF7)"
@@ -686,6 +688,12 @@ function windows_onload(){
     cp /mnt/d/Workspace/Projects/Programing/Scripts/Scripts/Batch\ \&\ Reg/workspace.cmd /mnt/c/Users/Todorov/AppData/Roaming/Microsoft/Windows/Start\ Menu/Programs/Startup
 }
 windows_onload
+
+# Import Social Media Sites
+function social_import(){
+    cp /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/net/social ~/.dotfiles/wsl/net
+}
+social_import
 
 #   -------------------------------
 #   REMOVE EXISTING CONFIG

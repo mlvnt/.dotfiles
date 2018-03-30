@@ -1178,7 +1178,7 @@ function win(){
             cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Microsoft Edge.lnk" $tpin
             cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\KeePass.lnk" $tpin
             cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Google Chrome.lnk" $tpin
-            cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Notepad++.lnk" $tpin
+            # cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Notepad++.lnk" $tpin
             cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\4K Video Downloader.lnk" $tpin
             cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Sublime Text 3.lnk" $tpin
             echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
@@ -1342,7 +1342,8 @@ function mywork(){
         echo    "    2  | blog                | Blog"
         echo    "    3  | money               | Money"
         echo    "    4  | series              | Series"
-        echo -e "    5  | coc                 | Start Clash of Clans Bot\n"
+        echo    "    5  | coc                 | Start Clash of Clans Bot"
+        echo -e "    6  | social              | Open social media sites\n"
         read -e -p "  Enter Option: " input
         echo
     else
@@ -1365,10 +1366,35 @@ function mywork(){
         3|money)   money ;;
         4|series)  series ;;
         5|coc)     coc ;;
+        6|social)  social ;;
         b)  master ;;
         x) : && clear ;;
         *) mywork ;;
     esac
+}
+
+#   -------------------------------
+#   SOCIAL
+#   -------------------------------
+
+function social(){
+    function social2(){
+        sitess=$(cat ~/.dotfiles/wsl/net/social)
+        chrome --new-window --start-maximized $sitess
+    }
+
+    re='all'
+
+    if [[ -z $1 ]] ; then 
+        social2
+    else
+        if [[ $1 =~ $re ]] ; then
+            mail && social2
+        else
+            echo && echo "social OPTION" && echo
+            echo "    all        Open all" && echo
+        fi
+    fi
 }
 
 #   -------------------------------
@@ -1716,6 +1742,7 @@ function apps(){
             echo -e '           73  TigerVNC\n'
             echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
             echo -e '\n   >>> Main\n'
+            echo    '           61  Everything'
             echo    '           39  KeePass'
             echo    '           42  GnuCash'
             echo    '           14  Mozilla Firefox'
