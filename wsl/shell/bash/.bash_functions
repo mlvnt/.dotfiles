@@ -1348,6 +1348,7 @@ function mywork(){
         echo
     else
         input=$1
+        input2=$2
     fi
 
     function money(){
@@ -1366,9 +1367,9 @@ function mywork(){
         3|money)   money ;;
         4|series)  series ;;
         5|coc)     coc ;;
-        6|social)  social ;;
+        6|social)  social $input2 ;;
         b)  master ;;
-        x) : && clear ;;
+        x)  : && clear ;;
         *) mywork ;;
     esac
 }
@@ -1378,22 +1379,35 @@ function mywork(){
 #   -------------------------------
 
 function social(){
+    path="/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/net/social"
+    path2="D:\Workspace\General\Personal\Links\Workspace\Git\.dotfiles\wsl\net\social"
+
     function social2(){
         sitess=$(cat ~/.dotfiles/wsl/net/social)
         chrome --new-window --start-maximized $sitess
     }
 
-    re='all'
+    function social_import(){
+        cp $path ~/.dotfiles/wsl/net
+    }
+
+    function edit_site(){
+        sublime $path2 && social update
+    }
 
     if [[ -z $1 ]] ; then 
         social2
     else
-        if [[ $1 =~ $re ]] ; then
-            mail && social2
-        else
-            echo && echo "social OPTION" && echo
-            echo "    all        Open all" && echo
-        fi
+        case $1 in
+            1|all)     mail && social2 ;;
+            2|update)  social_import ;;
+            3|edit)    edit_site ;;
+            b)  master ;;
+            x)  : && clear ;;
+            *)  echo && echo "social OPTION" && echo
+                echo "    all        Open all"
+                echo "    update     Update social media sites" && echo ;;
+        esac
     fi
 }
 
