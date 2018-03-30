@@ -1171,7 +1171,7 @@ function win(){
             cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Control Panel.lnk" $tpin
             cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Task Manager.lnk" $tpin
             cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Windows Mobility Center.lnk" $tpin
-            cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Registry Editor.lnk" $tpin
+            # cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Registry Editor.lnk" $tpin
             # cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Command Prompt.lnk" $tpin
             cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Ubuntu.lnk" $tpin
             # C:\Windows\explorer.exe shell:Appsfolder\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc!ubuntu
@@ -1349,6 +1349,7 @@ function mywork(){
     else
         input=$1
         input2=$2
+        input3=$3
     fi
 
     function money(){
@@ -1367,7 +1368,7 @@ function mywork(){
         3|money)   money ;;
         4|series)  series ;;
         5|coc)     coc ;;
-        6|social)  social $input2 ;;
+        6|social)  social $input2 $input3 ;;
         b)  master ;;
         x)  : && clear ;;
         *) mywork ;;
@@ -1381,10 +1382,15 @@ function mywork(){
 function social(){
     path="/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/net/social"
     path2="D:\Workspace\General\Personal\Links\Workspace\Git\.dotfiles\wsl\net\social"
+    sites=$(cat ~/.dotfiles/wsl/net/social)
 
-    function social2(){
-        sitess=$(cat ~/.dotfiles/wsl/net/social)
-        chrome --new-window --start-maximized $sitess
+    function show_all(){
+        chrome --new-window --start-maximized $sites
+    }
+
+    function show_one(){
+        site=$(sed -n "$1"p $path)
+        chrome --new-window --start-maximized $site
     }
 
     function social_import(){
@@ -1396,17 +1402,21 @@ function social(){
     }
 
     if [[ -z $1 ]] ; then 
-        social2
+        show_all
     else
         case $1 in
-            1|all)     mail && social2 ;;
-            2|update)  social_import ;;
-            3|edit)    edit_site ;;
+            1|all)     mail && show_all ;;
+            2|one)     show_one $2 ;;
+            3|update)  social_import ;;
+            4|edit)    edit_site ;;
             b)  master ;;
             x)  : && clear ;;
             *)  echo && echo "social OPTION" && echo
                 echo "    all        Open all"
-                echo "    update     Update social media sites" && echo ;;
+                echo "    one        Open one"
+                echo "    update     Update social media sites"
+                echo "    update     Update sites"
+                echo "    eidt       Edit sites" && echo ;;
         esac
     fi
 }

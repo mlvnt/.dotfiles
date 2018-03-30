@@ -104,11 +104,15 @@ do :
 done
 
 ##### NODEJS #####
-printf '\n      >>> Installing nodejs....\n'
-dpkg -l | grep -qw nodejs && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq nodejs
+function nodejs_install(){
+    curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
+    printf '\n      >>> Installing nodejs & npm....\n'
+    dpkg -l | grep -qw nodejs && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq nodejs
+}
+nodejs_install
 
-printf '\n      >>> Installing npm....\n'
-dpkg -l | grep -qw npm && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq npm
+# printf '\n      >>> Installing npm....\n'
+# dpkg -l | grep -qw npm && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq npm
 
 # PACKAGES
 printf '\n      >>> Installing npm packages....\n'

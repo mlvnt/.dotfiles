@@ -309,6 +309,7 @@ alias pass="cmd.exe /c start /D 'D:\Workspace\Portable Apps\SyMenu\ProgramFiles\
 alias money="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\GnuCashPortable' GnuCashPortable.exe"
 alias sublime="cmd.exe /c start /D 'D:\Workspace\Portable Apps\By Category\Development\IDEs & Editors\Sublime Text' sublime_text.exe"
 alias irc="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\HexChatPortable' HexChatPortable.exe"
+alias regedit="cmd.exe /c start /D 'C:\Windows' regedit.exe"
 
 # Clipboard
 alias pbcopy="clip.exe"
