@@ -1340,7 +1340,7 @@ function mywork(){
         echo -e '       b  | Go Back\n'
         echo    "    1  | todo                | TODOs"
         echo    "    2  | blog                | Blog"
-        echo    "    3  | money               | Money"
+        echo    "    3  | money_info          | Money"
         echo    "    4  | series              | Series"
         echo    "    5  | coc                 | Start Clash of Clans Bot"
         echo -e "    6  | social              | Open social media sites\n"
@@ -1353,7 +1353,7 @@ function mywork(){
         input4=$4
     fi
 
-    function money(){
+    function money_info(){
         path='/mnt/d/Workspace/Projects/Programing/Scripts/Scripts/Python/Money'
         clear && python3 $path/bg.py && python3 $path/uk.py
     }
@@ -1366,7 +1366,7 @@ function mywork(){
     case $input in
         1|todo)    todo ;;
         2|blog)    blog ;;
-        3|money)   money ;;
+        3|money_info)   money_info ;;
         4|series)  series ;;
         5|coc)     coc ;;
         6|social)  social $input2 $input3 $input4 ;;
@@ -1434,7 +1434,7 @@ function social(){
                 echo "                            3   MAL Anime List"
                 echo "                            4   WhatsApp"
                 echo "                            5   LinkedIn"
-                echo "                            6   GitHubb"
+                echo "                            6   GitHub"
                 echo "                            7   Twitter"
                 echo "                            8   Reddit"
                 echo "                            9   lobste.rs"
