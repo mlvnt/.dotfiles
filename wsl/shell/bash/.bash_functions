@@ -1343,7 +1343,8 @@ function mywork(){
         echo    "    3  | money_info          | Money"
         echo    "    4  | series              | Series"
         echo    "    5  | coc                 | Start Clash of Clans Bot"
-        echo -e "    6  | social              | Open social media sites\n"
+        echo    "    6  | social              | Open social media sites"
+        echo -e "    7  | food                | Open food docs\n"
         read -e -p "  Enter Option: " input
         echo
     else
@@ -1370,6 +1371,7 @@ function mywork(){
         4|series)  series ;;
         5|coc)     coc ;;
         6|social)  social $input2 $input3 $input4 ;;
+        7|food)  social $input2 ;;
         b)  master ;;
         x)  : && clear ;;
         *) mywork ;;
@@ -1419,7 +1421,7 @@ function social(){
             2|one)     show_one $2 $3 ;;
             3|update)  social_import ;;
             4|edit)    edit_site ;;
-            b)  master ;;
+            b)  mywork ;;
             x)  : && clear ;;
             *)  echo && echo "USAGE"
                 echo "        social [nt (new-window is default)]"
@@ -1443,6 +1445,49 @@ function social(){
                 echo "        eidt       Edit sites" && echo ;;
         esac
     fi
+}
+
+#   -------------------------------
+#   SOCIAL
+#   -------------------------------
+
+function food(){
+    path="D:\Workspace\General\Essential\Cooking"
+    doc1=$path"\Products.xlsx"
+    doc2=$path"\Recipes.docx"
+    doc3=$path"\Recipes.xlsx"
+    doc4=$path"\Shoppping List.docx"
+    doc5=$path"\Shoppping List.xlsx"
+    doc6=$path"\Terms.docx"
+    doc7=$path"\Tips.docx"
+    doc8=$path"\Weekly Menu.docx"
+    doc9=$path"\Weekly Meals.xlsx"
+
+    case $1 in
+        1)  o $doc1 ;;
+        2)  o $doc2 ;;
+        3)  o $doc3 ;;
+        4)  o $doc4 ;;
+        5)  o $doc5 ;;
+        6)  o $doc6 ;;
+        7)  o $doc7 ;;
+        8)  o $doc8 ;;
+        9)  o $doc9 ;;
+        b)  mywork ;;
+        x)  : && clear ;;
+        *)  echo && echo "USAGE"
+            echo "        food [№]" && echo
+            echo "OPTIONS"
+            echo "        1   Products"
+            echo "        2   Recipes"
+            echo "        3   Recipes - Table"
+            echo "        4   Shoppping List"
+            echo "        5   Shoppping List - Table"
+            echo "        6   Terms"
+            echo "        7   Tips"
+            echo "        8   Weekly Meals"
+            echo "        9   Weekly Menu - Table" && echo ;;
+    esac
 }
 
 #   -------------------------------
