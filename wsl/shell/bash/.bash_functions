@@ -1345,6 +1345,7 @@ function mywork(){
         echo    "    5  | coc                 | Start Clash of Clans Bot"
         echo    "    6  | social              | Open social media sites"
         echo -e "    7  | food                | Open food docs\n"
+        echo -e "    8  | sport               | Open sport docs\n"
         read -e -p "  Enter Option: " input
         echo
     else
@@ -1365,13 +1366,14 @@ function mywork(){
     }
 
     case $input in
-        1|todo)    todo ;;
-        2|blog)    blog ;;
-        3|money_info)   money_info ;;
-        4|series)  series ;;
-        5|coc)     coc ;;
-        6|social)  social $input2 $input3 $input4 ;;
-        7|food)  social $input2 ;;
+        1|todo)        todo ;;
+        2|blog)        blog ;;
+        3|money_info)  money_info ;;
+        4|series)      series ;;
+        5|coc)         coc ;;
+        6|social)      social $input2 $input3 $input4 ;;
+        7|food)        social $input2 ;;
+        7|food)        sport $input2 ;;
         b)  master ;;
         x)  : && clear ;;
         *) mywork ;;
@@ -1383,25 +1385,78 @@ function mywork(){
 #   -------------------------------
 
 function social(){
+    # set -x
     path="/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/net/social"
     path2="D:\Workspace\General\Personal\Links\Workspace\Git\.dotfiles\wsl\net\social"
     sites=$(cat ~/.dotfiles/wsl/net/social)
+    files="/home/todorov/.dotfiles/wsl/net/social"
 
     function show_all(){
+        browser="chrome"
+        window="--new-window"
+
         case $1 in
             nt) window="" ;;
-            *)  window="--new-window" ;;
+            c)  browser="chrome" ;;
+            f)  browser="firefox" ;;
         esac
-        chrome $window --start-maximized $sites
+
+        case $2 in
+            nt) window="" ;;
+            c)  browser="chrome" ;;
+            f)  browser="firefox" ;;
+        esac
+
+        case $browser in
+            chrome)  chrome $window --start-maximized $sites ;;
+            firefox) if [ "$1" == "nt" ] || [ "$2" == "nt" ]; then
+                        while IFS= read -r line ; do
+                            firefox $window "$line"
+                        done < "$files"
+                        # cat /home/todorov/.dotfiles/wsl/net/social | xargs -I % cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\FirefoxPortable' FirefoxPortable.exe %
+                        # xargs -a /home/todorov/.dotfiles/wsl/net/social cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\FirefoxPortable' FirefoxPortable.exe "$line"
+                     else
+                        window="-new-window"
+                        firefox $window $sites
+                     fi ;;
+        esac
     }
 
     function show_one(){
         site=$(sed -n "$1"p $path)
+        browser="chrome"
+        window="--new-window"
+
         case $2 in
             nt) window="" ;;
-            *)  window="--new-window" ;;
+            c)  browser="chrome" ;;
+            f)  browser="firefox" ;;
         esac
-        chrome $window --start-maximized $site
+
+        case $3 in
+            nt) window="" ;;
+            c)  browser="chrome" ;;
+            f)  browser="firefox" ;;
+        esac
+
+        case $browser in
+            chrome) chrome $window --start-maximized $site ;;
+            firefox)
+                      if [ "$2" != "nt" ] && [ "$3" != "nt" ]; then
+                          window="-new-window"
+                          firefox $window $site
+                      else
+                          re='^[0-9]+,[0-9]+$'
+                          if [[ $1 =~ $re ]] ; then
+                              # printf '%s\n' "$site"
+                              while IFS= read -r line ; do
+                                  firefox $window "$line"
+                              done <<< "$site"
+                          else
+                              firefox $window $site
+                          fi
+                      fi ;;
+        esac
     }
 
     function social_import(){
@@ -1417,16 +1472,17 @@ function social(){
     else
         case $1 in
             nt) show_all "nt" ;;
-            1|all)     mail && show_all $2 ;;
-            2|one)     show_one $2 $3 ;;
+            0) show_all $2 $3 ;;
+            1|all)     mail && show_all $2 $3 ;;
+            2|one)     show_one $2 $3 $4 ;;
             3|update)  social_import ;;
             4|edit)    edit_site ;;
             b)  mywork ;;
             x)  : && clear ;;
             *)  echo && echo "USAGE"
-                echo "        social [nt (new-window is default)]"
+                echo "        social [nt (new-tab, new-window is default)]"
                 echo "        social [OPTION]"
-                echo "        social [OPTION] [nt]"
+                echo "        social [OPTION] [nt] [f(firefox) | c(chrome - default)]"
                 echo "        social one [ site-number | range-beginning-number,range-end-number ]" && echo
                 echo "OPTIONS"
                 echo "        all [nt]        Open all"
@@ -1442,13 +1498,13 @@ function social(){
                 echo "                            9   lobste.rs"
                 echo "                            10  Hacker News" && echo
                 echo "        update     Update sites"
-                echo "        eidt       Edit sites" && echo ;;
+                echo "        edit       Edit sites" && echo ;;
         esac
     fi
 }
 
 #   -------------------------------
-#   SOCIAL
+#   FOOD
 #   -------------------------------
 
 function food(){
@@ -1487,6 +1543,31 @@ function food(){
             echo "        7   Tips"
             echo "        8   Weekly Meals"
             echo "        9   Weekly Menu - Table" && echo ;;
+    esac
+}
+
+#   -------------------------------
+#   FOOD
+#   -------------------------------
+
+function sport(){
+    path="D:\Workspace\General\Essential\Sport & Health\Fitness"
+    doc1=$path"\2017-12.xlsx"
+    doc2=$path"\Exercises.xlsx"
+    doc3=$path"\Training Program.docx"
+
+    case $1 in
+        1)  o $doc1 ;;
+        2)  o $doc2 ;;
+        3)  o $doc3 ;;
+        b)  mywork ;;
+        x)  : && clear ;;
+        *)  echo && echo "USAGE"
+            echo "        sport [№]" && echo
+            echo "OPTIONS"
+            echo "        1   2017-12 Schedule"
+            echo "        2   Exercises"
+            echo "        3   Training Program" && echo ;;
     esac
 }
 
