@@ -105,6 +105,7 @@ alias scb="source ~/.bashrc && echo 'Shell config reloaded from ~/.bahrc'"
 alias scz="source ~/.zshrc && echo 'Shell config reloaded from ~/.zshrc'"
 alias scv="source ~/.vimrc && echo 'Shell config reloaded from ~/.vimrc'"
 alias sca="source ~/.*rc ~/.bash* ~/.oh-my-zsh-custom/* && tmux source-file ~/.tmux.conf && clear"
+alias rvmsc="source /home/todorov/.rvm/scripts/rvm"
 
 # File size
 alias fs="stat -f \"%z bytes\""
@@ -214,6 +215,16 @@ alias mysql='sudo mysql -p'
 # alias pilocal='ping raspberrypi.local'
 alias sshpi='ssh pi@192.168.137.2'
 alias pingpi='cmd.exe /c ping -4 raspberrypi.local'
+
+# youtube-dl
+alias ydl='youtube-dl'
+
+# # the best .mp4 video with fps < 60
+# youtube-dl -f 'bestvideo[fps!=60]+bestaudio/best[ext=mp4]/best' -o '%(title)s.%(ext)s' https://youtu.be/5BBT7tmkBEA
+
+# # the best .mp4 video with fps < 60 with en subs
+# youtube-dl -f 'bestvideo[fps!=60]+bestaudio/best[ext=mp4]/best' -o '%(title)s.%(ext)s' -
+# -restrict-filenames --write-sub --sub-format 'ass/srt/best' --sub-lang en https://youtu.be/5BBT7tmkBEA
 
 #   -------------------------------
 #   GIT

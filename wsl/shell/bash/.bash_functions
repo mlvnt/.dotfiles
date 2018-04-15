@@ -1515,7 +1515,7 @@ function food(){
     doc4=$path"\Shoppping List.docx"
     doc5=$path"\Shoppping List.xlsx"
     doc6=$path"\Terms.docx"
-    doc7=$path"\Tips.docx"
+    doc7=$path"\Tips\Tips.docx"
     doc8=$path"\Weekly Menu.docx"
     doc9=$path"\Weekly Meals.xlsx"
 
@@ -1547,7 +1547,7 @@ function food(){
 }
 
 #   -------------------------------
-#   FOOD
+#   SPORT
 #   -------------------------------
 
 function sport(){

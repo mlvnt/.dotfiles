@@ -1,0 +1,9 @@
+#!/bin/bash
+alias ls="ls"
+repos=$(ls -d1 */)
+
+while IFS= read -r line ; do
+    echo && echo "    "$line"" && echo
+    cd "$line" && git pull && cd ..
+done <<< "$repos"
+echo ''

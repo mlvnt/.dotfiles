@@ -41,12 +41,15 @@ else
     print "404: ~/.bash_aliases not found."
 fi
 
-#FUNCTIONS
+# FUNCTIONS
 if [ -f ~/.bash_functions ]; then
     source ~/.bash_functions
 else
     print "404: ~/.bash_functions not found."
 fi
+
+# fzf - A command-line fuzzy finder
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # RVM
 # source /home/todorov/.rvm/scripts/rvm
@@ -58,28 +61,27 @@ fi
 # done;
 # unset file;
 
-# Neofetch
-# neofetch
-
 # Tmux
 function tmux_workspace(){
-    SESSION_NAME="workspace"
+    SESSION_NAME="wkse"
     tmux new -d -s ${SESSION_NAME}
-    tmux rename-window 'w0'
-    tmux new-window -n w1
+    tmux rename-window '0'
+    tmux new-window -n '1'
+    tmux new-window -n '2'
+    tmux new-window -n '3'
     tmux split-window -v -p 50
-    tmux new-window -n w2
+    tmux new-window -n '4'
     tmux split-window -v -p 50
-    tmux new-window -n w3
-    tmux split-window -v -p 50
-    tmux new-window -n w4
+    tmux new-window -n '5'
     tmux split-window -v -p 50
     tmux select-window -t 0
+    tmux send-keys -t 1.0 'neofetch' Enter
+    tmux send-keys -t 2.0 'fzf' Enter
     # tmux select-pane -t 0
     tmux attach -t ${SESSION_NAME}
 }
 sessions=$(tmux ls)
-echo $sessions | grep -qw workspace || tmux_workspace
+echo $sessions | grep -qw wkse || tmux_workspace
 
 ################################################################################
 ######################### TWEAKS ###############################################

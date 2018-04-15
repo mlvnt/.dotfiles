@@ -1,5 +1,11 @@
 #!/bin/bash
 printf "\n      Runtime: $(date) @ $(hostname)\n\n"
+
+# Common Variables
+path_dots="/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl"
+path_dots_local="~/.dotfiles/wsl"
+installed=$(dpkg -l | grep '^.i')
+
 #   -------------------------------
 #   INSTALL RUNTIMES
 #   -------------------------------
@@ -40,8 +46,12 @@ modules=(
     "secretstorage"
     "python-dateutil"
     "requests"
+    "requests-cache"
     "recommonmark"
     "livereload"
+    "pyquery"
+    "howdoi"
+    "asciinema"
 # SciPy
     "matplotlib"
     "numpy"
@@ -240,6 +250,7 @@ appz=(
     "emacs"
     "zip"
     "unzip"
+    "p7zip"
     "pcregrep"
     "ngrep"
     "lm-sensors"
@@ -253,21 +264,23 @@ appz=(
     "luckybackup"
     "espeak"
     "xclip"
+    "x11-apps"
+    "xinit"
     "lsb-release"
     "most"
     "irssi"
-    "xinit"
     "gnome-keyring"
     "lsof"
     # "florence"
-    "imagemagick"
     "build-essential"
     "bc"
     "groff"
     "psutils"
+    "imagemagick"
+    "ttyrec"
+    "gifsicle"
     )
 
-installed=$(dpkg -l | grep '^.i')
 for appzs in "${appz[@]}"
 do :
     printf '\n      >>> Installing '$appzs'....\n'
@@ -282,6 +295,47 @@ do :
     printf '\n      >>> Installing '$appzs'....\n'
     which $appzs | grep -qw $appzs && printf "\n            $appzs is already installed\n" || sudo apt-get install -yyq $appzs
 done
+
+#   -------------------------------
+#   NET TOOLS
+#   -------------------------------
+
+net_apps=(
+    "curl"
+    "wget"
+    "whois"
+    "ipmiutil"
+    "nmap"
+    "sshpass"
+    # "sshfs"
+    "gpa"
+    "gnupg2"
+    # "wireshark"
+    "network-manager"
+    "net-tools"
+    "wireless-tools"
+    "libwww-perl"
+    "avahi-daemon"
+    "libnss3"
+    "libnss3-dbg"
+    "libnss3-dev"
+    "libnss3-tools"
+    "iptables"
+    "iproute2"
+    "ufw"
+    # "gufw"
+    "tcpdump"
+    )
+
+for appz in "${net_apps[@]}"
+do :
+    printf '\n      >>> Installing '$appz'....\n'
+    echo $installed | grep -qw $appz && printf "\n            $appz is already installed\n" || sudo apt-get install -yyq $appz
+done
+
+#   -------------------------------
+#   DOCKER
+#   -------------------------------
 
 #   -------------------------------
 #   NEOFETCH
@@ -344,54 +398,80 @@ which neofetch | grep -qw neofetch && printf '\n            It'\''s already inst
 # rm -rfv ~/ImageMagick*
 
 #   -------------------------------
-#   NET TOOLS
+#   TTYGIF
 #   -------------------------------
 
-net_apps=(
-    "curl"
-    "wget"
-    "whois"
-    "ipmiutil"
-    "nmap"
-    "sshpass"
-    # "sshfs"
-    "gpa"
-    "gnupg2"
-    # "wireshark"
-    "network-manager"
-    "net-tools"
-    "wireless-tools"
-    "libwww-perl"
-    "avahi-daemon"
-    "libnss3"
-    "libnss3-dbg"
-    "libnss3-dev"
-    "libnss3-tools"
-    "iptables"
-    "iproute2"
-    "ufw"
-    # "gufw"
-    "tcpdump"
-    )
+function ttygif_install(){
+    git clone https://github.com/icholy/ttygif.git
+    cd ttygif && make && sudo make install
+}
+ttygif_install
 
-for appz in "${net_apps[@]}"
-do :
-    printf '\n      >>> Installing '$appz'....\n'
-    echo $installed | grep -qw $appz && printf "\n            $appz is already installed\n" || sudo apt-get install -yyq $appz
-done
+# ttyrec recording-name # record the tty, Ctrl+D / exit to stop
+# ttyplay recording-name # play the tty
+# ttygif recording-name # make a gif from the recording
+# gifsicle --crop 0,60-962,638 --output out.gif in.gif # crop the gif
 
-##### DOCKER #####
+#   -------------------------------
+#   YARN
+#   -------------------------------
+
+function yarn_install(){
+    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+    sudo apt-get update && sudo apt-get install yarn
+}
+which yarn | grep -qw yarn && printf '\n            It'\''s already installed.\n' || yarn_install
+
+#   -------------------------------
+#   YOUTUBE-DL
+#   -------------------------------
+
+function youtube-dl_install(){
+    sudo curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl
+    sudo chmod a+rx /usr/local/bin/youtube-dl
+    # Upgrade
+    # sudo -H pip install --upgrade youtube-dl
+}
+which youtube-dl | grep -qw youtube-dl && printf '\n            It'\''s already installed.\n' || youtube-dl_install
+
+#   -------------------------------
+#   FZF
+#   -------------------------------
+
+function fzf_install(){
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+    ~/.fzf/install
+    # # Upgrade
+    # cd ~/.fzf && git pull && ./install
+}
+ls -al ~/ | grep -qw .fzf/ && printf '\n            It'\''s already installed.\n' || fzf_install
+
+#   -------------------------------
+#   NGROK
+#   -------------------------------
+
+function ngrok_install(){
+    name='ngrok-stable-linux-amd64.zip'
+    wget https://bin.equinox.io/c/4VmDzA7iaHb/$name
+    unzip $name && rm $name && mv ./ngrok ~/software/
+    # Connect your account
+    # ./ngrok authtoken <YOUR_AUTH_TOKEN>
+    # ./ngrok help
+    # ./ngrok http 80
+}
+ls ~/software | grep -qw ngrok && printf '\n            It'\''s already installed.\n' || ngrok_install
 
 #   -------------------------------
 #   REALVNC
 #   -------------------------------
 
+name_vnc='VNC-Viewer-6.17.1113-Linux-x64'
 function realvnc_install(){
-    name='VNC-Viewer-6.17.1113-Linux-x64'
-    wget https://www.realvnc.com/download/file/viewer.files/$name
-    mv ./$name ~/software/ && sudo chmod +x ~/software/$name
+    wget https://www.realvnc.com/download/file/viewer.files/$name_vnc
+    mv ./$name_vnc ~/software/ && sudo chmod +x ~/software/$name_vnc
 }
-realvnc_install
+ls ~/software | grep -qw $name_vnc && printf '\n            It'\''s already installed.\n' || realvnc_install
 
 #   -------------------------------
 #   TOOLS-GUI
@@ -695,7 +775,7 @@ windows_onload
 
 # Import Social Media Sites
 function social_import(){
-    cp /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/net/social ~/.dotfiles/wsl/net
+    cp "$path_dots"/net/social "$path_dots_local"/net
 }
 social_import
 
@@ -706,8 +786,9 @@ social_import
 function shell_config(){
     printf '\n      >>> Removing existing configuraion....\n'
     sudo rm -rfv ~/.bashrc ~/.zshrc ~/.bash_profile ~/.profile ~/.bash_logout ~/.local
-    sudo cp -rv /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/shell/zsh/.oh-my-zsh ~/.dotfiles/wsl/shell/zsh/
-    sudo cp -rv /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/.config/sublime-text-3 ~/.dotfiles/wsl/.config/
+    sudo cp -rv "$path_dots"/shell/zsh/.oh-my-zsh "$path_dots_local"/shell/zsh/
+    sudo cp -rv "$path_dots"/.config/sublime-text-3 "$path_dots_local"/.config/
+    sudo cp -rv "$path_dots"/.local/share/tldr/ "$path_dots_local"/.local/share/
 }
 shell_config
 
