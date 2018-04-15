@@ -1344,7 +1344,7 @@ function mywork(){
         echo    "    4  | series              | Series"
         echo    "    5  | coc                 | Start Clash of Clans Bot"
         echo    "    6  | social              | Open social media sites"
-        echo -e "    7  | food                | Open food docs\n"
+        echo    "    7  | food                | Open food docs"
         echo -e "    8  | sport               | Open sport docs\n"
         read -e -p "  Enter Option: " input
         echo
@@ -1372,8 +1372,8 @@ function mywork(){
         4|series)      series ;;
         5|coc)         coc ;;
         6|social)      social $input2 $input3 $input4 ;;
-        7|food)        social $input2 ;;
-        7|food)        sport $input2 ;;
+        7|food)        food $input2 $input3 $input4 ;;
+        8|sport)       sport $input2 ;;
         b)  master ;;
         x)  : && clear ;;
         *) mywork ;;
@@ -1518,32 +1518,49 @@ function food(){
     doc7=$path"\Tips\Tips.docx"
     doc8=$path"\Weekly Menu.docx"
     doc9=$path"\Weekly Meals.xlsx"
+    re='^[0-9]+$'
 
-    case $1 in
-        1)  o $doc1 ;;
-        2)  o $doc2 ;;
-        3)  o $doc3 ;;
-        4)  o $doc4 ;;
-        5)  o $doc5 ;;
-        6)  o $doc6 ;;
-        7)  o $doc7 ;;
-        8)  o $doc8 ;;
-        9)  o $doc9 ;;
-        b)  mywork ;;
-        x)  : && clear ;;
-        *)  echo && echo "USAGE"
-            echo "        food [№]" && echo
-            echo "OPTIONS"
-            echo "        1   Products"
-            echo "        2   Recipes"
-            echo "        3   Recipes - Table"
-            echo "        4   Shoppping List"
-            echo "        5   Shoppping List - Table"
-            echo "        6   Terms"
-            echo "        7   Tips"
-            echo "        8   Weekly Meals"
-            echo "        9   Weekly Menu - Table" && echo ;;
-    esac
+    function open_docs(){
+        case $1 in
+            1)  o $doc1 ;;
+            2)  o $doc2 ;;
+            3)  o $doc3 ;;
+            4)  o $doc4 ;;
+            5)  o $doc5 ;;
+            6)  o $doc6 ;;
+            7)  o $doc7 ;;
+            8)  o $doc8 ;;
+            9)  o $doc9 ;;
+        esac
+    }
+
+    if [[ $1 =~ $re ]] && [[ -z $2 ]]; then
+        open_docs "$1"
+    elif [[ $1 =~ $re ]] && [[ $2 =~ $re ]] && [[ -z $3 ]]; then
+        open_docs "$1" && sleep 0.2s
+        open_docs "$2"
+    elif [[ $1 =~ $re ]] && [[ $2 =~ $re ]] && [[ $3 =~ $re ]] && [[ -z $4 ]]; then
+        open_docs "$1" && sleep 0.2s
+        open_docs "$2" && sleep 0.2s
+        open_docs "$3"
+    elif [[ $1 == b ]]; then
+        mywork
+    elif [[ $1 == x ]]; then
+        : && clear
+    else
+        echo && echo "USAGE"
+        echo "        food [№]" && echo
+        echo "OPTIONS"
+        echo "        1   Products"
+        echo "        2   Recipes"
+        echo "        3   Recipes - Table"
+        echo "        4   Shoppping List"
+        echo "        5   Shoppping List - Table"
+        echo "        6   Terms"
+        echo "        7   Tips"
+        echo "        8   Weekly Meals"
+        echo "        9   Weekly Menu - Table" && echo
+    fi
 }
 
 #   -------------------------------
