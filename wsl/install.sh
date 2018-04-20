@@ -411,6 +411,7 @@ ttygif_install
 # ttyplay recording-name # play the tty
 # ttygif recording-name # make a gif from the recording
 # gifsicle --crop 0,60-962,638 --output out.gif in.gif # crop the gif
+# gifsicle -U input.gif `seq -f "#%g" 105 1 127` -O2 -o output.gif 
 
 #   -------------------------------
 #   YARN

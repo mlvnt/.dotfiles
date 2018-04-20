@@ -1902,6 +1902,7 @@ function apps(){
             echo    '           44  LibreOffice'
             echo    '           45  MikTex Options'
             echo    '           46  MikTex Update'
+            echo    '           76  MikTex Console'
             echo    '           47  TeXstudio'
             echo    '           74  TikzEdt'
             echo    '           48  SA Dictionary'
@@ -1931,9 +1932,11 @@ function apps(){
             echo    '           70  Spyglass'
             echo    '           71  WinDirStat'
             echo    '           72  RealVNC'
-            echo -e '           73  TigerVNC\n'
+            echo    '           73  TigerVNC'
+            echo -e '           75  R-Studio\n'
             echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
             echo -e '\n   >>> Main\n'
+            echo    '           13  JDownloader'
             echo    '           61  Everything'
             echo    '           39  KeePass'
             echo    '           42  GnuCash'
@@ -2050,6 +2053,8 @@ function apps(){
                 cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\LibreOfficePortable" LibreOfficePortable.exe && clear ;;
             45)
                 cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Office\Office\TeX\MikTEX\texmfs\install\miktex\bin" mo.exe && clear ;;
+            76)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Office\Office\TeX\MikTEX\texmfs\install\miktex\bin" miktex-console.exe && clear ;;
             46)
                 cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Office\Office\TeX\MikTEX\texmfs\install\miktex\bin\internal" miktex-update.exe && clear ;;
             47)
@@ -2108,6 +2113,8 @@ function apps(){
                 cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Net\VNC" TigerVNC-VncViewer-1.8.0.jar && clear ;;
             74)
                 cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Office\Office\TeX\TikzEdtBeta0_2_3" TikzEdt.exe && clear ;;
+            75)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\File Management\Recovery\R-StudioPortable 8.5.Build 170117" R-StudioPortable.exe && clear ;;
             b)
                 apps ;;
             x)
@@ -2270,6 +2277,7 @@ function apps(){
             echo    '           6   MEmu-Multi'
             echo    '           7   MEmu'
             echo    '           26  Windows 10 Upgrade Assistant'
+            echo    '           15  KeepVID'
             echo -e '           16  IObit Advanced SystemCare\n'
             read -e -p "  Enter Option: " input
             echo

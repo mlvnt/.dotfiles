@@ -320,6 +320,7 @@ alias money="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\Po
 alias sublime="cmd.exe /c start /D 'D:\Workspace\Portable Apps\By Category\Development\IDEs & Editors\Sublime Text' sublime_text.exe"
 alias irc="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\HexChatPortable' HexChatPortable.exe"
 alias regedit="cmd.exe /c start /D 'C:\Windows' regedit.exe"
+alias aimp="cmd.exe /c start /D 'C:\Program Files (x86)\AIMP' AIMP.exe"
 
 # Clipboard
 alias pbcopy="clip.exe"
