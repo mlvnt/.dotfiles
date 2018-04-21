@@ -2058,7 +2058,7 @@ function apps(){
             46)
                 cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Office\Office\TeX\MikTEX\texmfs\install\miktex\bin\internal" miktex-update.exe && clear ;;
             47)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Office\Office\TeX\texstudio-2.12.6" texstudio.exe && clear ;;
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Office\Office\TeX\texstudio-2.12.8" texstudio.exe && clear ;;
             48)
                 cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Office\Dictionaries\SA Dictionary 2013" Diction.exe && clear ;;
             49)
@@ -2469,7 +2469,7 @@ function word(){
 
 function m3u() {
     echo -e '\n Tracklist \n    '_tracklist[ ${PWD##*/} ].m3u'\n Created....\n'
-    find . -maxdepth 1 -not -type d -type f \( ! -iname "*.m3u" ! -iname "*.jpg" ! -iname "*.png" ! -iname "*.html" ! -iname "*.url" ! -iname "*.pdf" ! -iname "*.log" \) -printf "%P\n" >> "_tracklist[ ${PWD##*/} ].m3u"
+    find . -maxdepth 1 -not -type d -type f \( ! -iname "*.m3u" ! -iname "*.jpg" ! -iname "*.png" ! -iname "*.html" ! -iname "*.url" ! -iname "*.pdf" ! -iname "*.log" ! -iname "*.nfo" \) -printf "%P\n" >> "_tracklist[ ${PWD##*/} ].m3u"
     o "_tracklist[ ${PWD##*/} ].m3u"
     # find . -maxdepth 1 -not -type d -type f \( ! -iname "*.m3u" ! -iname "*.jpg" ! -iname "*.png" ! -iname "*.html" ! -iname "*.url" ! -iname "*.pdf" \) | sed 's|./||' >> "_tracklist[ ${PWD##*/} ].m3u"
     # dir -AN1I "*.jpg" -I "*.png" -I "*.html" -I "*.url" -I "*.m3u" -I "*.pdf" >> "_tracklist[ ${PWD##*/} ].m3u"
