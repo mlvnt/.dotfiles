@@ -67,16 +67,17 @@ function tmux_workspace(){
     tmux new -d -s ${SESSION_NAME}
     tmux rename-window '0'
     tmux new-window -n '1'
+    tmux split-window -v -p 50
     tmux new-window -n '2'
     tmux new-window -n '3'
     tmux split-window -v -p 50
-    tmux new-window -n '4'
-    tmux split-window -v -p 50
-    tmux new-window -n '5'
-    tmux split-window -v -p 50
+    # tmux new-window -n '4'
+    # tmux split-window -v -p 50
+    # tmux new-window -n '5'
+    # tmux split-window -v -p 50
     tmux select-window -t 0
-    tmux send-keys -t 1.0 'neofetch' Enter
-    tmux send-keys -t 2.0 'fzf' Enter
+    # tmux send-keys -t 1.0 'neofetch' Enter
+    # tmux send-keys -t 2.0 'fzf' Enter
     # tmux select-pane -t 0
     tmux attach -t ${SESSION_NAME}
 }

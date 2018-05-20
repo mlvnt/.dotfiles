@@ -165,8 +165,8 @@ alias hostse='$EDITOR /etc/hosts'
 
 # BLOG
 alias server="ssh todorov@mlvnt.com"
-alias hugos="hugo server -w -v"
-alias caddy="caddy -conf /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/net/Caddyfile"
+alias hugos="hugo server -w -v --disableFastRender"
+alias caddy="ulimit -n 8192 && caddy -conf /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/net/Caddyfile"
 alias caddyconf="sudo nano /etc/caddy/Caddyfile"
 
 # Copy my public key to the pasteboard
@@ -206,9 +206,9 @@ alias wrsheff='curl http://wttr.in/sheffield'
 alias wrsof='curl http://wttr.in/sofia'
 
 # MySQL
-alias ms='sudo service mysql start && sudo mysql-workbench'
-alias mw='sudo mysql-workbench'
-alias mysql='sudo mysql -p'
+alias msqls='sudo service mysql start'
+alias msqlw='sudo mysql-workbench'
+alias msql='sudo mysql -p'
 
 # Raspberry Pi
 # alias sshpi='ssh pi@raspberrypi.local'
@@ -321,6 +321,7 @@ alias sublime="cmd.exe /c start /D 'D:\Workspace\Portable Apps\By Category\Devel
 alias irc="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\HexChatPortable' HexChatPortable.exe"
 alias regedit="cmd.exe /c start /D 'C:\Windows' regedit.exe"
 alias aimp="cmd.exe /c start /D 'C:\Program Files (x86)\AIMP' AIMP.exe"
+alias sync="cmd.exe /c start /D 'D:\Workspace\Portable Apps\By Category\Net\File Sharing\SyncTrayzorPortable-x64' SyncTrayzor.exe"
 
 # Clipboard
 alias pbcopy="clip.exe"

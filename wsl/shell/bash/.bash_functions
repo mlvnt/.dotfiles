@@ -1340,7 +1340,7 @@ function mywork(){
         echo -e '       b  | Go Back\n'
         echo    "    1  | todo                | TODOs"
         echo    "    2  | blog                | Blog"
-        echo    "    3  | money_info          | Money"
+        echo    "    3  | moneyb              | Money"
         echo    "    4  | series              | Series"
         echo    "    5  | coc                 | Start Clash of Clans Bot"
         echo    "    6  | social              | Open social media sites"
@@ -1355,20 +1355,10 @@ function mywork(){
         input4=$4
     fi
 
-    function money_info(){
-        path='/mnt/d/Workspace/Projects/Programing/Scripts/Scripts/Python/Money'
-        clear && python3 $path/bg.py && python3 $path/uk.py
-    }
-
-    function series(){
-        path='/mnt/d/Workspace/Projects/Programing/Scripts/Scripts/Python/Web'
-        clear && python3 $path/series.py
-    }
-
     case $input in
         1|todo)        todo ;;
-        2|blog)        blog ;;
-        3|money_info)  money_info ;;
+        2|blog)        blog $input2 $input3 ;;
+        3|moneyb)      moneyb ;;
         4|series)      series ;;
         5|coc)         coc ;;
         6|social)      social $input2 $input3 $input4 ;;
@@ -1378,6 +1368,24 @@ function mywork(){
         x)  : && clear ;;
         *) mywork ;;
     esac
+}
+
+#   -------------------------------
+#   MONEY BALANCE
+#   -------------------------------
+
+function moneyb(){
+    path='/mnt/d/Workspace/Projects/Programing/Scripts/Scripts/Python/Money'
+    clear && python3 $path/bg.py && python3 $path/uk.py
+}
+
+#   -------------------------------
+#   SERIES
+#   -------------------------------
+
+function series(){
+    path='/mnt/d/Workspace/Projects/Programing/Scripts/Scripts/Python/Web'
+    clear && python3 $path/series.py
 }
 
 #   -------------------------------
@@ -1569,7 +1577,7 @@ function food(){
 
 function sport(){
     path="D:\Workspace\General\Essential\Sport & Health\Fitness"
-    doc1=$path"\2017-12.xlsx"
+    doc1=$path"\2018-04.xlsx"
     doc2=$path"\Exercises.xlsx"
     doc3=$path"\Training Program.docx"
 
@@ -1582,7 +1590,7 @@ function sport(){
         *)  echo && echo "USAGE"
             echo "        sport [№]" && echo
             echo "OPTIONS"
-            echo "        1   2017-12 Schedule"
+            echo "        1   2018-04 Schedule"
             echo "        2   Exercises"
             echo "        3   Training Program" && echo ;;
     esac
@@ -1606,8 +1614,10 @@ function blog(){
     gamespath="/mnt/d/Workspace/General/Personal/My Blog/Blog/bgrebbels.mlvnt.com/public_html"
     blogpath="/mnt/d/Workspace/General/Personal/My Blog/Blog/mlvnt.com/mvlnt"
     content="/mnt/d/Workspace/General/Personal/My Blog/Blog/mlvnt.com/mlvnt/content"
+    contents="D:\Workspace\General\Personal\My Blog\Blog\mlvnt.com\mlvnt\content"
     bakedpath="/mnt/d/Workspace/General/Personal/My Blog/Blog/mlvnt.com/public_html"
     filezilladir="D:\Workspace\Portable Apps\PortableApps.com\PortableApps\FileZillaPortable"
+    ext=".md"
 
     if [ -z $1 ] ; then
         clear
@@ -1615,14 +1625,14 @@ function blog(){
         echo    '           x  | Exit'
         echo    '           b  | Go Back'
         echo    '       My Blog:'
-        echo    '           1  | Go to'
-        echo    '           2  | Go to & Run'
-        echo    '           3  | Go to & Run on Web Server'
-        echo    '           4  | Clean Bake'
-        echo    '           5  | New Post'
+        echo    '           1  | goto   | Go to'
+        echo    '           2  | run    | Run'
+        echo    '           3  | server | Run on Web Server'
+        echo    '           4  | bake   | Clean Bake'
+        echo    '           5  | new    | New Post'
         echo    '       Game Site:'
         echo    '           6  | Go to'
-        echo    '           7  | Go to & Run'
+        echo    '           7  | Run'
         echo    '       Manage:'
         echo    '           8  | Rsync'
         echo -e '           9  | SFTP\n'
@@ -1632,18 +1642,55 @@ function blog(){
         input=$1
     fi
 
+    function tpe() {
+        read -e -p "  type? " type
+        case $type in
+            1|code)
+                t="code"  
+                path="blog/tech/code/" ;;
+            2|default)
+                t="default"  
+                path="blog/" ;;
+            3|interests)
+                t="interests"  
+                path="blog/interests/" ;;
+            4|projects)
+                t="projects"  
+                path="projects/" ;;
+            5|tech)
+                t="tech"  
+                path="blog/tech/2018/" ;;
+            6|wechat)
+                t="wechat"  
+                path="blog/wechat" ;;
+            *)  clear && echo
+                echo -e '\n  available types:'
+                echo    '       1  |  code'
+                echo    '       2  |  default'
+                echo    '       3  |  interests'
+                echo    '       4  |  projects'
+                echo    '       5  |  tech'
+                echo -e '       6  |  wechat\n'
+                tpe ;;
+        esac
+    }
+
     case $input in
-        1)  cd "$blogpath" ;;
-        2)  cd "$blogpath" && hugos ;;
-        3)  rm -rfv "$bakedpath" && mkdir -p -v "$bakedpath"
+        1|goto)  cd "$blogpath" ;;
+        2|run)  cd "$blogpath" && hugos ;;
+        3|server)  rm -rfv "$bakedpath" && mkdir -p -v "$bakedpath"
             cd "$blogpath" && hugo 
             cd "$bakedpath" && caddy ;;
-        4)  rm -rfv "$bakedpath" && mkdir -p -v "$bakedpath" 
-            cd "$blogpath" && hugo ;;
-        5)  clear && ls "$content" && echo
-            read -e -p "  Post? " post
-            read -e -p "  Type? " types
-            cd "$blogpath" && echo && hugo new $post $types && echo ;;
+        4|bake)  rm -rfv "$bakedpath" && mkdir -p -v "$bakedpath"
+            cd "$blogpath" && hugo 
+            rm -rfv "$bakedpath/tags" "$bakedpath/categories";;
+        5|new)  clear && echo
+            tpe
+            clear && echo "$t"
+            echo && tree "$content/$path" && echo 
+            read -e -p "  post name? " post
+            cd "$blogpath" && echo && hugo new $path$post$ext -k $t && echo
+            sublime "$contents/$path$post$ext" ;;
         6)  cd "$gamespath" ;;
         7)  cd "$gamespath" && caddy ;;
         8)  # rsync -a ~/testfile todorov@mlvnt.com:~/ 
@@ -1829,7 +1876,6 @@ function todo(){
             7)  cmd.exe /c start /D "$guipath" jdotxt-0.4.8.jar ;;
                 # java -jar jdotxt-0.4.8.jar
             8)  cmd.exe /c start /D "$syncpath" SyncTrayzor.exe ;;
-                # java -jar jdotxt-0.4.8.jar
             b)  mywork ;;
             x)  : && clear ;;
             *)  todo ;;

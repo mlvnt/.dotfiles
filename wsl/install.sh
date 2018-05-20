@@ -43,6 +43,7 @@ modules=(
     "pygments"
     "bs4"
     "selenium"
+    "selenium-requests"
     "secretstorage"
     "python-dateutil"
     "requests"
@@ -124,12 +125,18 @@ nodejs_install
 # printf '\n      >>> Installing npm....\n'
 # dpkg -l | grep -qw npm && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq npm
 
+# update
+# sudo npm i -g npm
+
 # PACKAGES
 printf '\n      >>> Installing npm packages....\n'
 # which http-server
 # sudo vim /usr/local/bin/http-server
 # change node with nodejs
 which http-server | grep -qw http-server && printf '\n            http-server is already installed.\n' || sudo npm -g install http-server
+
+# sudo npm install -g browserify
+# sudo npm install -g fixjson
 
 ##### SQL #####
 printf '\n      >>> Installing sqlite3....\n'
@@ -382,7 +389,7 @@ which neofetch | grep -qw neofetch && printf '\n            It'\''s already inst
 # dpkg -l | grep -qw imagemagick && printf '\n            It'\''s already installed.\n' || imagemagicks
 # sudo apt remove --purge 'imagemagick*'
 
-# convert img.png -resize 24X24 img.ico
+# convert favicon.png -resize 100X100 favicon.ico
 # Check installed delegates: identify -version
 
 # printf '\n      >>> Installing ImageMagick....\n'
@@ -411,7 +418,10 @@ ttygif_install
 # ttyplay recording-name # play the tty
 # ttygif recording-name # make a gif from the recording
 # gifsicle --crop 0,60-962,638 --output out.gif in.gif # crop the gif
+# gifsicle --crop 0,25-801,477 --output out.gif in.gif
+# gifsicle -i anim.gif -O3 --colors 256 -o anim-opt.gif #optimize
 # gifsicle -U input.gif `seq -f "#%g" 105 1 127` -O2 -o output.gif 
+# yaourt -S ttyrec ttygif
 
 #   -------------------------------
 #   YARN
@@ -640,8 +650,8 @@ dpkg -l | grep -qw vim-gui-common && printf '\n            vim-gui-common is alr
 
 printf '\n      >>> Installing hugo....\n'
 function hugoss(){
-    name='hugo_0.37.1_Linux-64bit.deb'
-    wget https://github.com/gohugoio/hugo/releases/download/v0.37.1/"$name"
+    name='hugo_0.40.3_Linux-64bit.deb'
+    wget https://github.com/gohugoio/hugo/releases/download/v0.40.3/"$name"
     sudo apt-get install ./"$name" && mv -v "$name" ~/software/
 }
 dpkg -l | grep -qw hugo && printf '\n            It'\''s already installed.\n' || hugoss
@@ -652,8 +662,8 @@ dpkg -l | grep -qw hugo && printf '\n            It'\''s already installed.\n' |
 
 printf '\n      >>> Installing caddy....\n'
 function caddys(){
-    name='caddy_v0.10.11_linux_amd64.tar.gz'
-    wget https://github.com/mholt/caddy/releases/download/v0.10.11/"$name"
+    name='caddy_v0.10.14_linux_amd64.tar.gz'
+    wget https://github.com/mholt/caddy/releases/download/v0.10.14/"$name"
     tar -xzvf "$name" caddy
     mv -v ./caddy /usr/local/bin && mv -v "$name" ~/software/
 }
