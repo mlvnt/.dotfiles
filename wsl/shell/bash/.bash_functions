@@ -167,9 +167,9 @@ function linx() {
                 sudo vim /etc/ssh/sshd_config
                 sudo service ssh restart ;;
             8)
-                sudo cp -r ~/.ssh/* /mnt/d/Workspace/General/Personal/My\ Blog/Resourses/SSH/Backup/.ssh/ ;;
+                sudo cp -r ~/.ssh/* /mnt/d/Workspace/Projects/Programing/Web/Protocols/Application\ Layer/SSH/Backup/.ssh/ ;;
             9)
-                sudo cp -r /mnt/d/Workspace/General/Personal/My\ Blog/Resourses/SSH/Backup/.ssh/* ~/.ssh/
+                sudo cp -r /mnt/d/Workspace/Projects/Programing/Web/Protocols/Application\ Layer/SSH/Backup/.ssh/* ~/.ssh/
                 ssh_permissons ;;
             b)
                 linx ;;
@@ -1236,7 +1236,7 @@ function win(){
             "'D:\Workspace\General\Personal'"
             "'D:\Workspace\General\Personal\Professional\CV & Covering Letter'"
             "'D:\Workspace\General\Essential\Cooking'"
-            "'D:\Workspace\General\Personal\My Blog'"
+            "'D:\Workspace\General\Personal\Blog'"
             "'D:\Workspace\General\Tech\MEMORY'"
             "'D:\Movies'"
             "'D:\Series'"
@@ -1611,11 +1611,11 @@ function coc (){
 #   -------------------------------
 
 function blog(){
-    gamespath="/mnt/d/Workspace/General/Personal/My Blog/Blog/bgrebbels.mlvnt.com/public_html"
-    blogpath="/mnt/d/Workspace/General/Personal/My Blog/Blog/mlvnt.com/mvlnt"
-    content="/mnt/d/Workspace/General/Personal/My Blog/Blog/mlvnt.com/mlvnt/content"
-    contents="D:\Workspace\General\Personal\My Blog\Blog\mlvnt.com\mlvnt\content"
-    bakedpath="/mnt/d/Workspace/General/Personal/My Blog/Blog/mlvnt.com/public_html"
+    gamespath="/mnt/d/Workspace/General/Personal/Blog/bgrebbels.mlvnt.com/public_html"
+    blogpath="/mnt/d/Workspace/General/Personal/Blog/mlvnt.com/mvlnt"
+    content="/mnt/d/Workspace/General/Personal/Blog/mlvnt.com/mlvnt/content"
+    contents="D:\Workspace\General\Personal\Blog\mlvnt.com\mlvnt\content"
+    bakedpath="/mnt/d/Workspace/General/Personal/Blog/mlvnt.com/public_html"
     filezilladir="D:\Workspace\Portable Apps\PortableApps.com\PortableApps\FileZillaPortable"
     ext=".md"
 
