@@ -53,6 +53,7 @@ modules=(
     "pyquery"
     "howdoi"
     "asciinema"
+    "emoji"
 # SciPy
     "matplotlib"
     "numpy"

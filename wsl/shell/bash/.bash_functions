@@ -46,6 +46,28 @@ function mkd() {
     mkdir -p "$@" && cd "$_";
 }
 
+function filec() {
+    if [ -z $1 ] ; then
+        raw=$(ls -l | wc -l)
+        num=$(echo $raw | awk '{ print $NF}')
+        echo "$num - 1" | bc
+    else
+        case $1 in
+            a|all)
+                raw=$(ls -al | wc -l)
+                num=$(echo $raw | awk '{ print $NF}')
+                echo "$num - 3" | bc ;;
+            *)  echo && echo "DESCRIPTION"
+                echo "        filec - list number of files in a directory" && echo
+                echo "SYNTAX"
+                echo "        filc [OPTION]" && echo
+                echo "OPTIONS"
+                echo "        a, all"
+                echo "              include hidden" && echo ;;
+        esac
+    fi
+}
+
 function linx() {
     if [ -z $1 ] ; then
         clear
@@ -1487,7 +1509,9 @@ function social(){
             4|edit)    edit_site ;;
             b)  mywork ;;
             x)  : && clear ;;
-            *)  echo && echo "USAGE"
+            *)  echo && echo "DESCRIPTION"
+                echo "        social - manage social network usage" && echo
+                echo "SYNTAX"
                 echo "        social [nt (new-tab, new-window is default)]"
                 echo "        social [OPTION]"
                 echo "        social [OPTION] [nt] [f(firefox) | c(chrome - default)]"
@@ -1556,8 +1580,10 @@ function food(){
     elif [[ $1 == x ]]; then
         : && clear
     else
-        echo && echo "USAGE"
-        echo "        food [№]" && echo
+        echo && echo "DESCRIPTION"
+        echo "        food - open food related files" && echo
+        echo "SYNTAX"
+        echo "        food [OPTION]" && echo
         echo "OPTIONS"
         echo "        1   Products"
         echo "        2   Recipes"
@@ -1587,8 +1613,10 @@ function sport(){
         3)  o $doc3 ;;
         b)  mywork ;;
         x)  : && clear ;;
-        *)  echo && echo "USAGE"
-            echo "        sport [№]" && echo
+        *)  echo && echo "DESCRIPTION"
+            echo "        sport - open sport related files" && echo
+            echo "SYNTAX"
+            echo "        sport [OPTION]" && echo
             echo "OPTIONS"
             echo "        1   2018-04 Schedule"
             echo "        2   Exercises"
