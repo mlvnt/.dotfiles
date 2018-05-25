@@ -71,11 +71,13 @@ function tmux_workspace(){
     tmux new-window -n 'whole'
     tmux new-window -n 'horizontal'
     tmux split-window -v -p 50
+    tmux new-window -n 'todo'
+    tmux send-keys -t 4.0 'todo' Enter
     tmux new-window -n 'inotify' \; split-window \; split-window
     tmux select-layout tiled
-    tmux send-keys -t 4.0 'lin' Enter
-    tmux send-keys -t 4.1 'tod' Enter
-    tmux send-keys -t 4.2 'pas' Enter
+    tmux send-keys -t 5.0 'lin' Enter
+    tmux send-keys -t 5.1 'tod' Enter
+    tmux send-keys -t 5.2 'pas' Enter
     # tmux new-window -n '4'
     # tmux split-window -v -p 50
     # tmux new-window -n '5'
