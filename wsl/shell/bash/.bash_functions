@@ -1284,7 +1284,7 @@ function win(){
         echo
 
         # Variables
-        powershellScript='D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick_Access\Set-QuickAccess.ps1'
+        powershellScript='D:\Workspace\Projects\Programing\Scripts\PowerShell\Quick_Access\Set-QuickAccess.ps1'
         p='Pin'
         up='Unpin'
         pins=(
@@ -1343,7 +1343,7 @@ function win(){
             qaccess
         fi
     }
-    # cmd.exe /c "D:\Workspace\Projects\Programing\Scripts\Scripts\PowerShell\Quick Access\Set-QuickAccess.cmd"
+    # cmd.exe /c "D:\Workspace\Projects\Programing\Scripts\PowerShell\Quick Access\Set-QuickAccess.cmd"
 
     case $input in
         1)
