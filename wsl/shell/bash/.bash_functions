@@ -493,7 +493,7 @@ function tod(){
 
 function pas(){
     cd '/mnt/d/Workspace/General/Tech/Sandwich'
-    watching . sandwich.kdbx cp sandwich.kdbx /mnt/d/Workspace/Shared/p
+    watching . p.kdbx cp p.kdbx /mnt/d/Workspace/Shared/p
 }
 
 #   -------------------------------
@@ -1293,7 +1293,7 @@ function win(){
             "'D:\Anime'"
             "'D:\Anime\Current Season'"
             # "'D:\Anime\Finished'"
-            "'D:\Workspace\Projects\Programing\~References\Programes\Browsers\Chrome\HTML Bookmarks\Archive'"
+            "'D:\Workspace\Projects\Programing\~References\Programs\Browsers\Chrome\HTML Bookmarks\Archive'"
             "'D:\Workspace\General'"
             "'D:\Workspace\General\Essential'"
             "'D:\Workspace\General\Personal'"
