@@ -457,6 +457,49 @@ function manage(){
 }
 
 #   -------------------------------
+#   INOTIFY
+#   -------------------------------
+
+function watching(){
+    dirs="$1"
+    files="$2"
+    shift 2
+    echo
+    echo "[watching] { $dirs } for changes of { $files }"
+    echo "[executing] " "{ $@ }" " in case of matching event"
+    echo
+
+    when-changed -vr "$dirs/$files" echo "MODIFY" | sed -u '1~2d' |
+    while read -r events; do
+        echo "[when-changed] " $events $files
+        echo
+        echo "[executing] " "$@"
+        "$@"
+        echo
+    done
+
+    echo "loop reading from { when-changed } finished with status $?"
+}
+
+function lin(){
+    cd '/mnt/d/Workspace/Shared/markor'
+    watching . linkbox.txt '/mnt/d/Workspace/Projects/Programing/Scripts/Python/Web/links.py'
+}
+lin
+
+function tod(){
+    cd '/mnt/d/Workspace/Shared/todo.txt'
+    watching . todo.txt cp *.txt /mnt/d/Workspace/General/Todo/todo.txt
+}
+tod
+
+function pas(){
+    cd '/mnt/d/Workspace/General/Tech/Sandwich'
+    watching . sandwich.kdbx cp sandwich.kdbx /mnt/d/Workspace/Shared/p
+}
+pas
+
+#   -------------------------------
 #   Empty Trash
 #   -------------------------------
 
@@ -610,6 +653,7 @@ function links (){
             read -e -p "    Enter Link Name: " -r linkname
             echo -e '\n Creating symblink '$linkname' to '$target'\n'
             echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+            # lnk='cmd.exe /c mklink'
             cmd.exe /c mklink $linkname $target
             echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
             echo -e '\n ....Link Created!\n' ;;
@@ -945,7 +989,7 @@ function move (){
         echo -e '           3  | Surface Screenshots to Permanent Directory\n'
         read -e -p "  Option: " input
 
-        temp="/mnt/d/Workspace/~TEMP"
+        temp="/mnt/d/Workspace/~temp"
         screenshotsdir="/mnt/c/Users/Todorov/Pictures/My Screen Shots/"
         animepicsdir="/mnt/d/Workspace/General/Essential/Art/Screenshots/Pics"
         animepicsdirwin="D:\Workspace\General\Essential\Art\Screenshots\Pics"
@@ -975,7 +1019,7 @@ function move (){
     function move_all(){
         downloads="/mnt/c/Users/Todorov/Downloads/"
         documents="/mnt/c/Users/Todorov/Documents/"
-        temp="/mnt/d/Workspace/~TEMP"
+        temp="/mnt/d/Workspace/~temp"
 
         echo -e '\n ~~~~~~~~~~~~~~ Moving from Downloads.... ~~~~~~~~~~~~~~\n'
         rsync -avhz --progress --stats --ignore-existing --remove-source-files --exclude desktop.ini "$downloads" "$temp"
@@ -1248,7 +1292,7 @@ function win(){
         up='Unpin'
         pins=(
             "'D:\'"
-            "'D:\Workspace\~TEMP'"
+            "'D:\Workspace\~temp'"
             "'D:\Anime'"
             "'D:\Anime\Current Season'"
             "'D:\Anime\Finished'"
@@ -1256,7 +1300,7 @@ function win(){
             "'D:\Workspace\General'"
             "'D:\Workspace\General\Essential'"
             "'D:\Workspace\General\Personal'"
-            "'D:\Workspace\General\Personal\Professional\CV & Covering Letter'"
+            "'D:\Workspace\General\Personal\Professional\CV'"
             "'D:\Workspace\General\Essential\Cooking'"
             "'D:\Workspace\General\Personal\Blog'"
             "'D:\Workspace\General\Tech\MEMORY'"
@@ -1397,7 +1441,7 @@ function mywork(){
 #   -------------------------------
 
 function moneyb(){
-    path='/mnt/d/Workspace/Projects/Programing/Scripts/Scripts/Python/Money'
+    path='/mnt/d/Workspace/Projects/Programing/Scripts/Python/Money'
     clear && python3 $path/bg.py && python3 $path/uk.py
 }
 
@@ -1406,7 +1450,7 @@ function moneyb(){
 #   -------------------------------
 
 function series(){
-    path='/mnt/d/Workspace/Projects/Programing/Scripts/Scripts/Python/Web'
+    path='/mnt/d/Workspace/Projects/Programing/Scripts/Python/Web'
     clear && python3 $path/series.py
 }
 
@@ -1602,7 +1646,7 @@ function food(){
 #   -------------------------------
 
 function sport(){
-    path="D:\Workspace\General\Essential\Sport & Health\Fitness"
+    path="D:\Workspace\General\Essential\Health\Sport\Fitness"
     doc1=$path"\2018-04.xlsx"
     doc2=$path"\Exercises.xlsx"
     doc3=$path"\Training Program.docx"
@@ -1739,7 +1783,7 @@ function blog(){
 function todo(){
     guipath='D:\Workspace\Portable Apps\By Category\Office\Notes\jdotxt'
     syncpath='D:\Workspace\Portable Apps\By Category\Net\File Sharing\SyncTrayzorPortable-x64'
-    todotxtpath="/mnt/d/Workspace/General/ToDo/ToDos"
+    todotxtpath="/mnt/d/Workspace/General/Todo/todo.txt"
     todopath=~/bin/todo.txt-cli/todo.sh
     clear && echo && $todopath -z -P -@ -+ list && echo
     read -e -p "Show options? (y/n) " answer
@@ -2823,20 +2867,20 @@ cp_p () {
 # function mvall(){
 #     echo -e "\n Moving from Downloads....\n"
 #     echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-#     cmd.exe /c ROBOCOPY 'C:\Users\Todorov\Downloads' 'D:\Workspace\~TEMP' * /MOVE /E /COPY:DAT /DCOPY:DAT /XF *.ini
+#     cmd.exe /c ROBOCOPY 'C:\Users\Todorov\Downloads' 'D:\Workspace\~temp' * /MOVE /E /COPY:DAT /DCOPY:DAT /XF *.ini
 #     echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 #     echo -e "\n Moving from Documents....\n"
 #     echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"  
-#     cmd.exe /c ROBOCOPY 'C:\Users\Todorov\Documents' 'D:\Workspace\~TEMP' * /MOV /COPY:DAT /XF *.ini
+#     cmd.exe /c ROBOCOPY 'C:\Users\Todorov\Documents' 'D:\Workspace\~temp' * /MOV /COPY:DAT /XF *.ini
 #     echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 #     echo -e "\n Finished\n"
 # }
 
 # Rsync
 # function mvall(){
-#     find /mnt/c/Users/Todorov/Downloads -mindepth 1 -not -name '*.ini' -print0 | xargs -0 mv -t /mnt/d/Workspace/~TEMP
-#     find /mnt/c/Users/Todorov/Downloads -mindepth 1 -not -name '*.ini' -print0 | xargs -0 -I {} cp -p -r  {} /mnt/d/Workspace/~TEMP
-#     find /mnt/c/Users/Todorov/Downloads -mindepth 1 -not -name '*.ini' -print0 -exec {} cp -p -r  {} /mnt/d/Workspace/~TEMP \;
+#     find /mnt/c/Users/Todorov/Downloads -mindepth 1 -not -name '*.ini' -print0 | xargs -0 mv -t /mnt/d/Workspace/~temp
+#     find /mnt/c/Users/Todorov/Downloads -mindepth 1 -not -name '*.ini' -print0 | xargs -0 -I {} cp -p -r  {} /mnt/d/Workspace/~temp
+#     find /mnt/c/Users/Todorov/Downloads -mindepth 1 -not -name '*.ini' -print0 -exec {} cp -p -r  {} /mnt/d/Workspace/~temp \;
 # }
 
 # function nppb(){

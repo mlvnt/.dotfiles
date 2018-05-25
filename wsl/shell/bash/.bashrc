@@ -65,12 +65,17 @@ fi
 function tmux_workspace(){
     SESSION_NAME="wkse"
     tmux new -d -s ${SESSION_NAME}
-    tmux rename-window '0'
-    tmux new-window -n '1'
+    tmux rename-window 'whole'
+    tmux new-window -n 'horizontal'
     tmux split-window -v -p 50
-    tmux new-window -n '2'
-    tmux new-window -n '3'
+    tmux new-window -n 'whole'
+    tmux new-window -n 'horizontal'
     tmux split-window -v -p 50
+    tmux new-window -n 'inotify' \; split-window \; split-window
+    tmux select-layout tiled
+    tmux send-keys -t 4.0 'lin' Enter
+    tmux send-keys -t 4.1 'tod' Enter
+    tmux send-keys -t 4.2 'pas' Enter
     # tmux new-window -n '4'
     # tmux split-window -v -p 50
     # tmux new-window -n '5'

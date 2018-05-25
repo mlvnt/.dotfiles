@@ -54,6 +54,8 @@ modules=(
     "howdoi"
     "asciinema"
     "emoji"
+    "watchdog"
+    "when-changed"
 # SciPy
     "matplotlib"
     "numpy"
@@ -287,6 +289,8 @@ appz=(
     "imagemagick"
     "ttyrec"
     "gifsicle"
+    "inotify-tools"
+    "entr"
     )
 
 for appzs in "${appz[@]}"
@@ -781,7 +785,7 @@ gpg_import
 # Windows Autoload Scipt
 function windows_onload(){
     printf '\n      >>> Setting up Windows onload scripts....\n'
-    cp /mnt/d/Workspace/Projects/Programing/Scripts/Scripts/Batch\ \&\ Reg/workspace.cmd /mnt/c/Users/Todorov/AppData/Roaming/Microsoft/Windows/Start\ Menu/Programs/Startup
+    cp /mnt/d/Workspace/Projects/Programing/Scripts/Batch\ \&\ Reg/workspace.cmd /mnt/c/Users/Todorov/AppData/Roaming/Microsoft/Windows/Start\ Menu/Programs/Startup
 }
 windows_onload
 
