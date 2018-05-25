@@ -485,19 +485,16 @@ function lin(){
     cd '/mnt/d/Workspace/Shared/markor'
     watching . linkbox.txt '/mnt/d/Workspace/Projects/Programing/Scripts/Python/Web/links.py'
 }
-lin
 
 function tod(){
     cd '/mnt/d/Workspace/Shared/todo.txt'
     watching . todo.txt cp *.txt /mnt/d/Workspace/General/Todo/todo.txt
 }
-tod
 
 function pas(){
     cd '/mnt/d/Workspace/General/Tech/Sandwich'
     watching . sandwich.kdbx cp sandwich.kdbx /mnt/d/Workspace/Shared/p
 }
-pas
 
 #   -------------------------------
 #   Empty Trash
