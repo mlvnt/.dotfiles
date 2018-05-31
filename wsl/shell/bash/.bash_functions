@@ -2377,6 +2377,7 @@ function apps(){
             echo    '           28  Sandboxie Any Program'
             echo    '           29  EssentialPIM'
             echo    '           30  SolidWorks'
+            echo    '           36  TightVNC'
             echo -e '\n   >>> Development\n'
             echo    '           31  VcXsrv'
             echo    '           32  Sublime Text'
@@ -2472,6 +2473,8 @@ function apps(){
                 cmd.exe /c start /D ""  && clear ;;
             35)
                 cmd.exe /c start /D "C:\Program Files (x86)\Steam" Steam.exe && clear ;;
+            36)
+                cmd.exe /c start /D "C:\Program Files\TightVNC" tvnserver.exe && clear ;;
             b)
                 apps ;;
             x)

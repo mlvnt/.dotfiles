@@ -13,8 +13,8 @@ alias ll='ls -GFAshlp'
 alias l='ls -GFACsh'
 alias dir='dir -A --color=auto'
 alias dirl='dir -AN1'
-alias tree='tree -lF'
-alias treei='tree -lhpuF'
+alias tree='tree -aF'
+alias treei='tree -ahpuF'
 
 # CD
 cd() { builtin cd "$@"; ll; }         # Always list directory contents upon 'cd'
