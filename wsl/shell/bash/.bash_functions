@@ -604,8 +604,8 @@ function links (){
     echo -e '\n Symbolic Links Deleted!\n'
     }
 
-    path='/mnt/d/Workspace/General/Personal/Links/~genLinks/'
-    pathwin='D:\Workspace\General\Personal\Links\~genLinks'
+    path='/mnt/d/Workspace/General/Notebook/~genLinks/'
+    pathwin='D:\Workspace\General\Notebook\~genLinks'
 
     if [ -z $1 ] ; then
         clear
@@ -1459,7 +1459,7 @@ function series(){
 function social(){
     # set -x
     path="/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/net/social"
-    path2="D:\Workspace\General\Personal\Links\Workspace\Git\.dotfiles\wsl\net\social"
+    path2="D:\Workspace\Projects\Programing\Git\dotfiles\.dotfiles\wsl\net\social"
     sites=$(cat ~/.dotfiles/wsl/net/social)
     files="/home/todorov/.dotfiles/wsl/net/social"
 
