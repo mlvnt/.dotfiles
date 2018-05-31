@@ -165,9 +165,9 @@ alias hostse='$EDITOR /etc/hosts'
 
 # BLOG
 alias server="ssh todorov@mlvnt.com"
-alias hugos="hugo server -w -v --disableFastRender"
-alias caddy="ulimit -n 8192 && caddy -conf /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/net/Caddyfile"
-alias caddyconf="sudo nano /etc/caddy/Caddyfile"
+alias hugos="hugo server -w -v --disableFastRender --bind=0.0.0.0"
+alias caddy="ulimit -n 8192 && caddy -conf /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/net/caddyfile"
+alias caddyconf="sudo nano /etc/caddy/caddyfile"
 
 # Copy my public key to the pasteboard
 alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | printf '=> Public key copied to pasteboard.\n'"
@@ -286,6 +286,7 @@ alias downo="open 'C:\Users\Todorov\Downloads'"
 alias docso="open 'C:\Users\Todorov\Documents'"
 alias screenshots="open 'C:\Users\Todorov\Pictures\My Screen Shots'"
 alias appdata="open 'C:\Users\Todorov\AppData'"
+alias roaming="open 'C:\Users\Todorov\AppData\Roaming'"
 alias startmenu="open 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs'"
 alias autostart="open 'C:\Users\Todorov\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup'"
 

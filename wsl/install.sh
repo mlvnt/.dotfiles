@@ -291,6 +291,7 @@ appz=(
     "gifsicle"
     "inotify-tools"
     "entr"
+    "qrencode"
     )
 
 for appzs in "${appz[@]}"
@@ -804,7 +805,8 @@ function shell_config(){
     sudo rm -rfv ~/.bashrc ~/.zshrc ~/.bash_profile ~/.profile ~/.bash_logout ~/.local
     sudo cp -rv "$path_dots"/shell/zsh/.oh-my-zsh "$path_dots_local"/shell/zsh/
     sudo cp -rv "$path_dots"/.config/sublime-text-3 "$path_dots_local"/.config/
-    sudo cp -rv "$path_dots"/.local/share/tldr/ "$path_dots_local"/.local/share/
+    sudo cp -rv "$path_dots"/.config/radicale "$path_dots_local"/.config/
+    sudo cp -rv "$path_dots"/.local/share/tldr "$path_dots_local"/.local/share/
 }
 shell_config
 

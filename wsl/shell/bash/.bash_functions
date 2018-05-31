@@ -1291,7 +1291,7 @@ function win(){
             "'D:\'"
             "'D:\Workspace\~temp'"
             "'D:\Anime'"
-            "'D:\Anime\Current Season'"
+            # "'D:\Anime\Current Season'"
             # "'D:\Anime\Finished'"
             "'D:\Workspace\Projects\Programing\~References\Programs\Browsers\Chrome\HTML Bookmarks\Archive'"
             "'D:\Workspace\General'"
@@ -1759,8 +1759,8 @@ function blog(){
             clear && echo "$t"
             echo && tree "$content/$path" && echo 
             read -e -p "  post name? " post
-            cd "$blogpath" && echo && hugo new $path$post$ext -k $t && echo
-            sublime "$contents/$path$post$ext" ;;
+            cd "$blogpath" && echo && hugo new $path/$post$ext -k $t && echo
+            sublime "$contents/$path/$post$ext" ;;
         6)  cd "$gamespath" ;;
         7)  cd "$gamespath" && caddy ;;
         8)  # rsync -a ~/testfile todorov@mlvnt.com:~/ 
@@ -1797,7 +1797,7 @@ function todo(){
         echo    '           3  | Delete, Replace, Append'
         echo    '           4  | List'
         echo    '           5  | Help'
-        echo    '           6  | Open ToDo.txt Dir'
+        echo    '           6  | Open todo.txt Dir'
         echo    '       GUI:'
         echo    '           7  | Start GUI'
         echo    '       Syncing:'
@@ -1849,8 +1849,8 @@ function todo(){
             echo -e '\n  Available Options:\n'
             echo    '       x  | Exit'
             echo    '       b  | Go Back'
-            echo    '       1  | List ToDo'
-            echo    '       2  | List ToDo [yy-mm-dd @ +]'
+            echo    '       1  | List Todo'
+            echo    '       2  | List Todo [yy-mm-dd @ +]'
             echo    '       3  | List Done'
             echo    '       4  | List by Project'
             echo -e '       5  | List by Tag\n'
