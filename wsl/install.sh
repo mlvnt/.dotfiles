@@ -18,6 +18,7 @@ dpkg -l | grep -qw python-pip && printf '\n            python3-pip3 is already i
 dpkg -l | grep -qw python3-pip && printf '\n            python3-pip3 is already installed\n' || sudo apt-get install -yyq python3-pip
 sudo pip3 install --upgrade pip3
 # sudo python3 -m pip3 install --upgrade pip3
+# sudo pip install --upgrade pip
 
 printf '\n      >>> Setting default to pyton3....\n'
 yes 2 | sudo update-alternatives --config python
@@ -56,6 +57,7 @@ modules=(
     "emoji"
     "watchdog"
     "when-changed"
+    "butterfly"
 # SciPy
     "matplotlib"
     "numpy"
@@ -292,6 +294,7 @@ appz=(
     "inotify-tools"
     "entr"
     "qrencode"
+    "diffutils"
     )
 
 for appzs in "${appz[@]}"
@@ -320,6 +323,7 @@ net_apps=(
     "ipmiutil"
     "nmap"
     "sshpass"
+    "scp"
     # "sshfs"
     "gpa"
     "gnupg2"
@@ -338,6 +342,7 @@ net_apps=(
     "ufw"
     # "gufw"
     "tcpdump"
+    "weechat"
     )
 
 for appz in "${net_apps[@]}"

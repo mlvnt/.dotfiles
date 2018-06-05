@@ -323,6 +323,8 @@ alias irc="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\Port
 alias regedit="cmd.exe /c start /D 'C:\Windows' regedit.exe"
 alias aimp="cmd.exe /c start /D 'C:\Program Files (x86)\AIMP' AIMP.exe"
 alias sync="cmd.exe /c start /D 'D:\Workspace\Portable Apps\By Category\Net\File Sharing\SyncTrayzorPortable-x64' SyncTrayzor.exe"
+alias ftpstart="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\FileZillaPortable' FileZillaPortable.exe"
+alias keypass="cat /mnt/d/Workspace/Shared/p/K.txt | cmd.exe /c clip && cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\KeePassProPortable' KeePassProPortable.exe"
 
 # Clipboard
 alias pbcopy="clip.exe"
