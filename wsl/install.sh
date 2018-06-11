@@ -295,6 +295,7 @@ appz=(
     "entr"
     "qrencode"
     "diffutils"
+    "djvulibre-bin"
     )
 
 for appzs in "${appz[@]}"

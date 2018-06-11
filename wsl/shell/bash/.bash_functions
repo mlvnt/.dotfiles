@@ -1296,7 +1296,7 @@ function win(){
             "'D:\Workspace\Projects\Programing\~References\Programs\Browsers\Chrome\HTML Bookmarks\Archive'"
             "'D:\Workspace\General'"
             "'D:\Workspace\General\Essential'"
-            "'D:\Workspace\General\Personal'"
+            # "'D:\Workspace\General\Personal'"
             "'D:\Workspace\General\Personal\Professional\CV'"
             # "'D:\Workspace\General\Essential\Cooking'"
             "'D:\Workspace\General\Personal\Blog'"
@@ -1672,7 +1672,7 @@ function sport(){
 
 function coc (){
     echo -e '\n Opening Clash of Clans Bot....\n'
-    path='C:\Users\Todorov\Downloads\MyBot-MBR_v7.5\MyBot.run.exe'
+    path='C:\Users\Todorov\Downloads\MyBot-MBR_v7.5.1\MyBot.run.exe'
     timeout 1s cmd.exe /c $path MyVillage1 MEmu MEmu
 }
 
@@ -2158,7 +2158,7 @@ function apps(){
             39)
                 cmd.exe /c start /D "D:\Workspace\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite\KeePass_Professional_sps" KeePass.exe && clear ;;
             40)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Office\eBooks\Calibre" calibre-portable.exe && clear ;;
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\calibrePortable" calibrePortable.exe && clear ;;
             41)
                 cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Office\Diagrams\draw.io" draw.io.exe && clear ;;
             42)

@@ -314,7 +314,7 @@ alias memu="cmd.exe /c start /D 'C:\ProgramData\Microvirt\MEmu' MEmuConsole.exe 
 alias photoshop="cmd.exe /c start /D 'C:\Program Files\Adobe\Adobe Photoshop CC 2017' Photoshop.exe"
 alias firefox="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\FirefoxPortable' FirefoxPortable.exe"
 alias vnc="~/software/VNC-Viewer-6.17.1113-Linux-x64"
-# alias chromium-browser='sudo chromium-browser --no-sandbox'
+alias chromium-browser='sudo chromium-browser --no-sandbox'
 alias mal="cmd.exe /c start /D 'D:\Workspace\Portable Apps\By Category\Net\Social\Taiga' Taiga.exe"
 alias pass="cmd.exe /c start /D 'D:\Workspace\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite\KeePass_Professional_sps' KeePass.exe"
 alias money="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\GnuCashPortable' GnuCashPortable.exe"
@@ -324,7 +324,8 @@ alias regedit="cmd.exe /c start /D 'C:\Windows' regedit.exe"
 alias aimp="cmd.exe /c start /D 'C:\Program Files (x86)\AIMP' AIMP.exe"
 alias sync="cmd.exe /c start /D 'D:\Workspace\Portable Apps\By Category\Net\File Sharing\SyncTrayzorPortable-x64' SyncTrayzor.exe"
 alias ftpstart="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\FileZillaPortable' FileZillaPortable.exe"
-alias keypass="cat /mnt/d/Workspace/Shared/p/K.txt | cmd.exe /c clip && cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\KeePassProPortable' KeePassProPortable.exe"
+alias keepass="cat /mnt/d/Workspace/Shared/p/K.txt | cmd.exe /c clip && cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\KeePassProPortable' KeePassProPortable.exe"
+alias calibre="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\calibrePortable' calibrePortable.exe"
 
 # Clipboard
 alias pbcopy="clip.exe"
