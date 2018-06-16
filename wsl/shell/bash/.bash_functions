@@ -1672,8 +1672,8 @@ function sport(){
 
 function coc (){
     echo -e '\n Opening Clash of Clans Bot....\n'
-    path='C:\Users\Todorov\Downloads\MyBot-MBR_v7.5.1\MyBot.run.exe'
-    timeout 1s cmd.exe /c $path MyVillage1 MEmu MEmu
+    path='C:\Users\Todorov\Downloads\MyBot-MBR_v7.5.2\MyBot.run.exe'
+    timeout 1s cmd.exe /c $path MyVillage MEmu MEmu
 }
 
 #   -------------------------------
