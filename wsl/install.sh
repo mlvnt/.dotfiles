@@ -58,6 +58,8 @@ modules=(
     "watchdog"
     "when-changed"
     "butterfly"
+    "bcrypt"
+    "passlib"
 # SciPy
     "matplotlib"
     "numpy"

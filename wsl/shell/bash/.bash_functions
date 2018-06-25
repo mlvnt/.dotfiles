@@ -1404,7 +1404,7 @@ function mywork(){
         echo -e '       b  | Go Back\n'
         echo    "    1  | todo                | TODOs"
         echo    "    2  | blog                | Blog"
-        echo    "    3  | moneyb              | Money"
+        echo    "    3  | money              | Money"
         echo    "    4  | series              | Series"
         echo    "    5  | coc                 | Start Clash of Clans Bot"
         echo    "    6  | social              | Open social media sites"
@@ -1422,7 +1422,7 @@ function mywork(){
     case $input in
         1|todo)        todo ;;
         2|blog)        blog $input2 $input3 ;;
-        3|moneyb)      moneyb ;;
+        3|money)      money ;;
         4|series)      series ;;
         5|coc)         coc ;;
         6|social)      social $input2 $input3 $input4 ;;
@@ -1438,7 +1438,7 @@ function mywork(){
 #   MONEY BALANCE
 #   -------------------------------
 
-function moneyb(){
+function money(){
     path='/mnt/d/Workspace/Projects/Programing/Scripts/Python/Money'
     clear && python3 $path/bg.py && python3 $path/uk.py
 }
@@ -1672,7 +1672,7 @@ function sport(){
 
 function coc (){
     echo -e '\n Opening Clash of Clans Bot....\n'
-    path='C:\Users\Todorov\Downloads\MyBot-MBR_v7.5.2\MyBot.run.exe'
+    path='C:\Users\Todorov\Downloads\MyBot-MBR_v7.5.3\MyBot.run.exe'
     timeout 1s cmd.exe /c $path MyVillage MEmu MEmu
 }
 
@@ -2025,7 +2025,7 @@ function apps(){
             echo    '           49  Vym'
             echo    '           50  yEd'
             echo    '           51  Zim'
-            echo -e '\n   >>> Media Editing\n'
+            echo -e '\n   >>> Media\n'
             echo    '           52  Audacity'
             echo    '           53  Bino'
             echo    '           54  Blender'
@@ -2035,6 +2035,8 @@ function apps(){
             echo    '           58  gMKVExtractGUI'
             echo    '           59  MKVExtractGUI2'
             echo    '           60  OBS Studio'
+            echo    '           77  Kodi'
+            echo    '           78  Plex'
             echo -e '\n   >>> OS Management\n'
             echo    '           61  Everything'
             echo    '           62  MultiCommander'
@@ -2169,8 +2171,6 @@ function apps(){
                 cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\LibreOfficePortable" LibreOfficePortable.exe && clear ;;
             45)
                 cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Office\Office\TeX\MikTEX\texmfs\install\miktex\bin" mo.exe && clear ;;
-            76)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Office\Office\TeX\MikTEX\texmfs\install\miktex\bin" miktex-console.exe && clear ;;
             46)
                 cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Office\Office\TeX\MikTEX\texmfs\install\miktex\bin\internal" miktex-update.exe && clear ;;
             47)
@@ -2231,6 +2231,12 @@ function apps(){
                 cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Office\Office\TeX\TikzEdtBeta0_2_3" TikzEdt.exe && clear ;;
             75)
                 cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\File Management\Recovery\R-StudioPortable 8.5.Build 170117" R-StudioPortable.exe && clear ;;
+            76)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Office\Office\TeX\MikTEX\texmfs\install\miktex\bin" miktex-console.exe && clear ;;
+            77)
+                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\File Management\Media Centers\Kodi\Server" kodi.exe -p && clear ;;
+            78)
+                cmd.exe /c "D:\Workspace\Portable Apps\By Category\File Management\Media Centers\Plex\Server\Plex Media Server.exe" && clear ;;
             b)
                 apps ;;
             x)
@@ -2553,32 +2559,45 @@ function apps(){
 #   -------------------------------
 
 function word(){
-    function word2(){
+    re='^[0-9]+$'
+    path="D:\Workspace\Projects\Programing\~References\Programs\Office\Microsoft Office\Templates\Landscape.dotm"
+
+    function wordo(){
         clear && echo
         for (( i=1; i<=$input; i++ ))
         do
            # echo "   Opening word document $i...."
-           wordn && sleep 0.2s
+           if [[ $orientation == l ]] ; then
+               cmd.exe /c start /D 'C:\Program Files\Microsoft Office\Office16' /MAX WINWORD.EXE /t"$path"
+               sleep 0.2s
+            else
+               cmd.exe /c start /D 'C:\Program Files\Microsoft Office\Office16' /MAX WINWORD.EXE /w
+               sleep 0.2s
+            fi
         done
         clear
     }
 
-    re='^[0-9]+$'
-
-    if [[ -z $1 ]] ; then 
-        clear && echo
-        read -e -p "  Enter № of word documents to open: " input
-        if [[ $input =~ $re ]] ; then
-            input=$input && word2
-        else
-            word
-        fi
+    if [[ $1 =~ $re ]] && [[ -z $2 ]] ; then
+        input=$1
+        orientation=""
+        wordo
+    elif [[ $1 =~ $re ]] && [[ $2 == l ]] ; then
+        input=$1
+        orientation=$2
+        wordo
+    elif [[ $1 == l  ]] && [[ $2 =~ $re ]] ; then
+        input=$2
+        orientation=$1
+        wordo
     else
-        if [[ $1 =~ $re ]] ; then
-            input=$1 && word2
-        else
-            word
-        fi
+        echo && echo "DESCRIPTION"
+        echo "        word - open Microsoft Word documents" && echo
+        echo "SYNTAX"
+        echo "        word [OPTION] [FILE NUMBER]"
+        echo "        word [FILE NUMBER] [OPTION]" && echo
+        echo "OPTIONS"
+        echo "        l   Landscape orientation" && echo
     fi
 }
 
@@ -2996,4 +3015,34 @@ cp_p () {
 #         *)
 #                 main ;;
 #     esac
+# }
+
+# function word(){
+#     function word2(){
+#         clear && echo
+#         for (( i=1; i<=$input; i++ ))
+#         do
+#            # echo "   Opening word document $i...."
+#            wordn && sleep 0.2s
+#         done
+#         clear
+#     }
+
+#     re='^[0-9]+$'
+
+#     if [[ -z $1 ]] ; then 
+#         clear && echo
+#         read -e -p "  Enter № of word documents to open: " input
+#         if [[ $input =~ $re ]] ; then
+#             input=$input && word2
+#         else
+#             word
+#         fi
+#     else
+#         if [[ $1 =~ $re ]] ; then
+#             input=$1 && word2
+#         else
+#             word
+#         fi
+#     fi
 # }

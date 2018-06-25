@@ -4,3 +4,4 @@ gzip
 errors {
     404 404.html
 }
+browse
