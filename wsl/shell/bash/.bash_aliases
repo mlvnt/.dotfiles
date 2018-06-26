@@ -292,8 +292,8 @@ alias autostart="open 'C:\Users\Todorov\AppData\Roaming\Microsoft\Windows\Start 
 
 # Edit Documents
 alias cv="o 'D:\Workspace\General\Personal\Professional\CV\CV.docx'"
-alias index="o 'D:\Workspace\General\Tech\MEMORY\Index\Index.xlsx'"
-alias memory="o 'D:\Workspace\General\Tech\MEMORY\Index\Index.html'"
+alias index="o 'D:\Workspace\General\Tech\Memory\index.xlsx'"
+alias memory="o 'D:\Workspace\General\Tech\Memory\index.html'"
 alias music="o 'D:\Workspace\General\Essential\Media\Music\Music.xlsx'"
 alias pics="o 'D:\Workspace\General\Essential\Art\Screenshots\Pics.xlsx'"
 alias quotes="o 'D:\Workspace\General\Personal\Me\Intro\Quotes\Quotes.xlsx'"
@@ -310,14 +310,13 @@ alias mail="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\Por
 alias torrent="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\qBittorrentPortable' qBittorrentPortable.exe"
 alias vpn="cmd.exe /c start /D 'C:\Program Files (x86)\PureVPN' purevpn.exe"
 alias vm="cmd.exe /c start /D 'C:\Program Files\Oracle\VirtualBox' VirtualBox.exe"
-alias dashlane="cmd.exe /c start /D 'C:\Users\Todorov\AppData\Roaming\Dashlane' Dashlane.exe"
+alias enpass="cmd.exe /c start /D 'D:\Workspace\Portable Apps\By Category\Net\EnpassPortable_5_6_9\Windows' EnpassPortable.exe"
 alias memu="cmd.exe /c start /D 'C:\ProgramData\Microvirt\MEmu' MEmuConsole.exe MEmu"
 alias photoshop="cmd.exe /c start /D 'C:\Program Files\Adobe\Adobe Photoshop CC 2017' Photoshop.exe"
 alias firefox="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\FirefoxPortable' FirefoxPortable.exe"
 alias vnc="~/software/VNC-Viewer-6.17.1113-Linux-x64"
 alias chromium-browser='sudo chromium-browser --no-sandbox'
 alias taiga="cmd.exe /c start /D 'D:\Workspace\Portable Apps\By Category\Net\Social\Taiga' Taiga.exe"
-# alias pass="cmd.exe /c start /D 'D:\Workspace\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite\KeePass_Professional_sps' KeePass.exe"
 alias gnucash="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\GnuCashPortable' GnuCashPortable.exe"
 alias sublime="cmd.exe /c start /D 'D:\Workspace\Portable Apps\By Category\Development\IDEs & Editors\Sublime Text' sublime_text.exe"
 alias irc="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\HexChatPortable' HexChatPortable.exe"
@@ -330,27 +329,20 @@ alias keepass="cat /mnt/d/Workspace/Shared/p/K.txt | cmd.exe /c clip && cmd.exe 
 alias calibre="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\calibrePortable' calibrePortable.exe"
 alias kodi="cmd.exe /c start /D 'D:\Workspace\Portable Apps\By Category\File Management\Media Centers\Kodi\Server' kodi.exe -p"
 alias plex="cmd.exe /c 'D:\Workspace\Portable Apps\By Category\File Management\Media Centers\Plex\Server\Plex Media Server.exe'"
+alias 4k="cmd.exe /c start /D 'C:\Program Files (x86)\4KDownload\4kvideodownloader' 4kvideodownloader.exe"
+alias chrome="cmd.exe /c start /D 'C:\Program Files (x86)\Google\Chrome\Application' /MAX chrome.exe"
+alias excel="cmd.exe /c start /D 'C:\Program Files\Microsoft Office\Office16' /MAX EXCEL.EXE /x"
+alias ppoint="cmd.exe /c start /D 'C:\Program Files (x86)\Microsoft Office\Root\Office16'  /MAX POWERPNT.EXE /B"
+alias npp="cmd.exe /c start /D 'D:\Workspace\Portable Apps\By Category\Development\IDEs & Editors\Notepad++\Notepad++ 7.5.1' /MAX notepad++.exe"
+# alias npp="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\Notepad++Portable' /MAX Notepad++Portable.exe"
+# alias npp="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\Notepad++Portable\App\Notepad++' /MAX notepad++.exe"
+# alias dashlane="cmd.exe /c start /D 'C:\Users\Todorov\AppData\Roaming\Dashlane' Dashlane.exe"
+# alias pass="cmd.exe /c start /D 'D:\Workspace\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite\KeePass_Professional_sps' KeePass.exe"
+# alias word="cmd.exe /c start /D "C:\\Program\ Files\ \(x86\)\\Microsoft\ Office\\Root\\Office16"  /MAX WINWORD.EXE /w"
 
 # Clipboard
 alias pbcopy="clip.exe"
 alias cpath="pwd && pwd | pbcopy"
-
-# Microsoft Office
-alias wordn="cmd.exe /c start /D 'C:\Program Files\Microsoft Office\Office16' /MAX WINWORD.EXE /w"
-# alias word="cmd.exe /c start /D "C:\\Program\ Files\ \(x86\)\\Microsoft\ Office\\Root\\Office16"  /MAX WINWORD.EXE /w"
-alias excel="cmd.exe /c start /D 'C:\Program Files\Microsoft Office\Office16' /MAX EXCEL.EXE /x"
-alias ppoint="cmd.exe /c start /D 'C:\Program Files (x86)\Microsoft Office\Root\Office16'  /MAX POWERPNT.EXE /B"
-
-# Notepad++
-alias npp="cmd.exe /c start /D 'D:\Workspace\Portable Apps\By Category\Development\IDEs & Editors\Notepad++\Notepad++ 7.5.1' /MAX notepad++.exe"
-# alias npp="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\Notepad++Portable' /MAX Notepad++Portable.exe"
-# alias npp="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\Notepad++Portable\App\Notepad++' /MAX notepad++.exe"
-
-# 4KDownloader
-alias 4k="cmd.exe /c start /D 'C:\Program Files (x86)\4KDownload\4kvideodownloader' 4kvideodownloader.exe"
-
-# Google Chrome
-alias chrome="cmd.exe /c start /D 'C:\Program Files (x86)\Google\Chrome\Application' /MAX chrome.exe"
 
 #   -------------------------------
 #   DESKTOP ENVIRONMENTS

@@ -990,8 +990,8 @@ function move (){
         screenshotsdir="/mnt/c/Users/Todorov/Pictures/My Screen Shots/"
         animepicsdir="/mnt/d/Workspace/General/Essential/Art/Screenshots/Pics"
         animepicsdirwin="D:\Workspace\General\Essential\Art\Screenshots\Pics"
-        acerscreendir="/mnt/d/Workspace/General/Tech/MEMORY/Desktop Screenshots/Acer Predator G9-792"
-        surfscreendir="/mnt/d/Workspace/General/Tech/MEMORY/Desktop Screenshots/Microsoft Surface Pro 4"
+        acerscreendir="/mnt/d/Workspace/General/Tech/Screenshots/Acer Predator G9-792"
+        surfscreendir="/mnt/d/Workspace/General/Tech/Screenshots/Microsoft Surface Pro 4"
 
         case $input in
             1)
@@ -1192,203 +1192,218 @@ function handles(){
 #   -------------------------------
 
 function win(){
-    clear
-    echo -e '\n  Available Options:\n'
-    echo    '           x  | Exit'
-    echo    '           b  | Go Back'
-    echo    '       Fixing NFTS:'
-    echo    '           1  | Dry-Run'
-    echo    '           2  | Fix'
-    echo    '           3  | Help'
-    echo    '       Repairing Windows System Files'
-    echo    '           4  | Repair'
-    echo    '           5  | Help'
-    echo    '       Delete Services'
-    echo    '           6  | Delete a Service'
-    echo    '       Shotcuts'
-    echo    '           7  | Quick Access'
-    echo -e '           8  | Start Menu & Taskbar Icons\n'
-    read -e -p "  Enter Option: " input
-    echo
-
-    function icons(){
-        cd /mnt/d/Workspace/Portable\ Apps/By\ Category/Windows\ Tweaks/Syspin/
-        tpin=c:5386
-        tunpin=c:5387
-        spin=c:51201
-        sunpin=c:51394
+    if [ -z $1 ] ; then
         clear
-        echo -e '\n  Available Options:'
-        echo    '       x  | Exit'
-        echo    '       b  | Go Back'
-        echo    '       1  | Pin icons to Taskbar'
-        echo    '       2  | Pin icons to Start Menu'
-        echo    '       3  | Unpin icons from Taskbar'
-        echo -e '       4  | Unpin icons from Start Menu\n'
+        echo -e '\n  Available Options:\n'
+        echo    '           x  | Exit'
+        echo    '           b  | Go Back'
+        echo    '    Fixing NFTS:'
+        echo    '        1  | Dry-Run'
+        echo    '        2  | Fix'
+        echo    '        3  | Help'
+        echo    '    Repairing Windows System Files'
+        echo    '        4  | Repair'
+        echo    '        5  | Help'
+        echo    '    Delete Services'
+        echo    '        6  | Delete a Service'
+        echo    '    Shotcuts'
+        echo    '        7  | qaccess           | Quick Access'
+        echo -e '        8  | icons             | Start Menu & Taskbar Icons\n'
         read -e -p "  Enter Option: " input
         echo
-        if [ $input -eq 1 ] ; then
-            echo -e '\n Pinnig icons to Taskbar....\n'
-            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-            cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\File Explorer.lnk" $tpin
-            cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Control Panel.lnk" $tpin
-            cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Task Manager.lnk" $tpin
-            cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Windows Mobility Center.lnk" $tpin
-            # cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Registry Editor.lnk" $tpin
-            # cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Command Prompt.lnk" $tpin
-            cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Ubuntu.lnk" $tpin
-            # C:\Windows\explorer.exe shell:Appsfolder\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc!ubuntu
-            cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Microsoft Edge.lnk" $tpin
-            # cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\KeePass.lnk" $tpin
-            cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Google Chrome.lnk" $tpin
-            # cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Notepad++.lnk" $tpin
-            cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\4K Video Downloader.lnk" $tpin
-            cmd.exe /c syspin.exe "D:\Workspace\Shortcuts\Taskbar\Sublime Text 3.lnk" $tpin
-            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-            echo -e '\n ....All icons are pinned!\n'
-        elif [ $input -eq 2 ] ; then
-            echo -e '\n Pinnig icons to Start Menu....\n'
-            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-            syspin.exe "C:\Users\Todorov\Desktop\Ubuntu.lnk" c:5386
-            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-            echo -e '\n ....All icons are pinned!\n'
-        elif [ $input -eq 3 ] ; then
-            echo -e '\n Unpinnig icons to Taskbar....\n'
-            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-            cmd.exe /c reg delete "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" /f
-            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-            echo -e '\n ....All icons are unpinned!\n'
-        elif [ $input -eq 4 ] ; then
-            echo -e '\n Unpinnig icons to Start Menu....\n'
-            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-            syspin.exe "C:\Users\Todorov\Desktop\Ubuntu.lnk" c:5386
-            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-            echo -e '\n ....All icons are unpinned!\n'
-        elif [ $input == b ] ; then
-            win
-        elif [ $input == x ] ; then
-            : && clear
-        else
-            icons
-        fi
-    }
+    else
+        input=$1
+    fi
 
     function qaccess(){
-        clear
-        echo -e '\n  Available Options:'
-        echo    '       x  | Exit'
-        echo    '       b  | Go Back'
-        echo    '       1  | Pin Folders to Quick Access'
-        echo -e '       2  | Unpin Folders to Quick Access\n'
-        read -e -p "  Enter Option: " input
-        echo
+        if [ -z $1 ] ; then
+            clear
+            echo -e '\n  Available Options:'
+            echo    '       x  | Exit'
+            echo    '       b  | Go Back'
+            echo    '       1  | Pin Folders to Quick Access'
+            echo -e '       2  | Unpin Folders from Quick Access\n'
+            read -e -p "  Enter Option: " input
+            echo
+        else
+            input=$1
+        fi
 
         # Variables
         powershellScript='D:\Workspace\Projects\Programing\Scripts\PowerShell\Quick_Access\Set-QuickAccess.ps1'
+        # cmd.exe /c "D:\Workspace\Projects\Programing\Scripts\PowerShell\Quick Access\Set-QuickAccess.cmd"
         p='Pin'
         up='Unpin'
         pins=(
             "'D:\'"
             "'D:\Workspace\~temp'"
             "'D:\Anime'"
-            # "'D:\Anime\Current Season'"
-            # "'D:\Anime\Finished'"
             "'D:\Workspace\Projects\Programing\~References\Programs\Browsers\Chrome\HTML Bookmarks\Archive'"
             "'D:\Workspace\General'"
             "'D:\Workspace\General\Essential'"
-            # "'D:\Workspace\General\Personal'"
             "'D:\Workspace\General\Personal\Professional\CV'"
-            # "'D:\Workspace\General\Essential\Cooking'"
             "'D:\Workspace\General\Personal\Blog'"
-            "'D:\Workspace\General\Tech\MEMORY'"
+            "'D:\Workspace\General\Tech'"
             "'D:\Movies'"
             "'D:\Series'"
             "'D:\Workspace\Shared'"
-            "'D:\Workspace\Shortcuts'"
             "'D:\Workspace\Portable Apps'"
             "'D:\Workspace\Projects'"
             "'D:\Workspace\Projects\Programing'"
-            # "'D:\Workspace\Projects\Mathematics'"
             "'D:\Workspace\University\Course\Year 2 - 2017-2018'"
-            "'D:\Videos'"
             "'D:\Workspace\General\Essential\Art\Screenshots\Pics'"
             "'C:\Users\Todorov\Pictures\My Screen Shots'"
             "'C:\Users\Todorov\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs\home\todorov'"
             "'C:\ProgramData\Microsoft\Windows\Start Menu\Programs'"
         )
 
-        if [ $input -eq 1 ] ; then
-            echo -e '\n Pinnig folders to Quick Access....\n'
-            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-            for pin in "${pins[@]}"
-            do : 
-                powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& $powershellScript $p $pin"
-            done
-            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-            echo -e '\n ....All folders are pinned!\n'
-        elif [ $input -eq 2 ] ; then
-            echo -e '\n Unpinnig folders to Quick Access....\n'
-            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-            for pin in "${pins[@]}"
-            do : 
-                powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& $powershellScript $up $pin"
-            done
-            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-            echo -e '\n ....All folders are unpinned!\n'
-        elif [ $input == b ] ; then
-            win
-        elif [ $input == x ] ; then
-            : && clear
-        else
-            qaccess
-        fi
+        case $input in
+            1)
+                echo -e '\n Pinnig folders to Quick Access....\n'
+                for pin in "${pins[@]}"
+                do : 
+                    powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& $powershellScript $p $pin"
+                done
+                echo -e '\n    Folders pinned!\n'  ;;
+            2)
+                echo -e '\n Unpinnig folders from Quick Access....\n'
+                for pin in "${pins[@]}"
+                do : 
+                    powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& $powershellScript $up $pin"
+                done
+                echo -e '\n    Folders unpinned!\n'  ;;
+            b)  win ;;
+            x)  : && clear ;;
+            *)  qaccess
+        esac
     }
-    # cmd.exe /c "D:\Workspace\Projects\Programing\Scripts\PowerShell\Quick Access\Set-QuickAccess.cmd"
+
+    function icons(){
+        if [ -z $1 ] ; then
+            clear
+            echo -e '\n  Available Options:'
+            echo    '       x  | Exit'
+            echo    '       b  | Go Back'
+            echo    '       1  | Pin icons to Taskbar'
+            echo    '       2  | Pin icons to Start Menu'
+            echo    '       3  | Unpin icons from Taskbar'
+            echo -e '       4  | Unpin icons from Start Menu\n'
+            read -e -p "  Enter Option: " input
+            echo
+        else
+            input=$1
+        fi
+
+        tpin=c:5386
+        tunpin=c:5387
+        spin=c:51201
+        sunpin=c:51394
+        patht="D:\Workspace\General\Tech\Shortcuts\Taskbar"
+        paths="D:\Workspace\General\Tech\Shortcuts\Start Menu\Windows"
+        taskbar=(
+            "\File Explorer.lnk"
+            "\Ubuntu.lnk"
+            "\Microsoft Edge.lnk"
+            "\Google Chrome.lnk"
+            "\Sublime Text 3.lnk"
+        )
+        startmenu=(
+            "\Weather.lnk"
+            "\Alarms & Clock.lnk"
+            "\Camera.lnk"
+            "\Maps.lnk"
+            "\Calculator.lnk"
+            "\Microsoft Store.lnk"
+            "\News.lnk"
+            "\Skype.lnk"
+            "\Internet Explorer.lnk"
+            "\Paint.lnk"
+            "\Paint 3D.lnk"
+            "\Registry Editor.lnk"
+            "\Windows PowerShell ISE.lnk"
+            "\Command Prompt.lnk"
+            "\Run.lnk"
+            "\Control Panel.lnk"
+            "\Task Manager.lnk"
+            "\Services.lnk"
+            "\Disk Cleanup.lnk"
+            "\Windows Defender Firewall with Advanced Security.lnk"
+            "\Windows Mobility Center.lnk"
+            "\On-Screen Keyboard.lnk"
+            "\Computer Management.lnk"
+            "\System Information.lnk"
+            "\System Configuration.lnk"
+            "\System Properties Protection.lnk"
+        )
+        cd /mnt/d/Workspace/Portable\ Apps/By\ Category/Windows\ Tweaks/Syspin/
+
+        case $input in
+            1)
+                echo -e '\n Pinnig icons to Taskbar....\n'
+                for pin in "${taskbar[@]}"
+                do : 
+                    cmd.exe /c syspin.exe "$patht$pin" $tpin
+                    sleep 0.2s
+                done
+                echo -e '\n    Icons pinned!\n'  ;;
+            2)
+                echo -e '\n Pinnig icons to Start Menu....\n'
+                for pin in "${startmenu[@]}"
+                do : 
+                    cmd.exe /c syspin.exe "$paths$pin" $spin
+                    sleep 0.2s
+                done
+                echo -e '\n    Icons pinned!\n'  ;;
+            3)
+                echo -e '\n Unpinnig icons from Taskbar....\n'
+                cmd.exe /c reg delete "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" /f
+                rm /mnt/c/Users/Todorov/AppData/Roaming/Microsoft/Internet\ Explorer/Quick\ Launch/User\ Pinned/TaskBar/*.lnk
+                echo -e '\n    Icons unpinned!\n'  ;;
+            4)
+                echo -e '\n Unpinnig icons from Start Menu....\n'
+                for pin in "${startmenu[@]}"
+                do : 
+                    cmd.exe /c syspin.exe "$paths$pin" $sunpin
+                    sleep 0.2s
+                done
+                echo -e '\n    Icons unpinned!\n'  ;;
+            b)  win ;;
+            x)  : && clear ;;
+            *)  icons
+        esac
+    }
 
     case $input in
         1)
             read -e -p "    Enter Drive Letter: " input2
             echo -e '\n Fixing NFTS for Drive '$input2':....\n'
-            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
             cmd.exe /c chkdsk ''$input2':'
-            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-            echo -e '\n ....Query Completed!\n' ;;
+            echo -e '\n     Query Completed!\n' ;;
         2)
             read -e -p "    Enter Drive Letter: " input3
             echo -e '\n Fixing NFTS for Drive '$input3':....\n'
-            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
             cmd.exe /c chkdsk /f ''$input3':'
-            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-            echo -e '\n ....Query Completed!\n' ;;
+            echo -e '\n     Query Completed!\n' ;;
         3)
             cmd.exe /c chkdsk /?
-            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-            echo -e '\n ....Query Completed!\n' ;;
+            echo -e '\n     Query Completed!\n' ;;
         4)
             echo -e '\n Repairing Windows System Files....\n'
             cmd.exe /c sfc /SCANNOW
-            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-            echo -e '\n ....Query Completed!\n' ;;
+            echo -e '\n     Query Completed!\n' ;;
         5)
             cmd.exe /c sfc /?
-            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-            echo -e '\n ....Query Completed!\n' ;;
+            echo -e '\n     Query Completed!\n' ;;
         6)
             read -e -p "    Enter Process to Delete: " input4
             echo -e '\n Deleting '$input4'....\n'
             cmd.exe /c sc delete ''$input4''
-            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-            echo -e '\n ....Query Completed!\n' ;;
-        7)
-            qaccess ;;
-        8)
-            icons ;;
-        b)
-            master ;;
-        x)
-            : && clear ;;
-        *)
-            win ;;
+            echo -e '\n     Query Completed!\n' ;;
+        7|qaccess)  qaccess $2 ;;
+        8|icons)    icons $2 ;;
+        b)  master ;;
+        x)  : && clear ;;
+        *)  win ;;
     esac
 }
 
@@ -1404,7 +1419,7 @@ function mywork(){
         echo -e '       b  | Go Back\n'
         echo    "    1  | todo                | TODOs"
         echo    "    2  | blog                | Blog"
-        echo    "    3  | money              | Money"
+        echo    "    3  | money               | Money"
         echo    "    4  | series              | Series"
         echo    "    5  | coc                 | Start Clash of Clans Bot"
         echo    "    6  | social              | Open social media sites"
@@ -1673,7 +1688,7 @@ function sport(){
 function coc (){
     echo -e '\n Opening Clash of Clans Bot....\n'
     path='C:\Users\Todorov\Downloads\MyBot-MBR_v7.5.3\MyBot.run.exe'
-    timeout 1s cmd.exe /c $path MyVillage MEmu MEmu
+    timeout 2s cmd.exe /c $path MyVillage MEmu MEmu
 }
 
 #   -------------------------------
@@ -2096,7 +2111,7 @@ function apps(){
             7)
                 cmd.exe /c start /D "D:\Workspace\Portable Apps\LiberKey" LiberKey.exe && clear ;;
             8)
-                o "D:\Workspace\Shortcuts\Recent\MyBotRun" && clear ;;
+                o "D:\Workspace\General\Essential\Templates\Folders\Downloads\MyBotRun" && clear ;;
             9)
                 cmd.exe /c start /D "D:\Workspace\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite\AnyDesk_sps" AnyDesk.exe && clear ;;
             10)
@@ -2354,7 +2369,7 @@ function apps(){
             echo    '           1   Microsoft Office'
             echo    '           2   Adobe Creative Cloud'
             echo -e '\n   >>> Basic Utilities\n'
-            echo    '           3   Dashlane'
+            echo    '           3   4K Video Downloader'
             echo    '           4   PureVPN'
             echo    '           5   VirtualBox'
             echo    '           6   MEmu-Multi'
@@ -2395,10 +2410,11 @@ function apps(){
             echo -e '\n   >>> Main\n'
             echo    '           1   Microsoft Office'
             echo    '           2   Adobe Creative Cloud'
-            echo    '           3   Dashlane'
+            echo    '           3   4K Video Downloader'
             echo    '           4   PureVPN'
             echo    '           6   MEmu-Multi'
             echo    '           7   MEmu'
+            echo    '           32  Sublime Text'
             echo    '           26  Windows 10 Upgrade Assistant'
             echo    '           15  KeepVID'
             echo -e '           16  IObit Advanced SystemCare\n'
@@ -2414,7 +2430,7 @@ function apps(){
             2)
                 adobe && clear ;;
             3)
-                cmd.exe /c start /D "C:\Users\Todorov\AppData\Roaming\Dashlane" Dashlane.exe && clear ;;
+                cmd.exe /c start /D "C:\Program Files (x86)\4KDownload\4kvideodownloader" 4kvideodownloader.exe && clear ;;
             4)
                 cmd.exe /c start /D "C:\Program Files (x86)\PureVPN" purevpn.exe && clear ;;
             5)
@@ -2472,7 +2488,7 @@ function apps(){
             31)
                 cmd.exe /c start /D "C:\Program Files\VcXsrv" xlaunch.exe && clear ;;
             32)
-                cmd.exe /c start /D ""  && clear ;;
+                cmd.exe /c start /D "C:\Program Files\Sublime Text 3" sublime_text.exe && clear ;;
             33)
                 cmd.exe /c start /D ""  && clear ;;
             34)
