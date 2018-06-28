@@ -1302,7 +1302,7 @@ function win(){
         paths="D:\Workspace\General\Tech\Shortcuts\Start Menu\Windows"
         taskbar=(
             "\File Explorer.lnk"
-            "\Ubuntu.lnk"
+            "\ConEmu.lnk"
             "\Microsoft Edge.lnk"
             "\Google Chrome.lnk"
             "\Sublime Text 3.lnk"
@@ -1343,7 +1343,7 @@ function win(){
                 for pin in "${taskbar[@]}"
                 do : 
                     cmd.exe /c syspin.exe "$patht$pin" $tpin
-                    sleep 0.2s
+                    sleep 0.3s
                 done
                 echo -e '\n    Icons pinned!\n'  ;;
             2)
@@ -1351,7 +1351,7 @@ function win(){
                 for pin in "${startmenu[@]}"
                 do : 
                     cmd.exe /c syspin.exe "$paths$pin" $spin
-                    sleep 0.2s
+                    sleep 0.3s
                 done
                 echo -e '\n    Icons pinned!\n'  ;;
             3)
@@ -1688,7 +1688,7 @@ function sport(){
 function coc (){
     echo -e '\n Opening Clash of Clans Bot....\n'
     path='C:\Users\Todorov\Downloads\MyBot-MBR_v7.5.3\MyBot.run.exe'
-    timeout 2s cmd.exe /c $path MyVillage MEmu MEmu
+    timeout 6s cmd.exe /c $path MyVillage MEmu MEmu
 }
 
 #   -------------------------------

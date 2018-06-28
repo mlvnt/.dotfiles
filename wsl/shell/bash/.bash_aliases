@@ -217,7 +217,7 @@ alias sshpi='ssh pi@192.168.137.2'
 alias pingpi='cmd.exe /c ping -4 raspberrypi.local'
 
 # youtube-dl
-alias ydl='youtube-dl'
+alias ydl='youtube-dl --write-description'
 
 # # the best .mp4 video with fps < 60
 # youtube-dl -f 'bestvideo[fps!=60]+bestaudio/best[ext=mp4]/best' -o '%(title)s.%(ext)s' https://youtu.be/5BBT7tmkBEA
@@ -334,6 +334,7 @@ alias chrome="cmd.exe /c start /D 'C:\Program Files (x86)\Google\Chrome\Applicat
 alias excel="cmd.exe /c start /D 'C:\Program Files\Microsoft Office\Office16' /MAX EXCEL.EXE /x"
 alias ppoint="cmd.exe /c start /D 'C:\Program Files (x86)\Microsoft Office\Root\Office16'  /MAX POWERPNT.EXE /B"
 alias npp="cmd.exe /c start /D 'D:\Workspace\Portable Apps\By Category\Development\IDEs & Editors\Notepad++\Notepad++ 7.5.1' /MAX notepad++.exe"
+alias task="cmd.exe /c start /D 'C:\Windows\system32' taskmgr.exe /7"
 # alias npp="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\Notepad++Portable' /MAX Notepad++Portable.exe"
 # alias npp="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\Notepad++Portable\App\Notepad++' /MAX notepad++.exe"
 # alias dashlane="cmd.exe /c start /D 'C:\Users\Todorov\AppData\Roaming\Dashlane' Dashlane.exe"

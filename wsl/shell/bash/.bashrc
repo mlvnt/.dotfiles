@@ -18,8 +18,20 @@ export PATH="$PATH:/usr/lib/chromium-browser"
 export PAGER="most"
 
 # LANGUAGE
-# export LANG=en_US.UTF-8 sublime_text
-# export LC_CTYPE=en_US.UTF-8 sublime_text
+# export LANG=en_US.UTF-8
+# export LC_CTYPE="en_US.UTF-8"
+# export LC_NUMERIC="en_US.UTF-8"
+# export LC_TIME="en_US.UTF-8"
+# export LC_COLLATE="en_US.UTF-8"
+# export LC_MONETARY="en_US.UTF-8"
+# export LC_MESSAGES="en_US.UTF-8"
+# export LC_PAPER="en_US.UTF-8"
+# export LC_NAME="en_US.UTF-8"
+# export LC_ADDRESS="en_US.UTF-8"
+# export LC_TELEPHONE="en_US.UTF-8"
+# export LC_MEASUREMENT="en_US.UTF-8"
+# export LC_IDENTIFICATION="en_US.UTF-8"
+# export LC_ALL=
 
 # # Set Man Pages
 # export MANPATH="$(brew --prefix coreutils)/libexec/gnuman:$MANPATH"
@@ -64,6 +76,7 @@ fi
 # Tmux
 function tmux_workspace(){
     SESSION_NAME="wkse"
+    # tmux set -g base-index 1
     tmux new -d -s ${SESSION_NAME}
     tmux rename-window 'whole'
     tmux new-window -n 'whole'
@@ -72,18 +85,18 @@ function tmux_workspace(){
     tmux new-window -n 'horizontal'
     tmux split-window -v -p 50
     tmux new-window -n 'todo'
-    tmux send-keys -t 4.0 'sudo /usr/sbin/sshd' Enter 'todo' Enter
+    tmux send-keys -t 5.0 'sudo /usr/sbin/sshd' Enter 'todo' Enter
     tmux new-window -n 'inotify' \; split-window \; split-window \; split-window 
     tmux select-layout tiled
-    tmux send-keys -t 5.0 'lin' Enter
-    tmux send-keys -t 5.1 'tod' Enter
-    tmux send-keys -t 5.2 'pas' Enter
-    tmux send-keys -t 5.3 'python3 -m radicale --config ~/.config/radicale/config' Enter
+    tmux send-keys -t 6.0 'lin' Enter
+    tmux send-keys -t 6.1 'tod' Enter
+    tmux send-keys -t 6.2 'pas' Enter
+    tmux send-keys -t 6.3 'python3 -m radicale --config ~/.config/radicale/config' Enter
     # tmux new-window -n '4'
     # tmux split-window -v -p 50
     # tmux new-window -n '5'
     # tmux split-window -v -p 50
-    tmux select-window -t 0
+    tmux select-window -t 1
     # tmux send-keys -t 1.0 'neofetch' Enter
     # tmux send-keys -t 2.0 'fzf' Enter
     # tmux select-pane -t 0
@@ -171,11 +184,17 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
+# Prompt
+black=0
+blue=12
+red=13
+
 if [ "$color_prompt" = yes ]; then
     # PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-    # PS1='\[\e[1;32m\][\u@\h ]\[\e[35m\]\W\[\e[0m\] \$ '
-    # PS1="\[\e[1;34m\]\$(pwd)\n\[\e[1;31m\](\$(date '+%A %d %H:%M:%S'))\[\e[1;32m\][\u@\h]\[\e[35m\]\W\[\e[0m\] \$ "
-    PS1="\[\e[1;34m\] \$(date '+%A %d %H:%M:%S') \[\e[35m\]\$(pwd)\n\[\e[1;32m\][\u@\h]\[\e[35m\]\W\[\e[0m\] \$ "
+    # PS1='\e[1;32m[\u@\h ]\[\e[35m\]\W\[\e[0m\] \$ '
+    # PS1="\e[1;34m\$(pwd)\n\e[1;31m(\$(date '+%A %d %H:%M:%S'))\e[1;32m[\u@\h]\[\e[35m\]\W\e[0m \$ "
+    # PS1="\e[1;34m \$(date '+%A %d %H:%M:%S') \e[35m\$(pwd)\n\e[1;32m[\u@\h]\[\e[35m\W\e[0m \$ "
+    PS1="\033[1;38;5;$black;48;5;${blue}m \u@\h\033[0m\033[1;48;5;${blue}m \033[1;38;5;$blue;48;5;${red}m\033[0m\033[1;38;5;$black;48;5;${red}m \$(pwd)\033[0m\033[1;48;5;${red}m \033[1;38;5;$red;48;5;${black}m \033[0m\n \[\033[1;38;5;${red}m\W \033[0m "
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -232,4 +251,4 @@ export HISTCONTROL=erasedups
 # HISTSIZE=1000
 # HISTFILESIZE=2000
 
-#=============================================================================================================
+#===============================================================================
