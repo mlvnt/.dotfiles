@@ -482,18 +482,18 @@ function watching(){
 }
 
 function lin(){
-    cd '/mnt/d/Workspace/Shared/markor'
+    cd '/mnt/d/Workspace/Shared/config/apps/notes/markor'
     watching . linkbox.txt '/mnt/d/Workspace/Projects/Programing/Scripts/Python/Web/links.py'
 }
 
 function tod(){
-    cd '/mnt/d/Workspace/Shared/todo.txt'
+    cd '/mnt/d/Workspace/Shared/config/apps/notes/todo.txt'
     watching . todo.txt cp *.txt /mnt/d/Workspace/General/Todo/todo.txt
 }
 
 function pas(){
     cd '/mnt/d/Workspace/General/Tech/Sandwich'
-    watching . p.kdbx cp p.kdbx /mnt/d/Workspace/Shared/p
+    watching . p.kdbx cp p.kdbx /mnt/d/Workspace/Shared/config/apps/notes/p
 }
 
 #   -------------------------------

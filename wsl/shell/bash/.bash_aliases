@@ -217,7 +217,14 @@ alias sshpi='ssh pi@192.168.137.2'
 alias pingpi='cmd.exe /c ping -4 raspberrypi.local'
 
 # youtube-dl
-alias ydl='youtube-dl --write-description'
+alias ydl="youtube-dl -f '(bestvideo[ext=mp4])[fps!=60]+bestaudio[ext=m4a]/mp4' -o '%(title)s/%(title)s.%(ext)s' --write-description"
+
+# # Download Youtube playlist in a folder and indexing videos using youtube-dl
+# alias youtube-dl-playlist="youtube-dl --ignore-errors --output '%(playlist)s/%(playlist_index)s- %(title)s.%(ext)s'"
+
+# --config-location PATH
+# --write-info-json
+# --write-annotations
 
 # # the best .mp4 video with fps < 60
 # youtube-dl -f 'bestvideo[fps!=60]+bestaudio/best[ext=mp4]/best' -o '%(title)s.%(ext)s' https://youtu.be/5BBT7tmkBEA
