@@ -342,6 +342,7 @@ alias excel="cmd.exe /c start /D 'C:\Program Files\Microsoft Office\Office16' /M
 alias ppoint="cmd.exe /c start /D 'C:\Program Files (x86)\Microsoft Office\Root\Office16'  /MAX POWERPNT.EXE /B"
 alias npp="cmd.exe /c start /D 'D:\Workspace\Portable Apps\By Category\Development\IDEs & Editors\Notepad++\Notepad++ 7.5.1' /MAX notepad++.exe"
 alias task="cmd.exe /c start /D 'C:\Windows\system32' taskmgr.exe /7"
+alias flash="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\RufusPortable' RufusPortable.exe"
 # alias npp="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\Notepad++Portable' /MAX Notepad++Portable.exe"
 # alias npp="cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\Notepad++Portable\App\Notepad++' /MAX notepad++.exe"
 # alias dashlane="cmd.exe /c start /D 'C:\Users\Todorov\AppData\Roaming\Dashlane' Dashlane.exe"
