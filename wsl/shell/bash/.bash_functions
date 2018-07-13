@@ -1682,14 +1682,21 @@ function sport(){
 }
 
 #   -------------------------------
-#   START CLASH OF CLANS BOT
+#   CLASH OF CLANS BOT
 #   -------------------------------
 
 function coc (){
     echo -e '\n Opening Clash of Clans Bot....\n'
-    path='C:\Users\Todorov\Downloads\MyBot-MBR_v7.5.3\MyBot.run.exe'
+    name=$(dir -AN1 | grep MyBot)
+    path='C:\Users\Todorov\Downloads\'$name'\MyBot.run.exe'
     timeout 6s cmd.exe /c $path MyVillage MEmu MEmu
 }
+
+function cocu() {
+    rm -rfv /mnt/c/Users/Todorov/Downloads/MyBot-MBR_v*
+    cp -r /mnt/d/Workspace/Shared/pc/MyBotRun/MyBot-MBR_v* /mnt/c/Users/Todorov/Downloads
+}
+
 
 #   -------------------------------
 #   MANAGE MY BLOG
