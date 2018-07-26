@@ -486,15 +486,15 @@ function lin(){
     watching . linkbox.txt '/mnt/d/Workspace/Projects/Programing/Scripts/Python/Web/links.py'
 }
 
-function tod(){
-    cd '/mnt/d/Workspace/Shared/mobile/config/apps/notes/todo.txt'
-    watching . todo.txt cp *.txt /mnt/d/Workspace/General/Todo/todo.txt
-}
-
 function pas(){
     cd '/mnt/d/Workspace/General/Tech/Sandwich'
     watching . p.kdbx cp p.kdbx /mnt/d/Workspace/Shared/mobile/config/apps/notes/p
 }
+
+# function tod(){
+#     cd '/mnt/d/Workspace/Shared/mobile/config/apps/notes/todo.txt'
+#     watching . todo.txt cp *.txt /mnt/d/Workspace/General/Todo/todo.txt
+# }
 
 #   -------------------------------
 #   Empty Trash
