@@ -9,13 +9,13 @@
 
 function master() {
     clear && echo
+    echo "    x  | exit              | Exit"
     echo "    1  | linx              | Linux Managemet"
     echo "    2  | win               | Windows Managemet"
     echo "    3  | manage            | System Management"
     echo "    4  | mywork            | Daily Work"
     echo "    5  | apps              | My Programs"
     echo
-    read -e -p "Enter Function №? (y/n) " answer
 
     function helper() {
         read -e -p "Function? (№/name) : " input
@@ -25,17 +25,13 @@ function master() {
             3|manage)   manage ;;
             4|mywork)   mywork ;;
             5|apps)     apps ;;
+            x|exit)  : && clear ;;
             *)          helper ;;
         esac
     }
 
-    if [ "$answer" = "y" ] ; then
-        helper
-    elif [ "$answer" = "n" ] ; then
-        :
-    else
-        master
-    fi
+    read -p "Press enter to continue"
+    helper
 }
 
 #   -------------------------------
@@ -1802,181 +1798,197 @@ function blog(){
 
 function todo(){
     guipath='D:\Workspace\Portable Apps\By Category\Office\Notes\jdotxt'
-    syncpath='D:\Workspace\Portable Apps\By Category\Net\File Sharing\SyncTrayzorPortable-x64'
-    todotxtpath="/mnt/d/Workspace/General/Todo/todo.txt"
+    # todotxtpath="/mnt/d/Workspace/Shared/mobile/config/apps/notes/todo.txt"
+    todotxtpath="D:\Workspace\Shared\mobile\config\apps\notes\todo.txt"
     todopath=~/bin/todo.txt-cli/todo.sh
     clear && echo && $todopath -z -P -@ -+ list && echo
-    read -e -p "Show options? (y/n) " answer
+    read -p "Press enter to continue"
+
+    echo
+    echo -e '\n  Available Options:\n'
+    echo    '           x  | exit   | Exit'
+    echo    '           b  | back   | Go Back'
+    echo    '       CLI:'
+    echo    '           1  | Add'
+    echo    '           2  | Done'
+    echo    '           3  | Delete, Replace, Append'
+    echo    '           4  | List'
+    echo    '           5  | Help'
+    echo    '           6  | Open todo.txt Dir'
+    echo    '       GUI:'
+    echo -e '           7  | Start GUI\n'
+    read -e -p "  Enter Option: " input
     echo
 
-    if [ "$answer" = "y" ] ; then
-        echo -e '\n  Available Options:\n'
-        echo    '           x  | Exit'
-        echo    '           b  | Go Back'
-        echo    '       CLI:'
-        echo    '           1  | Add'
-        echo    '           2  | Done'
-        echo    '           3  | Delete, Replace, Append'
-        echo    '           4  | List'
-        echo    '           5  | Help'
-        echo    '           6  | Open todo.txt Dir'
-        echo    '       GUI:'
-        echo    '           7  | Start GUI'
-        echo    '       Syncing:'
-        echo -e '           8  | Sync\n'
-        read -e -p "  Enter Option: " input
+    function refresh(){
         echo
+        read -p "Press enter to continue"
+        todo
+    }
 
-        function manage (){
-            clear
-            echo -e '\n  Available Options:\n'
-            echo    '       x  | Exit'
-            echo    '       b  | Go Back'
-            echo    '       1  | Delete'
-            echo    '       2  | Replace'
-            echo -e '       3  | Append\n'
-            read -e -p "  Your Choice: " input
+    function add(){
+        clear
+        echo "  New TASK [PRIORITY TASK PROJECT TAG DUE]" && echo
+        read -e -p "  Priority [A-Z] : " priority
+        read -e -p "  Task: " task
+        read -e -p "  Project : " project
+        read -e -p "  Tag : " tag
+        read -e -p "  Due Date [yy-mm-dd]: " due
 
-            case $input in
-                1)
-                    clear && echo && $todopath -z -P -@ -+ list && echo
-                    echo "  Delete TASK"
-                    echo "  Delete TASK [TERM]" && echo
-                    read -e -p "  Task ID to delete: " ID
-                    read -e -p "  Term to delete: " term
-                    $todopath del $ID $term
-                    echo && $todopath -z -P -@ -+ list && echo ;;
-                2)
-                    clear && echo && $todopath -z -P -@ -+ list && echo
-                    echo "  Replace TASK [NEW TERM]" && echo
-                    read -e -p "  Task ID to replace: " ID
-                    read -e -p "  Term to replace: " term
-                    $todopath replace $ID $term
-                    echo && $todopath -z -P -@ -+ list && echo ;;
-                3)
-                    clear && echo && $todopath -z -P -@ -+ list && echo
-                    echo "  Append TASK [NEW TERM]" && echo
-                    read -e -p "  Task ID to append to: " ID
-                    read -e -p "  Term to append: " term
-                    $todopath append $ID $term
-                    echo && $todopath -z -P -@ -+ list && echo ;;
-                b)  todo ;;
-                x)  : && clear ;;
-                *)  manage ;;
-            esac
-        }
+        if [ -z "$tag" ] ; then
+            $tag
+        else
+            tag=+$tag
+        fi
 
-        function list (){
-            clear
-            echo -e '\n  Available Options:\n'
-            echo    '       x  | Exit'
-            echo    '       b  | Go Back'
-            echo    '       1  | List Todo'
-            echo    '       2  | List Todo [yy-mm-dd @ +]'
-            echo    '       3  | List Done'
-            echo    '       4  | List by Project'
-            echo -e '       5  | List by Tag\n'
-            read -e -p "  Your Choice: " input
+        if [ -z "$project" ] ; then
+            $project
+        else
+            project=@$project
+        fi
 
-            case $input in
-                1)
-                    clear && echo && $todopath -z -P -@ -+ list && echo ;;
-                2)
-                    clear && echo && $todopath -P list && echo ;;
-                3)
-                    clear && echo && $todopath listfile done.txt && echo ;;
-                4)
-                    clear && echo -e "\nProjecs Available:\n" && $todopath listcon
-                    echo && read -e -p "  Project : " project
-                    echo && clear && echo && $todopath -z -@ list @$project && echo ;;
-                5)
-                    clear && echo -e "\nTags Available:\n" && $todopath listproj
-                    echo && read -e -p "  Tag : " tag
-                    echo && clear && echo && $todopath -z -+ list +$tag && echo ;;
-                b)  todo ;;
-                x)  : && clear ;;
-                *)  list ;;
-            esac
-        }
+        if [ -z "$priority" ] ; then
+            $priority
+        else
+            priority='('$priority')'
+        fi
 
-        function helpt (){
-            clear
-            echo -e '\n  Available Options:\n'
-            echo    '       x  | Exit'
-            echo    '       b  | Go Back'
-            echo    '       1  | Short'
-            echo -e '       2  | Long\n'
-            read -e -p "  Your Choice: " input
+        if [ -z "$due" ] ; then
+            $due
+        else
+            due=due:$due
+        fi
 
-            case $input in
-                1)  $todopath shorthelp && todo ;;
-                2)  $todopath help && todo ;;
-                b)  todo ;;
-                x)  : && clear ;;
-                *)  helpt ;;
-            esac
-        }
+        if [ -z "$task" ] ; then
+            :
+        else
+            echo && $todopath -t add $priority $task $project $tag $due
+        fi
+
+        echo && $todopath -z -P list && echo
+        refresh
+    }
+
+    function completed(){
+        clear && echo && $todopath -z -P -@ -+ list && echo
+        read -e -p "  Task ID to mark as done: " ID
+        echo && $todopath -A do $ID && echo
+        echo && $todopath listfile done.txt && echo
+        refresh
+    }
+
+    function manage (){
+        clear
+        echo -e '\n  Available Options:\n'
+        echo    '       x  | Exit'
+        echo    '       b  | Go Back'
+        echo    '       1  | Delete'
+        echo    '       2  | Replace'
+        echo -e '       3  | Append\n'
+        read -e -p "  Your Choice: " input
 
         case $input in
-            1)  clear
-                echo "  New TASK [PRIORITY TASK PROJECT TAG DUE]" && echo
-                read -e -p "  Priority [A-Z] : " priority
-                read -e -p "  Task: " task
-                read -e -p "  Project : " project
-                read -e -p "  Tag : " tag
-                read -e -p "  Due Date [yy-mm-dd]: " due
-
-                if [ -z "$tag" ] ; then
-                    $tag
-                else
-                    tag=+$tag
-                fi
-
-                if [ -z "$project" ] ; then
-                    $project
-                else
-                    project=@$project
-                fi
-
-                if [ -z "$priority" ] ; then
-                    $priority
-                else
-                    priority='('$priority')'
-                fi
-
-                if [ -z "$due" ] ; then
-                    $due
-                else
-                    due=due:$due
-                fi
-
-                if [ -z "$task" ] ; then
-                    :
-                else
-                    echo && $todopath -t add $priority $task $project $tag $due
-                fi
-
-                echo && $todopath -z -P list && echo ;;
-            2)  clear && echo && $todopath -z -P -@ -+ list && echo
-                read -e -p "  Task ID to mark as done: " ID
-                echo && $todopath -A do $ID && echo
-                echo && $todopath listfile done.txt && echo ;;
-            3)  manage ;;
-            4)  list ;;
-            5)  helpt ;;
-            6)  cd $todotxtpath ;;
-            7)  cmd.exe /c start /D "$guipath" jdotxt-0.4.8.jar ;;
-                # java -jar jdotxt-0.4.8.jar
-            8)  cmd.exe /c start /D "$syncpath" SyncTrayzor.exe ;;
-            b)  mywork ;;
+            1)
+                clear && echo && $todopath -z -P -@ -+ list && echo
+                echo "  Delete TASK"
+                echo "  Delete TASK [TERM]" && echo
+                read -e -p "  Task ID to delete: " ID
+                read -e -p "  Term to delete: " term
+                $todopath del $ID $term
+                echo && $todopath -z -P -@ -+ list && echo 
+                refresh ;;
+            2)
+                clear && echo && $todopath -z -P -@ -+ list && echo
+                echo "  Replace TASK [NEW TERM]" && echo
+                read -e -p "  Task ID to replace: " ID
+                read -e -p "  Term to replace: " term
+                $todopath replace $ID $term
+                echo && $todopath -z -P -@ -+ list && echo 
+                refresh ;;
+            3)
+                clear && echo && $todopath -z -P -@ -+ list && echo
+                echo "  Append TASK [NEW TERM]" && echo
+                read -e -p "  Task ID to append to: " ID
+                read -e -p "  Term to append: " term
+                $todopath append $ID $term
+                echo && $todopath -z -P -@ -+ list && echo 
+                refresh ;;
+            b)  todo ;;
             x)  : && clear ;;
-            *)  todo ;;
+            *)  manage ;;
         esac
-    elif [ "$answer" = "n" ] ; then
-        :
-    else
-        todo
-    fi
+    }
+
+    function list (){
+        clear
+        echo -e '\n  Available Options:\n'
+        echo    '       x  | Exit'
+        echo    '       b  | Go Back'
+        echo    '       1  | List Todo'
+        echo    '       2  | List Todo [yy-mm-dd @ +]'
+        echo    '       3  | List Done'
+        echo    '       4  | List by Project'
+        echo -e '       5  | List by Tag\n'
+        read -e -p "  Your Choice: " input
+
+        case $input in
+            1)
+                clear && echo && $todopath -z -P -@ -+ list && echo 
+                refresh ;;
+            2)
+                clear && echo && $todopath -P list && echo 
+                refresh ;;
+            3)
+                clear && echo && $todopath listfile done.txt && echo 
+                refresh ;;
+            4)
+                clear && echo -e "\nProjecs Available:\n" && $todopath listcon
+                echo && read -e -p "  Project : " project
+                echo && clear && echo && $todopath -z -@ list @$project && echo 
+                refresh ;;
+            5)
+                clear && echo -e "\nTags Available:\n" && $todopath listproj
+                echo && read -e -p "  Tag : " tag
+                echo && clear && echo && $todopath -z -+ list +$tag && echo 
+                refresh ;;
+            b)  todo ;;
+            x)  : && clear ;;
+            *)  list ;;
+        esac
+    }
+
+    function helpt (){
+        clear
+        echo -e '\n  Available Options:\n'
+        echo    '       x  | Exit'
+        echo    '       b  | Go Back'
+        echo    '       1  | Short'
+        echo -e '       2  | Long\n'
+        read -e -p "  Your Choice: " input
+
+        case $input in
+            1)  $todopath shorthelp && todo ;;
+            2)  $todopath help && todo ;;
+            b)  todo ;;
+            x)  : && clear ;;
+            *)  helpt ;;
+        esac
+    }
+
+    case $input in
+        1)  add ;;
+        2)  completed ;;
+        3)  manage ;;
+        4)  list ;;
+        5)  helpt ;;
+        6)  o $todotxtpath && refresh ;;
+        7)  cmd.exe /c start /D "$guipath" jdotxt-0.4.8.jar 
+            refresh ;;
+            # java -jar jdotxt-0.4.8.jar
+        b|back)  mywork ;;
+        x|exit)  : && clear ;;
+        *)  todo ;;
+    esac
 }
 
 #   -------------------------------
@@ -2892,180 +2904,4 @@ cp_p () {
   rsync -WavP --human-readable --progress $1 $2
 }
 
-#=============================================================================================================
-
-# find /mnt/c/Users/Todorov/Pictures/My\ Screen\ Shots/ -type f -name "[0-9]*.PNG" -print
-# find /mnt/c/Users/Todorov/Pictures/My\ Screen\ Shots/ -type f -regex ".*/[0-9]+\.PNG"
-# find /mnt/c/Users/Todorov/Pictures/My\ Screen\ Shots/ -type f -regex ".*/[0-9]+[.]PNG"
-# find /mnt/c/Users/Todorov/Pictures/My\ Screen\ Shots/ -type f -regex ".*/[0-9]+[.]PNG"
-# find . -regex '\./[0-9]+\.PNG'
-# find . -regextype posix-egrep -regex '\./[0-9]+\.PNG'
-# find . -regextype posix-egrep -regex '\./[0-9]+.PNG'
-# find . -regextype posix-extended -regex '\./[0-9]+.PNG'
-# find . -regextype posix-extended -regex '\./[[:digit:]]+.PNG'
-# find . -regextype posix-extended -regex '\./[[:digit:]]+\.PNG'
-# find . -regextype posix-extended -regex '\./[[:digit:]]+\.+PNG'
-
-# Robocopy
-# function mvall(){
-#     echo -e "\n Moving from Downloads....\n"
-#     echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-#     cmd.exe /c ROBOCOPY 'C:\Users\Todorov\Downloads' 'D:\Workspace\~temp' * /MOVE /E /COPY:DAT /DCOPY:DAT /XF *.ini
-#     echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-#     echo -e "\n Moving from Documents....\n"
-#     echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"  
-#     cmd.exe /c ROBOCOPY 'C:\Users\Todorov\Documents' 'D:\Workspace\~temp' * /MOV /COPY:DAT /XF *.ini
-#     echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-#     echo -e "\n Finished\n"
-# }
-
-# Rsync
-# function mvall(){
-#     find /mnt/c/Users/Todorov/Downloads -mindepth 1 -not -name '*.ini' -print0 | xargs -0 mv -t /mnt/d/Workspace/~temp
-#     find /mnt/c/Users/Todorov/Downloads -mindepth 1 -not -name '*.ini' -print0 | xargs -0 -I {} cp -p -r  {} /mnt/d/Workspace/~temp
-#     find /mnt/c/Users/Todorov/Downloads -mindepth 1 -not -name '*.ini' -print0 -exec {} cp -p -r  {} /mnt/d/Workspace/~temp \;
-# }
-
-# function nppb(){
-#     yes yes| cp -va "$origin$file1" "$destination"
-    
-#     for (( c=0; c<=5; c++ )); do  
-#     local Array1=("$origin${ARRAY[$c]}")     
-#     if (( 5 <= $c )) # [ $c -eq 5 ] && (( 5 < $c )) # [ 5 -ne $c ] 
-#     then
-#         echo ${Array1[@]} 
-#         rsync -avhz --progress --ignore-times "${Array1[@]}" "$destination"
-#         # array+=
-#         # echo ${Array1[*]} 
-#      # else  
-#         #Array1=("$origin${ARRAY[$c]}")
-#     fi    
-#     done
-
-#     for (( c=0; c<=5; c++ ))
-#     do
-#         Array1=("$origin${ARRAY[$c]}")
-#         # rsync -avhz --progress --ignore-times "${Array1[*]}" "$destination"
-#         echo ${Array1[*]}        
-#     done         
-# }
-
-# ll | ws -l
-
-# function nppfix (){
-#     clear
-#     echo -e '\n  Available Options:\n'
-#     echo    '       x  | Exit'
-#     echo    '       b  | Go Back'
-#     echo    '       1  | Replace Corrupted Configuration'
-#     echo -e '       2  | Backup Configuration\n'
-#     read -e -p "  Enter Option: " input
-#     echo
-#     if [ $input -eq 1 ] ; then
-#         # Variables
-#         origin=/mnt/d/Workspace/Portable\ Apps/PortableApps.com/PortableApps/Notepad++Portable/_Backup/ 
-#         destination=/mnt/d/Workspace/Portable\ Apps/PortableApps.com/PortableApps/Notepad++Portable/App/Notepad++/    
-#         # Function   
-#         echo -e "\n Replacing corrupted configuration....\n"
-#         echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-#         sudo rsync -avhz --progress --stats --ignore-times "$origin" "$destination" --include=\*.xml --exclude=\*
-#         echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-#         echo -e "\n Finished\n"
-#         echo -e "\n Opening Notepad++....\n"
-#         npp
-#     elif [ $input -eq 2 ] ; then
-#         # set -x # Bash debuging
-#         # Variables
-#         origin=/mnt/d/Workspace/Portable\ Apps/PortableApps.com/PortableApps/Notepad++Portable/App/Notepad++/
-#         destination=/mnt/d/Workspace/Portable\ Apps/PortableApps.com/PortableApps/Notepad++Portable/_Backup/
-#         file1=stylers.model.xml
-#         file2=stylers.xml
-#         file3=config.xml
-#         file4=contextMenu.xml
-#         file5=session.xml
-#         file6=shortcuts.xml
-#         Array1=($file1 $file2 $file3 $file4 $file5 $file6)
-#         # Function
-#         echo -e "\n Backup configuration....\n"
-#         echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-#         sudo rsync -avhz --progress --stats --ignore-times "$origin${Array1[0]}" "$origin${Array1[1]}" "$origin${Array1[2]}" "$origin${Array1[3]}" "$origin${Array1[4]}" "$origin${Array1[5]}" "$destination"
-#         echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-#         echo -e "\n Finished!\n"
-#         elif [ $input == b ] ; then
-#             apps
-#         elif [ $input == x ] ; then
-#             : && clear
-#         else
-#             nppfix
-#         fi
-# }
-
-# function main_clone() {
-#     clear 
-#     echo -e '\n  Available Options:\n'
-#     echo    '           x  | Exit'
-#     echo    '           b  | Go Back'
-#     echo -e '           1  | Proceed\n'
-#     read -e -p "  Option: " input
-
-#     case $input in 
-#         1)
-#                 echo
-#                 read -e -p "  Enter Drive Letter/Path [c]:" backdir
-#                 dotfilesdird="/mnt/e/B/backup/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/"
-#                 dotfilesdire="/mnt/"$backdir"/Workspace/Projects/Programing/Git/dotfiles/.dotfiles"
-#                 drived="/mnt/e/B/backup/Workspace"
-#                 drivedwin="E:\B\backup\Workspace"
-
-#                 robocopyoptions="/E /ZB /SL /MT:20 /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1 /ETA"
-#                 ryncoptions="-avhzH --progress --stats"
-
-#                 echo -e '\n ~~~~~~~~~~~~~~ Cloning Main Drive.... ~~~~~~~~~~~~~~\n'
-#                 function clone () {
-#                     echo -e "\n     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-#                     mkdir -p "/mnt/"$backdir"/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/"
-#                     sudo rsync $ryncoptions "$dotfilesdird" "$dotfilesdire"
-#                     echo -e "\n     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-#                     cmd.exe /c robocopy "$drivedwin" "$backdir:\\Workspace" "*" $robocopyoptions
-#                 }
-#                 clone 
-#                 echo -e '\n ~~~~~~~~~~~~~~ Cloning Complete! ~~~~~~~~~~~~~~\n' 
-#                 ;;
-#         b)
-#                 move ;;
-#         x)
-#                 : && clear ;;
-#         *)
-#                 main ;;
-#     esac
-# }
-
-# function word(){
-#     function word2(){
-#         clear && echo
-#         for (( i=1; i<=$input; i++ ))
-#         do
-#            # echo "   Opening word document $i...."
-#            wordn && sleep 0.2s
-#         done
-#         clear
-#     }
-
-#     re='^[0-9]+$'
-
-#     if [[ -z $1 ]] ; then 
-#         clear && echo
-#         read -e -p "  Enter № of word documents to open: " input
-#         if [[ $input =~ $re ]] ; then
-#             input=$input && word2
-#         else
-#             word
-#         fi
-#     else
-#         if [[ $1 =~ $re ]] ; then
-#             input=$1 && word2
-#         else
-#             word
-#         fi
-#     fi
-# }
+#=========================================================================================================

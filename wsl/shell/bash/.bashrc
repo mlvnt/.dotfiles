@@ -246,13 +246,10 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # Unlimited bash history
-export HISTFILE=~/.bash_history
-export HISTFILESIZE=
-export HISTSIZE=
-export HISTCONTROL=erasedups
-
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-# HISTSIZE=1000
-# HISTFILESIZE=2000
+export HISTFILE=~/.bash_history
+export HISTSIZE=
+export HISTFILESIZE=
+export HISTCONTROL=erasedups
 
 #===============================================================================

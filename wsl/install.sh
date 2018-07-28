@@ -60,6 +60,9 @@ modules=(
     "butterfly"
     "bcrypt"
     "passlib"
+    "libusb1"
+    "adb"
+    "configparser"
 # SciPy
     "matplotlib"
     "numpy"
