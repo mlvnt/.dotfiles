@@ -483,21 +483,16 @@ function lin(){
 }
 
 function pas(){
-    cd '/mnt/d/Workspace/General/Tech/Sandwich'
+    cd '/mnt/d/Workspace/Tech/Sandwich'
     watching . p.kdbx cp p.kdbx /mnt/d/Workspace/Shared/mobile/config/apps/notes/p
 }
-
-# function tod(){
-#     cd '/mnt/d/Workspace/Shared/mobile/config/apps/notes/todo.txt'
-#     watching . todo.txt cp *.txt /mnt/d/Workspace/General/Todo/todo.txt
-# }
 
 #   -------------------------------
 #   Empty Trash
 #   -------------------------------
 
 function bin (){
-    patht="D:\Workspace\Portable Apps\SyMenu\ProgramFiles\SPSSuite\NirSoftSuite\NirCmd_x64_sps\nircmd.exe"
+    patht="D:\Portable Apps\SyMenu\ProgramFiles\SPSSuite\NirSoftSuite\NirCmd_x64_sps\nircmd.exe"
     trashdir=~/.local/share/Trash
 
     function list() {
@@ -558,7 +553,7 @@ function bin (){
         1)
             echo -e '\n Empting $RECYCLE.BIN....\n'
             cmd.exe /c "$patht" emptybin ;;
-            # cmd.exe /c 'D:\Workspace\Portable Apps\By Category\File Management\Recycle\recycle.exe' /L
+            # cmd.exe /c 'D:\Portable Apps\By Category\File Management\Recycle\recycle.exe' /L
             # echo -e '\n Empting $RECYCLE.BIN on C:\ ....\n'
             # cmd.exe /c rd /s /q '%systemdrive%\$Recycle.bin'
             # echo -e '\n Empting $RECYCLE.BIN on D:\ ....\n'
@@ -600,8 +595,8 @@ function links (){
     echo -e '\n Symbolic Links Deleted!\n'
     }
 
-    path='/mnt/d/Workspace/General/Notebook/~genLinks/'
-    pathwin='D:\Workspace\General\Notebook\~genLinks'
+    path='/mnt/d/Workspace/Shared/mobile/notebook/~genLinks'
+    pathwin='D:\Workspace\Shared\mobile\notebook\~genLinks'
 
     if [ -z $1 ] ; then
         clear
@@ -690,7 +685,7 @@ function move (){
         logfile="log_backup-$(date "+%Y-%m-%d-%H-%M").txt"
         workspacedird="D:\Workspace"
         workspacedire="E:\B\backup\Workspace"
-        link_dir_1="/mnt/e/B/backup/Workspace/General"
+        link_dir_1="/mnt/e/B/backup/Workspace"
         link_dir_2="/mnt/e/B/backup/Workspace/Shared"
 
         case $input in
@@ -796,7 +791,7 @@ function move (){
         logfile="log_restore-$(date "+%Y-%m-%d-%H-%M").txt"
         workspacedird="D:\Workspace"
         workspacedire="E:\B\backup\Workspace"
-        link_dir_1="/mnt/d/Workspace/General"
+        link_dir_1="/mnt/d/Workspace"
         link_dir_2="/mnt/d/Workspace/Shared"
 
         case $input in
@@ -939,7 +934,7 @@ function move (){
         logfile="log_restore-$(date "+%Y-%m-%d-%H-%M").txt"
         workspacedird="D:\Workspace"
         workspacedire="E:\B\backup\Workspace"
-        link_dir_1="/mnt/d/Workspace/General"
+        link_dir_1="/mnt/d/Workspace"
         link_dir_2="/mnt/d/Workspace/Shared"
 
         case $input in
@@ -984,10 +979,10 @@ function move (){
 
         temp="/mnt/d/Workspace/~temp"
         screenshotsdir="/mnt/c/Users/Todorov/Pictures/My Screen Shots/"
-        animepicsdir="/mnt/d/Workspace/General/Essential/Art/Screenshots/Pics"
-        animepicsdirwin="D:\Workspace\General\Essential\Art\Screenshots\Pics"
-        acerscreendir="/mnt/d/Workspace/General/Tech/Screenshots/Acer Predator G9-792"
-        surfscreendir="/mnt/d/Workspace/General/Tech/Screenshots/Microsoft Surface Pro 4"
+        animepicsdir="/mnt/d/Workspace/Essential/Art/Screenshots/Pics"
+        animepicsdirwin="D:\Workspace\Essential\Art\Screenshots\Pics"
+        acerscreendir="/mnt/d/Workspace/Tech/Screenshots/Acer Predator G9-792"
+        surfscreendir="/mnt/d/Workspace/Tech/Screenshots/Microsoft Surface Pro 4"
 
         case $input in
             1)
@@ -1154,7 +1149,7 @@ function handles(){
         echo -e '\n ....Query Completed!\n'
     elif [ $input -eq 4 ] ; then
         echo -e '\n Closig File Handles....\n'
-        cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\ProcessExplorerPortable' ProcessExplorerPortable.exe
+        cmd.exe /c start /D 'D:\Portable Apps\PortableApps.com\PortableApps\ProcessExplorerPortable' ProcessExplorerPortable.exe
         echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         echo -e '\n ....Query Completed!\n'
     elif [ $input -eq 5 ] ; then
@@ -1235,19 +1230,19 @@ function win(){
             "'D:\Workspace\~temp'"
             "'D:\Anime'"
             "'D:\Workspace\Projects\Programing\~References\Programs\Browsers\Chrome\HTML Bookmarks\Archive'"
-            "'D:\Workspace\General'"
-            "'D:\Workspace\General\Essential'"
-            "'D:\Workspace\General\Personal\Professional\CV'"
-            "'D:\Workspace\General\Personal\Blog'"
-            "'D:\Workspace\General\Tech'"
-            "'D:\Movies'"
-            "'D:\Series'"
+            "'D:\Workspace\Essential'"
+            "'D:\Workspace\Personal'"
+            "'D:\Workspace\Personal\Professional\CV'"
+            "'D:\Workspace\Personal\Blog'"
+            "'D:\Workspace\Tech'"
+            "'D:\movies'"
+            "'D:\series'"
             "'D:\Workspace\Shared'"
-            "'D:\Workspace\Portable Apps'"
+            "'D:\Portable Apps'"
             "'D:\Workspace\Projects'"
             "'D:\Workspace\Projects\Programing'"
             "'D:\Workspace\University\Course\Year 2 - 2017-2018'"
-            "'D:\Workspace\General\Essential\Art\Screenshots\Pics'"
+            "'D:\Workspace\Essential\Art\Screenshots\Pics'"
             "'C:\Users\Todorov\Pictures\My Screen Shots'"
             "'C:\Users\Todorov\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs\home\todorov'"
             "'C:\ProgramData\Microsoft\Windows\Start Menu\Programs'"
@@ -1294,8 +1289,8 @@ function win(){
         tunpin=c:5387
         spin=c:51201
         sunpin=c:51394
-        patht="D:\Workspace\General\Tech\Shortcuts\Taskbar"
-        paths="D:\Workspace\General\Tech\Shortcuts\Start Menu\Windows"
+        patht="D:\Workspace\Tech\Shortcuts\Taskbar"
+        paths="D:\Workspace\Tech\Shortcuts\Start Menu\Windows"
         taskbar=(
             "\File Explorer.lnk"
             "\ConEmu.lnk"
@@ -1496,8 +1491,8 @@ function social(){
                         while IFS= read -r line ; do
                             firefox $window "$line"
                         done < "$files"
-                        # cat /home/todorov/.dotfiles/wsl/net/social | xargs -I % cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\FirefoxPortable' FirefoxPortable.exe %
-                        # xargs -a /home/todorov/.dotfiles/wsl/net/social cmd.exe /c start /D 'D:\Workspace\Portable Apps\PortableApps.com\PortableApps\FirefoxPortable' FirefoxPortable.exe "$line"
+                        # cat /home/todorov/.dotfiles/wsl/net/social | xargs -I % cmd.exe /c start /D 'D:\Portable Apps\PortableApps.com\PortableApps\FirefoxPortable' FirefoxPortable.exe %
+                        # xargs -a /home/todorov/.dotfiles/wsl/net/social cmd.exe /c start /D 'D:\Portable Apps\PortableApps.com\PortableApps\FirefoxPortable' FirefoxPortable.exe "$line"
                      else
                         window="-new-window"
                         firefox $window $sites
@@ -1593,7 +1588,7 @@ function social(){
 #   -------------------------------
 
 function food(){
-    path="D:\Workspace\General\Essential\Cooking"
+    path="D:\Workspace\Essential\Cooking"
     doc1=$path"\Products.xlsx"
     doc2=$path"\Recipes.docx"
     doc3=$path"\Recipes.xlsx"
@@ -1655,7 +1650,7 @@ function food(){
 #   -------------------------------
 
 function sport(){
-    path="D:\Workspace\General\Essential\Health\Sport\Fitness"
+    path="D:\Workspace\Essential\Health\Sport\Fitness"
     doc1=$path"\2018-04.xlsx"
     doc2=$path"\Exercises.xlsx"
     doc3=$path"\Training Program.docx"
@@ -1699,12 +1694,12 @@ function cocu() {
 #   -------------------------------
 
 function blog(){
-    gamespath="/mnt/d/Workspace/General/Personal/Blog/bgrebbels.mlvnt.com/public_html"
-    blogpath="/mnt/d/Workspace/General/Personal/Blog/mlvnt.com/mvlnt"
-    content="/mnt/d/Workspace/General/Personal/Blog/mlvnt.com/mlvnt/content"
-    contents="D:\Workspace\General\Personal\Blog\mlvnt.com\mlvnt\content"
-    bakedpath="/mnt/d/Workspace/General/Personal/Blog/mlvnt.com/public_html"
-    filezilladir="D:\Workspace\Portable Apps\PortableApps.com\PortableApps\FileZillaPortable"
+    gamespath="/mnt/d/Workspace/Personal/Blog/bgrebbels.mlvnt.com/public_html"
+    blogpath="/mnt/d/Workspace/Personal/Blog/mlvnt.com/mvlnt"
+    content="/mnt/d/Workspace/Personal/Blog/mlvnt.com/mlvnt/content"
+    contents="D:\Workspace\Personal\Blog\mlvnt.com\mlvnt\content"
+    bakedpath="/mnt/d/Workspace/Personal/Blog/mlvnt.com/public_html"
+    filezilladir="D:\Portable Apps\PortableApps.com\PortableApps\FileZillaPortable"
     ext=".md"
 
     if [ -z $1 ] ; then
@@ -1797,7 +1792,7 @@ function blog(){
 #   -------------------------------
 
 function todo(){
-    guipath='D:\Workspace\Portable Apps\By Category\Office\Notes\jdotxt'
+    guipath='D:\Portable Apps\By Category\Office\Notes\jdotxt'
     # todotxtpath="/mnt/d/Workspace/Shared/mobile/config/apps/notes/todo.txt"
     todotxtpath="D:\Workspace\Shared\mobile\config\apps\notes\todo.txt"
     todopath=~/bin/todo.txt-cli/todo.sh
@@ -2116,161 +2111,161 @@ function apps(){
 
         case $input in
             1)
-                o "D:\Workspace\Portable Apps\By Category" && clear ;;
+                o "D:\Portable Apps\By Category" && clear ;;
             2)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com" Start.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\PortableApps.com" Start.exe && clear ;;
             3)
-                o "D:\Workspace\Portable Apps\PortableApps.com\PortableApps" && clear ;;
+                o "D:\Portable Apps\PortableApps.com\PortableApps" && clear ;;
             4)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\SyMenu" SyMenu.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\SyMenu" SyMenu.exe && clear ;;
             5)
-                o "D:\Workspace\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite" && clear ;;
+                o "D:\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite" && clear ;;
             6)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\GEGeek_Toolkit" SyMenu.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\GEGeek_Toolkit" SyMenu.exe && clear ;;
             7)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\LiberKey" LiberKey.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\LiberKey" LiberKey.exe && clear ;;
             8)
-                o "D:\Workspace\General\Essential\Templates\Folders\Downloads\MyBotRun" && clear ;;
+                o "D:\Workspace\Essential\Templates\Folders\Downloads\MyBotRun" && clear ;;
             9)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite\AnyDesk_sps" AnyDesk.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite\AnyDesk_sps" AnyDesk.exe && clear ;;
             10)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Net\File Sharing\Downloading\aTube Catcher 2.0" yct.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\By Category\Net\File Sharing\Downloading\aTube Catcher 2.0" yct.exe && clear ;;
             11)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\FileZillaPortable" FileZillaPortable.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\PortableApps.com\PortableApps\FileZillaPortable" FileZillaPortable.exe && clear ;;
             12)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\HexChatPortable" HexChatPortable.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\PortableApps.com\PortableApps\HexChatPortable" HexChatPortable.exe && clear ;;
             13)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite\JDownloader_2_sps" JDownloader.jar && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite\JDownloader_2_sps" JDownloader.jar && clear ;;
             14)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\FirefoxPortable" FirefoxPortable.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\PortableApps.com\PortableApps\FirefoxPortable" FirefoxPortable.exe && clear ;;
             15)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\ThunderbirdPortable" ThunderbirdPortable.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\PortableApps.com\PortableApps\ThunderbirdPortable" ThunderbirdPortable.exe && clear ;;
             16)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\OperaPortable" OperaPortable.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\PortableApps.com\PortableApps\OperaPortable" OperaPortable.exe && clear ;;
             17)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Net\File Sharing\Popcorn Time\Popcorn-Time" Popcorn-Time.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\By Category\Net\File Sharing\Popcorn Time\Popcorn-Time" Popcorn-Time.exe && clear ;;
             18)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\qBittorrentPortable" qBittorrentPortable.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\PortableApps.com\PortableApps\qBittorrentPortable" qBittorrentPortable.exe && clear ;;
             19)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\QuiteRSSPortable" QuiteRSSPortable.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\PortableApps.com\PortableApps\QuiteRSSPortable" QuiteRSSPortable.exe && clear ;;
             20)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\sPortable\App\Skype\Phone" Skype.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\PortableApps.com\PortableApps\sPortable\App\Skype\Phone" Skype.exe && clear ;;
             21)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Net\File Sharing\SyncTrayzorPortable-x64" SyncTrayzor.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\By Category\Net\File Sharing\SyncTrayzorPortable-x64" SyncTrayzor.exe && clear ;;
             22)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Net\Social\Taiga" Taiga.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\By Category\Net\Social\Taiga" Taiga.exe && clear ;;
             23)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Net\Browsers\Tor Browser 7.0.6\Browser" firefox.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\By Category\Net\Browsers\Tor Browser 7.0.6\Browser" firefox.exe && clear ;;
             24)
-                cmd.exe /c "D:\Workspace\Portable Apps\By Category\Net\File Sharing\Torrents Open Registrations Checker\Torrents Open Registrations Checker.exe" && clear ;;
+                cmd.exe /c "D:\Portable Apps\By Category\Net\File Sharing\Torrents Open Registrations Checker\Torrents Open Registrations Checker.exe" && clear ;;
             25)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Net\WiresharkPortable" WiresharkPortable.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\By Category\Net\WiresharkPortable" WiresharkPortable.exe && clear ;;
             26)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\XAMPP" XAMPPLauncher.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\PortableApps.com\PortableApps\XAMPP" XAMPPLauncher.exe && clear ;;
             27)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Development\IDEs & Editors\CodeBlocks\CodeBlocks-16.01mingw-nosetup" codeblocks.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\By Category\Development\IDEs & Editors\CodeBlocks\CodeBlocks-16.01mingw-nosetup" codeblocks.exe && clear ;;
             28)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Development\IDEs & Editors\Eclipse" eclipse.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\By Category\Development\IDEs & Editors\Eclipse" eclipse.exe && clear ;;
             29)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Development\Java Decompiler - gui-windows-1.4.0" jd-gui.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\By Category\Development\Java Decompiler - gui-windows-1.4.0" jd-gui.exe && clear ;;
             30)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Development\MATLAB\R2017a\bin" matlab.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\By Category\Development\MATLAB\R2017a\bin" matlab.exe && clear ;;
             31)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\File Management\Compare\Meld" Meld.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\By Category\File Management\Compare\Meld" Meld.exe && clear ;;
             32)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Development\IDEs & Editors\NetBeans 8.2\bin" netbeans64.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\By Category\Development\IDEs & Editors\NetBeans 8.2\bin" netbeans64.exe && clear ;;
             33)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Development\IDEs & Editors\Notepad++\Notepad++ 7.5.1" notepad++.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\By Category\Development\IDEs & Editors\Notepad++\Notepad++ 7.5.1" notepad++.exe && clear ;;
             34)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\File Management\Recovery\R-StudioPortable 8.5.Build 170117" R-StudioPortable.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\By Category\File Management\Recovery\R-StudioPortable 8.5.Build 170117" R-StudioPortable.exe && clear ;;
             35)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Development\Regex\RegexBuddy4" RegexBuddy4.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\By Category\Development\Regex\RegexBuddy4" RegexBuddy4.exe && clear ;;
             36)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Development\Regex\RegExr" RegExr.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\By Category\Development\Regex\RegExr" RegExr.exe && clear ;;
             37)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Development\IDEs & Editors\Sublime Text" sublime_text.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\By Category\Development\IDEs & Editors\Sublime Text" sublime_text.exe && clear ;;
             38)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Development\IDEs & Editors\VSCodePortable_1.16.1" VSCodePortable.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\By Category\Development\IDEs & Editors\VSCodePortable_1.16.1" VSCodePortable.exe && clear ;;
             39)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite\KeePass_Professional_sps" KeePass.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite\KeePass_Professional_sps" KeePass.exe && clear ;;
             40)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\calibrePortable" calibrePortable.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\PortableApps.com\PortableApps\calibrePortable" calibrePortable.exe && clear ;;
             41)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Office\Diagrams\draw.io" draw.io.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\By Category\Office\Diagrams\draw.io" draw.io.exe && clear ;;
             42)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\GnuCashPortable" GnuCashPortable.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\PortableApps.com\PortableApps\GnuCashPortable" GnuCashPortable.exe && clear ;;
             43)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Office\Notes\jdotxt" jdotxt-0.4.8.jar && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\By Category\Office\Notes\jdotxt" jdotxt-0.4.8.jar && clear ;;
             44)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\LibreOfficePortable" LibreOfficePortable.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\PortableApps.com\PortableApps\LibreOfficePortable" LibreOfficePortable.exe && clear ;;
             45)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Office\Office\TeX\MikTEX\texmfs\install\miktex\bin" mo.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\By Category\Office\Office\TeX\MikTEX\texmfs\install\miktex\bin" mo.exe && clear ;;
             46)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Office\Office\TeX\MikTEX\texmfs\install\miktex\bin\internal" miktex-update.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\By Category\Office\Office\TeX\MikTEX\texmfs\install\miktex\bin\internal" miktex-update.exe && clear ;;
             47)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Office\Office\TeX\texstudio-2.12.8" texstudio.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\By Category\Office\Office\TeX\texstudio-2.12.8" texstudio.exe && clear ;;
             48)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Office\Dictionaries\SA Dictionary 2013" Diction.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\By Category\Office\Dictionaries\SA Dictionary 2013" Diction.exe && clear ;;
             49)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Office\Diagrams\Mind Mapping\vym" vym.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\By Category\Office\Diagrams\Mind Mapping\vym" vym.exe && clear ;;
             50)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Office\Diagrams\yEd-3.17.2" yed.jar && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\By Category\Office\Diagrams\yEd-3.17.2" yed.jar && clear ;;
             51)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Office\Notes\Zim Desktop Wiki Portable" zim.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\By Category\Office\Notes\Zim Desktop Wiki Portable" zim.exe && clear ;;
             52)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\AudacityPortable" AudacityPortable.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\PortableApps.com\PortableApps\AudacityPortable" AudacityPortable.exe && clear ;;
             53)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\File Management\Video\Bino\bin" bino.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\By Category\File Management\Video\Bino\bin" bino.exe && clear ;;
             54)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\BlenderPortable" BlenderPortable.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\PortableApps.com\PortableApps\BlenderPortable" BlenderPortable.exe && clear ;;
             55)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\GIMPPortable" GIMPPortable.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\PortableApps.com\PortableApps\GIMPPortable" GIMPPortable.exe && clear ;;
             56)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\InkscapePortable" InkscapePortable.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\PortableApps.com\PortableApps\InkscapePortable" InkscapePortable.exe && clear ;;
             57)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\File Management\Images\Instant-eyedropper" instanteyedropper.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\By Category\File Management\Images\Instant-eyedropper" instanteyedropper.exe && clear ;;
             58)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite\MKVToolNix_(x64)_sps" gMKVExtractGUI.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite\MKVToolNix_(x64)_sps" gMKVExtractGUI.exe && clear ;;
             59)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite\MKVToolNix_(x64)_sps" mkvtoolnix-gui.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite\MKVToolNix_(x64)_sps" mkvtoolnix-gui.exe && clear ;;
             60)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\File Management\Video\Screen Recording\OBS Studio\bin\64bit" obs64.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\By Category\File Management\Video\Screen Recording\OBS Studio\bin\64bit" obs64.exe && clear ;;
             61)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite\Everything_(x64)_sps" Everything.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite\Everything_(x64)_sps" Everything.exe && clear ;;
             62)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\File Management\File Managers\MultiCommander_x64_Portable" MultiCommander.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\By Category\File Management\File Managers\MultiCommander_x64_Portable" MultiCommander.exe && clear ;;
             63)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\ProcessExplorerPortable" ProcessExplorerPortable.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\PortableApps.com\PortableApps\ProcessExplorerPortable" ProcessExplorerPortable.exe && clear ;;
             64)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite\RegSeeker_sps" RegSeeker.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite\RegSeeker_sps" RegSeeker.exe && clear ;;
             65)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Program Management\Uninstallers\RevoPortable64" RevoUninstallerPortable.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\By Category\Program Management\Uninstallers\RevoPortable64" RevoUninstallerPortable.exe && clear ;;
             66)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\RufusPortable" RufusPortable.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\PortableApps.com\PortableApps\RufusPortable" RufusPortable.exe && clear ;;
             67)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\File Management\Flashing\Etcher" Etcher-Portable-1.3.1-x64.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\By Category\File Management\Flashing\Etcher" Etcher-Portable-1.3.1-x64.exe && clear ;;
             68)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite\Snap2HTML_sps" Snap2HTML.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite\Snap2HTML_sps" Snap2HTML.exe && clear ;;
             69)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite\Spybot_Anti-Beacon_sps" SDAntiBeacon.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite\Spybot_Anti-Beacon_sps" SDAntiBeacon.exe && clear ;;
             70)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\File Management\Stats\Spyglass" Spyglass.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\By Category\File Management\Stats\Spyglass" Spyglass.exe && clear ;;
             71)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\PortableApps.com\PortableApps\WinDirStatPortable" WinDirStatPortable.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\PortableApps.com\PortableApps\WinDirStatPortable" WinDirStatPortable.exe && clear ;;
             72)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Net\VNC\RealVNC" VNC-Viewer-6.17.1113-Windows-64bit.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\By Category\Net\VNC\RealVNC" VNC-Viewer-6.17.1113-Windows-64bit.exe && clear ;;
             73)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Net\VNC" TigerVNC-VncViewer-1.8.0.jar && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\By Category\Net\VNC" TigerVNC-VncViewer-1.8.0.jar && clear ;;
             74)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Office\Office\TeX\TikzEdtBeta0_2_3" TikzEdt.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\By Category\Office\Office\TeX\TikzEdtBeta0_2_3" TikzEdt.exe && clear ;;
             75)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\File Management\Recovery\R-StudioPortable 8.5.Build 170117" R-StudioPortable.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\By Category\File Management\Recovery\R-StudioPortable 8.5.Build 170117" R-StudioPortable.exe && clear ;;
             76)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\Office\Office\TeX\MikTEX\texmfs\install\miktex\bin" miktex-console.exe && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\By Category\Office\Office\TeX\MikTEX\texmfs\install\miktex\bin" miktex-console.exe && clear ;;
             77)
-                cmd.exe /c start /D "D:\Workspace\Portable Apps\By Category\File Management\Media Centers\Kodi\Server" kodi.exe -p && clear ;;
+                cmd.exe /c start /D "D:\Portable Apps\By Category\File Management\Media Centers\Kodi\Server" kodi.exe -p && clear ;;
             78)
-                cmd.exe /c "D:\Workspace\Portable Apps\By Category\File Management\Media Centers\Plex\Server\Plex Media Server.exe" && clear ;;
+                cmd.exe /c "D:\Portable Apps\By Category\File Management\Media Centers\Plex\Server\Plex Media Server.exe" && clear ;;
             b)
                 apps ;;
             x)
