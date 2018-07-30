@@ -283,10 +283,10 @@ alias trns='tmux rename-session -t'
 #   -------------------------------
 
 # Opening Directories
+alias o="open"
 alias open="explorer.exe"
 alias openh=" open ."
 alias openi="gnome-open ." # Inside a Desktop environment
-alias o="open"
 alias tempo="open 'D:\Workspace\~temp'"
 alias downo="open 'C:\Users\Todorov\Downloads'"
 alias docso="open 'C:\Users\Todorov\Documents'"
@@ -310,43 +310,44 @@ alias techlist="o 'D:\Workspace\Tech\Equipment List\Tech_List.xlsx'"
 alias clothlist="o 'D:\Workspace\Essential\Clothing\Clothes_List.xlsx'"
 
 # Launch Applications
-alias cmdc='cmd.exe /c'
 alias cmd='cmd.exe'
-alias mail="cmd.exe /c start /D 'D:\Portable Apps\PortableApps.com\PortableApps\ThunderbirdPortable' ThunderbirdPortable.exe"
-alias torrent="cmd.exe /c start /D 'D:\Portable Apps\PortableApps.com\PortableApps\qBittorrentPortable' qBittorrentPortable.exe"
-alias vpn="cmd.exe /c start /D 'C:\Program Files (x86)\PureVPN' purevpn.exe"
-alias vm="cmd.exe /c start /D 'C:\Program Files\Oracle\VirtualBox' VirtualBox.exe"
-alias enpass="cmd.exe /c start /D 'D:\Portable Apps\By Category\Net\EnpassPortable_5_6_9\Windows' EnpassPortable.exe"
-alias memu="cmd.exe /c start /D 'C:\ProgramData\Microvirt\MEmu' MEmuConsole.exe MEmu"
-alias photoshop="cmd.exe /c start /D 'C:\Program Files\Adobe\Adobe Photoshop CC 2017' Photoshop.exe"
-alias firefox="cmd.exe /c start /D 'D:\Portable Apps\PortableApps.com\PortableApps\FirefoxPortable' FirefoxPortable.exe"
+alias cmdc='cmd.exe /c'
+alias cmds='cmd.exe /c start /D'
+alias regedit="cmds 'C:\Windows' regedit.exe"
+alias task="cmds 'C:\Windows\system32' taskmgr.exe /7"
+
+alias vpn="cmds 'C:\Program Files (x86)\PureVPN' purevpn.exe"
+alias vm="cmds 'C:\Program Files\Oracle\VirtualBox' VirtualBox.exe"
+alias memu="cmds 'C:\ProgramData\Microvirt\MEmu' MEmuConsole.exe MEmu"
+alias photoshop="cmds 'C:\Program Files\Adobe\Adobe Photoshop CC 2017' Photoshop.exe"
+alias aimp="cmds 'C:\Program Files (x86)\AIMP' AIMP.exe"
+alias vlc="cmds 'C:\Program Files\VideoLAN\VLC' vlc.exe"
+alias 4k="cmds 'C:\Program Files (x86)\4KDownload\4kvideodownloader' 4kvideodownloader.exe"
+alias chrome="cmds 'C:\Program Files (x86)\Google\Chrome\Application' /MAX chrome.exe"
+alias excel="cmds 'C:\Program Files\Microsoft Office\Office16' /MAX EXCEL.EXE /x"
+alias ppoint="cmds 'C:\Program Files (x86)\Microsoft Office\Root\Office16'  /MAX POWERPNT.EXE /B"
+
+alias mail="cmds 'D:\apps\suites\portableapps.com\PortableApps\ThunderbirdPortable' ThunderbirdPortable.exe"
+alias torrent="cmds 'D:\apps\suites\portableapps.com\PortableApps\qBittorrentPortable' qBittorrentPortable.exe"
+alias enpass="cmds 'D:\apps\net\security\EnpassPortable_5_6_9\Windows' EnpassPortable.exe"
+alias firefox="cmds 'D:\apps\suites\portableapps.com\PortableApps\FirefoxPortable' FirefoxPortable.exe"
+alias taiga="cmds 'D:\apps\net\social\Taiga' Taiga.exe"
+alias gnucash="cmds 'D:\apps\suites\portableapps.com\PortableApps\GnuCashPortable' GnuCashPortable.exe"
+alias sublime="cmds 'D:\apps\development\editors\editors\Sublime_Text' sublime_text.exe"
+alias irc="cmds 'D:\apps\suites\portableapps.com\PortableApps\HexChatPortable' HexChatPortable.exe"
+alias sync="cmds 'D:\apps\net\file-sharing\SyncTrayzorPortable-x64' SyncTrayzor.exe"
+alias ftpstart="cmds 'D:\apps\suites\portableapps.com\PortableApps\FileZillaPortable' FileZillaPortable.exe"
+alias keepass="cat /mnt/d/Workspace/Shared/mobile/config/apps/notes/p/K.txt | cmd.exe /c clip && cmds 'D:\apps\suites\portableapps.com\PortableApps\KeePassProPortable' KeePassProPortable.exe"
+alias calibre="cmds 'D:\apps\suites\portableapps.com\PortableApps\calibrePortable' calibrePortable.exe"
+alias kodi="cmds 'D:\apps\file-management\media\media-centers\Kodi\Server' kodi.exe -p"
+alias plex="cmdc 'D:\apps\file-management\media\media-centers\Plex\Server\Plex Media Server.exe'"
+alias npp="cmds 'D:\apps\development\editors\editors\Notepad++\Notepad++ 7.5.1' /MAX notepad++.exe"
+alias flash="cmds 'D:\apps\suites\portableapps.com\PortableApps\RufusPortable' RufusPortable.exe"
+alias sysmenu="cmds 'D:\apps\suites\symenu' SyMenu.exe"
+alias portableapps="cmds 'D:\apps\suites\portableapps.com' Start.exe"
+
 alias vnc="~/software/VNC-Viewer-6.17.1113-Linux-x64"
 alias chromium-browser='sudo chromium-browser --no-sandbox'
-alias taiga="cmd.exe /c start /D 'D:\Portable Apps\By Category\Net\Social\Taiga' Taiga.exe"
-alias gnucash="cmd.exe /c start /D 'D:\Portable Apps\PortableApps.com\PortableApps\GnuCashPortable' GnuCashPortable.exe"
-alias sublime="cmd.exe /c start /D 'D:\Portable Apps\By Category\Development\IDEs & Editors\Sublime Text' sublime_text.exe"
-alias irc="cmd.exe /c start /D 'D:\Portable Apps\PortableApps.com\PortableApps\HexChatPortable' HexChatPortable.exe"
-alias regedit="cmd.exe /c start /D 'C:\Windows' regedit.exe"
-alias aimp="cmd.exe /c start /D 'C:\Program Files (x86)\AIMP' AIMP.exe"
-alias vlc="cmd.exe /c start /D 'C:\Program Files\VideoLAN\VLC' vlc.exe"
-alias sync="cmd.exe /c start /D 'D:\Portable Apps\By Category\Net\File Sharing\SyncTrayzorPortable-x64' SyncTrayzor.exe"
-alias ftpstart="cmd.exe /c start /D 'D:\Portable Apps\PortableApps.com\PortableApps\FileZillaPortable' FileZillaPortable.exe"
-alias keepass="cat /mnt/d/Workspace/Shared/mobile/config/apps/notes/p/K.txt | cmd.exe /c clip && cmd.exe /c start /D 'D:\Portable Apps\PortableApps.com\PortableApps\KeePassProPortable' KeePassProPortable.exe"
-alias calibre="cmd.exe /c start /D 'D:\Portable Apps\PortableApps.com\PortableApps\calibrePortable' calibrePortable.exe"
-alias kodi="cmd.exe /c start /D 'D:\Portable Apps\By Category\File Management\Media Centers\Kodi\Server' kodi.exe -p"
-alias plex="cmd.exe /c 'D:\Portable Apps\By Category\File Management\Media Centers\Plex\Server\Plex Media Server.exe'"
-alias 4k="cmd.exe /c start /D 'C:\Program Files (x86)\4KDownload\4kvideodownloader' 4kvideodownloader.exe"
-alias chrome="cmd.exe /c start /D 'C:\Program Files (x86)\Google\Chrome\Application' /MAX chrome.exe"
-alias excel="cmd.exe /c start /D 'C:\Program Files\Microsoft Office\Office16' /MAX EXCEL.EXE /x"
-alias ppoint="cmd.exe /c start /D 'C:\Program Files (x86)\Microsoft Office\Root\Office16'  /MAX POWERPNT.EXE /B"
-alias npp="cmd.exe /c start /D 'D:\Portable Apps\By Category\Development\IDEs & Editors\Notepad++\Notepad++ 7.5.1' /MAX notepad++.exe"
-alias task="cmd.exe /c start /D 'C:\Windows\system32' taskmgr.exe /7"
-alias flash="cmd.exe /c start /D 'D:\Portable Apps\PortableApps.com\PortableApps\RufusPortable' RufusPortable.exe"
-# alias npp="cmd.exe /c start /D 'D:\Portable Apps\PortableApps.com\PortableApps\Notepad++Portable' /MAX Notepad++Portable.exe"
-# alias npp="cmd.exe /c start /D 'D:\Portable Apps\PortableApps.com\PortableApps\Notepad++Portable\App\Notepad++' /MAX notepad++.exe"
-# alias dashlane="cmd.exe /c start /D 'C:\Users\Todorov\AppData\Roaming\Dashlane' Dashlane.exe"
-# alias pass="cmd.exe /c start /D 'D:\Portable Apps\SyMenu\ProgramFiles\SPSSuite\SyMenuSuite\KeePass_Professional_sps' KeePass.exe"
-# alias word="cmd.exe /c start /D "C:\\Program\ Files\ \(x86\)\\Microsoft\ Office\\Root\\Office16"  /MAX WINWORD.EXE /w"
 
 # Clipboard
 alias pbcopy="clip.exe"
@@ -364,11 +365,4 @@ alias i3="i3"
 
 alias xterm="xfce4-terminal"
 
-#=============================================================================================================
-
-### Print only the name of the current Directory ###
-# target_PWD=$(readlink -f .) && echo ${target_PWD%/*}
-# target_PWD=$(readlink -f .) && echo ${target_PWD##*/}
-# target_PWD=$(readlink -f ./) && printf '%q\n' "${target_PWD##*/}"
-# printf '%q\n' "${PWD##*/}" 
-# result=${PWD##*/} 
+#==========================================================================================================
