@@ -29,21 +29,19 @@ alias .6='cd ../../../../../../'      # Go back 6 directory levels
 # SHORTCUTS
 alias home="cd ~"
 alias root="cd /"
-alias temp="cd /mnt/d/Workspace/~temp/"
-alias workspace="cd /mnt/d/Workspace/"
-alias gitf="cd /mnt/d/Workspace/Projects/Programing/Git/"
-alias dotfiles="cd /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/"
-alias homeu="cd /mnt/c/Users/Todorov/AppData/Local/Packages/CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc/LocalState/rootfs/home/todorov/"
-alias down="cd /mnt/c/Users/Todorov/Downloads/"
-alias docs="cd /mnt/c/Users/Todorov/Documents/"
+alias temp="cd /mnt/d/workspace/~temp"
+alias workspace="cd /mnt/d/workspace"
+alias gitf="cd /mnt/d/workspace/tech/programing/git"
+alias dotfiles="cd /mnt/d/workspace/tech/programing/git/dotfiles/.dotfiles"
+alias homeu="cd /mnt/c/Users/Todorov/AppData/Local/Packages/CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc/LocalState/rootfs/home/todorov"
+alias down="cd /mnt/c/Users/Todorov/Downloads"
+alias docs="cd /mnt/c/Users/Todorov/Documents"
 alias path="pwd"
 # Print each PATH entry on a separate line
 alias pathv='echo -e ${PATH//:/\\n}'
 
 # CURRENT
-alias com4="cd /mnt/d/Workspace/University/Course/Year\ 2\ -\ 2017-2018/COM2004/Labs/com2004_labs/"
-alias uni="cd /mnt/d/Workspace/University/Course/Year\ 2\ -\ 2017-2018/"
-alias hex="/mnt/d/Workspace/University/Sport & Societies/Project Hex/Repository"
+alias uni="cd /mnt/d/workspace/university/course"
 
 #   -------------------------------
 #   FILE MANAGEMENT
@@ -165,7 +163,7 @@ alias hostse='$EDITOR /etc/hosts'
 # BLOG
 alias server="ssh todorov@mlvnt.com"
 alias hugos="hugo server -w -v --disableFastRender --bind=0.0.0.0"
-alias caddy="ulimit -n 8192 && caddy -conf /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/net/caddyfile"
+alias caddy="ulimit -n 8192 && caddy -conf /mnt/d/workspace/tech/programing/git/dotfiles/.dotfiles/wsl/net/caddyfile"
 alias caddyconf="sudo nano /etc/caddy/caddyfile"
 
 # Copy my public key to the pasteboard
@@ -258,7 +256,7 @@ alias gbt=git_list_branches
 #   TMUX
 #   -------------------------------
 
-alias tw='tmux new -s Workspace'
+alias tw='tmux new -s workspace'
 alias tn='tmux new -s'
 alias tk='tmux kill-session -t'
 alias tka='tmux kill-server'
@@ -287,7 +285,7 @@ alias o="open"
 alias open="explorer.exe"
 alias openh=" open ."
 alias openi="gnome-open ." # Inside a Desktop environment
-alias tempo="open 'D:\Workspace\~temp'"
+alias tempo="open 'D:\workspace\~temp'"
 alias downo="open 'C:\Users\Todorov\Downloads'"
 alias docso="open 'C:\Users\Todorov\Documents'"
 alias screenshots="open 'C:\Users\Todorov\Pictures\My Screen Shots'"
@@ -297,17 +295,17 @@ alias startmenu="open 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs'"
 alias autostart="open 'C:\Users\Todorov\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup'"
 
 # Edit Documents
-alias cv="o 'D:\Workspace\Personal\Professional\CV\CV.docx'"
-alias index="o 'D:\Workspace\Tech\Memory\index.xlsx'"
-alias memory="o 'D:\Workspace\Tech\Memory\index.html'"
-alias music="o 'D:\Workspace\Essential\Media\Music\Music.xlsx'"
-alias pics="o 'D:\Workspace\Essential\Art\Screenshots\Pics.xlsx'"
-alias quotes="o 'D:\Workspace\Personal\Me\Intro\Quotes\Quotes.xlsx'"
-alias habbits="o 'D:\Workspace\Time\Habits\2018 - Habit Tracking.xlsx'"
-alias packlist="o 'D:\Workspace\Essential\Lists\Pack_List.xlsx'"
-alias kitchen="o 'D:\Workspace\Essential\Lists\Kitchen.xlsx'"
-alias techlist="o 'D:\Workspace\Tech\Equipment List\Tech_List.xlsx'"
-alias clothlist="o 'D:\Workspace\Essential\Clothing\Clothes_List.xlsx'"
+alias cv="o 'D:\workspace\personal\professional\cv\cv.docx'"
+alias music="o 'D:\workspace\essential\media\music\music.xlsx'"
+alias pics="o 'D:\workspace\essential\art\screenshots\pics.xlsx'"
+alias quotes="o 'D:\workspace\personal\me\intro\quotes\quotes.xlsx'"
+alias habbits="o 'D:\workspace\personal\time\habits\2018.xlsx'"
+alias packlist="o 'D:\workspace\essential\lists\packing.xlsx'"
+alias kitchen="o 'D:\workspace\essential\lists\kitchen.xlsx'"
+alias techlist="o 'D:\workspace\essential\lists\tech.xlsx'"
+alias clothlist="o 'D:\workspace\essential\lists\clothing.xlsx'"
+alias index="o 'D:\workspace\essential\lists\memory\index.xlsx'"
+alias memory="o 'D:\workspace\essential\lists\memory\index.html'"
 
 # Launch Applications
 alias cmd='cmd.exe'
@@ -337,7 +335,7 @@ alias sublime="cmds 'D:\apps\development\editors\editors\Sublime_Text' sublime_t
 alias irc="cmds 'D:\apps\suites\portableapps.com\PortableApps\HexChatPortable' HexChatPortable.exe"
 alias sync="cmds 'D:\apps\net\file-sharing\SyncTrayzorPortable-x64' SyncTrayzor.exe"
 alias ftpstart="cmds 'D:\apps\suites\portableapps.com\PortableApps\FileZillaPortable' FileZillaPortable.exe"
-alias keepass="cat /mnt/d/Workspace/Shared/mobile/config/apps/notes/p/K.txt | cmd.exe /c clip && cmds 'D:\apps\suites\portableapps.com\PortableApps\KeePassProPortable' KeePassProPortable.exe"
+alias keepass="cat /mnt/d/workspace/shared/mobile/config/apps/notes/p/k.txt | cmd.exe /c clip && cmds 'D:\apps\suites\portableapps.com\PortableApps\KeePassProPortable' KeePassProPortable.exe"
 alias calibre="cmds 'D:\apps\suites\portableapps.com\PortableApps\calibrePortable' calibrePortable.exe"
 alias kodi="cmds 'D:\apps\file-management\media\media-centers\Kodi\Server' kodi.exe -p"
 alias plex="cmdc 'D:\apps\file-management\media\media-centers\Plex\Server\Plex Media Server.exe'"

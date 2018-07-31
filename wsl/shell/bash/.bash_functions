@@ -185,9 +185,9 @@ function linx() {
                 sudo vim /etc/ssh/sshd_config
                 sudo service ssh restart ;;
             8)
-                sudo cp -r ~/.ssh/* /mnt/d/Workspace/Projects/Programing/Web/Protocols/Application\ Layer/SSH/Backup/.ssh/ ;;
+                sudo cp -r ~/.ssh/* /mnt/d/workspace/tech/programing/web/Protocols/Application\ Layer/SSH/Backup/.ssh/ ;;
             9)
-                sudo cp -r /mnt/d/Workspace/Projects/Programing/Web/Protocols/Application\ Layer/SSH/Backup/.ssh/* ~/.ssh/
+                sudo cp -r /mnt/d/workspace/tech/programing/web/Protocols/Application\ Layer/SSH/Backup/.ssh/* ~/.ssh/
                 ssh_permissons ;;
             b)
                 linx ;;
@@ -478,13 +478,13 @@ function watching(){
 }
 
 function lin(){
-    cd '/mnt/d/Workspace/Shared/mobile/config/apps/notes/markor'
-    watching . linkbox.txt '/mnt/d/Workspace/Projects/Programing/Scripts/Python/Web/links.py'
+    cd '/mnt/d/workspace/shared/mobile/config/apps/notes/markor'
+    watching . linkbox.txt '/mnt/d/workspace/tech/programing/scripts/Python/Web/links.py'
 }
 
 function pas(){
-    cd '/mnt/d/Workspace/Tech/Sandwich'
-    watching . p.kdbx cp p.kdbx /mnt/d/Workspace/Shared/mobile/config/apps/notes/p
+    cd '/mnt/d/workspace/tech/sandwich'
+    watching . p.kdbx cp p.kdbx /mnt/d/workspace/shared/mobile/config/apps/notes/p
 }
 
 #   -------------------------------
@@ -595,8 +595,8 @@ function links (){
     echo -e '\n Symbolic Links Deleted!\n'
     }
 
-    path='/mnt/d/Workspace/Shared/mobile/notebook/~genLinks'
-    pathwin='D:\Workspace\Shared\mobile\notebook\~genLinks'
+    path='/mnt/d/workspace/shared/mobile/notebook/~genLinks'
+    pathwin='D:\workspace\shared\mobile\notebook\~genLinks'
 
     if [ -z $1 ] ; then
         clear
@@ -675,18 +675,18 @@ function move (){
         echo -e '           4  | Dry-Run Mirroring\n'
         read -e -p "  Option: " input
 
-        excludeddir="/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded"
-        animemain="/mnt/e/B/backup/Anime/Current Season/~MAIN/"
-        dotfilesdird="/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/"
-        dotfilesdire="/mnt/e/B/backup/Workspace/Projects/Programing/Git/dotfiles/.dotfiles"
+        excludeddir="/mnt/d/workspace/tech/programing/git/dotfiles/.dotfiles/wsl/rsync/excluded"
+        animemain="/mnt/e/backup/media/anime/seasonal/~main/"
+        dotfilesdird="/mnt/d/workspace/tech/programing/git/dotfiles/.dotfiles/"
+        dotfilesdire="/mnt/e/backup/workspace/tech/programing/git/dotfiles/.dotfiles"
         drived="/mnt/d/"
-        bakcupdire="/mnt/e/B/backup"
-        logdir="/mnt/e/B/backup_logs/"
+        bakcupdire="/mnt/e/backup"
+        logdir="/mnt/e/backup_logs/"
         logfile="log_backup-$(date "+%Y-%m-%d-%H-%M").txt"
-        workspacedird="D:\Workspace"
-        workspacedire="E:\B\backup\Workspace"
-        link_dir_1="/mnt/e/B/backup/Workspace"
-        link_dir_2="/mnt/e/B/backup/Workspace/Shared"
+        workspacedird="D:\workspace"
+        workspacedire="E:\backup\workspace"
+        link_dir_1="/mnt/e/backup/workspace"
+        link_dir_2="/mnt/e/backup/workspace/shared"
 
         case $input in
             1|3) robonorm="/E" && rsyncnorm='' ;;
@@ -744,8 +744,8 @@ function move (){
             1)
                     echo
                     read -e -p "  Enter Drive Letter/Path [c]:" backdir
-                    dotfilesdird="/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/"
-                    dotfilesdire="/mnt/"$backdir"/Workspace/Projects/Programing/Git/dotfiles/.dotfiles"
+                    dotfilesdird="/mnt/d/workspace/tech/programing/git/dotfiles/.dotfiles/"
+                    dotfilesdire="/mnt/"$backdir"/workspace/tech/programing/git/dotfiles/.dotfiles"
                     drived="/mnt/d/"
                     drivedwin="D:\\"
 
@@ -755,7 +755,7 @@ function move (){
                     echo -e '\n ~~~~~~~~~~~~~~ Cloning Main Drive.... ~~~~~~~~~~~~~~\n'
                     function clone () {
                         echo -e "\n     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                        mkdir -p "/mnt/"$backdir"/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/"
+                        mkdir -p "/mnt/"$backdir"/workspace/Projects/Programing/Git/dotfiles/.dotfiles/"
                         sudo rsync $ryncoptions "$dotfilesdird" "$dotfilesdire"
                         echo -e "\n     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
                         cmd.exe /c robocopy "$drivedwin" "$backdir:\\" "*" $robocopyoptions
@@ -783,16 +783,16 @@ function move (){
         echo -e '           4  | Dry-Run Mirroring\n'
         read -e -p "  Option: " input
 
-        dotfilesdird="/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles"
-        dotfilesdire="/mnt/e/B/backup/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/"
+        dotfilesdird="/mnt/d/workspace/tech/programing/git/dotfiles/.dotfiles"
+        dotfilesdire="/mnt/e/backup/workspace/tech/programing/git/dotfiles/.dotfiles/"
         drived="/mnt/d"
-        bakcupdire="/mnt/e/B/backup/"
-        logdir="/mnt/e/B/restore_logs/"
+        bakcupdire="/mnt/e/backup/"
+        logdir="/mnt/e/restore_logs/"
         logfile="log_restore-$(date "+%Y-%m-%d-%H-%M").txt"
-        workspacedird="D:\Workspace"
-        workspacedire="E:\B\backup\Workspace"
-        link_dir_1="/mnt/d/Workspace"
-        link_dir_2="/mnt/d/Workspace/Shared"
+        workspacedird="D:\workspace"
+        workspacedire="E:\backup\workspace"
+        link_dir_1="/mnt/d/workspace"
+        link_dir_2="/mnt/d/workspace/shared"
 
         case $input in
             1|3) robonorm="/E" && rsyncnorm='' ;;
@@ -844,10 +844,10 @@ function move (){
         echo -e '           4  | Dry-Run Mirroring\n'
         read -e -p "  Option: " input
 
-        excludeddir="/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/rsync/excluded_mobile"
+        excludeddir="/mnt/d/workspace/tech/programing/git/dotfiles/.dotfiles/wsl/rsync/excluded_mobile"
         sdcard=""
-        bakcupdire="/mnt/e/B/backup_mobile/"
-        logdir="/mnt/e/B/backup_logs/"
+        bakcupdire="/mnt/e/backup_mobile/"
+        logdir="/mnt/e/backup_logs/"
         logfile="log_backup-$(date "+%Y-%m-%d-%H-%M").txt"
 
         if [ $input -eq 1 ] || [ $input -eq 3 ] ; then 
@@ -893,10 +893,10 @@ function move (){
             1)
                     echo
                     read -e -p "  Enter Drive Letter/Path [c]:" backdir
-                    dotfilesdird="/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/"
-                    dotfilesdire="/mnt/"$backdir"/Workspace/Projects/Programing/Git/dotfiles"
-                    drived="/mnt/e/B/backup_mobile/"
-                    drivedwin="E:\\B\\backup_mobile"
+                    dotfilesdird="/mnt/d/workspace/tech/programing/git/dotfiles/.dotfiles/"
+                    dotfilesdire="/mnt/"$backdir"/workspace/tech/programing/git/dotfiles"
+                    drived="/mnt/e/backup_mobile/"
+                    drivedwin="E:\\backup_mobile"
                     ryncoptions="-avhzH --progress --stats"
 
                     echo -e '\n ~~~~~~~~~~~~~~ Cloning Main Drive.... ~~~~~~~~~~~~~~\n'
@@ -926,16 +926,16 @@ function move (){
         echo -e '           4  | Dry-Run Mirroring\n'
         read -e -p "  Option: " input
 
-        dotfilesdird="/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles"
-        dotfilesdire="/mnt/e/B/backup/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/"
+        dotfilesdird="/mnt/d/workspace/tech/programing/git/dotfiles/.dotfiles"
+        dotfilesdire="/mnt/e/backup/workspace/tech/programing/git/dotfiles/.dotfiles/"
         drived="/mnt/d"
-        bakcupdire="/mnt/e/B/backup/"
-        logdir="/mnt/e/B/restore_logs/"
+        bakcupdire="/mnt/e/backup/"
+        logdir="/mnt/e/restore_logs/"
         logfile="log_restore-$(date "+%Y-%m-%d-%H-%M").txt"
-        workspacedird="D:\Workspace"
-        workspacedire="E:\B\backup\Workspace"
-        link_dir_1="/mnt/d/Workspace"
-        link_dir_2="/mnt/d/Workspace/Shared"
+        workspacedird="D:\workspace"
+        workspacedire="E:\backup\workspace"
+        link_dir_1="/mnt/d/workspace"
+        link_dir_2="/mnt/d/workspace/shared"
 
         case $input in
             1|3) robonorm="/E" && rsyncnorm='' ;;
@@ -977,12 +977,12 @@ function move (){
         echo -e '           3  | Surface Screenshots to Permanent Directory\n'
         read -e -p "  Option: " input
 
-        temp="/mnt/d/Workspace/~temp"
+        temp="/mnt/d/workspace/~temp"
         screenshotsdir="/mnt/c/Users/Todorov/Pictures/My Screen Shots/"
-        animepicsdir="/mnt/d/Workspace/Essential/Art/Screenshots/Pics"
-        animepicsdirwin="D:\Workspace\Essential\Art\Screenshots\Pics"
-        acerscreendir="/mnt/d/Workspace/Tech/Screenshots/Acer Predator G9-792"
-        surfscreendir="/mnt/d/Workspace/Tech/Screenshots/Microsoft Surface Pro 4"
+        animepicsdir="/mnt/d/workspace/essential/art/screenshots/pics"
+        animepicsdirwin="D:\workspace\essential\art\screenshots\pics"
+        acerscreendir="/mnt/d/workspace/tech/devices/laptops/Acer Predator G9-792/screenshots"
+        surfscreendir="/mnt/d/workspace/tech/devices/laptops/Microsoft Surface Pro 4/screenshots"
 
         case $input in
             1)
@@ -1007,7 +1007,7 @@ function move (){
     function move_all(){
         downloads="/mnt/c/Users/Todorov/Downloads/"
         documents="/mnt/c/Users/Todorov/Documents/"
-        temp="/mnt/d/Workspace/~temp"
+        temp="/mnt/d/workspace/~temp"
 
         echo -e '\n ~~~~~~~~~~~~~~ Moving from Downloads.... ~~~~~~~~~~~~~~\n'
         rsync -avhz --progress --stats --ignore-existing --remove-source-files --exclude desktop.ini "$downloads" "$temp"
@@ -1084,10 +1084,10 @@ function dots(){
         echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         echo -e '\n Cloning new .dotfiles....\n'
         echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        git clone /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/ ~/.dotfiles
+        git clone /mnt/d/workspace/tech/programing/git/dotfiles/.dotfiles/ ~/.dotfiles
         # oh-my-zsh
-        sudo cp -rv /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/shell/zsh/.oh-my-zsh ~/.dotfiles/wsl/shell/zsh/
-        sudo cp -rv /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/.config/sublime-text-3 ~/.dotfiles/wsl/.config/
+        sudo cp -rv /mnt/d/workspace/tech/programing/git/dotfiles/.dotfiles/wsl/shell/zsh/.oh-my-zsh ~/.dotfiles/wsl/shell/zsh/
+        sudo cp -rv /mnt/d/workspace/tech/programing/git/dotfiles/.dotfiles/wsl/.config/sublime-text-3 ~/.dotfiles/wsl/.config/
         echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         echo -e '\n Converting .dotfiles to LF endings....\n'
         echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
@@ -1113,7 +1113,7 @@ function dots(){
 #   -------------------------------
 
 function handles(){
-    cd /mnt/d/Workspace/Portable\ Apps/SyMenu/ProgramFiles/SPSSuite/SysinternalsSuite/Handle_sps
+    cd /mnt/d/apps/suites/symenu/ProgramFiles/SPSSuite/SysinternalsSuite/Handle_sps
     clear
     echo -e '\n  Available Options:\n'
     echo    '           x  | Exit'
@@ -1221,28 +1221,29 @@ function win(){
         fi
 
         # Variables
-        powershellScript='D:\Workspace\Projects\Programing\Scripts\PowerShell\Quick_Access\Set-QuickAccess.ps1'
-        # cmd.exe /c "D:\Workspace\Projects\Programing\Scripts\PowerShell\Quick Access\Set-QuickAccess.cmd"
+        powershellScript='D:\workspace\tech\programing\scripts\PowerShell\Quick_Access\Set-QuickAccess.ps1'
+        # cmd.exe /c "D:\workspace\tech\programing\scripts\PowerShell\Quick Access\Set-QuickAccess.cmd"
         p='Pin'
         up='Unpin'
         pins=(
             "'D:\'"
-            "'D:\Workspace\~temp'"
-            "'D:\Media\anime'"
-            "'D:\Workspace\Projects\Programing\~References\Programs\Browsers\Chrome\HTML Bookmarks\Archive'"
-            "'D:\Workspace\Essential'"
-            "'D:\Workspace\Personal'"
-            "'D:\Workspace\Personal\Professional\CV'"
-            "'D:\Workspace\Personal\Blog'"
-            "'D:\Workspace\Tech'"
-            "'D:\Media\movies'"
-            "'D:\Media\series'"
-            "'D:\Workspace\Shared'"
-            "'D:\Portable Apps'"
-            "'D:\Workspace\Projects'"
-            "'D:\Workspace\Projects\Programing'"
-            "'D:\Workspace\University\Course\Year 2 - 2017-2018'"
-            "'D:\Workspace\Essential\Art\Screenshots\Pics'"
+            "'D:\workspace\~temp'"
+            "'D:\media\anime'"
+            "'D:\media\movies'"
+            "'D:\media\series'"
+            "'D:\apps'"
+            "'D:\workspace\tech\programing\~references\programs\browsers\chrome\bookmarks\archive'"
+            "'D:\workspace\essential'"
+            "'D:\workspace\personal'"
+            "'D:\workspace\personal\professional\cv'"
+            "'D:\workspace\personal\blog'"
+            "'D:\workspace\tech'"
+            "'D:\workspace\shared'"
+            "'D:\workspace\essential\lists'"
+            "'D:\workspace\projects'"
+            "'D:\workspace\tech\programing'"
+            "'D:\workspace\university'"
+            "'D:\workspace\essential\art\screenshots\pics'"
             "'C:\Users\Todorov\Pictures\My Screen Shots'"
             "'C:\Users\Todorov\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs\home\todorov'"
             "'C:\ProgramData\Microsoft\Windows\Start Menu\Programs'"
@@ -1289,8 +1290,8 @@ function win(){
         tunpin=c:5387
         spin=c:51201
         sunpin=c:51394
-        patht="D:\Workspace\Tech\Shortcuts\Taskbar"
-        paths="D:\Workspace\Tech\Shortcuts\Start Menu\Windows"
+        patht="D:\workspace\tech\shortcuts\taskbar"
+        paths="D:\workspace\tech\shortcuts\start menu\windows"
         taskbar=(
             "\File Explorer.lnk"
             "\ConEmu.lnk"
@@ -1326,7 +1327,7 @@ function win(){
             "\System Configuration.lnk"
             "\System Properties Protection.lnk"
         )
-        cd /mnt/d/Workspace/Portable\ Apps/By\ Category/Windows\ Tweaks/Syspin/
+        cd /mnt/d/apps/system/Syspin
 
         case $input in
             1)
@@ -1445,7 +1446,7 @@ function mywork(){
 #   -------------------------------
 
 function money(){
-    path='/mnt/d/Workspace/Projects/Programing/Scripts/Python/Money'
+    path='/mnt/d/workspace/tech/programing/scripts/Python/Money'
     clear && python3 $path/bg.py && python3 $path/uk.py
 }
 
@@ -1454,7 +1455,7 @@ function money(){
 #   -------------------------------
 
 function series(){
-    path='/mnt/d/Workspace/Projects/Programing/Scripts/Python/Web'
+    path='/mnt/d/workspace/tech/programing/scripts/Python/Web'
     clear && python3 $path/series.py
 }
 
@@ -1464,8 +1465,8 @@ function series(){
 
 function social(){
     # set -x
-    path="/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/net/social"
-    path2="D:\Workspace\Projects\Programing\Git\dotfiles\.dotfiles\wsl\net\social"
+    path="/mnt/d/workspace/tech/programing/git/dotfiles/.dotfiles/wsl/net/social"
+    path2="D:\workspace\tech\programing\git\dotfiles\.dotfiles\wsl\net\social"
     sites=$(cat ~/.dotfiles/wsl/net/social)
     files="/home/todorov/.dotfiles/wsl/net/social"
 
@@ -1588,16 +1589,16 @@ function social(){
 #   -------------------------------
 
 function food(){
-    path="D:\Workspace\Essential\Cooking"
-    doc1=$path"\Products.xlsx"
-    doc2=$path"\Recipes.docx"
-    doc3=$path"\Recipes.xlsx"
-    doc4=$path"\Shoppping List.docx"
-    doc5=$path"\Shoppping List.xlsx"
-    doc6=$path"\Terms.docx"
-    doc7=$path"\Tips\Tips.docx"
-    doc8=$path"\Weekly Menu.docx"
-    doc9=$path"\Weekly Meals.xlsx"
+    path="D:\workspace\essential\cooking"
+    doc1=$path"\products.xlsx"
+    doc2=$path"\recipes.docx"
+    doc3=$path"\recipes.xlsx"
+    doc4=$path"\shoppping list.docx"
+    doc5=$path"\shoppping list.xlsx"
+    doc6=$path"\terms.docx"
+    doc7=$path"\tips\tips.docx"
+    doc8=$path"\weekly menu.docx"
+    doc9=$path"\weekly meals.xlsx"
     re='^[0-9]+$'
 
     function open_docs(){
@@ -1650,10 +1651,10 @@ function food(){
 #   -------------------------------
 
 function sport(){
-    path="D:\Workspace\Essential\Health\Sport\Fitness"
+    path="d:\workspace\essential\health\sport\fitness"
     doc1=$path"\2018-04.xlsx"
-    doc2=$path"\Exercises.xlsx"
-    doc3=$path"\Training Program.docx"
+    doc2=$path"\exercises.xlsx"
+    doc3=$path"\training program.docx"
 
     case $1 in
         1)  o $doc1 ;;
@@ -1685,7 +1686,7 @@ function coc (){
 
 function cocu() {
     rm -rfv /mnt/c/Users/Todorov/Downloads/MyBot-MBR_v*
-    cp -r /mnt/d/Workspace/Shared/pc/MyBotRun/MyBot-MBR_v* /mnt/c/Users/Todorov/Downloads
+    cp -r /mnt/d/workspace/shared/pc/MyBotRun/MyBot-MBR_v* /mnt/c/Users/Todorov/Downloads
 }
 
 
@@ -1694,11 +1695,11 @@ function cocu() {
 #   -------------------------------
 
 function blog(){
-    gamespath="/mnt/d/Workspace/Personal/Blog/bgrebbels.mlvnt.com/public_html"
-    blogpath="/mnt/d/Workspace/Personal/Blog/mlvnt.com/mvlnt"
-    content="/mnt/d/Workspace/Personal/Blog/mlvnt.com/mlvnt/content"
-    contents="D:\Workspace\Personal\Blog\mlvnt.com\mlvnt\content"
-    bakedpath="/mnt/d/Workspace/Personal/Blog/mlvnt.com/public_html"
+    gamespath="/mnt/d/workspace/personal/blog/bgrebbels.mlvnt.com/public_html"
+    blogpath="/mnt/d/workspace/personal/blog/mlvnt.com/mvlnt"
+    content="/mnt/d/workspace/personal/blog/mlvnt.com/mlvnt/content"
+    contents="d:\workspace\personal\blog\mlvnt.com\mlvnt\content"
+    bakedpath="/mnt/d/workspace/personal/blog/mlvnt.com/public_html"
     filezilladir="D:\apps\suites\portableapps.com\PortableApps\FileZillaPortable"
     ext=".md"
 
@@ -1793,8 +1794,8 @@ function blog(){
 
 function todo(){
     guipath='D:\apps\productivity\notes\jdotxt'
-    # todotxtpath="/mnt/d/Workspace/Shared/mobile/config/apps/notes/todo.txt"
-    todotxtpath="D:\Workspace\Shared\mobile\config\apps\notes\todo.txt"
+    # todotxtpath="/mnt/d/workspace/shared/mobile/config/apps/notes/todo.txt"
+    todotxtpath="D:\workspace\shared\mobile\config\apps\notes\todo.txt"
     todopath=~/bin/todo.txt-cli/todo.sh
     clear && echo && $todopath -z -P -@ -+ list && echo
     read -p "Press enter to continue"
@@ -2136,12 +2137,12 @@ function apps(){
             24) cmd.exe /c "D:\apps\net\file-sharing\Torrents Open Registrations Checker\Torrents Open Registrations Checker.exe" && clear ;;
             25) cmds "D:\apps\net\tools\WiresharkPortable" WiresharkPortable.exe && clear ;;
             26) cmds "D:\apps\suites\portableapps.com\PortableApps\XAMPP" XAMPPLauncher.exe && clear ;;
-            27) cmds "D:\apps\development\editors\ides\CodeBlocks\CodeBlocks-16.01mingw-nosetup" codeblocks.exe && clear ;;
-            28) cmds "D:\apps\development\editors\ides\Eclipse" eclipse.exe && clear ;;
+            27) cmds "D:\apps\development\editors\IDEs\CodeBlocks\CodeBlocks-16.01mingw-nosetup" codeblocks.exe && clear ;;
+            28) cmds "D:\apps\development\editors\IDEs\Eclipse" eclipse.exe && clear ;;
             29) cmds "D:\apps\development\tools\decompilers\java_decompiler-gui-1.4.0" jd-gui.exe && clear ;;
-            30) cmds "D:\apps\development\editors\ides\matlab-R2017a\bin" matlab.exe && clear ;;
+            30) cmds "D:\apps\development\editors\IDEs\matlab-R2017a\bin" matlab.exe && clear ;;
             31) cmds "D:\apps\file-management\compare\Meld" Meld.exe && clear ;;
-            32) cmds "D:\apps\development\editors\ides\NetBeans 8.2\bin" netbeans64.exe && clear ;;
+            32) cmds "D:\apps\development\editors\IDEs\NetBeans 8.2\bin" netbeans64.exe && clear ;;
             33) cmds "D:\apps\development\editors\editors\Notepad++\Notepad++ 7.5.1" notepad++.exe && clear ;;
             34) cmds "D:\apps\file-management\recovery\R-StudioPortable 8.5.Build 170117" R-StudioPortable.exe && clear ;;
             35) cmds "D:\apps\development\tools\regex\RegexBuddy4" RegexBuddy4.exe && clear ;;
@@ -2381,9 +2382,9 @@ function apps(){
     }
 
     function sysmenu_clean(){
-        rm -rfv /mnt/d/Workspace/Portable\ Apps/SyMenu/ProgramFiles/SPSSuite/SyMenuSuite/_Trash/*
-        rm -rfv /mnt/d/Workspace/Portable\ Apps/SyMenu/ProgramFiles/SPSSuite/NirSoftSuite/_Trash/*
-        rm -rfv /mnt/d/Workspace/Portable\ Apps/SyMenu/ProgramFiles/SPSSuite/SysinternalsSuite/_Trash/*
+        rm -rfv /mnt/d/apps/suites/symenu/ProgramFiles/SPSSuite/SyMenuSuite/_Trash/*
+        rm -rfv /mnt/d/apps/suites/symenu/ProgramFiles/SPSSuite/NirSoftSuite/_Trash/*
+        rm -rfv /mnt/d/apps/suites/symenu/ProgramFiles/SPSSuite/SysinternalsSuite/_Trash/*
         clear
     }
 
@@ -2450,7 +2451,7 @@ function apps(){
 
 function word(){
     re='^[0-9]+$'
-    path="D:\Workspace\Projects\Programing\~References\Programs\Office\Microsoft Office\Templates\Landscape.dotm"
+    path="D:\workspace\tech\programing\~references\programs\office\Microsoft Office\Templates\Landscape.dotm"
 
     function wordo(){
         clear && echo

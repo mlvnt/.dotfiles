@@ -2,7 +2,7 @@
 printf "\n      Runtime: $(date) @ $(hostname)\n\n"
 
 # Common Variables
-path_dots="/mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl"
+path_dots="/mnt/d/workspace/tech/programing/git/dotfiles/.dotfiles/wsl"
 path_dots_local="~/.dotfiles/wsl"
 installed=$(dpkg -l | grep '^.i')
 
@@ -778,7 +778,7 @@ pip3 freeze | grep -qw powerline && printf '\n            powerline is already i
 # Import SSH Keys
 function ssh_import () {
     printf '\n      >>> Setting up SSH configuraion....\n'
-    sudo cp -rv /mnt/d/Workspace/Projects/Programing/Web/Protocols/Application\ Layer/SSH/Backup/.ssh ~/
+    sudo cp -rv /mnt/d/workspace/tech/programing/web/Protocols/Application\ Layer/SSH/Backup/.ssh ~/
     sudo chmod -v 600 ~/.ssh/*
     sudo chmod -v 700 ~/.ssh
     sudo chown -Rv $USER ~/.ssh/
@@ -788,7 +788,7 @@ ssh_import
 # Import GPG Keys
 function gpg_import(){
     printf '\n      >>> Setting up GPG configuraion....\n'
-    path="/mnt/d/Workspace/Projects/Programing/Web/PGP/Keys/Malvin Todorov malvintodorov@gmail.com (0x74B79CF7)"
+    path="/mnt/d/workspace/tech/programing/web/PGP/Keys/Malvin Todorov malvintodorov@gmail.com (0x74B79CF7)"
     sudo gpg --import "$path"/mlvnt-pub.asc
     sudo gpg --import "$path"/mlvnt-sec.asc
 }
@@ -797,7 +797,7 @@ gpg_import
 # Windows Autoload Scipt
 function windows_onload(){
     printf '\n      >>> Setting up Windows onload scripts....\n'
-    cp /mnt/d/Workspace/Projects/Programing/Scripts/Batch\ \&\ Reg/workspace.cmd /mnt/c/Users/Todorov/AppData/Roaming/Microsoft/Windows/Start\ Menu/Programs/Startup
+    cp /mnt/d/workspace/tech/programing/scripts/Batch/workspace.cmd /mnt/c/Users/Todorov/AppData/Roaming/Microsoft/Windows/Start\ Menu/Programs/Startup
 }
 windows_onload
 
