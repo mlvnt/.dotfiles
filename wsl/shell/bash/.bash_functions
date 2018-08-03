@@ -456,7 +456,28 @@ function manage(){
 #   INOTIFY
 #   -------------------------------
 
-function watching(){
+function watching-single(){
+    dirs="$1"
+    files="$2"
+    shift 2
+    echo
+    echo "[watching] { $dirs } for changes of { $files }"
+    echo "[executing] " "{ $@ }" " in case of matching event"
+    echo
+
+    when-changed -vr "$dirs/$files" echo "MODIFY" |
+    while read -r events; do
+        echo "[when-changed] " $events $files
+        echo
+        echo "[executing] " "$@"
+        "$@"
+        echo
+    done
+
+    echo "loop reading from { when-changed } finished with status $?"
+}
+
+function watching-double(){
     dirs="$1"
     files="$2"
     shift 2
@@ -478,13 +499,22 @@ function watching(){
 }
 
 function lin(){
-    cd '/mnt/d/workspace/shared/mobile/config/apps/notes/markor'
-    watching . linkbox.txt '/mnt/d/workspace/tech/programing/scripts/Python/Web/links.py'
+    cd '/mnt/d/shared/mobile/config/apps/notes/markor'
+    watching-double . linkbox.txt '/mnt/d/shared/pc/projects/scripts/Python/web/links.py'
 }
 
 function pas(){
     cd '/mnt/d/workspace/tech/sandwich'
-    watching . p.kdbx cp p.kdbx /mnt/d/workspace/shared/mobile/config/apps/notes/p
+    function copy(){
+        cp p.kdbx /mnt/d/shared/mobile/config/apps/notes/p
+        cp p.kdbx /mnt/d/shared/pc/config/apps/p
+    }
+    watching-double . p.kdbx copy
+}
+
+function enpas(){
+    cd '/mnt/d/workspace/tech/sandwich/archival/enpass/db'
+    watching-single . walletx.db cp ./* /mnt/d/shared/pc/config/apps/p/db
 }
 
 #   -------------------------------
@@ -595,8 +625,8 @@ function links (){
     echo -e '\n Symbolic Links Deleted!\n'
     }
 
-    path='/mnt/d/workspace/shared/mobile/notebook/~genLinks'
-    pathwin='D:\workspace\shared\mobile\notebook\~genLinks'
+    path='/mnt/d/shared/mobile/notebook/~genLinks'
+    pathwin='D:\shared\mobile\notebook\~genLinks'
 
     if [ -z $1 ] ; then
         clear
@@ -675,10 +705,10 @@ function move (){
         echo -e '           4  | Dry-Run Mirroring\n'
         read -e -p "  Option: " input
 
-        excludeddir="/mnt/d/workspace/tech/programing/git/dotfiles/.dotfiles/wsl/rsync/excluded"
+        excludeddir="/mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/wsl/rsync/excluded"
         animemain="/mnt/e/backup/media/anime/seasonal/~main/"
-        dotfilesdird="/mnt/d/workspace/tech/programing/git/dotfiles/.dotfiles/"
-        dotfilesdire="/mnt/e/backup/workspace/tech/programing/git/dotfiles/.dotfiles"
+        dotfilesdird="/mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/"
+        dotfilesdire="/mnt/e/backup/shared/pc/projects/git/dotfiles/.dotfiles"
         drived="/mnt/d/"
         bakcupdire="/mnt/e/backup"
         logdir="/mnt/e/backup_logs/"
@@ -744,7 +774,7 @@ function move (){
             1)
                     echo
                     read -e -p "  Enter Drive Letter/Path [c]:" backdir
-                    dotfilesdird="/mnt/d/workspace/tech/programing/git/dotfiles/.dotfiles/"
+                    dotfilesdird="/mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/"
                     dotfilesdire="/mnt/"$backdir"/workspace/tech/programing/git/dotfiles/.dotfiles"
                     drived="/mnt/d/"
                     drivedwin="D:\\"
@@ -783,8 +813,8 @@ function move (){
         echo -e '           4  | Dry-Run Mirroring\n'
         read -e -p "  Option: " input
 
-        dotfilesdird="/mnt/d/workspace/tech/programing/git/dotfiles/.dotfiles"
-        dotfilesdire="/mnt/e/backup/workspace/tech/programing/git/dotfiles/.dotfiles/"
+        dotfilesdird="/mnt/d/shared/pc/projects/git/dotfiles/.dotfiles"
+        dotfilesdire="/mnt/e/backup/shared/pc/projects/git/dotfiles/.dotfiles/"
         drived="/mnt/d"
         bakcupdire="/mnt/e/backup/"
         logdir="/mnt/e/restore_logs/"
@@ -792,7 +822,7 @@ function move (){
         workspacedird="D:\workspace"
         workspacedire="E:\backup\workspace"
         link_dir_1="/mnt/d/workspace"
-        link_dir_2="/mnt/d/workspace/shared"
+        link_dir_2="/mnt/d/shared"
 
         case $input in
             1|3) robonorm="/E" && rsyncnorm='' ;;
@@ -844,7 +874,7 @@ function move (){
         echo -e '           4  | Dry-Run Mirroring\n'
         read -e -p "  Option: " input
 
-        excludeddir="/mnt/d/workspace/tech/programing/git/dotfiles/.dotfiles/wsl/rsync/excluded_mobile"
+        excludeddir="/mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/wsl/rsync/excluded_mobile"
         sdcard=""
         bakcupdire="/mnt/e/backup_mobile/"
         logdir="/mnt/e/backup_logs/"
@@ -893,7 +923,7 @@ function move (){
             1)
                     echo
                     read -e -p "  Enter Drive Letter/Path [c]:" backdir
-                    dotfilesdird="/mnt/d/workspace/tech/programing/git/dotfiles/.dotfiles/"
+                    dotfilesdird="/mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/"
                     dotfilesdire="/mnt/"$backdir"/workspace/tech/programing/git/dotfiles"
                     drived="/mnt/e/backup_mobile/"
                     drivedwin="E:\\backup_mobile"
@@ -926,8 +956,8 @@ function move (){
         echo -e '           4  | Dry-Run Mirroring\n'
         read -e -p "  Option: " input
 
-        dotfilesdird="/mnt/d/workspace/tech/programing/git/dotfiles/.dotfiles"
-        dotfilesdire="/mnt/e/backup/workspace/tech/programing/git/dotfiles/.dotfiles/"
+        dotfilesdird="/mnt/d/shared/pc/projects/git/dotfiles/.dotfiles"
+        dotfilesdire="/mnt/e/backup/shared/pc/projects/git/dotfiles/.dotfiles/"
         drived="/mnt/d"
         bakcupdire="/mnt/e/backup/"
         logdir="/mnt/e/restore_logs/"
@@ -935,7 +965,7 @@ function move (){
         workspacedird="D:\workspace"
         workspacedire="E:\backup\workspace"
         link_dir_1="/mnt/d/workspace"
-        link_dir_2="/mnt/d/workspace/shared"
+        link_dir_2="/mnt/d/shared"
 
         case $input in
             1|3) robonorm="/E" && rsyncnorm='' ;;
@@ -1084,10 +1114,10 @@ function dots(){
         echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         echo -e '\n Cloning new .dotfiles....\n'
         echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        git clone /mnt/d/workspace/tech/programing/git/dotfiles/.dotfiles/ ~/.dotfiles
+        git clone /mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/ ~/.dotfiles
         # oh-my-zsh
-        sudo cp -rv /mnt/d/workspace/tech/programing/git/dotfiles/.dotfiles/wsl/shell/zsh/.oh-my-zsh ~/.dotfiles/wsl/shell/zsh/
-        sudo cp -rv /mnt/d/workspace/tech/programing/git/dotfiles/.dotfiles/wsl/.config/sublime-text-3 ~/.dotfiles/wsl/.config/
+        sudo cp -rv /mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/wsl/shell/zsh/.oh-my-zsh ~/.dotfiles/wsl/shell/zsh/
+        sudo cp -rv /mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/wsl/.config/sublime-text-3 ~/.dotfiles/wsl/.config/
         echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         echo -e '\n Converting .dotfiles to LF endings....\n'
         echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
@@ -1221,28 +1251,29 @@ function win(){
         fi
 
         # Variables
-        powershellScript='D:\workspace\tech\programing\scripts\PowerShell\Quick_Access\Set-QuickAccess.ps1'
-        # cmd.exe /c "D:\workspace\tech\programing\scripts\PowerShell\Quick Access\Set-QuickAccess.cmd"
+        powershellScript='D:\shared\pc\projects\scripts\PowerShell\Quick_Access\Set-QuickAccess.ps1'
+        # cmd.exe /c "D:\shared\pc\projects\scripts\PowerShell\Quick Access\Set-QuickAccess.cmd"
         p='Pin'
         up='Unpin'
         pins=(
             "'D:\'"
             "'D:\workspace\~temp'"
-            "'D:\media\anime'"
-            "'D:\media\movies'"
-            "'D:\media\series'"
-            "'D:\apps'"
-            "'D:\workspace\tech\programing\~references\programs\browsers\chrome\bookmarks\archive'"
+            "'D:\workspace'"
             "'D:\workspace\essential'"
+            "'D:\workspace\essential\lists'"
+            "'D:\apps'"
+            "'D:\workspace\tech'"
+            "'D:\shared'"
             "'D:\workspace\personal'"
             "'D:\workspace\personal\professional\cv'"
-            "'D:\workspace\personal\blog'"
-            "'D:\workspace\tech'"
-            "'D:\workspace\shared'"
-            "'D:\workspace\essential\lists'"
+            "'D:\shared\pc\projects\blog'"
             "'D:\workspace\projects'"
             "'D:\workspace\tech\programing'"
             "'D:\workspace\university'"
+            "'D:\media\anime'"
+            "'D:\media\movies'"
+            "'D:\media\series'"
+            "'D:\workspace\tech\programing\~references\programs\browsers\chrome\bookmarks\archive'"
             "'D:\workspace\essential\art\screenshots\pics'"
             "'C:\Users\Todorov\Pictures\My Screen Shots'"
             "'C:\Users\Todorov\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs\home\todorov'"
@@ -1446,7 +1477,7 @@ function mywork(){
 #   -------------------------------
 
 function money(){
-    path='/mnt/d/workspace/tech/programing/scripts/Python/Money'
+    path='/mnt/d/shared/pc/projects/scripts/Python/money'
     clear && python3 $path/bg.py && python3 $path/uk.py
 }
 
@@ -1455,7 +1486,7 @@ function money(){
 #   -------------------------------
 
 function series(){
-    path='/mnt/d/workspace/tech/programing/scripts/Python/Web'
+    path='/mnt/d/shared/pc/projects/scripts/Python/web'
     clear && python3 $path/series.py
 }
 
@@ -1465,8 +1496,8 @@ function series(){
 
 function social(){
     # set -x
-    path="/mnt/d/workspace/tech/programing/git/dotfiles/.dotfiles/wsl/net/social"
-    path2="D:\workspace\tech\programing\git\dotfiles\.dotfiles\wsl\net\social"
+    path="/mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/wsl/net/social"
+    path2="D:\shared\pc\projects\git\dotfiles\.dotfiles\wsl\net\social"
     sites=$(cat ~/.dotfiles/wsl/net/social)
     files="/home/todorov/.dotfiles/wsl/net/social"
 
@@ -1686,7 +1717,7 @@ function coc (){
 
 function cocu() {
     rm -rfv /mnt/c/Users/Todorov/Downloads/MyBot-MBR_v*
-    cp -r /mnt/d/workspace/shared/pc/MyBotRun/MyBot-MBR_v* /mnt/c/Users/Todorov/Downloads
+    cp -r /mnt/d/shared/pc/MyBotRun/MyBot-MBR_v* /mnt/c/Users/Todorov/Downloads
 }
 
 
@@ -1695,11 +1726,11 @@ function cocu() {
 #   -------------------------------
 
 function blog(){
-    gamespath="/mnt/d/workspace/personal/blog/bgrebbels.mlvnt.com/public_html"
-    blogpath="/mnt/d/workspace/personal/blog/mlvnt.com/mvlnt"
-    content="/mnt/d/workspace/personal/blog/mlvnt.com/mlvnt/content"
-    contents="d:\workspace\personal\blog\mlvnt.com\mlvnt\content"
-    bakedpath="/mnt/d/workspace/personal/blog/mlvnt.com/public_html"
+    gamespath="/mnt/d/shared/pc/projects/blog/bgrebbels.mlvnt.com/public_html"
+    blogpath="/mnt/d/shared/pc/projects/blog/mlvnt.com/mvlnt"
+    content="/mnt/d/shared/pc/projects/blog/mlvnt.com/mlvnt/content"
+    contents="D:\shared\pc\projects\blog\mlvnt.com\mlvnt\content"
+    bakedpath="/mnt/d/shared/pc/projects/blog/mlvnt.com/public_html"
     filezilladir="D:\apps\suites\portableapps.com\PortableApps\FileZillaPortable"
     ext=".md"
 
@@ -1794,8 +1825,8 @@ function blog(){
 
 function todo(){
     guipath='D:\apps\productivity\notes\jdotxt'
-    # todotxtpath="/mnt/d/workspace/shared/mobile/config/apps/notes/todo.txt"
-    todotxtpath="D:\workspace\shared\mobile\config\apps\notes\todo.txt"
+    # todotxtpath="/mnt/d/shared/mobile/config/apps/notes/todo.txt"
+    todotxtpath="D:\shared\mobile\config\apps\notes\todo.txt"
     todopath=~/bin/todo.txt-cli/todo.sh
     clear && echo && $todopath -z -P -@ -+ list && echo
     read -p "Press enter to continue"
@@ -2118,7 +2149,7 @@ function apps(){
             5) o "D:\apps\suites\symenu\ProgramFiles\SPSSuite\SyMenuSuite" && clear ;;
             6) cmds "D:\apps\suites\gegeek_toolkit" SyMenu.exe && clear ;;
             7) cmds "D:\apps\suites\liberkey" LiberKey.exe && clear ;;
-            8) o "D:\workspace\shared\pc\MyBotRun" && clear ;;
+            8) o "D:\shared\pc\MyBotRun" && clear ;;
             9) cmds "D:\apps\suites\symenu\ProgramFiles\SPSSuite\SyMenuSuite\AnyDesk_sps" AnyDesk.exe && clear ;;
             10) cmds "D:\apps\net\file-sharing\Downloading\aTube Catcher 2.0" yct.exe && clear ;;
             11) cmds "D:\apps\suites\portableapps.com\PortableApps\FileZillaPortable" FileZillaPortable.exe && clear ;;

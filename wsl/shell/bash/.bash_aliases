@@ -31,8 +31,8 @@ alias home="cd ~"
 alias root="cd /"
 alias temp="cd /mnt/d/workspace/~temp"
 alias workspace="cd /mnt/d/workspace"
-alias gitf="cd /mnt/d/workspace/tech/programing/git"
-alias dotfiles="cd /mnt/d/workspace/tech/programing/git/dotfiles/.dotfiles"
+alias gitf="cd /mnt/d/shared/pc/projects/git"
+alias dotfiles="cd /mnt/d/shared/pc/projects/git/dotfiles/.dotfiles"
 alias homeu="cd /mnt/c/Users/Todorov/AppData/Local/Packages/CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc/LocalState/rootfs/home/todorov"
 alias down="cd /mnt/c/Users/Todorov/Downloads"
 alias docs="cd /mnt/c/Users/Todorov/Documents"
@@ -163,7 +163,7 @@ alias hostse='$EDITOR /etc/hosts'
 # BLOG
 alias server="ssh todorov@mlvnt.com"
 alias hugos="hugo server -w -v --disableFastRender --bind=0.0.0.0"
-alias caddy="ulimit -n 8192 && caddy -conf /mnt/d/workspace/tech/programing/git/dotfiles/.dotfiles/wsl/net/caddyfile"
+alias caddy="ulimit -n 8192 && caddy -conf /mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/wsl/net/caddyfile"
 alias caddyconf="sudo nano /etc/caddy/caddyfile"
 
 # Copy my public key to the pasteboard
@@ -335,7 +335,7 @@ alias sublime="cmds 'D:\apps\development\editors\editors\Sublime_Text' sublime_t
 alias irc="cmds 'D:\apps\suites\portableapps.com\PortableApps\HexChatPortable' HexChatPortable.exe"
 alias sync="cmds 'D:\apps\net\file-sharing\SyncTrayzorPortable-x64' SyncTrayzor.exe"
 alias ftpstart="cmds 'D:\apps\suites\portableapps.com\PortableApps\FileZillaPortable' FileZillaPortable.exe"
-alias keepass="cat /mnt/d/workspace/shared/mobile/config/apps/notes/p/k.txt | cmd.exe /c clip && cmds 'D:\apps\suites\portableapps.com\PortableApps\KeePassProPortable' KeePassProPortable.exe"
+alias keepass="cat /mnt/d/shared/mobile/config/apps/notes/p/k.txt | cmd.exe /c clip && cmds 'D:\apps\suites\portableapps.com\PortableApps\KeePassProPortable' KeePassProPortable.exe"
 alias calibre="cmds 'D:\apps\suites\portableapps.com\PortableApps\calibrePortable' calibrePortable.exe"
 alias kodi="cmds 'D:\apps\file-management\media\media-centers\Kodi\Server' kodi.exe -p"
 alias plex="cmdc 'D:\apps\file-management\media\media-centers\Plex\Server\Plex Media Server.exe'"
@@ -343,6 +343,9 @@ alias npp="cmds 'D:\apps\development\editors\editors\Notepad++\Notepad++ 7.5.1' 
 alias flash="cmds 'D:\apps\suites\portableapps.com\PortableApps\RufusPortable' RufusPortable.exe"
 alias sysmenu="cmds 'D:\apps\suites\symenu' SyMenu.exe"
 alias portableapps="cmds 'D:\apps\suites\portableapps.com' Start.exe"
+alias rss="cmds 'D:\apps\suites\portableapps.com\PortableApps\QuiteRSSPortable' QuiteRSSPortable.exe"
+alias unicode="cmds 'D:\apps\productivity\office\unicode\character-maps\BabelStone' BabelMap.exe"
+alias revo="cmds 'D:\apps\program-management\uninstallers\RevoPortable64' RevoUninstallerPortable.exe"
 
 alias vnc="~/software/VNC-Viewer-6.17.1113-Linux-x64"
 alias chromium-browser='sudo chromium-browser --no-sandbox'

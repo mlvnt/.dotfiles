@@ -88,13 +88,12 @@ function tmux_workspace(){
     tmux new-window -n 'todo'
     echo $process | grep -qw sshd || tmux send-keys -t 5.0 'sudo /usr/sbin/sshd' Enter
     tmux send-keys -t 5.0 'todo' Enter
-    tmux new-window -n 'inotify' \; split-window \; split-window
-    # tmux new-window -n 'inotify' \; split-window \; split-window \; split-window
+    tmux new-window -n 'inotify' \; split-window \; split-window \; split-window
     tmux select-layout tiled
-    tmux send-keys -t 6.0 'lin' Enter
-    tmux send-keys -t 6.1 'pas' Enter
-    tmux send-keys -t 6.2 'python3 -m radicale --config ~/.config/radicale/config' Enter
-    # tmux send-keys -t 6.4 'tod' Enter
+    tmux send-keys -t 6.0 'pas' Enter
+    tmux send-keys -t 6.1 'enpas' Enter
+    tmux send-keys -t 6.2 'lin' Enter
+    tmux send-keys -t 6.3 'python3 -m radicale --config ~/.config/radicale/config' Enter
     # tmux new-window -n '4'
     # tmux split-window -v -p 50
     # tmux new-window -n '5'

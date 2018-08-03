@@ -797,7 +797,7 @@ gpg_import
 # Windows Autoload Scipt
 function windows_onload(){
     printf '\n      >>> Setting up Windows onload scripts....\n'
-    cp /mnt/d/workspace/tech/programing/scripts/Batch/workspace.cmd /mnt/c/Users/Todorov/AppData/Roaming/Microsoft/Windows/Start\ Menu/Programs/Startup
+    cp /mnt/d/shared/pc/projects/scripts/Batch/workspace.cmd /mnt/c/Users/Todorov/AppData/Roaming/Microsoft/Windows/Start\ Menu/Programs/Startup
 }
 windows_onload
 

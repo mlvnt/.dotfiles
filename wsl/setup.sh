@@ -34,18 +34,18 @@ dpkg -l | grep -qw expect && printf '\n            It'\''s already installed.\n\
 printf '\n      >>> Installing git....\n\n'
 sudo rm -rfv ~/.dotfiles
 dpkg -l | grep -qw git && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq git
-sudo cp -v /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/git/.git-credentials ~/
-sudo cp -v /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/git/.gitconfig-local ~/
-sudo cp -v /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/git/.gitconfig ~/
+sudo cp -v /mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/wsl/git/.git-credentials ~/
+sudo cp -v /mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/wsl/git/.gitconfig-local ~/
+sudo cp -v /mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/wsl/git/.gitconfig ~/
 
 ################################################################################
 ######################### DOTFILES #############################################
 ################################################################################
 
 printf '\n      >>> Clonig dotfiles repository....\n\n'
-# cp /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles/wsl/begin.sh ~/
+# cp /mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/wsl/begin.sh ~/
 # sudo chmod +x begin.sh
-# git clone /mnt/d/Workspace/Projects/Programing/Git/dotfiles/.dotfiles
+# git clone /mnt/d/shared/pc/projects/git/dotfiles/.dotfiles
 rm -rfv ~/.dotfiles/
 git clone https://github.com/mlvnt/.dotfiles.git ~/.dotfiles
 
