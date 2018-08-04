@@ -346,6 +346,7 @@ alias portableapps="cmds 'D:\apps\suites\portableapps.com' Start.exe"
 alias rss="cmds 'D:\apps\suites\portableapps.com\PortableApps\QuiteRSSPortable' QuiteRSSPortable.exe"
 alias unicode="cmds 'D:\apps\productivity\office\unicode\character-maps\BabelStone' BabelMap.exe"
 alias revo="cmds 'D:\apps\program-management\uninstallers\RevoPortable64' RevoUninstallerPortable.exe"
+alias revo="cmds 'D:\apps\suites\portableapps.com\PortableApps\DittoPortable' DittoPortable.exe"
 
 alias vnc="~/software/VNC-Viewer-6.17.1113-Linux-x64"
 alias chromium-browser='sudo chromium-browser --no-sandbox'

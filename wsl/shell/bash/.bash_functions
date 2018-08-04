@@ -2112,7 +2112,8 @@ function apps(){
             echo    '           71  WinDirStat'
             echo    '           72  RealVNC'
             echo    '           73  TigerVNC'
-            echo -e '           75  R-Studio\n'
+            echo    '           75  R-Studio'
+            echo -e '           79  Ditto\n'
             echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
             echo -e '\n   >>> Main\n'
             echo    '           13  JDownloader'
@@ -2220,6 +2221,7 @@ function apps(){
             76) cmds "D:\apps\productivity\office\TeX\MikTEX\texmfs\install\miktex\bin" miktex-console.exe && clear ;;
             77) cmds "D:\apps\file-management\media\media-centers\Kodi\Server" kodi.exe -p && clear ;;
             78) cmd.exe /c "D:\apps\file-management\media\media-centers\Plex\Server\Plex Media Server.exe" && clear ;;
+            79) cmds "D:\apps\suites\portableapps.com\PortableApps\DittoPortable" DittoPortable.exe && clear ;;
             b) apps ;;
             x) : && clear ;;
             *) portable_apps ;;
