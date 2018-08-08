@@ -503,20 +503,6 @@ function lin(){
     watching-double . linkbox.txt '/mnt/d/shared/pc/projects/scripts/Python/web/links.py'
 }
 
-function pas(){
-    cd '/mnt/d/workspace/tech/sandwich'
-    function copy(){
-        cp p.kdbx /mnt/d/shared/mobile/config/apps/notes/p
-        cp p.kdbx /mnt/d/shared/pc/config/apps/p
-    }
-    watching-double . p.kdbx copy
-}
-
-function enpas(){
-    cd '/mnt/d/workspace/tech/sandwich/archival/enpass/db'
-    watching-single . walletx.db cp ./* /mnt/d/shared/pc/config/apps/p/db
-}
-
 #   -------------------------------
 #   Empty Trash
 #   -------------------------------
@@ -1825,8 +1811,8 @@ function blog(){
 
 function todo(){
     guipath='D:\apps\productivity\notes\jdotxt'
-    # todotxtpath="/mnt/d/shared/mobile/config/apps/notes/todo.txt"
-    todotxtpath="D:\shared\mobile\config\apps\notes\todo.txt"
+    # todotxtpath="/mnt/d/shared/mobile/config/notes/todo.txt"
+    todotxtpath="D:\shared\mobile\config\notes\todo.txt"
     todopath=~/bin/todo.txt-cli/todo.sh
     clear && echo && $todopath -z -P -@ -+ list && echo
     read -p "Press enter to continue"
