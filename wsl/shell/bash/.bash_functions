@@ -185,9 +185,9 @@ function linx() {
                 sudo vim /etc/ssh/sshd_config
                 sudo service ssh restart ;;
             8)
-                sudo cp -r ~/.ssh/* /mnt/d/workspace/tech/programing/web/Protocols/Application\ Layer/SSH/Backup/.ssh/ ;;
+                sudo cp -r ~/.ssh/* /mnt/d/shared/mobile/config/notes/p/.ssh ;;
             9)
-                sudo cp -r /mnt/d/workspace/tech/programing/web/Protocols/Application\ Layer/SSH/Backup/.ssh/* ~/.ssh/
+                sudo cp -r /mnt/d/shared/mobile/config/notes/p/.ssh/* ~/.ssh/
                 ssh_permissons ;;
             b)
                 linx ;;
