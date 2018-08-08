@@ -499,7 +499,7 @@ function watching-double(){
 }
 
 function lin(){
-    cd '/mnt/d/shared/mobile/config/apps/notes/markor'
+    cd '/mnt/d/shared/mobile/config/notes/markor'
     watching-double . linkbox.txt '/mnt/d/shared/pc/projects/scripts/Python/web/links.py'
 }
 
