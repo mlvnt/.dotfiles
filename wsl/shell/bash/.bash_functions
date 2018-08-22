@@ -575,7 +575,6 @@ function ipdiscovery() {
     fi
 
 }
-ipdiscovery
 
 #   -------------------------------
 #   INOTIFY
