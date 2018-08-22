@@ -29,7 +29,7 @@ alias .6='cd ../../../../../../'      # Go back 6 directory levels
 # SHORTCUTS
 alias home="cd ~"
 alias root="cd /"
-alias temp="cd /mnt/d/workspace/~temp"
+alias temp="cd /mnt/d/~temp"
 alias workspace="cd /mnt/d/workspace"
 alias gitf="cd /mnt/d/shared/pc/projects/git"
 alias dotfiles="cd /mnt/d/shared/pc/projects/git/dotfiles/.dotfiles"
@@ -163,7 +163,7 @@ alias hostse='$EDITOR /etc/hosts'
 # BLOG
 alias server="ssh todorov@mlvnt.com"
 alias hugos="hugo server -w -v --disableFastRender --bind=0.0.0.0"
-alias caddy="ulimit -n 8192 && caddy -conf /mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/wsl/net/caddyfile"
+alias caddy="ulimit -n 8192 && caddy -conf ~/.dotfiles/wsl/net/caddyfile"
 alias caddyconf="sudo nano /etc/caddy/caddyfile"
 
 # Copy my public key to the pasteboard
@@ -285,7 +285,7 @@ alias o="open"
 alias open="explorer.exe"
 alias openh=" open ."
 alias openi="gnome-open ." # Inside a Desktop environment
-alias tempo="open 'D:\workspace\~temp'"
+alias tempo="open 'D:\~temp'"
 alias downo="open 'C:\Users\Todorov\Downloads'"
 alias docso="open 'C:\Users\Todorov\Documents'"
 alias screenshots="open 'C:\Users\Todorov\Pictures\My Screen Shots'"
@@ -346,7 +346,8 @@ alias portableapps="cmds 'D:\apps\suites\portableapps.com' Start.exe"
 alias rss="cmds 'D:\apps\suites\portableapps.com\PortableApps\QuiteRSSPortable' QuiteRSSPortable.exe"
 alias unicode="cmds 'D:\apps\productivity\office\unicode\character-maps\BabelStone' BabelMap.exe"
 alias revo="cmds 'D:\apps\program-management\uninstallers\RevoPortable64' RevoUninstallerPortable.exe"
-alias revo="cmds 'D:\apps\suites\portableapps.com\PortableApps\DittoPortable' DittoPortable.exe"
+alias ditto="cmds 'D:\apps\suites\portableapps.com\PortableApps\DittoPortable' DittoPortable.exe"
+alias remotes="cmds 'D:\apps\net\remote-control\Unified Remote\server' RemoteServerWin.exe"
 
 alias vnc="~/software/VNC-Viewer-6.17.1113-Linux-x64"
 alias chromium-browser='sudo chromium-browser --no-sandbox'

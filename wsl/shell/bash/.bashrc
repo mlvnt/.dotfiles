@@ -86,7 +86,7 @@ function tmux_workspace(){
     # tmux new-window -n 'horizontal'
     # tmux split-window -v -p 50
     tmux new-window -n 'todo'
-    echo $process | grep -qw sshd || tmux send-keys -t 5.0 'sudo /usr/sbin/sshd' Enter
+    echo $process | grep -qw sshd || tmux send-keys -t 4.0 'sudo /usr/sbin/sshd' Enter
     tmux send-keys -t 4.0 'todo' Enter
     # tmux new-window -n 'inotify' \; split-window \; split-window \; split-window
     tmux new-window -n 'inotify' \; split-window \;

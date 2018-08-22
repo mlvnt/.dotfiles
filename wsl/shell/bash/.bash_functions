@@ -437,7 +437,8 @@ function manage(){
     echo    "    1  | bin                 | Manage the Trash"
     echo    "    2  | move                | Move, Copy"
     echo    "    3  | links               | Manage Links"
-    echo -e "    4  | handles             | Manage File Handles / Descriptors\n"
+    echo    "    4  | handles             | Manage File Handles / Descriptors"
+    echo -e "    5  | net                 | Manage Network\n"
     read -e -p "  Enter Option: " input
     echo
 
@@ -446,11 +447,135 @@ function manage(){
         2|move)     move ;;
         3|links)    links ;;
         4|handles)  handles ;;
+        5|net)      met ;;
         b)  master ;;
         x) : && clear ;;
         *) manage ;;
     esac
 }
+
+#   -------------------------------
+#   NETWORK DISCOVERY
+#   -------------------------------
+
+function ipdiscovery() {
+    local re='((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)'
+    local os=$(uname -a | grep -qw 'Microsoft' && echo "win" || echo "unix");
+    local macs=~/.dotfiles/wsl/net/mac.txt
+
+    function help() {
+        echo && echo "DESCRIPTION"
+        echo "        ipdiscovery - find device ip by mac and run a service" && echo
+        echo "USAGE"
+        echo "        ipdiscovery [DEVICE] [SERVICE]" && echo
+        echo "OPTIONS"
+        echo "    Devices"
+        echo "        1   |  s8"
+        echo "        2   |  s8hotspot"
+        echo "        3   |  tab"
+        echo "        4   |  p8"
+        echo "        5   |  pclan"
+        echo "        6   |  pcwifi"
+        echo "        7   |  surface"
+        echo "        8   |  delllan"
+        echo "        9   |  dellwifi"
+        echo "        10  |  msilan"
+        echo "        11  |  msiwifi"
+        echo "    Services"
+        echo "        1   |  ssh"
+        echo "        2   |  ftp" && echo
+    }
+
+    if [[ -z $1 ]] ; then 
+        echo && echo "no device selected"
+        help
+    else
+        case $1 in
+            s8|1)          local mac="$(tail -n+1 $macs | head -n1)";
+                           local device='s8'
+                           local type='mobile' ;;
+            s8hotspot|2)   local mac="$(tail -n+2 $macs | head -n1)";
+                           local device='s8hotspot'
+                           local type='mobile' ;;
+            tab|3)         local mac="$(tail -n+3 $macs | head -n1)";
+                           local device='tab'
+                           local type='mobile' ;;
+            p8|4)          local mac="$(tail -n+4 $macs | head -n1)";
+                           local device='p8'
+                           local type='mobile' ;;
+            pclan|5)       local mac="$(tail -n+5 $macs | head -n1)";
+                           local device='pclan'
+                           local type='desktop' ;;
+            pcwifi|6)      local mac="$(tail -n+6 $macs | head -n1)";
+                           local device='pcwifi'
+                           local type='desktop' ;;
+            surface|7)     local mac="$(tail -n+7 $macs | head -n1)";
+                           local device='surface'
+                           local type='desktop' ;;
+            delllan|8)     local mac="$(tail -n+8 $macs | head -n1)";
+                           local device='delllan'
+                           local type='desktop' ;;
+            dellwifi|9)    local mac="$(tail -n+9 $macs | head -n1)";
+                           local device='dellwifi'
+                           local type='desktop' ;;
+            msilan|10)     local mac="$(tail -n+10 $macs | head -n1)";
+                           local device='msilan'
+                           local type='desktop' ;;
+            msiwifi|11)    local mac="$(tail -n+11 $macs | head -n1)";
+                           local device='msiwifi'
+                           local type='desktop' ;;
+            *)             local mac='n' ;;
+        esac
+
+        if [ "$mac" == "n" ] ; then
+            echo && echo "wrong device"
+            help
+        else
+            case $os in
+                win)  local arplist=$(cmd.exe /c arp -a); 
+                      echo && echo "[mac] $(echo "$mac" | sed 's/\[//g ; s/\]//g ; s/://g')"; ;;
+                unix) local arplist=$(arp -a); 
+                      echo && echo "[mac] $(echo "$mac" | sed 's/\[//g ; s/\]//g ; s/-//g')"; ;;
+            esac
+
+            local ip=$(echo "$arplist" | awk '{print tolower($0)}' | grep "$mac" | grep -oE "$re")
+
+            if [[ $ip =~ $re ]]; then
+                echo "[$device] $ip" && echo
+                if [ -z "$2" ]; then
+                        :
+                else
+                    case $2 in
+                        ssh|1) 
+                                if [ "$type" == "mobile" ]; then
+                                    ssh "$ip" -p 8022 
+                                else
+                                    ssh -t todorov@"$ip" -p 2222
+                                fi
+                                    ;;
+                        ftp|2) 
+                                if [ "$type" == "mobile" ]; then
+                                    cmd.exe /c start "C:\Windows\explorer.exe" ftp://$ip:2121/
+                                else
+                                    cmd.exe /c start "C:\Windows\explorer.exe" ftp://$ip:2121/
+                                fi
+                                    ;;
+                        *)     service='n' ;;
+                    esac
+
+                    if [ "$service" == "n" ]; then
+                        echo && echo "wrong service"
+                        help
+                    fi
+                fi
+            else
+                echo  && echo "arp entry ip unavailable" && echo 
+            fi
+        fi
+    fi
+
+}
+ipdiscovery
 
 #   -------------------------------
 #   INOTIFY
@@ -993,7 +1118,7 @@ function move (){
         echo -e '           3  | Surface Screenshots to Permanent Directory\n'
         read -e -p "  Option: " input
 
-        temp="/mnt/d/workspace/~temp"
+        temp="/mnt/d/~temp"
         screenshotsdir="/mnt/c/Users/Todorov/Pictures/My Screen Shots/"
         animepicsdir="/mnt/d/workspace/essential/art/screenshots/pics"
         animepicsdirwin="D:\workspace\essential\art\screenshots\pics"
@@ -1023,7 +1148,7 @@ function move (){
     function move_all(){
         downloads="/mnt/c/Users/Todorov/Downloads/"
         documents="/mnt/c/Users/Todorov/Documents/"
-        temp="/mnt/d/workspace/~temp"
+        temp="/mnt/d/~temp"
 
         echo -e '\n ~~~~~~~~~~~~~~ Moving from Downloads.... ~~~~~~~~~~~~~~\n'
         rsync -avhz --progress --stats --ignore-existing --remove-source-files --exclude desktop.ini "$downloads" "$temp"
@@ -1243,7 +1368,7 @@ function win(){
         up='Unpin'
         pins=(
             "'D:\'"
-            "'D:\workspace\~temp'"
+            "'D:\~temp'"
             "'D:\workspace'"
             "'D:\workspace\essential'"
             "'D:\workspace\essential\lists'"
@@ -1696,6 +1821,7 @@ function sport(){
 
 function coc (){
     echo -e '\n Opening Clash of Clans Bot....\n'
+    cd "/mnt/c/Users/Todorov/Downloads"
     name=$(dir -AN1 | grep MyBot)
     path='C:\Users\Todorov\Downloads\'$name'\MyBot.run.exe'
     timeout 6s cmd.exe /c $path MyVillage MEmu MEmu

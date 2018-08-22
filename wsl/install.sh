@@ -2,7 +2,7 @@
 printf "\n      Runtime: $(date) @ $(hostname)\n\n"
 
 # Common Variables
-path_dots="/mnt/d/workspace/tech/programing/git/dotfiles/.dotfiles/wsl"
+path_dots="/mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/wsl"
 path_dots_local="~/.dotfiles/wsl"
 installed=$(dpkg -l | grep '^.i')
 
@@ -814,11 +814,12 @@ social_import
 function shell_config(){
     printf '\n      >>> Removing existing configuraion....\n'
     sudo rm -rfv ~/.bashrc ~/.zshrc ~/.bash_profile ~/.profile ~/.bash_logout ~/.local
-    sudo cp -rv "$path_dots"/shell/zsh/.oh-my-zsh "$path_dots_local"/shell/zsh/
-    sudo cp -rv "$path_dots"/.config/sublime-text-3 "$path_dots_local"/.config/
-    sudo cp -rv "$path_dots"/.config/radicale "$path_dots_local"/.config/
-    sudo cp -rv "$path_dots"/.local/share/tldr "$path_dots_local"/.local/share/
+    sudo cp -rv "$path_dots"/shell/zsh/.oh-my-zsh "$path_dots_local"/shell/zsh
+    sudo cp -rv "$path_dots"/.config/sublime-text-3 "$path_dots_local"/.config
+    sudo cp -rv "$path_dots"/.config/radicale "$path_dots_local"/.config
+    sudo cp -rv "$path_dots"/.local/share/tldr "$path_dots_local"/.local/share
+    sudo cp -rv ${path_dots}/net/mac.txt "$path_dots_local"/net
 }
 shell_config
 
-#=============================================================================================================
+#==========================================================================================================
