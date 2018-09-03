@@ -3337,12 +3337,12 @@ la() {
 
 # `v` with no arguments opens the current directory in Vim, otherwise opens the
 # given location
-v() {
+function v() {
     if [ $# -eq 0 ]; then
         vim .;
     else
         vim "$@";
-    fi
+    fi;
 }
 
 # Show all the names (CNs and SANs) listed in the SSL certificate
