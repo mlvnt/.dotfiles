@@ -1,9 +1,9 @@
 # .dotfiles
 
-This is a framework for management of my Linux configuration. It is self-contained, stored in the home folder `~/.dotfiles` and always ready for push of local changes to git. Its purpose is to simplify multidevice setup and usage. More info about dotfiles can be found on [ArchWiki][2]. Inspired by the [unoficial dotfiles guide project][1] and the countless kind people that shared their dotiles. 
+This is a framework for management of my Linux configuration. It is self-contained, stored in the home folder `~/.dotfiles` and always ready for push of local changes to git. Its purpose is to simplify multidevice setup and usage. More info about dotfiles can be found on [ArchWiki][2]. Inspired by the [unofficial dotfiles guide project][1] and the countless kind people that shared their dotfiles. 
 
-[1]: http://dotfiles.github.io/ "Robocopy"
-[2]: https://wiki.archlinux.org/index.php/Dotfiles
+[1]: http://dotfiles.github.io/ "dotfiles.github.io"
+[2]: https://wiki.archlinux.org/index.php/Dotfiles "Dotfiles"
 
 ## Installation
 

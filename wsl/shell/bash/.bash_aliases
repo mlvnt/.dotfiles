@@ -3,18 +3,28 @@
 #------------------------ ALIASES ----------------------------------------------
 #-------------------------------------------------------------------------------
 
+if [[ $(currentdevice) == pc ]]; then
+    sublime_path="'D:\apps\development\editors\editors\Sublime_Text'"
+else
+    sublime_path="'C:\Users\Todorov\Downloads\pc\apps\development\Sublime_Text'"
+fi
+
+os=$(uname -a | grep -qw 'Microsoft' && echo "win" || echo "unix");
+
 #   -------------------------------
 #   DIRECTORIES
 #   -------------------------------
 
 # LS, DIR, Tree
-alias ls='pwd && ls -GFshl --group-directories-first --color=auto'
+# alias ls='pwd && ls -GFshl --group-directories-first --color=auto'
+alias ls='ls -GFshl --group-directories-first --color=auto'
 alias ll='ls -GFAshlp'
 alias l='ls -GFACsh'
 alias dir='dir -A --color=auto'
 alias dirl='dir -AN1'
 alias tree='tree -aF'
 alias treei='tree -ahpuF'
+# alias path="pwd"
 
 # CD
 cd() { builtin cd "$@"; ll; }         # Always list directory contents upon 'cd'
@@ -36,7 +46,6 @@ alias dotfiles="cd /mnt/d/shared/pc/projects/git/dotfiles/.dotfiles"
 alias homeu="cd /mnt/c/Users/Todorov/AppData/Local/Packages/CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc/LocalState/rootfs/home/todorov"
 alias down="cd /mnt/c/Users/Todorov/Downloads"
 alias docs="cd /mnt/c/Users/Todorov/Documents"
-alias path="pwd"
 # Print each PATH entry on a separate line
 alias pathv='echo -e ${PATH//:/\\n}'
 
@@ -314,6 +323,7 @@ alias cmds='cmd.exe /c start /D'
 alias regedit="cmds 'C:\Windows' regedit.exe"
 alias task="cmds 'C:\Windows\system32' taskmgr.exe /7"
 alias wslpath="~/bin/wslpath"
+# /bin/wslpath
 
 alias vpn="cmds 'C:\Program Files (x86)\PureVPN' purevpn.exe"
 alias vm="cmds 'C:\Program Files\Oracle\VirtualBox' VirtualBox.exe"
@@ -332,7 +342,7 @@ alias enpass="cmds 'D:\apps\net\security\EnpassPortable_5_6_9\Windows' EnpassPor
 alias firefox="cmds 'D:\apps\suites\portableapps.com\PortableApps\FirefoxPortable' FirefoxPortable.exe"
 alias taiga="cmds 'D:\apps\net\social\Taiga' Taiga.exe"
 alias gnucash="cmds 'D:\apps\suites\portableapps.com\PortableApps\GnuCashPortable' GnuCashPortable.exe"
-alias sublime="cmds 'D:\apps\development\editors\editors\Sublime_Text' sublime_text.exe"
+alias sublime="cmds "$sublime_path" sublime_text.exe"
 alias irc="cmds 'D:\apps\suites\portableapps.com\PortableApps\HexChatPortable' HexChatPortable.exe"
 alias sync="cmds 'D:\apps\net\file-sharing\SyncTrayzorPortable-x64' SyncTrayzor.exe"
 alias ftpstart="cmds 'D:\apps\suites\portableapps.com\PortableApps\FileZillaPortable' FileZillaPortable.exe"

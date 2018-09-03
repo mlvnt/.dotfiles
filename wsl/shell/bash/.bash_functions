@@ -677,15 +677,15 @@ ipdiscovery() {
     )
 
     variables=(
-        "re"
-        "os"
-        "macs"
-        "mac"
-        "device"
-        "type"
-        "os"
-        "arplist"
-        "ip"
+        # "re"
+        # "os"
+        # "macs"
+        # "mac"
+        # "device"
+        # "type"
+        # "os"
+        # "arplist"
+        # "ip"
         "service"
     )
 
@@ -3311,6 +3311,197 @@ m3u() {
 
     unset -f "${functions[@]}"
     unset -v functions "${variables[@]}" variables
+}
+
+base64_imggen() {
+    # list=$( dir -AN1 )
+    # IFS='
+    # '
+    # len=${#list[*]}
+    # i=0
+    # while [ $i -lt $len ]; do
+    #     echo "$i: ${list[$i]}"
+    #     let i++
+    # done
+
+    # extention=$(identify -format "%m" "$element" | tr '[A-Z]' '[a-z]')
+
+    remove_base() {
+        readarray list < <(dir -AN1)
+        for element in "${list[@]}"
+        do :
+            local extention=$(echo $element | tr '.' $'\n' | tr '[A-Z]' '[a-z]' | tail -n1 | tr -d '\n')
+            if [ "$extention" == "base64" ]; then
+                rm -v $element
+                # echo "[remove] $element"
+            fi
+        done
+    }
+
+
+    create_base() {
+        readarray list < <(dir -AN1)
+        for element in "${list[@]}"
+        do :
+            if [ "$extention" == "base64" ]; then
+                :
+            else
+                local file=$(echo $element | tr '.' $'\n' | head -n1)
+                local extention=$(echo $element | tr '.' $'\n' | tr '[A-Z]' '[a-z]' | tail -n1 | tr -d '\n')
+                # echo "data:image/$extention;base64,$(base64 -w 0 $element)" > "$file.base64"
+                echo "PHOTO;ENCODING=b;TYPE=$extention:$(base64 -w 0 $element)" > "$file.base64"
+                echo "[created] $file.base64"
+            fi
+        done
+    }
+
+    remove_base
+    create_base
+    unset -f remove_base create_base
+}
+
+currentdevice() {
+    help() {
+        echo && echo "DESCRIPTION"
+        echo "        currentdevice - show info about current device" && echo
+        echo "USAGE"
+        echo "        currentdevice [OPTION]" && echo
+        echo "OPTIONS"
+        echo "    -hn | hostname     show device hostname"
+        echo "     -u | user         show device user"
+        echo "     -h | help         show help" && echo
+    }
+
+    local user=$(whoami)
+    local hostname=$(hostname)
+    case $1 in
+        -hn|hostname) echo "$hostname" ;;
+        -u|user)      echo "$user" ;;
+        -h|help)      help ;;
+        *)
+            case $user in
+                todorov) 
+                            case $hostname in
+                                DESKTOP-6QS0DON) echo "surface" ;;
+                                DESKTOP-HMLNHB8) echo "pc" ;;
+                            esac ;;
+                u0_a802)    echo "s8" ;;
+                u0_a105)    echo "tab" ;;
+            esac ;;
+    esac
+    unset -f help
+}
+
+openfile() {
+    help() {
+        echo && echo "DESCRIPTION"
+        echo "        openfile - open a file" && echo
+        echo "USAGE"
+        echo "        openfile [file] [command]"
+        echo "        openfile [command] [file]" && echo
+        echo "OPTIONS"
+        echo "     -s                open with sublime"
+        echo "     -d                open with default program"
+        echo "     -h | help         show help" && echo
+    }
+
+    local re='(^-[shd])'
+
+    if [[ $1 =~ $re ]]; then
+        local cmd="$1"
+        local input="$2"
+    elif [[ $2 =~ $re ]]; then
+        local input="$1"
+        local cmd="$2"
+    elif [[ -z $2 ]]; then
+        local cmd="-d"
+        local input="$1"
+    else
+        local status="$(ls -al | grep $1)"
+        if [[ ! -z  $status ]]; then
+            $(ls -al | grep $1)
+            local cmd="$2"
+            local input="$1"
+        else
+            local cmd="$1"
+            local input="$2"
+        fi
+    fi
+
+    case $cmd in
+        -s) sublime $(wslpath -w $(pwd)/$input) ;;
+        -d) explorer.exe $(wslpath -w $(pwd)/$input) ;;
+        -h|help)    help ;;
+        *)          "$cmd" $(wslpath -w $(pwd)/$input) ;;
+    esac
+    unset -f help
+}
+
+getpath() {
+    help() {
+        echo && echo "DESCRIPTION"
+        echo "        getpath - convert and copy path to clipboard" && echo
+        echo "USAGE"
+        echo "        getpath [OPTIONS] path" && echo
+        echo "OPTIONS"
+        echo "     -w                convert to windows format"
+        echo "     -u                convert to unix format"
+        echo "     -c                current directory"
+        echo "     -h | help         show help" && echo
+    }
+    local os=$(uname -a | grep -qw 'Microsoft' && echo "win" || echo "unix");
+    local re='(^-[c])'
+
+    if [[ $os == win ]]; then
+        local clipboard="cmd.exe /c clip"
+    else
+        local clipboard="xclip -sel clip"
+    fi
+
+    if [[ $1 =~ $re ]]; then
+        local input="$(pwd)"
+        shift 1
+    elif [[ $2 =~ $re ]]; then
+        local input="$(pwd)"
+    else
+        local input="$2"
+    fi
+
+    case $1 in
+        -w) wslpath -w "$input"
+            wslpath -w "$input" | $clipboard ;;
+        -u) wslpath -u "$input"
+            wslpath -u "$input" | $clipboard ;;
+        *)  help ;;
+    esac
+    unset -f help
+}
+
+sortkml() {
+    path="$python_scripts/sortkml"
+    clear && python3 $path/sortkml.py $1 $2 $3 $4
+}
+
+apkinstall() {
+    path="$python_scripts/apkinstall"
+    clear && python3 $path/apkinstall.py $1 $2 $3 $4
+}
+
+linuxpath() {
+    echo "$@" | sed -e 's|\\|/|g' -e 's|^\([A-Za-z]\)\:/\(.*\)|/mnt/\L\1\E/\2|'
+}
+
+reverse() {
+    if [ "$#" -gt 0 ]; then
+        local arg=$1
+        shift
+        reverse "$@"
+        printf '%s\n' "$arg"
+    fi
+}
+
+pyclean() {
+    find . -regex '.*\(__pycache__\|\.py[co]\)' -delete
 }
 
 #-------------------------------------------------------------------------------

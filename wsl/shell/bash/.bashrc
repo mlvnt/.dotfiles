@@ -47,18 +47,18 @@ export EDITOR=/usr/bin/vim
 #   SOURCE EXTERNAL FILES
 #   -------------------------------
 
-# ALIASES
-if [ -f ~/.bash_aliases ]; then
-    source ~/.bash_aliases
-else
-    print "404: ~/.bash_aliases not found."
-fi
-
 # FUNCTIONS
 if [ -f ~/.bash_functions ]; then
     source ~/.bash_functions
 else
     print "404: ~/.bash_functions not found."
+fi
+
+# ALIASES
+if [ -f ~/.bash_aliases ]; then
+    source ~/.bash_aliases
+else
+    print "404: ~/.bash_aliases not found."
 fi
 
 # fzf - A command-line fuzzy finder

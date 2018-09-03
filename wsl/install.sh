@@ -5,32 +5,178 @@ printf "\n      Runtime: $(date) @ $(hostname)\n\n"
 path_dots=/mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/wsl
 path_dots_local=~/.dotfiles/wsl
 installed=$(dpkg -l | grep '^.i')
+gemList=$(gem list --local)
+pipFreeze=$(pip3 freeze)
 
 #   -------------------------------
-#   INSTALL RUNTIMES
+#   TOOLS LIST
 #   -------------------------------
 
-##### PYTHON #####
-printf '\n      >>> Installing python3....\n'
-dpkg -l | grep -qw python3 && printf '\n            python3 is already installed\n' || sudo apt-get install -yyq python3
-dpkg -l | grep -qw ipython3 && printf '\n            ipython3 is already installed\n' || sudo apt-get install -yyq ipython3
-dpkg -l | grep -qw python-pip && printf '\n            python3-pip3 is already installed\n' || sudo apt-get install -yyq python-pip
-dpkg -l | grep -qw python3-pip && printf '\n            python3-pip3 is already installed\n' || sudo apt-get install -yyq python3-pip
-sudo pip3 install --upgrade pip3
-# sudo python3 -m pip3 install --upgrade pip3
-# sudo pip install --upgrade pip
+appz=(
+# ---------------------------------------------------- non-gui
+# ------------- runtimes
+# -- python
+    "python3"
+    "ipython3"
+    "python-pip"
+    "python3-pip"
+    "spyder"
+# -- ruby
+    # "ruby"
+    # "ruby-dev"
+# -- java
+    "openjdk-8-jre-headless"
+    "openjdk-9-jre-headless"
+    "openjdk-8-jdk-headless"
+    "openjdk-9-jdk-headless"
+# -- sql
+    "sqlite3"
+    "postgresql-9.5"
+    # "mysql-client"
+    # "mysql-server"
+    # "mysql-workbench"
+# -- c
+    "cmake"
+    "gcc"
+    "clang"
+# -- haskell
+    "ghc"
+    "cabal-install"
+# -- other
+    "php7.0-cli"
+    "ghostscript"
+    # "npm"
+# ------------- media
+    "ffmpeg"
+    "lltag "
+    "eyed3 "
+    "mp3info "
+    "id3v2 "
+    "libimage-exiftool-perl "
+    "libid3-tools "
+    "id3tool"
+    "jpegoptim"
+    "optipng"
+    "imagemagick"
+    "ttyrec"
+    "gifsicle"
+    "qrencode"
+# ------------- docs
+    "vim"
+    "vim-gui-common"
+    "nano"
+    "emacs"
+    "graphviz"
+    "groff"
+    "pandoc"
+    "diffutils"
+    "djvulibre-bin"
+# ------------- files
+    "tar"
+    "zip"
+    "unzip"
+    "p7zip"
+    "luckybackup"
+    "meld"
+    "rsync"
+# ------------- net
+    "curl"
+    "wget"
+    "whois"
+    "ipmiutil"
+    "nmap"
+    "sshpass"
+    "scp"
+    # "sshfs"
+    "gpa"
+    "gnupg2"
+    # "wireshark"
+    "network-manager"
+    "net-tools"
+    "wireless-tools"
+    "libwww-perl"
+    "avahi-daemon"
+    "libnss3"
+    "libnss3-dbg"
+    "libnss3-dev"
+    "libnss3-tools"
+    "iptables"
+    "iproute2"
+    "ufw"
+    # "gufw"
+    "tcpdump"
+    "weechat"
+    "irssi"
+    "netcat-openbsd"
+    # "netcat-traditional"
+    # "nginx"
+    # "apache2"
+# ------------- stats
+    # "screenfetch"
+    "inxi"
+    "lm-sensors"
+    "conky"
+    "vnstat"
+    "pv"
+    "lsb-release"
+# ------------- system
+    # "binutils"
+    # "coreutils"
+    # "procps"
+    "fontconfig"
+    "htop"
+    "tree"
+    "gparted"
+    "man"
+    "gpm"
+    "mc"
+    "make"
+    "tmux"
+    "pcregrep"
+    "ngrep"
+    "moreutils"
+    "ncdu"
+    "espeak"
+    "xclip"
+    "x11-apps"
+    "xinit"
+    "most"
+    "gnome-keyring"
+    "lsof"
+    # "florence"
+    "build-essential"
+    "bc"
+    "psutils"
+    "inotify-tools"
+    "entr"
+    "zsh"
+# ---------------------------------------------------- gui
+# ------------- xfce4
+    "xfce4"
+    "xfce4-goodies"
+# ------------- i3-wm
+    "i3-wm"
+    "i3status"
+    "feh"
+    "redshift"
+    "fcitx"
+# ------------- 
+    "chromium-browser"
+    "chromium-chromedriver"
+    # "firefox"
+    # "filezilla"
+    # "konsole"
+    # "vlc"
+    # "clementine"
+    # "kamerka"
+    # "krita"
+    # "zim"
+    )
 
-printf '\n      >>> Setting default to pyton3....\n'
-yes 2 | sudo update-alternatives --config python
-# sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.5 2
-# sudo update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1
-# sudo update-alternatives --config python
-
-printf '\n      >>> Installing spyder....\n'
-dpkg -l | grep -qw spyder && printf '\n            It'\''s already installed\n' || yes Y | sudo apt-get install spyder
-
-# MODULES
-printf '\n      >>> Installing python modules....\n'
+apppz=(
+    "tee"
+    "dmenu"
+    )
 
 modules=(
     "pep8"
@@ -63,7 +209,7 @@ modules=(
     "libusb1"
     "adb"
     "configparser"
-# SciPy
+# ------------- SciPy
     "matplotlib"
     "numpy"
     "numpydoc"
@@ -77,34 +223,13 @@ modules=(
     "scikit-learn"
     "scikit-image"
     "h5py"
-# Sphinx
+# ------------- Sphinx
     "sphinx"
     "sphinx_rtd_theme"
     "sphinx_gallery"
     "sphinx-autobuild"
     "sphinx_rtd_theme"
 )
-
-pipFreeze=$(pip3 freeze)
-for module in "${modules[@]}"
-do :
-    echo $pipFreeze | grep -qw $module && printf "\n            $module is already installed\n" || sudo pip3 install $module
-done
-
-##### RUBY #####
-printf '\n      >>> Installing ruby....\n'
-# dpkg -l | grep -qw ruby && printf '\n            ruby is already installed.\n' || sudo apt-get install -yyq ruby
-# dpkg -l | grep -qw ruby-dev && printf '\n            ruby-dev is already installed.\n' || yes Y | sudo apt-get install ruby-dev
-rvm_intall() {
-    gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
-    yes Y | update
-    sudo apt-get install libpq-dev
-    curl -sSL https://get.rvm.io | bash -s stable  --ruby=2.3.1 --rails
-    sudo chown -R todorov /usr/local/rvm/gems/
-}
-
-# GEMS
-printf '\n      >>> Installing ruby gems....\n'
 
 gems=(
     "bundler"
@@ -117,7 +242,61 @@ gems=(
     "compass"
     )
 
-gemList=$(gem list --local)
+for a in "${appz[@]}"
+do :
+    printf '\n      >>> Installing '$a'....\n'
+    echo $installed | grep -qw $a && printf "\n            $a is already installed\n" || sudo apt-get install -yyq $a
+done
+
+for a in "${apppz[@]}"
+do :
+    printf '\n      >>> Installing '$a'....\n'
+    which $a | grep -qw $a && printf "\n            $a is already installed\n" || sudo apt-get install -yyq $a
+done
+
+#   -------------------------------
+#   RUNTIMES
+#   -------------------------------
+
+##### PYTHON #####
+sudo pip3 install --upgrade pip3
+# sudo python3 -m pip3 install --upgrade pip3
+# sudo pip install --upgrade pip
+
+printf '\n      >>> Setting default to pyton3....\n'
+yes 2 | sudo update-alternatives --config python
+# sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.5 2
+# sudo update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1
+# sudo update-alternatives --config python
+
+# MODULES
+printf '\n      >>> Installing python modules....\n'
+for module in "${modules[@]}"
+do :
+    echo $pipFreeze | grep -qw $module && printf "\n            $module is already installed\n" || sudo pip3 install $module
+done
+
+##### HASKELL #####
+# LIBRARIES
+cabal update
+cabal install random
+
+##### JAVA #####
+printf '\n      >>> Setting default to jdk-8....\n'
+yes 1 |sudo update-alternatives --config java 
+
+##### RUBY #####
+printf '\n      >>> Installing ruby....\n'
+rvm_intall() {
+    gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+    yes Y | update
+    sudo apt-get install libpq-dev
+    curl -sSL https://get.rvm.io | bash -s stable  --ruby=2.3.1 --rails
+    sudo chown -R todorov /usr/local/rvm/gems/
+}
+
+# GEMS
+printf '\n      >>> Installing ruby gems....\n'
 for gemm in "${gems[@]}"
 do :
     echo $gemList | grep -qw $gemm && printf "\n            $gemm is already installed\n" || sudo gem install $gemm
@@ -130,10 +309,7 @@ nodejs_install() {
     dpkg -l | grep -qw nodejs && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq nodejs
 }
 
-# printf '\n      >>> Installing npm....\n'
-# dpkg -l | grep -qw npm && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq npm
-
-# update
+# npm update
 # sudo npm i -g npm
 
 # PACKAGES
@@ -147,13 +323,8 @@ which http-server | grep -qw http-server && printf '\n            http-server is
 # sudo npm install -g fixjson
 
 ##### SQL #####
-printf '\n      >>> Installing sqlite3....\n'
-dpkg -l | grep -qw sqlite3 && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq sqlite3
 
-# printf '\n      >>> Installing mysql....\n'
-# dpkg -l | grep -qw mysql-client && printf '\n            mysql-client is already installed.\n' || yes Y | sudo apt-get install mysql-client
-# dpkg -l | grep -qw mysql-server && printf '\n            mysql-server is already installed.\n' || sudo apt-get -y install mysql-server
-# dpkg -l | grep -qw mysql-workbench && printf '\n            mysql-workbench is already installed.\n' || yes Y | sudo apt-get install mysql-workbench
+# msql
 # mysql_secure_installation
 
 # Configuration
@@ -163,10 +334,12 @@ dpkg -l | grep -qw sqlite3 && printf '\n            It'\''s already installed.\n
 # sudo service mysql start
 
 # # Completely remove mysql
-# sudo apt-get remove --purge 'mysql*' && \
-# sudo rm -rfv /etc/mysql /var/lib/mysql && \
-# sudo apt-get autoremove && \
-# sudo apt-get autoclean
+msql_remove() {
+    sudo apt-get remove --purge 'mysql*' && \
+    sudo rm -rfv /etc/mysql /var/lib/mysql && \
+    sudo apt-get autoremove && \
+    sudo apt-get autoclean
+}
 
 # # Change the directory for the mysql user:
 # sudo usermod -d /var/lib/mysql/ mysql
@@ -186,12 +359,6 @@ dpkg -l | grep -qw sqlite3 && printf '\n            It'\''s already installed.\n
 # # Uncomment $cfg['Servers'][$i]['AllowNoPassword'] = TRUE;
 # # https://domain_name_or_IP/phpmyadmin
 
-# printf '\n      >>> Installing nginx....\n'
-# sudo apt-get install nginx
-
-# printf '\n      >>> Installing apache2....\n'
-# sudo apt-get install apache2
-
 postgresql_repositories() {
     printf '\n      >>> Installing postgresql....\n'
     sudo touch /etc/apt/sources.list.d/pgdg.list
@@ -200,161 +367,7 @@ postgresql_repositories() {
     sudo apt-key add -
     sudo apt-get update
 }
-
-yes Y | sudo apt-get install postgresql-9.5
 # sudo service postgresql start
-
-##### HASKELL #####
-printf '\n      >>> Installing haskell....\n'
-dpkg -l | grep -qw ghc && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq ghc
-
-# LIBRARIES
-dpkg -l | grep -qw cabal-install && printf '\n            cabal is already installed.\n' || sudo apt-get install cabal-install
-cabal update
-cabal install random
-
-##### JAVA #####
-printf '\n      >>> Installing openjdk-jre-headless....\n'
-dpkg -l | grep -qw openjdk-8-jre-headless && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq openjdk-8-jre-headless
-dpkg -l | grep -qw openjdk-9-jre-headless && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq openjdk-9-jre-headless
-
-printf '\n      >>> Installing openjdk-jdk-headless....\n'
-dpkg -l | grep -qw openjdk-8-jdk-headless && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq openjdk-8-jdk-headless
-dpkg -l | grep -qw openjdk-9-jdk-headless && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq openjdk-9-jdk-headless
-
-printf '\n      >>> Setting default to jdk-8....\n'
-yes 1 |sudo update-alternatives --config java 
-
-##### C #####
-printf '\n      >>> Installing cmake....\n'
-dpkg -l | grep -qw cmake && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq cmake
-
-printf '\n      >>> Installing gcc....\n'
-dpkg -l | grep -qw gcc && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq gcc
-
-printf '\n      >>> Installing clang....\n'
-dpkg -l | grep -qw clang && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq clang
-
-##### OTHER #####
-printf '\n      >>> Installing php7.0-cli....\n'
-dpkg -l | grep -qw php7.0-cli && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq php7.0-cli
-
-printf '\n      >>> Installing ghostscript....\n'
-dpkg -l | grep -qw ghostscript && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq ghostscript
-
-#   -------------------------------
-#   INSTALL TOOLS-NON-GUI
-#   -------------------------------
-
-appz=(
-    "fontconfig"
-    "htop"
-    "tree"
-    "pandoc"
-    "gparted"
-    "nano"
-    "tar"
-    "man"
-    "inxi"
-    "ffmpeg"
-    "mc"
-    "make"
-    "graphviz"
-    "tmux"
-    "emacs"
-    "zip"
-    "unzip"
-    "p7zip"
-    "pcregrep"
-    "ngrep"
-    "lm-sensors"
-    "conky"
-    "meld"
-    "vnstat"
-    "moreutils"
-    "ncdu"
-    "pv"
-    "rsync"
-    "luckybackup"
-    "espeak"
-    "xclip"
-    "x11-apps"
-    "xinit"
-    "lsb-release"
-    "most"
-    "irssi"
-    "gnome-keyring"
-    "lsof"
-    # "florence"
-    "build-essential"
-    "bc"
-    "groff"
-    "psutils"
-    "imagemagick"
-    "ttyrec"
-    "gifsicle"
-    "inotify-tools"
-    "entr"
-    "qrencode"
-    "diffutils"
-    "djvulibre-bin"
-    "jpegoptim"
-    "optipng"
-    )
-
-for appzs in "${appz[@]}"
-do :
-    printf '\n      >>> Installing '$appzs'....\n'
-    echo $installed | grep -qw $appzs && printf "\n            $appzs is already installed\n" || sudo apt-get install -yyq $appzs
-done
-
-apppz=(
-    "tee"
-    )
-for appzs in "${apppz[@]}"
-do :
-    printf '\n      >>> Installing '$appzs'....\n'
-    which $appzs | grep -qw $appzs && printf "\n            $appzs is already installed\n" || sudo apt-get install -yyq $appzs
-done
-
-#   -------------------------------
-#   NET TOOLS
-#   -------------------------------
-
-net_apps=(
-    "curl"
-    "wget"
-    "whois"
-    "ipmiutil"
-    "nmap"
-    "sshpass"
-    "scp"
-    # "sshfs"
-    "gpa"
-    "gnupg2"
-    # "wireshark"
-    "network-manager"
-    "net-tools"
-    "wireless-tools"
-    "libwww-perl"
-    "avahi-daemon"
-    "libnss3"
-    "libnss3-dbg"
-    "libnss3-dev"
-    "libnss3-tools"
-    "iptables"
-    "iproute2"
-    "ufw"
-    # "gufw"
-    "tcpdump"
-    "weechat"
-    )
-
-for appz in "${net_apps[@]}"
-do :
-    printf '\n      >>> Installing '$appz'....\n'
-    echo $installed | grep -qw $appz && printf "\n            $appz is already installed\n" || sudo apt-get install -yyq $appz
-done
 
 #   -------------------------------
 #   DOCKER
@@ -374,15 +387,12 @@ neofetchs() {
     rm -rfv ~/neofetch*/
 }
 
-# printf '\n      >>> Installing screenfetch....\n'
-# sudo apt-get install screenfetch
-
 #   -------------------------------
 #   IMAGEMAGICK
 #   -------------------------------
 
 # printf '\n      >>> Installing ImageMagick....\n'
-# imagemagicks() {
+# imagemagick_build() {
 #     name='ImageMagick-7.0.7-22.tar.bz2'
 #     yes Y | sudo apt-get install build-essential checkinstall \
 #                  libx11-dev libxext-dev zlib1g-dev libpng12-dev \
@@ -401,23 +411,25 @@ neofetchs() {
 #     sudo mv -v ~/imagemagick_build ~/software
 #     rm -rfv ~/ImageMagick*
 # }
-# dpkg -l | grep -qw imagemagick && printf '\n            It'\''s already installed.\n' || imagemagicks
+# dpkg -l | grep -qw imagemagick && printf '\n            It'\''s already installed.\n' || imagemagick_build
+
+# imagemagick_build() {
+#     wget https://www.imagemagick.org/download/ImageMagick.tar.gz
+#     sudo tar -xzvf ./ImageMagick.tar.gz
+#     cd ~/ImageMagick*/
+#     sudo ./configure
+#     sudo make
+#     sudo make install
+#     sudo ldconfig /usr/local/lib
+#     cd ~/
+#     sudo mv ~/ImageMagick.tar.gz ~/software
+#     rm -rfv ~/ImageMagick*
+# }
+
 # sudo apt remove --purge 'imagemagick*'
 
 # convert favicon.png -resize 100X100 favicon.ico
 # Check installed delegates: identify -version
-
-# printf '\n      >>> Installing ImageMagick....\n'
-# wget https://www.imagemagick.org/download/ImageMagick.tar.gz
-# sudo tar -xzvf ./ImageMagick.tar.gz
-# cd ~/ImageMagick*/
-# sudo ./configure
-# sudo make
-# sudo make install
-# sudo ldconfig /usr/local/lib
-# cd ~/
-# sudo mv ~/ImageMagick.tar.gz ~/software
-# rm -rfv ~/ImageMagick*
 
 #   -------------------------------
 #   TTYGIF
@@ -494,24 +506,9 @@ realvnc_install() {
 }
 
 #   -------------------------------
-#   TOOLS-GUI
+#   SUBLIME TEXT
 #   -------------------------------
 
-##### XFCE4 #####
-printf '\n      >>> Installing xfce4....\n'
-dpkg -l | grep -qw xfce4 && printf '\n            xfce4 already is installed.\n' || yes Y | sudo apt-get install xfce4
-dpkg -l | grep -qw xfce4-goodies && printf '\n            xfce4-goodies is already installed.\n' || yes Y | sudo apt-get install xfce4-goodies
-
-##### I3-WM #####
-printf '\n      >>> Installing i3-wm....\n'
-dpkg -l | grep -qw i3-wm && printf '\n            i3-wm already is installed.\n' || yes Y | sudo apt-get install i3-wm
-which dmenu | grep -qw dmenu && printf '\n            dmenu already is installed.\n' || yes Y | sudo apt-get install dmenu
-dpkg -l | grep -qw i3status && printf '\n            i3status already is installed.\n' || yes Y | sudo apt-get install i3status
-dpkg -l | grep -qw feh &&printf '\n            feh already is installed.\n' || yes Y | sudo apt-get install feh
-dpkg -l | grep -qw redshift && printf '\n            redshift already is installed.\n' || yes Y | sudo apt-get install redshift
-dpkg -l | grep -qw fcitx && printf '\n            fcitx already is installed.\n' || yes Y | sudo apt-get install fcitx
-
-##### SUBLIME TEXT 3 #####
 printf '\n      >>> Installing sublime-text....\n'
 sublime-texts() {
     wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
@@ -521,37 +518,9 @@ sublime-texts() {
     sudo apt-get install sublime-text
 }
 
-printf '\n      >>> Installing chrome....\n'
-dpkg -l | grep -qw chromium-browser && printf '\n            It'\''s already installed.\n' || yes Y | sudo apt-get install chromium-browser
-dpkg -l | grep -qw chromium-chromedriver && printf '\n            It'\''s already installed.\n' || yes Y | sudo apt-get install chromium-chromedriver
-
-# printf '\n      >>> Installing vlc....\n'
-# dpkg -l | grep -qw vlc && printf '\n            It'\''s already installed.\n' || yes Y | sudo apt-get install vlc
-
-##### MOZILLA FIREFOX #####
-# printf '\n      >>> Installing firefox....\n'
-# dpkg -l | grep -qw firefox && printf '\n            It'\''s already installed.\n' || yes Y | sudo apt-get install firefox
-
-# printf '\n      >>> Installing konsole....\n'
-# dpkg -l | grep -qw konsole && printf '\n            It'\''s already installed.\n' || yes Y | sudo apt-get install konsole
-
-# printf '\n      >>> Installing filezilla....\n'
-# dpkg -l | grep -qw filezilla && printf '\n            It'\''s already installed.\n' || yes Y | sudo apt-get install filezilla
-
-# printf '\n      >>> Installing clementine....\n'
-# dpkg -l | grep -qw clementine && printf '\n            It'\''s already installed.\n' || yes Y | sudo apt-get install clementine
-
-# printf '\n      >>> Installing kamerka....\n'
-# dpkg -l | grep -qw kamerka && printf '\n            It'\''s already installed.\n' || yes Y | sudo apt-get install kamerka
-
-# printf '\n      >>> Installing krita....\n'
-# dpkg -l | grep -qw krita && printf '\n            It'\''s already installed.\n' || yes Y | sudo apt-get install krita
-
-##### VISUAL STUDIO CODE #####
-
-# ZIM
-# printf '\n      >>> Installing zim....\n'
-# sudo apt-get install -yyq zim
+#   -------------------------------
+#   VISUAL STUDIO CODE
+#   -------------------------------
 
 #   -------------------------------
 #   TRASH-CLI
@@ -594,9 +563,6 @@ vbox_install() {
 #   ZSH
 #   -------------------------------
 
-printf '\n      >>> Installing zsh....\n'
-dpkg -l | grep -qw zsh && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq zsh
-
 ##### OH MY ZSH #####
 # sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 # .oh-my-zsh/themes/ replace %~ with %c to show only the current dir name
@@ -621,12 +587,36 @@ dpkg -l | grep -qw zsh && printf '\n            It'\''s already installed.\n' ||
 # cd ~/
 
 #   -------------------------------
+#   POWERLINE
+#   -------------------------------
+printf '\n      >>> Installing powerline....\n'
+echo $pipFreeze | grep -qw powerline && printf '\n            powerline is already installed.\n' || sudo pip3 install --user powerline-status
+# sudo rm -v PowerlineSymbols*
+# sudo rm -v 10-powerline-symbols*
+# wget https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
+# wget https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf
+# mkdir -p ~/.fonts/
+# mv -v PowerlineSymbols.otf ~/.fonts/
+# fc-cache -vf ~/.fonts/ #Clean fonts cache
+# mkdir -pv .config/fontconfig/conf.d #if directory doesn't exists
+# mv -v 10-powerline-symbols.conf ~/.config/fontconfig/conf.d/
+
+##### PATCHED FONT INSTALLATION #####
+# mv -v 'SomeFont for Powerline.otf' ~/.fonts/
+# fc-cache -vf ~/.fonts/
+# After installing patched font terminal emulator, GVim or whatever application powerline should work with must be configured to use the patched font. The correct font usually ends with for Powerline.
+
+##### POWERLINE FONTS #####
+# sudo git clone https://github.com/powerline/fonts.git --depth=1
+# cd fonts
+# ./install.sh
+# cd ..
+# rm -rvf fonts
+
+#   -------------------------------
 #   VIM
 #   ------------------------------- 
 
-printf '\n      >>> Installing vim....\n'
-dpkg -l | grep -qw vim && printf '\n            vim already is installed.\n' || sudo apt-get install -yyq vim
-dpkg -l | grep -qw vim-gui-common && printf '\n            vim-gui-common is already installed.\n' || sudo apt-get install -yyq vim-gui-common
 # mkdir -p ~/.vim/colors/
 
 ##### ZENBURN THEME #####
@@ -723,34 +713,6 @@ capyle() {
     sudo apt-get install python3-tk
     # python3 ~/software/capyle/main.py
 }
-
-#   -------------------------------
-#   POWERLINE
-#   -------------------------------
-
-printf '\n      >>> Installing powerline....\n'
-pip3 freeze | grep -qw powerline && printf '\n            powerline is already installed.\n' || sudo pip3 install --user powerline-status
-# sudo rm -v PowerlineSymbols*
-# sudo rm -v 10-powerline-symbols*
-# wget https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
-# wget https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf
-# mkdir -p ~/.fonts/
-# mv -v PowerlineSymbols.otf ~/.fonts/
-# fc-cache -vf ~/.fonts/ #Clean fonts cache
-# mkdir -pv .config/fontconfig/conf.d #if directory doesn't exists
-# mv -v 10-powerline-symbols.conf ~/.config/fontconfig/conf.d/
-
-##### PATCHED FONT INSTALLATION #####
-# mv -v 'SomeFont for Powerline.otf' ~/.fonts/
-# fc-cache -vf ~/.fonts/
-# After installing patched font terminal emulator, GVim or whatever application powerline should work with must be configured to use the patched font. The correct font usually ends with for Powerline.
-
-##### POWERLINE FONTS #####
-# sudo git clone https://github.com/powerline/fonts.git --depth=1
-# cd fonts
-# ./install.sh
-# cd ..
-# rm -rvf fonts
 
 #   -------------------------------
 #   REMOVE EXISTING CONFIG
@@ -869,14 +831,20 @@ functions=(
     "social_import"
     "shell_config"
     "run_funct"
+    "msql_remove"
 )
 
 variables=(
+    "path_dots"
+    "path_dots_local"
+    "installed"
+    "gemList"
+    "pipFreeze"
     "modules"
     "gems"
     "appz"
     "apppz"
-    "net_apps"
+    "name"
 )
 
 unset -f "${functions[@]}"
