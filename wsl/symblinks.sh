@@ -16,25 +16,25 @@ DOTFILES_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 echo ''
 
-info () {
+info() {
     printf "\r  [ \033[00;34m..\033[0m ] $1\n"
 }
 
-user () {
+user() {
     printf "\r  [ \033[0;33m??\033[0m ] $1\n"
 }
 
-success () {
+success() {
     printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
 }
 
-fail () {
+fail() {
     printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
     echo ''
     exit
 }
 
-link_file () {
+link_file() {
     local src=$1 dst=$2
 
     local overwrite= backup= skip=
@@ -113,7 +113,7 @@ what do you want to do?\n\
     fi
 }
 
-install_dotfiles () {
+install_dotfiles() {
     info 'installing dotfiles'
 
     local overwrite_all=false backup_all=false skip_all=false
@@ -133,7 +133,7 @@ install_dotfiles () {
 #   USER SYMBLINKS                                                            #
 ###############################################################################
 
-install_bin () {
+install_bin() {
     info 'installing bin'
     local overwrite_all=true backup_all=false skip_all=false
     src="$DOTFILES_ROOT/bin"
@@ -141,7 +141,7 @@ install_bin () {
     link_file "$src" "$dst"
 }
 
-install_config () {
+install_config() {
     info 'installing config'
     local overwrite_all=true backup_all=false skip_all=false
     src="$DOTFILES_ROOT/.config"
@@ -149,7 +149,7 @@ install_config () {
     link_file "$src" "$dst"
 }
 
-install_dir_colors () {
+install_dir_colors() {
     info 'installing dir_colors'
     local overwrite_all=true backup_all=false skip_all=false
     src="$DOTFILES_ROOT/theming/.dir_colors"
@@ -157,7 +157,7 @@ install_dir_colors () {
     link_file "$src" "$dst"
 }
 
-install_fonts () {
+install_fonts() {
     info 'installing fonts'
     local overwrite_all=true backup_all=false skip_all=false
     src="$DOTFILES_ROOT/theming/.fonts"
@@ -165,7 +165,7 @@ install_fonts () {
     link_file "$src" "$dst"
 }
 
-install_local () {
+install_local() {
     info 'installing local'
     local overwrite_all=true backup_all=false skip_all=false
     src="$DOTFILES_ROOT/.local"
@@ -173,7 +173,7 @@ install_local () {
     link_file "$src" "$dst"
 }
 
-install_nano () {
+install_nano() {
     info 'installing nano'
     local overwrite_all=true backup_all=false skip_all=false
     src="$DOTFILES_ROOT/editors/.nano"
@@ -181,7 +181,7 @@ install_nano () {
     link_file "$src" "$dst"
 }
 
-install_vim () {
+install_vim() {
     info 'installing vim'
     local overwrite_all=true backup_all=false skip_all=false
 
@@ -194,7 +194,7 @@ install_vim () {
     link_file "$src" "$dst"
 }
 
-install_bash () {
+install_bash() {
     info 'installing bash'
     local overwrite_all=true backup_all=false skip_all=false
 
@@ -219,7 +219,7 @@ install_bash () {
     link_file "$src" "$dst"
 }
 
-install_zsh () {
+install_zsh() {
     info 'installing zsh'
     local overwrite_all=true backup_all=false skip_all=false
 
@@ -236,7 +236,7 @@ install_zsh () {
     link_file "$src" "$dst"   
 }
 
-install_git () {
+install_git() {
     info 'installing git'
     local overwrite_all=true backup_all=false skip_all=false
 
@@ -253,7 +253,7 @@ install_git () {
     link_file "$src" "$dst"
 }
 
-# install_emacs () {
+# install_emacs() {
 #     info 'installing emacs'
 #     local overwrite_all=true backup_all=false skip_all=false
 #     src="$DOTFILES_ROOT/editors/.emacs"
@@ -261,7 +261,7 @@ install_git () {
 #     link_file "$src" "$dst"
 # }
 
-install_tmux () {
+install_tmux() {
     info 'installing tmux'
     local overwrite_all=true backup_all=false skip_all=false
 
@@ -274,7 +274,7 @@ install_tmux () {
     link_file "$src" "$dst"
 }
 
-# install_curl () {
+# install_curl() {
 #     info 'installing curl'
 #     local overwrite_all=true backup_all=false skip_all=false
 #     src="$DOTFILES_ROOT/net/.curlrc"
@@ -282,7 +282,7 @@ install_tmux () {
 #     link_file "$src" "$dst"
 # }
 
-# install_wget () {
+# install_wget() {
 #     info 'installing wget'
 #     local overwrite_all=true backup_all=false skip_all=false
 #     src="$DOTFILES_ROOT/net/.wgetrc"

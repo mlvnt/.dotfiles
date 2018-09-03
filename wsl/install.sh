@@ -1,9 +1,9 @@
 #!/bin/bash
 printf "\n      Runtime: $(date) @ $(hostname)\n\n"
 
-# Common Variables
-path_dots="/mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/wsl"
-path_dots_local="~/.dotfiles/wsl"
+# Variables
+path_dots=/mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/wsl
+path_dots_local=~/.dotfiles/wsl
 installed=$(dpkg -l | grep '^.i')
 
 #   -------------------------------
@@ -95,14 +95,13 @@ done
 printf '\n      >>> Installing ruby....\n'
 # dpkg -l | grep -qw ruby && printf '\n            ruby is already installed.\n' || sudo apt-get install -yyq ruby
 # dpkg -l | grep -qw ruby-dev && printf '\n            ruby-dev is already installed.\n' || yes Y | sudo apt-get install ruby-dev
-function rvm_intall(){
+rvm_intall() {
     gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
     yes Y | update
     sudo apt-get install libpq-dev
     curl -sSL https://get.rvm.io | bash -s stable  --ruby=2.3.1 --rails
     sudo chown -R todorov /usr/local/rvm/gems/
 }
-which rvm | grep -qw rvm && printf '\n            It'\''s already installed.\n' || rvm_intall
 
 # GEMS
 printf '\n      >>> Installing ruby gems....\n'
@@ -125,12 +124,11 @@ do :
 done
 
 ##### NODEJS #####
-function nodejs_install(){
+nodejs_install() {
     curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
     printf '\n      >>> Installing nodejs & npm....\n'
     dpkg -l | grep -qw nodejs && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq nodejs
 }
-nodejs_install
 
 # printf '\n      >>> Installing npm....\n'
 # dpkg -l | grep -qw npm && printf '\n            It'\''s already installed.\n' || sudo apt-get install -yyq npm
@@ -194,15 +192,14 @@ dpkg -l | grep -qw sqlite3 && printf '\n            It'\''s already installed.\n
 # printf '\n      >>> Installing apache2....\n'
 # sudo apt-get install apache2
 
-printf '\n      >>> Installing postgresql....\n'
-# function postgresql_repositories(){
-#     sudo touch /etc/apt/sources.list.d/pgdg.list
-#     echo 'deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main' | sudo tee --append /etc/apt/sources.list.d/pgdg.list
-#     wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
-#     sudo apt-key add -
-#     sudo apt-get update
-# }
-# postgresql_repositories
+postgresql_repositories() {
+    printf '\n      >>> Installing postgresql....\n'
+    sudo touch /etc/apt/sources.list.d/pgdg.list
+    echo 'deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main' | sudo tee --append /etc/apt/sources.list.d/pgdg.list
+    wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
+    sudo apt-key add -
+    sudo apt-get update
+}
 
 yes Y | sudo apt-get install postgresql-9.5
 # sudo service postgresql start
@@ -301,6 +298,8 @@ appz=(
     "qrencode"
     "diffutils"
     "djvulibre-bin"
+    "jpegoptim"
+    "optipng"
     )
 
 for appzs in "${appz[@]}"
@@ -366,7 +365,7 @@ done
 #   -------------------------------
 
 printf '\n      >>> Installing neofetch....\n'
-function neofetchs(){
+neofetchs() {
     cd ~/
     wget https://github.com/dylanaraps/neofetch/archive/3.3.0.tar.gz -O ~/neofetch
     tar -zxvf ~/neofetch && cd ~/neofetch*/
@@ -374,7 +373,6 @@ function neofetchs(){
     sudo mv -v ~/neofetch ~/software/neofetch.tar.gz
     rm -rfv ~/neofetch*/
 }
-which neofetch | grep -qw neofetch && printf '\n            It'\''s already installed.\n' || neofetchs
 
 # printf '\n      >>> Installing screenfetch....\n'
 # sudo apt-get install screenfetch
@@ -384,7 +382,7 @@ which neofetch | grep -qw neofetch && printf '\n            It'\''s already inst
 #   -------------------------------
 
 # printf '\n      >>> Installing ImageMagick....\n'
-# function imagemagicks(){
+# imagemagicks() {
 #     name='ImageMagick-7.0.7-22.tar.bz2'
 #     yes Y | sudo apt-get install build-essential checkinstall \
 #                  libx11-dev libxext-dev zlib1g-dev libpng12-dev \
@@ -425,11 +423,10 @@ which neofetch | grep -qw neofetch && printf '\n            It'\''s already inst
 #   TTYGIF
 #   -------------------------------
 
-function ttygif_install(){
+ttygif_install() {
     git clone https://github.com/icholy/ttygif.git
     cd ttygif && make && sudo make install
 }
-ttygif_install
 
 # ttyrec recording-name # record the tty, Ctrl+D / exit to stop
 # ttyplay recording-name # play the tty
@@ -444,42 +441,39 @@ ttygif_install
 #   YARN
 #   -------------------------------
 
-function yarn_install(){
+yarn_install() {
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
     sudo apt-get update && sudo apt-get install yarn
 }
-which yarn | grep -qw yarn && printf '\n            It'\''s already installed.\n' || yarn_install
 
 #   -------------------------------
 #   YOUTUBE-DL
 #   -------------------------------
 
-function youtube-dl_install(){
+youtube-dl_install() {
     sudo curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl
     sudo chmod a+rx /usr/local/bin/youtube-dl
     # Upgrade
     # sudo -H pip install --upgrade youtube-dl
 }
-which youtube-dl | grep -qw youtube-dl && printf '\n            It'\''s already installed.\n' || youtube-dl_install
 
 #   -------------------------------
 #   FZF
 #   -------------------------------
 
-function fzf_install(){
+fzf_install() {
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
     ~/.fzf/install
     # # Upgrade
     # cd ~/.fzf && git pull && ./install
 }
-ls -al ~/ | grep -qw .fzf/ && printf '\n            It'\''s already installed.\n' || fzf_install
 
 #   -------------------------------
 #   NGROK
 #   -------------------------------
 
-function ngrok_install(){
+ngrok_install() {
     name='ngrok-stable-linux-amd64.zip'
     wget https://bin.equinox.io/c/4VmDzA7iaHb/$name
     unzip $name && rm $name && mv ./ngrok ~/software/
@@ -488,18 +482,16 @@ function ngrok_install(){
     # ./ngrok help
     # ./ngrok http 80
 }
-ls ~/software | grep -qw ngrok && printf '\n            It'\''s already installed.\n' || ngrok_install
 
 #   -------------------------------
 #   REALVNC
 #   -------------------------------
 
 name_vnc='VNC-Viewer-6.17.1113-Linux-x64'
-function realvnc_install(){
+realvnc_install() {
     wget https://www.realvnc.com/download/file/viewer.files/$name_vnc
     mv ./$name_vnc ~/software/ && sudo chmod +x ~/software/$name_vnc
 }
-ls ~/software | grep -qw $name_vnc && printf '\n            It'\''s already installed.\n' || realvnc_install
 
 #   -------------------------------
 #   TOOLS-GUI
@@ -521,15 +513,13 @@ dpkg -l | grep -qw fcitx && printf '\n            fcitx already is installed.\n'
 
 ##### SUBLIME TEXT 3 #####
 printf '\n      >>> Installing sublime-text....\n'
-function sublime-texts(){
+sublime-texts() {
     wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
     sudo apt-get install apt-transport-https
     echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
     sudo apt-get update
     sudo apt-get install sublime-text
 }
-dpkg -l | grep -qw sublime-text && printf '\n            It'\''s already installed.\n' || sublime-texts
-
 
 printf '\n      >>> Installing chrome....\n'
 dpkg -l | grep -qw chromium-browser && printf '\n            It'\''s already installed.\n' || yes Y | sudo apt-get install chromium-browser
@@ -568,19 +558,18 @@ dpkg -l | grep -qw chromium-chromedriver && printf '\n            It'\''s alread
 #   -------------------------------
 
 printf '\n      >>> Installing trash-cli....\n'
-function trashs(){
+trashs() {
     sudo git clone https://github.com/andreafrancia/trash-cli.git ~/trash-cli/
     cd ~/trash-cli/ && sudo python3 setup.py install
     cd ~/ && sudo rm -rfv ~/trash-cli/
 }
-which trash | grep -qw trash && printf '\n            It'\''s already installed.\n' || trashs
 
 #   -------------------------------
 #   HEROKU
 #   -------------------------------
 
 printf '\n      >>> Installing heroku....\n'
-function heroku_install(){
+heroku_install() {
     name='heroku-cli-linux-x64.tar.gz'
     wget https://cli-assets.heroku.com/heroku-cli/channels/stable/"$name" -O "$name"
     tar -xvzf "$name" && mkdir -p /usr/local/lib /usr/local/bin
@@ -588,20 +577,18 @@ function heroku_install(){
     sudo ln -s /usr/local/lib/heroku/bin/heroku /usr/local/bin/heroku
     mv -v "$name" ~/software/
 }
-which heroku | grep -qw heroku && printf '\n            It'\''s already installed.\n' || heroku_install
 
 #   -------------------------------
 #   VIRTUALBOX
 #   -------------------------------
 
-# function vbox_install(){
-#     wget https://download.virtualbox.org/virtualbox/5.2.6/virtualbox-5.2_5.2.6-120293~Ubuntu~xenial_amd64.deb
-#     sudo apt install ~/virtualbox-5.2_5.2.6-120293~Ubuntu~xenial_amd64.deb
-#     sudo apt update && sudo apt upgrade
-#     wget https://download.virtualbox.org/virtualbox/5.2.6/Oracle_VM_VirtualBox_Extension_Pack-5.2.6-120293.vbox-extpack
-#     sudo VBoxManage extpack install ~/Oracle_VM_VirtualBox_Extension_Pack-5.2.6-120293.vbox-extpack
-# }
-# vbox_install
+vbox_install() {
+    wget https://download.virtualbox.org/virtualbox/5.2.6/virtualbox-5.2_5.2.6-120293~Ubuntu~xenial_amd64.deb
+    sudo apt install ~/virtualbox-5.2_5.2.6-120293~Ubuntu~xenial_amd64.deb
+    sudo apt update && sudo apt upgrade
+    wget https://download.virtualbox.org/virtualbox/5.2.6/Oracle_VM_VirtualBox_Extension_Pack-5.2.6-120293.vbox-extpack
+    sudo VBoxManage extpack install ~/Oracle_VM_VirtualBox_Extension_Pack-5.2.6-120293.vbox-extpack
+}
 
 #   -------------------------------
 #   ZSH
@@ -666,82 +653,76 @@ dpkg -l | grep -qw vim-gui-common && printf '\n            vim-gui-common is alr
 #   -------------------------------
 
 printf '\n      >>> Installing hugo....\n'
-function hugoss(){
+hugoss() {
     name='hugo_0.40.3_Linux-64bit.deb'
     wget https://github.com/gohugoio/hugo/releases/download/v0.40.3/"$name"
     sudo apt-get install ./"$name" && mv -v "$name" ~/software/
 }
-dpkg -l | grep -qw hugo && printf '\n            It'\''s already installed.\n' || hugoss
 
 #   -------------------------------
 #   CADDY
 #   -------------------------------
 
 printf '\n      >>> Installing caddy....\n'
-function caddys(){
+caddys() {
     name='caddy_v0.10.14_linux_amd64.tar.gz'
     wget https://github.com/mholt/caddy/releases/download/v0.10.14/"$name"
     tar -xzvf "$name" caddy
     mv -v ./caddy /usr/local/bin && mv -v "$name" ~/software/
 }
-which caddy | grep -qw caddy && printf '\n            It'\''s already installed.\n' || caddys
 
 #   -------------------------------
 #   IPFS
 #   -------------------------------
 
 printf '\n      >>> Installing ipfs....\n'
-function ipfss(){
+ipfss() {
     name='go-ipfs_v0.4.13_linux-amd64.tar.gz'
     wget https://dist.ipfs.io/go-ipfs/v0.4.13/"$name" && tar -xzvf "$name"
     sudo cp -v ~/go-ipfs/ipfs /usr/bin/
     sudo cp -v ~/go-ipfs/ipfs /usr/local/bin/
     rm -rfv ~/go-ipfs/ && mv -v "$name" ~/software/ && ipfs init
 }
-which ipfs | grep -qw ipfs && printf '\n            It'\''s already installed.\n' || ipfss
 # ipfs daemon
 
 #   -------------------------------
 #   NUSMV
 #   -------------------------------
 
-# function nusmv(){
-#     # name='NuSMV-2.6.0-linux64.tar.gz'
-#     # wget http://nusmv.fbk.eu/distrib/"$name" && tar -xzf "$name"
-#     # mv ~/"$name" ~/software/
-#     name='NuSMV-2.6.0-zchaff-linux64.tar.gz'
-#     foldername='NuSMV-2.6.0-Linux'
-#     wget http://nusmv.fbk.eu/distrib/"$name" && tar -xzf "$name"
-#     sudo mv ~/"$foldername" ~/software/ && sudo mv ~/"$name" ~/software/
-#     # ~/software/NuSMV-2.6.0-Linux/bin/ltl2smv
-#     # ~/software/NuSMV-2.6.0-Linux/bin/NuSMV
-# }
-# nusmv
+nusmv() {
+    # name='NuSMV-2.6.0-linux64.tar.gz'
+    # wget http://nusmv.fbk.eu/distrib/"$name" && tar -xzf "$name"
+    # mv ~/"$name" ~/software/
+    name='NuSMV-2.6.0-zchaff-linux64.tar.gz'
+    foldername='NuSMV-2.6.0-Linux'
+    wget http://nusmv.fbk.eu/distrib/"$name" && tar -xzf "$name"
+    sudo mv ~/"$foldername" ~/software/ && sudo mv ~/"$name" ~/software/
+    # ~/software/NuSMV-2.6.0-Linux/bin/ltl2smv
+    # ~/software/NuSMV-2.6.0-Linux/bin/NuSMV
+}
 
 #   -------------------------------
 #   ISABELLE
 #   -------------------------------
 
-# function isabelle(){
-#     name='Isabelle2017_app.tar.gz'
-#     foldername='Isabelle2017'
-#     wget https://isabelle.in.tum.de/dist/"$name" && tar -xzf "$name"
-#     sudo mv ~/"$foldername" ~/software/ && sudo mv ~/"$name" ~/software/
-#     # ~/software/Isabelle2017/Isabelle2017.run
-#     # ~/software/Isabelle2017/bin/isabelle
-# }
-# isabelle
+isabelle() {
+    name='Isabelle2017_app.tar.gz'
+    foldername='Isabelle2017'
+    wget https://isabelle.in.tum.de/dist/"$name" && tar -xzf "$name"
+    sudo mv ~/"$foldername" ~/software/ && sudo mv ~/"$name" ~/software/
+    # ~/software/Isabelle2017/Isabelle2017.run
+    # ~/software/Isabelle2017/bin/isabelle
+}
 
 #   -------------------------------
 #   CAPYLE
 #   -------------------------------
 
-# function capyle(){
-#     git clone https://github.com/pjworsley/capyle.git ~/software/capyle
-#     sudo apt-get install python3-tk
-#     # python3 ~/software/capyle/main.py
-# }
-# capyle
+capyle() {
+    git clone https://github.com/pjworsley/capyle.git ~/software/capyle
+    sudo apt-get install python3-tk
+    # python3 ~/software/capyle/main.py
+}
 
 #   -------------------------------
 #   POWERLINE
@@ -772,54 +753,133 @@ pip3 freeze | grep -qw powerline && printf '\n            powerline is already i
 # rm -rvf fonts
 
 #   -------------------------------
-#   SECURITY
+#   REMOVE EXISTING CONFIG
+#   -------------------------------
+
+shell_config() {
+    printf '\n      >>> Removing existing configuraion....\n'
+    sudo rm -rfv ~/.bashrc ~/.zshrc ~/.bash_profile ~/.profile ~/.bash_logout ~/.local
+    printf '\n      >>> Copy configuraion....\n'
+}
+
+#   -------------------------------
+#   IMPORT SETTINGS
 #   -------------------------------
 
 # Import SSH Keys
-function ssh_import () {
+ssh_import() {
     printf '\n      >>> Setting up SSH configuraion....\n'
     sudo cp -rv /mnt/d/shared/mobile/config/notes/p/.ssh ~/
     sudo chmod -v 600 ~/.ssh/*
     sudo chmod -v 700 ~/.ssh
     sudo chown -Rv $USER ~/.ssh/
 }
-ssh_import
 
 # Import GPG Keys
-function gpg_import(){
+gpg_import() {
     printf '\n      >>> Setting up GPG configuraion....\n'
     path="/mnt/d/shared/mobile/config/notes/p/pgp/Malvin Todorov malvintodorov@gmail.com (0x74B79CF7)"
     sudo gpg --import "$path"/mlvnt-pub.asc
     sudo gpg --import "$path"/mlvnt-sec.asc
 }
-gpg_import
 
 # Windows Autoload Scipt
-function windows_onload(){
+windows_onload() {
     printf '\n      >>> Setting up Windows onload scripts....\n'
     cp /mnt/d/shared/pc/projects/scripts/Batch/workspace.cmd /mnt/c/Users/Todorov/AppData/Roaming/Microsoft/Windows/Start\ Menu/Programs/Startup
 }
-windows_onload
 
 # Import Social Media Sites
-function social_import(){
+social_import() {
     cp "$path_dots"/net/social "$path_dots_local"/net
 }
-social_import
 
-#   -------------------------------
-#   REMOVE EXISTING CONFIG
-#   -------------------------------
-
-function shell_config(){
-    printf '\n      >>> Removing existing configuraion....\n'
-    sudo rm -rfv ~/.bashrc ~/.zshrc ~/.bash_profile ~/.profile ~/.bash_logout ~/.local
-    sudo cp -rv "$path_dots"/shell/zsh/.oh-my-zsh "$path_dots_local"/shell/zsh
-    sudo cp -rv "$path_dots"/.config/sublime-text-3 "$path_dots_local"/.config
-    sudo cp -rv "$path_dots"/.config/radicale "$path_dots_local"/.config
-    sudo cp -rv "$path_dots"/.local/share/tldr "$path_dots_local"/.local/share
-    sudo cp -rv ${path_dots}/net/mac.txt "$path_dots_local"/net
+# Import other configs
+import_other() {
+    yes yes | sudo cp -rv "$path_dots"/shell/zsh/.oh-my-zsh "$path_dots_local"/shell/zsh
+    yes yes | sudo cp -rv "$path_dots"/.config/sublime-text-3 "$path_dots_local"/.config
+    yes yes | sudo cp -rv "$path_dots"/.config/radicale "$path_dots_local"/.config
+    yes yes | sudo cp -rv "$path_dots"/.local/share/tldr "$path_dots_local"/.local/share
+    yes yes | sudo cp -rv ${path_dots}/net/mac.txt "$path_dots_local"/net
 }
-shell_config
 
-#==========================================================================================================
+#   -------------------------------
+#   RUN FUNCTIONS
+#   -------------------------------
+
+run_funct() {
+    which rvm | grep -qw rvm && printf '\n            It'\''s already installed.\n' || rvm_intall
+    nodejs_install
+    # postgresql_repositories
+    which neofetch | grep -qw neofetch && printf '\n            It'\''s already installed.\n' || neofetchs
+    ttygif_install
+    which yarn | grep -qw yarn && printf '\n            It'\''s already installed.\n' || yarn_install
+    which youtube-dl | grep -qw youtube-dl && printf '\n            It'\''s already installed.\n' || youtube-dl_install
+    ls -al ~/ | grep -qw .fzf/ && printf '\n            It'\''s already installed.\n' || fzf_install
+    ls ~/software | grep -qw ngrok && printf '\n            It'\''s already installed.\n' || ngrok_install
+    ls ~/software | grep -qw $name_vnc && printf '\n            It'\''s already installed.\n' || realvnc_install
+    dpkg -l | grep -qw sublime-text && printf '\n            It'\''s already installed.\n' || sublime-texts
+    which trash | grep -qw trash && printf '\n            It'\''s already installed.\n' || trashs
+    which heroku | grep -qw heroku && printf '\n            It'\''s already installed.\n' || heroku_install
+    # vbox_install
+    dpkg -l | grep -qw hugo && printf '\n            It'\''s already installed.\n' || hugoss
+    which caddy | grep -qw caddy && printf '\n            It'\''s already installed.\n' || caddys
+    which ipfs | grep -qw ipfs && printf '\n            It'\''s already installed.\n' || ipfss
+    # nusmv
+    # isabelle
+    # capyle
+    shell_config
+    ssh_import
+    gpg_import
+    windows_onload
+    social_import
+    import_other
+}
+run_funct
+
+#   -------------------------------
+#   UNSET FUNCTONS & VARIABLES
+#   -------------------------------
+
+functions=(
+    "rvm_intall"
+    "nodejs_install"
+    "postgresql_repositories"
+    "neofetchs"
+    "imagemagicks"
+    "ttygif_install"
+    "yarn_install"
+    "youtube-dl_install"
+    "fzf_install"
+    "ngrok_install"
+    "realvnc_install"
+    "sublime-texts"
+    "trashs"
+    "heroku_install"
+    "vbox_install"
+    "hugoss"
+    "caddys"
+    "ipfss"
+    "nusmv"
+    "isabelle"
+    "capyle"
+    "ssh_import"
+    "gpg_import"
+    "windows_onload"
+    "social_import"
+    "shell_config"
+    "run_funct"
+)
+
+variables=(
+    "modules"
+    "gems"
+    "appz"
+    "apppz"
+    "net_apps"
+)
+
+unset -f "${functions[@]}"
+unset -v functions "${variables[@]}" variables
+
+#-------------------------------------------------------------------------------

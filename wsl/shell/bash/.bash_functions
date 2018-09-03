@@ -1,23 +1,30 @@
 #!/bin/bash
-################################################################################
-######################### FUNCTIONS ############################################
-################################################################################
+#-------------------------------------------------------------------------------
+#------------------------ FUNCTIONS --------------------------------------------
+#-------------------------------------------------------------------------------
+
+# Variables
+path_dots=/mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/wsl
+path_dots_local=~/.dotfiles/wsl
+python_scripts=/mnt/d/shared/pc/projects/scripts/Python
 
 #   -------------------------------
 #   MASTER FUNCTION
 #   -------------------------------
 
-function master() {
-    clear && echo
-    echo "    x  | exit              | Exit"
-    echo "    1  | linx              | Linux Managemet"
-    echo "    2  | win               | Windows Managemet"
-    echo "    3  | manage            | System Management"
-    echo "    4  | mywork            | Daily Work"
-    echo "    5  | apps              | My Programs"
-    echo
+master() {
+    help() {
+        clear && echo
+        echo "    x  | exit              | Exit"
+        echo "    1  | linx              | Linux Managemet"
+        echo "    2  | win               | Windows Managemet"
+        echo "    3  | manage            | System Management"
+        echo "    4  | mywork            | Daily Work"
+        echo "    5  | apps              | My Programs"
+        echo
+    }
 
-    function helper() {
+    helper() {
         read -e -p "Function? (№/name) : " input
         case $input in
             1|linx)     linx ;;
@@ -30,19 +37,42 @@ function master() {
         esac
     }
 
+    help
     read -p "Press enter to continue"
     helper
+
+    functions=(
+        "help"
+        "helper"
+    )
+
+    variables=(
+        "input"
+    )
+
+    unset -f "${functions[@]}"
+    unset -v functions "${variables[@]}" variables
 }
 
 #   -------------------------------
 #   LINUX MANAGEMET
 #   -------------------------------
 
-function mkd() {
+mkd() {
     mkdir -p "$@" && cd "$_";
 }
 
-function filec() {
+filec() {
+    help() {
+        echo && echo "DESCRIPTION"
+        echo "        filec - list number of files in a directory" && echo
+        echo "USAGE"
+        echo "        filc [OPTION]" && echo
+        echo "OPTIONS"
+        echo "        a, all"
+        echo "              include hidden" && echo
+    }
+
     if [ -z $1 ] ; then
         raw=$(ls -l | wc -l)
         num=$(echo $raw | awk '{ print $NF}')
@@ -53,19 +83,25 @@ function filec() {
                 raw=$(ls -al | wc -l)
                 num=$(echo $raw | awk '{ print $NF}')
                 echo "$num - 3" | bc ;;
-            *)  echo && echo "DESCRIPTION"
-                echo "        filec - list number of files in a directory" && echo
-                echo "SYNTAX"
-                echo "        filc [OPTION]" && echo
-                echo "OPTIONS"
-                echo "        a, all"
-                echo "              include hidden" && echo ;;
+            *)  help ;;
         esac
     fi
+
+    functions=(
+        "help"
+    )
+
+    variables=(
+        "raw"
+        "num"
+    )
+
+    unset -f "${functions[@]}"
+    unset -v functions "${variables[@]}" variables
 }
 
-function linx() {
-    if [ -z $1 ] ; then
+linx() {
+    help() {
         clear
         echo -e '\n  Available Options:'
         echo    '       x  | Exit'
@@ -78,18 +114,17 @@ function linx() {
         echo -e "    6  | glb                 | List Git Branches\n"
         read -e -p "  Enter Option: " input
         echo
+    }
+
+    if [ -z $1 ] ; then
+        help
     else
         input=$1
         input2=$2
     fi
 
-    function xsession (){
-
-        path2="C:\Users\Todorov\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs\home\todorov\.dotfiles\wsl\vcxsrv\\"
-        path="C:\Program Files\VcXsrv"
-        win32="C:\Windows\System32"
-
-        if [ -z $input2 ] ; then
+    xsession() {
+        help() {
             clear
             echo -e '\n  Available Options:'
             echo    '       x  | Exit'
@@ -99,6 +134,14 @@ function linx() {
             echo -e '       3  | Load X Server in Multi Window mode\n'
             read -e -p "  Enter Option: " input
             echo
+        }
+
+        path2="C:\Users\Todorov\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs\home\todorov\.dotfiles\wsl\vcxsrv\\"
+        path="C:\Program Files\VcXsrv"
+        win32="C:\Windows\System32"
+
+        if [ -z $input2 ] ; then
+            help
         else
             input=$input2
         fi
@@ -123,7 +166,7 @@ function linx() {
     }
 
     # List Git Branches sorted by recent updates, adding a star to remote tracking branches
-    function glb() {
+    glb() {
       RED="\e[91m";
       for branch in $(git branch | sed s/^..//); do
         time_ago=$(git log -1 --pretty=format:"%Cgreen%ci %Cblue%cr%Creset" $branch --);
@@ -133,24 +176,27 @@ function linx() {
       done | sort;
     }
 
-    function ssh_manage() {
-        clear
-        echo -e '\n  Available Options:\n'
-        echo    '       x  | Exit'
-        echo -e '       b  | Go Back\n'
-        echo    '       1  | Generate a Key'
-        echo    '       2  | Manage Permissions'
-        echo    '       3  | Copy Public Key (Windows)'
-        echo    '       4  | Copy Public Key (Linux)'
-        echo    '       5  | Copy Public Key to Remote'
-        echo    '       6  | Edit User Config'
-        echo    '       7  | Edit OpenSSH Config'
-        echo    '       8  | Backup'
-        echo -e '       9  | Update\n'
-        read -e -p "  Enter Option: " input
-        echo
+    ssh_manage() {
+        help() {
+            clear
+            echo -e '\n  Available Options:\n'
+            echo    '       x  | Exit'
+            echo -e '       b  | Go Back\n'
+            echo    '       1  | Generate a Key'
+            echo    '       2  | Manage Permissions'
+            echo    '       3  | Copy Public Key (Windows)'
+            echo    '       4  | Copy Public Key (Linux)'
+            echo    '       5  | Copy Public Key to Remote'
+            echo    '       6  | Edit User Config'
+            echo    '       7  | Edit OpenSSH Config'
+            echo    '       8  | Backup'
+            echo -e '       9  | Update\n'
+            read -e -p "  Enter Option: " input
+            echo
+        }
+        help
 
-        function ssh_permissons() {
+        ssh_permissons() {
             sudo chmod -v 600 ~/.ssh/*
             sudo chmod -v 700 ~/.ssh
             sudo chown -Rv $USER ~/.ssh/
@@ -198,25 +244,28 @@ function linx() {
         esac
     }
 
-    function gpg_manage() {
-        clear
-        echo -e '\n  Available Options:\n'
-        echo    '       x   | Exit'
-        echo -e '       b   | Go Back\n'
-        echo    '       1   | Generate a Key'
-        echo    '       2   | Import'
-        echo    '       3   | Export'
-        echo    '       4   | Revoke'
-        echo    '       5   | List'
-        echo    '       6   | Delete'
-        echo    '       7   | Edit'
-        echo    '       8   | Sign'
-        echo    '       9   | Encrypt'
-        echo -e '       10  | Decrypt\n'
-        read -e -p "  Enter Option: " input
-        echo
+    gpg_manage() {
+        help() {
+            clear
+            echo -e '\n  Available Options:\n'
+            echo    '       x   | Exit'
+            echo -e '       b   | Go Back\n'
+            echo    '       1   | Generate a Key'
+            echo    '       2   | Import'
+            echo    '       3   | Export'
+            echo    '       4   | Revoke'
+            echo    '       5   | List'
+            echo    '       6   | Delete'
+            echo    '       7   | Edit'
+            echo    '       8   | Sign'
+            echo    '       9   | Encrypt'
+            echo -e '       10  | Decrypt\n'
+            read -e -p "  Enter Option: " input
+            echo
+        }
+        help
 
-        function list(){
+        list() {
             clear && echo -e '\n   >>> Public Key Ring\n'
             sudo gpg --list-keys --with-fingerprint
             sudo gpg --list-keys --with-colons --with-fingerprint
@@ -226,16 +275,19 @@ function linx() {
             echo
         }
 
-        function import_key(){
-            clear
-            echo -e '\n  Available Options:\n'
-            echo    '       x  | Exit'
-            echo -e '       b  | Go Back\n'
-            echo    '       1  | Import Key Pair'
-            echo    '       2  | Import Public Key'
-            echo -e '       3  | Import Private Key\n'
-            read -e -p "  Enter Option: " input
-            echo
+        import_key() {
+            help() {
+                clear
+                echo -e '\n  Available Options:\n'
+                echo    '       x  | Exit'
+                echo -e '       b  | Go Back\n'
+                echo    '       1  | Import Key Pair'
+                echo    '       2  | Import Public Key'
+                echo -e '       3  | Import Private Key\n'
+                read -e -p "  Enter Option: " input
+                echo
+            }
+            help
 
             case $input in
                 1)
@@ -265,20 +317,23 @@ function linx() {
             # curl https://keybase.io/mlvnt/pgp_keys.asc | gpg --import
         }
 
-        function export_key(){
-            clear
-            echo -e '\n  Available Options:\n'
-            echo    '       x  | Exit'
-            echo -e '       b  | Go Back\n'
-            echo -e '    Export To a File\n'
-            echo    '       1  | Key Pair'
-            echo    '       2  | Public Key'
-            echo    '       3  | Private Key'
-            echo -e '    Export To the Clipbard\n'
-            echo    '       4  | Public Key'
-            echo -e '       5  | Private Key\n'
-            read -e -p "  Enter Option: " input
-            echo
+        export_key() {
+            help() {
+                clear
+                echo -e '\n  Available Options:\n'
+                echo    '       x  | Exit'
+                echo -e '       b  | Go Back\n'
+                echo -e '    Export To a File\n'
+                echo    '       1  | Key Pair'
+                echo    '       2  | Public Key'
+                echo    '       3  | Private Key'
+                echo -e '    Export To the Clipbard\n'
+                echo    '       4  | Public Key'
+                echo -e '       5  | Private Key\n'
+                read -e -p "  Enter Option: " input
+                echo
+            }
+            help
 
             case $input in
                 1)
@@ -321,16 +376,19 @@ function linx() {
             # gpg --export -a A4AA3A5BDBD40EA549CABAF9FBC07D6A97016CB3
         }
 
-        function delete_key(){
-            clear
-            echo -e '\n  Available Options:\n'
-            echo    '       x  | Exit'
-            echo -e '       b  | Go Back\n'
-            echo    '       1  | Delete Key Pair'
-            echo    '       2  | Delete Public Key'
-            echo -e '       3  | Delete Private Key\n'
-            read -e -p "  Enter Option: " input
-            echo
+        delete_key() {
+            help() {
+                clear
+                echo -e '\n  Available Options:\n'
+                echo    '       x  | Exit'
+                echo -e '       b  | Go Back\n'
+                echo    '       1  | Delete Key Pair'
+                echo    '       2  | Delete Public Key'
+                echo -e '       3  | Delete Private Key\n'
+                read -e -p "  Enter Option: " input
+                echo
+            }
+            help
 
             case $input in
                 1)
@@ -355,16 +413,19 @@ function linx() {
             esac
         }
 
-        function revoke_key(){
-            clear
-            echo -e '\n  Available Options:\n'
-            echo    '       x  | Exit'
-            echo -e '       b  | Go Back\n'
-            echo    '       1  | Generate'
-            echo    '       2  | Import'
-            echo -e '       3  | Revoke Key Pair\n'
-            read -e -p "  Enter Option: " input
-            echo
+        revoke_key() {
+            help() {
+                clear
+                echo -e '\n  Available Options:\n'
+                echo    '       x  | Exit'
+                echo -e '       b  | Go Back\n'
+                echo    '       1  | Generate'
+                echo    '       2  | Import'
+                echo -e '       3  | Revoke Key Pair\n'
+                read -e -p "  Enter Option: " input
+                echo
+            }
+            help
 
             case $input in
                 1)
@@ -423,24 +484,50 @@ function linx() {
         x)  : && clear ;;
         *)  linx ;;
     esac
+
+    functions=(
+        "help"
+        "ssh_permissons"
+        "import_key"
+        "export_key"
+        "revoke_key"
+        "list"
+        "delete_key"
+        "ssh_manage"
+        "gpg_manage"
+    )
+
+    variables=(
+        "input"
+        "input2"
+        "path2"
+        "path"
+        "win32"
+    )
+
+    unset -f "${functions[@]}"
+    unset -v functions "${variables[@]}" variables
 }
 
 #   -------------------------------
 #   SYSTEM MANAGEMENT
 #   -------------------------------
 
-function manage(){
-    clear
-    echo -e '\n  Available Options:'
-    echo    '       x  | Exit'
-    echo -e '       b  | Go Back\n'
-    echo    "    1  | bin                 | Manage the Trash"
-    echo    "    2  | move                | Move, Copy"
-    echo    "    3  | links               | Manage Links"
-    echo    "    4  | handles             | Manage File Handles / Descriptors"
-    echo -e "    5  | net                 | Manage Network\n"
-    read -e -p "  Enter Option: " input
-    echo
+manage() {
+    help() {
+        clear
+        echo -e '\n  Available Options:'
+        echo    '       x  | Exit'
+        echo -e '       b  | Go Back\n'
+        echo    "    1  | bin                 | Manage the Trash"
+        echo    "    2  | move                | Move, Copy"
+        echo    "    3  | links               | Manage Links"
+        echo    "    4  | handles             | Manage File Handles / Descriptors"
+        echo -e "    5  | net                 | Manage Network\n"
+        read -e -p "  Enter Option: " input
+        echo
+    }
+    help
 
     case $input in
         1|bin)      bin ;;
@@ -452,18 +539,29 @@ function manage(){
         x) : && clear ;;
         *) manage ;;
     esac
+
+    functions=(
+        "help"
+    )
+
+    variables=(
+        "input"
+    )
+
+    unset -f "${functions[@]}"
+    unset -v functions "${variables[@]}" variables
 }
 
 #   -------------------------------
 #   NETWORK DISCOVERY
 #   -------------------------------
 
-function ipdiscovery() {
+ipdiscovery() {
     local re='((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)'
     local os=$(uname -a | grep -qw 'Microsoft' && echo "win" || echo "unix");
     local macs=~/.dotfiles/wsl/net/mac.txt
 
-    function help() {
+    help() {
         echo && echo "DESCRIPTION"
         echo "        ipdiscovery - find device ip by mac and run a service" && echo
         echo "USAGE"
@@ -574,13 +672,32 @@ function ipdiscovery() {
         fi
     fi
 
+    functions=(
+        "help"
+    )
+
+    variables=(
+        "re"
+        "os"
+        "macs"
+        "mac"
+        "device"
+        "type"
+        "os"
+        "arplist"
+        "ip"
+        "service"
+    )
+
+    unset -f "${functions[@]}"
+    unset -v functions "${variables[@]}" variables
 }
 
 #   -------------------------------
 #   INOTIFY
 #   -------------------------------
 
-function watching-single(){
+watching-single() {
     dirs="$1"
     files="$2"
     shift 2
@@ -599,9 +716,10 @@ function watching-single(){
     done
 
     echo "loop reading from { when-changed } finished with status $?"
+    unset -v dirs files events
 }
 
-function watching-double(){
+watching-double() {
     dirs="$1"
     files="$2"
     shift 2
@@ -620,28 +738,33 @@ function watching-double(){
     done
 
     echo "loop reading from { when-changed } finished with status $?"
+    unset -v dirs files events
 }
 
-function lin(){
+lin() {
     cd '/mnt/d/shared/mobile/config/notes/markor'
-    watching-double . linkbox.txt '/mnt/d/shared/pc/projects/scripts/Python/web/links.py'
+    watching-double . linkbox.txt "$python_scripts/web/links.py"
 }
 
 #   -------------------------------
 #   Empty Trash
 #   -------------------------------
 
-function bin (){
+bin() {
     patht="D:\apps\suites\symenu\ProgramFiles\SPSSuite\NirSoftSuite\NirCmd_x64_sps\nircmd.exe"
     trashdir=~/.local/share/Trash
 
-    function list() {
-        clear && echo
-        echo    '         x | Exit'
-        echo    '         b | Go Back'
-        echo    '         1 | List All'
-        echo -e '         2 | Search For\n'
-        read -e -p "  Option: " input
+    list() {
+        help() {
+            clear && echo
+            echo    '         x | Exit'
+            echo    '         b | Go Back'
+            echo    '         1 | List All'
+            echo -e '         2 | Search For\n'
+            read -e -p "  Option: " input
+        }
+        help
+
         case $input in
             1)
                 echo && sudo trash-list && echo ;;
@@ -654,13 +777,17 @@ function bin (){
         esac
     }
 
-    function empty() {
-        clear && echo && sudo trash-list && echo
-        echo    '         x | Exit'
-        echo    '         b | Go Back'
-        echo    '         1 | Empty'
-        echo -e '         2 | Remove Selected\n'
-        read -e -p "  Option: " input
+    empty() {
+        help() {
+            clear && echo && sudo trash-list && echo
+            echo    '         x | Exit'
+            echo    '         b | Go Back'
+            echo    '         1 | Empty'
+            echo -e '         2 | Remove Selected\n'
+            read -e -p "  Option: " input
+        }
+        help
+
         case $input in
             1)
                 sudo trash-empty
@@ -674,20 +801,23 @@ function bin (){
         esac
     }
 
-    clear
-    echo -e '\n  Available Options:\n'
-    echo    '         x | Exit'
-    echo    '         b | Go Back'
-    echo    '       Windows:'
-    echo    '         1 | Empty Bin'
-    echo    '       Linux:'
-    echo    '         2 | Trash'
-    echo    '         3 | List'
-    echo    '         4 | Empty'
-    echo -e '         5 | Restore'
-    echo -e '         6 | Trashdir\n'
-    read -e -p "  Enter Option: " input
-    echo
+    help() {
+        clear
+        echo -e '\n  Available Options:\n'
+        echo    '         x | Exit'
+        echo    '         b | Go Back'
+        echo    '       Windows:'
+        echo    '         1 | Empty Bin'
+        echo    '       Linux:'
+        echo    '         2 | Trash'
+        echo    '         3 | List'
+        echo    '         4 | Empty'
+        echo -e '         5 | Restore'
+        echo -e '         6 | Trashdir\n'
+        read -e -p "  Enter Option: " input
+        echo
+    }
+    help
 
     case $input in
         1)
@@ -714,31 +844,29 @@ function bin (){
         x)  : && clear ;;
         *)  list ;;
     esac
+
+    functions=(
+        "help"
+        "list"
+        "empty"
+    )
+
+    variables=(
+        "input"
+        "patht"
+        "trashdir"
+    )
+
+    unset -f "${functions[@]}"
+    unset -v functions "${variables[@]}" variables
 }
 
 #   -------------------------------
 #   MANAGE LINKS
 #   -------------------------------
 
-function links (){
-    # Delete Specified symbilic links
-    function delsymb(){
-    echo -e '\n Deleting Symbolic Links....\n'
-    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-    find -type l -print | while IFS= read -r lnk
-    do
-      if readlink "$lnk" | grep '/mnt/' ; then
-        rm "$lnk"
-      fi
-    done
-    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-    echo -e '\n Symbolic Links Deleted!\n'
-    }
-
-    path='/mnt/d/shared/mobile/notebook/~genLinks'
-    pathwin='D:\shared\mobile\notebook\~genLinks'
-
-    if [ -z $1 ] ; then
+links() {
+    help() {
         clear
         echo -e '\n  Available Options:\n'
         echo    '           x | Exit'
@@ -755,6 +883,27 @@ function links (){
         echo -e '           6 | Create Link for Directory\n'
         read -e -p "  Enter Option: " input
         echo
+    }
+
+    # Delete Specified symbilic links
+    delsymb() {
+    echo -e '\n Deleting Symbolic Links....\n'
+    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    find -type l -print | while IFS= read -r lnk
+    do
+      if readlink "$lnk" | grep '/mnt/' ; then
+        rm "$lnk"
+      fi
+    done
+    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    echo -e '\n Symbolic Links Deleted!\n'
+    }
+
+    path='/mnt/d/shared/mobile/notebook/~genLinks'
+    pathwin='D:\shared\mobile\notebook\~genLinks'
+
+    if [ -z $1 ] ; then
+        help
     else
         input=$1
     fi
@@ -797,23 +946,43 @@ function links (){
         x)  : && clear ;;
         *)  links ;;
     esac
+
+    functions=(
+        "help"
+        "delsymb"
+    )
+
+    variables=(
+        "input"
+        "lnk"
+        "path"
+        "pathwin"
+        "target"
+        "linkname"
+    )
+
+    unset -f "${functions[@]}"
+    unset -v functions "${variables[@]}" variables
 }
 
 #   -------------------------------
 #   MOVE, COPY
 #   -------------------------------
 
-function move (){
-    function main_backup() {
-        clear 
-        echo -e '\n  Available Options:\n'
-        echo    '           x  | Exit'
-        echo    '           b  | Go Back'
-        echo    '           1  | Normal'
-        echo    '           2  | Mirroring'
-        echo    '           3  | Dry-Run Normal'
-        echo -e '           4  | Dry-Run Mirroring\n'
-        read -e -p "  Option: " input
+move() {
+    main_backup() {
+        help() {
+            clear 
+            echo -e '\n  Available Options:\n'
+            echo    '           x  | Exit'
+            echo    '           b  | Go Back'
+            echo    '           1  | Normal'
+            echo    '           2  | Mirroring'
+            echo    '           3  | Dry-Run Normal'
+            echo -e '           4  | Dry-Run Mirroring\n'
+            read -e -p "  Option: " input
+        }
+        help
 
         excludeddir="/mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/wsl/rsync/excluded"
         animemain="/mnt/e/backup/media/anime/seasonal/~main/"
@@ -845,14 +1014,14 @@ function move (){
                     echo -e '\n ~~~~~~~~~~~~~~ Backup Main Drive.... ~~~~~~~~~~~~~~\n'
                     mkdir -p "$logdir" && sudo touch "$logdir$logfile"
 
-                    function backups () {
+                    backups() {
                         mkdir -p "$animemain"
-                        # #######################################################################################################
+                        #-------------------------------------------------------
                         sudo rsync $ryncoptions --exclude-from="$excludeddir" "$drived" "$bakcupdire"
                         echo -e "\n     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
                         sudo rsync $ryncoptions "$dotfilesdird" "$dotfilesdire"
                         echo -e "\n     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                        #######################################################################################################
+                        #-------------------------------------------------------
                         case $input in
                             1|2) find "$link_dir_1" "$link_dir_2" -type l -print0 | xargs -0 rm -v -- ;;
                             3|4) find "$link_dir_1" "$link_dir_2" -type l ;;
@@ -872,13 +1041,16 @@ function move (){
         esac
     }
 
-    function main_clone() {
-        clear 
-        echo -e '\n  Available Options:\n'
-        echo    '           x  | Exit'
-        echo    '           b  | Go Back'
-        echo -e '           1  | Proceed\n'
-        read -e -p "  Option: " input
+    main_clone() {
+        help() {
+            clear 
+            echo -e '\n  Available Options:\n'
+            echo    '           x  | Exit'
+            echo    '           b  | Go Back'
+            echo -e '           1  | Proceed\n'
+            read -e -p "  Option: " input
+        }
+        help
 
         case $input in 
             1)
@@ -893,7 +1065,7 @@ function move (){
                     ryncoptions="-avhzH --progress --stats"
 
                     echo -e '\n ~~~~~~~~~~~~~~ Cloning Main Drive.... ~~~~~~~~~~~~~~\n'
-                    function clone () {
+                    clone() {
                         echo -e "\n     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
                         mkdir -p "/mnt/"$backdir"/workspace/Projects/Programing/Git/dotfiles/.dotfiles/"
                         sudo rsync $ryncoptions "$dotfilesdird" "$dotfilesdire"
@@ -912,16 +1084,19 @@ function move (){
         esac
     }
 
-    function main_restore() {
-        clear 
-        echo -e '\n  Available Options:\n'
-        echo    '           x  | Exit'
-        echo    '           b  | Go Back'
-        echo    '           1  | Normal'
-        echo    '           2  | Mirroring'
-        echo    '           3  | Dry-Run Normal'
-        echo -e '           4  | Dry-Run Mirroring\n'
-        read -e -p "  Option: " input
+    main_restore() {
+        help() {
+            clear 
+            echo -e '\n  Available Options:\n'
+            echo    '           x  | Exit'
+            echo    '           b  | Go Back'
+            echo    '           1  | Normal'
+            echo    '           2  | Mirroring'
+            echo    '           3  | Dry-Run Normal'
+            echo -e '           4  | Dry-Run Mirroring\n'
+            read -e -p "  Option: " input
+        }
+        help
 
         dotfilesdird="/mnt/d/shared/pc/projects/git/dotfiles/.dotfiles"
         dotfilesdire="/mnt/e/backup/shared/pc/projects/git/dotfiles/.dotfiles/"
@@ -951,7 +1126,7 @@ function move (){
                     echo -e '\n ~~~~~~~~~~~~~~ Backup Main Drive.... ~~~~~~~~~~~~~~\n'
                     mkdir -p "$logdir" && sudo touch "$logdir$logfile"
 
-                    function backups () {
+                    backups() {
                         sudo rsync $ryncoptions "$dotfilesdire" "$dotfilesdird"
                         echo -e "\n     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
                         case $input in
@@ -973,16 +1148,19 @@ function move (){
         esac
     }
 
-    function mobile_backup() {
-        clear 
-        echo -e '\n  Available Options:\n'
-        echo    '           x  | Exit'
-        echo    '           b  | Go Back'
-        echo    '           1  | Normal'
-        echo    '           2  | Mirroring'
-        echo    '           3  | Dry-Run Normal'
-        echo -e '           4  | Dry-Run Mirroring\n'
-        read -e -p "  Option: " input
+    mobile_backup() {
+        help() {
+            clear 
+            echo -e '\n  Available Options:\n'
+            echo    '           x  | Exit'
+            echo    '           b  | Go Back'
+            echo    '           1  | Normal'
+            echo    '           2  | Mirroring'
+            echo    '           3  | Dry-Run Normal'
+            echo -e '           4  | Dry-Run Mirroring\n'
+            read -e -p "  Option: " input
+        }
+        help
 
         excludeddir="/mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/wsl/rsync/excluded_mobile"
         sdcard=""
@@ -1006,7 +1184,7 @@ function move (){
             echo -e '\n ~~~~~~~~~~~~~~ Backup Mobile SD Card.... ~~~~~~~~~~~~~~\n'
             mkdir -p "$logdir" && sudo touch "$logdir$logfile"
 
-            function backups (){
+            backups() {
                 sudo rsync $ryncoptions --exclude-from="$excludeddir" "$sdcard" "$bakcupdire"
             }
 
@@ -1021,13 +1199,16 @@ function move (){
         fi
     }
 
-    function mobile_clone(){
-        clear 
-        echo -e '\n  Available Options:\n'
-        echo    '           x  | Exit'
-        echo    '           b  | Go Back'
-        echo -e '           1  | Proceed\n'
-        read -e -p "  Option: " input
+    mobile_clone() {
+        help() {
+            clear 
+            echo -e '\n  Available Options:\n'
+            echo    '           x  | Exit'
+            echo    '           b  | Go Back'
+            echo -e '           1  | Proceed\n'
+            read -e -p "  Option: " input
+        }
+        help
 
         case $input in 
             1)
@@ -1040,7 +1221,7 @@ function move (){
                     ryncoptions="-avhzH --progress --stats"
 
                     echo -e '\n ~~~~~~~~~~~~~~ Cloning Main Drive.... ~~~~~~~~~~~~~~\n'
-                    function clone () {
+                    clone() {
                         sudo rsync $ryncoptions "$dotfilesdird" "$dotfilesdire"
                     }
                     clone 
@@ -1055,16 +1236,19 @@ function move (){
         esac
     }
 
-    function mobile_restore(){
-        clear 
-        echo -e '\n  Available Options:\n'
-        echo    '           x  | Exit'
-        echo    '           b  | Go Back'
-        echo    '           1  | Normal'
-        echo    '           2  | Mirroring'
-        echo    '           3  | Dry-Run Normal'
-        echo -e '           4  | Dry-Run Mirroring\n'
-        read -e -p "  Option: " input
+    mobile_restore() {
+        help() {
+            clear 
+            echo -e '\n  Available Options:\n'
+            echo    '           x  | Exit'
+            echo    '           b  | Go Back'
+            echo    '           1  | Normal'
+            echo    '           2  | Mirroring'
+            echo    '           3  | Dry-Run Normal'
+            echo -e '           4  | Dry-Run Mirroring\n'
+            read -e -p "  Option: " input
+        }
+        help
 
         dotfilesdird="/mnt/d/shared/pc/projects/git/dotfiles/.dotfiles"
         dotfilesdire="/mnt/e/backup/shared/pc/projects/git/dotfiles/.dotfiles/"
@@ -1092,7 +1276,7 @@ function move (){
                     echo -e '\n ~~~~~~~~~~~~~~ Backup Main Drive.... ~~~~~~~~~~~~~~\n'
                     mkdir -p "$logdir" && sudo touch "$logdir$logfile"
 
-                    function backups () {
+                    backups() {
                         sudo rsync $ryncoptions "$dotfilesdire" "$dotfilesdird"
                     }
 
@@ -1107,15 +1291,18 @@ function move (){
         esac
     }
 
-    function move_screenshots(){
-        clear
-        echo -e '\n  Available Options:\n'
-        echo    '           x  | Exit'
-        echo    '           b  | Go Back'
-        echo    '           1  | Anime Pics to Permanent Directory'
-        echo    '           2  | Acer Screenshots to Permanent Directory'
-        echo -e '           3  | Surface Screenshots to Permanent Directory\n'
-        read -e -p "  Option: " input
+    move_screenshots() {
+        help() {
+            clear
+            echo -e '\n  Available Options:\n'
+            echo    '           x  | Exit'
+            echo    '           b  | Go Back'
+            echo    '           1  | Anime Pics to Permanent Directory'
+            echo    '           2  | Acer Screenshots to Permanent Directory'
+            echo -e '           3  | Surface Screenshots to Permanent Directory\n'
+            read -e -p "  Option: " input
+        }
+        help
 
         temp="/mnt/d/~temp"
         screenshotsdir="/mnt/c/Users/Todorov/Pictures/My Screen Shots/"
@@ -1144,7 +1331,7 @@ function move (){
         esac
     }
 
-    function move_all(){
+    move_all() {
         downloads="/mnt/c/Users/Todorov/Downloads/"
         documents="/mnt/c/Users/Todorov/Documents/"
         temp="/mnt/d/~temp"
@@ -1160,7 +1347,7 @@ function move (){
         # find "$downloads"-mindepth 1 -not -name '*.ini' -print0 -exec {} cp -p -r  {} "$temp" \;
     }
 
-    if [ -z $1 ] ; then
+    help() {
         clear
         echo -e '\n  Available Options:\n'
         echo    '           x  | Exit'
@@ -1179,6 +1366,10 @@ function move (){
         echo -e '           8  | Screenshots\n'
         read -e -p "  Enter Option: " input
         echo
+    }
+
+    if [ -z $1 ] ; then
+        help
     else
         input=$1
         input2=$2
@@ -1197,21 +1388,72 @@ function move (){
         x)  : && clear ;;
         *)  move ;;
     esac
+
+    functions=(
+        "help"
+        "main_backup"
+        "mobile_backup"
+        "main_restore"
+        "mobile_restore"
+        "main_clone"
+        "mobile_clone"
+        "move_all"
+        "move_screenshots"
+        "clone"
+        "backups"
+    )
+
+    variables=(
+        "input"
+        "input2"
+        "robocopyoptions"
+        "robonorm"
+        "ryncoptions"
+        "excludeddir"
+        "sdcard"
+        "drivedwin"
+        "dotfilesdird"
+        "dotfilesdire"
+        "drived"
+        "bakcupdire"
+        "logdir"
+        "logfile"
+        "workspacedird"
+        "workspacedire"
+        "link_dir_1"
+        "link_dir_2"
+        "screenshotsdir"
+        "animemain"
+        "animepicsdir"
+        "animepicsdirwin"
+        "acerscreendir"
+        "surfscreendir"
+        "downloads"
+        "documents"
+        "temp"
+    )
+
+    unset -f "${functions[@]}"
+    unset -v functions "${variables[@]}" variables
 }
 
 #   -------------------------------
 #   UPDATE .DOTFILES
 #   -------------------------------
 
-function dots(){
-    clear
-    echo -e '\n  Available Options:'
-    echo    '       x  | Exit'
-    echo    '       b  | Go Back'
-    echo    '       1  | Update'
-    echo    '       2  | Update Clean'
-    read -e -p "  Enter Option: " input
-    echo
+dots() {
+    help() {
+        clear
+        echo -e '\n  Available Options:'
+        echo    '       x  | Exit'
+        echo    '       b  | Go Back'
+        echo    '       1  | Update'
+        echo    '       2  | Update Clean'
+        read -e -p "  Enter Option: " input
+        echo
+    }
+    help
+
     if [ $input -eq 1 ] ; then
         dotfiles && gac
         cd ~/.dotfiles/ && git stash && gf
@@ -1246,29 +1488,44 @@ function dots(){
     else
         dots
     fi
+
+    functions=(
+        "help"
+    )
+
+    variables=(
+        "input"
+    )
+
+    unset -f "${functions[@]}"
+    unset -v functions "${variables[@]}" variables
 }
 
 #   -------------------------------
 #   MANAGE FILE HANDLES / DESCRIPTORS
 #   -------------------------------
 
-function handles(){
+handles() {
     cd /mnt/d/apps/suites/symenu/ProgramFiles/SPSSuite/SysinternalsSuite/Handle_sps
-    clear
-    echo -e '\n  Available Options:\n'
-    echo    '           x  | Exit'
-    echo    '           b  | Go Back'
-    echo    '       Windows File Handles:'
-    echo    '           1  | Show Handles for Particular Drive'
-    echo    '           2  | Show All File Handles'
-    echo    '           3  | Show All Process PIDs'
-    echo    '           4  | Close Handles for Particular Drive'
-    echo    '           5  | Help'
-    echo    '       Linux File Handles'
-    echo    '           6  | Show the number of All Open Descriptors'
-    echo -e '           7  | Show All Descriptors\n'
-    read -e -p "  Enter Option: " input
-    echo
+    help() {
+        clear
+        echo -e '\n  Available Options:\n'
+        echo    '           x  | Exit'
+        echo    '           b  | Go Back'
+        echo    '       Windows File Handles:'
+        echo    '           1  | Show Handles for Particular Drive'
+        echo    '           2  | Show All File Handles'
+        echo    '           3  | Show All Process PIDs'
+        echo    '           4  | Close Handles for Particular Drive'
+        echo    '           5  | Help'
+        echo    '       Linux File Handles'
+        echo    '           6  | Show the number of All Open Descriptors'
+        echo -e '           7  | Show All Descriptors\n'
+        read -e -p "  Enter Option: " input
+        echo
+    }
+    help
+
     if [ $input -eq 1 ] ; then
         read -e -p "    Enter Drive Letter: " input2
         echo -e '\n Showing Handles for '$input2':\....\n'
@@ -1316,14 +1573,26 @@ function handles(){
     else
         handles
     fi
+
+    functions=(
+        "help"
+    )
+
+    variables=(
+        "input"
+        "input2"
+    )
+
+    unset -f "${functions[@]}"
+    unset -v functions "${variables[@]}" variables
 }
 
 #   -------------------------------
 #   WINDOWS MANAGEMET
 #   -------------------------------
 
-function win(){
-    if [ -z $1 ] ; then
+win() {
+    help() {
         clear
         echo -e '\n  Available Options:\n'
         echo    '           x  | Exit'
@@ -1342,12 +1611,16 @@ function win(){
         echo -e '        8  | icons             | Start Menu & Taskbar Icons\n'
         read -e -p "  Enter Option: " input
         echo
+    }
+
+    if [ -z $1 ] ; then
+        help
     else
         input=$1
     fi
 
-    function qaccess(){
-        if [ -z $1 ] ; then
+    qaccess() {
+        help() {
             clear
             echo -e '\n  Available Options:'
             echo    '       x  | Exit'
@@ -1356,6 +1629,10 @@ function win(){
             echo -e '       2  | Unpin Folders from Quick Access\n'
             read -e -p "  Enter Option: " input
             echo
+        }
+
+        if [ -z $1 ] ; then
+            help
         else
             input=$1
         fi
@@ -1411,8 +1688,8 @@ function win(){
         esac
     }
 
-    function icons(){
-        if [ -z $1 ] ; then
+    icons() {
+        help() {
             clear
             echo -e '\n  Available Options:'
             echo    '       x  | Exit'
@@ -1423,6 +1700,10 @@ function win(){
             echo -e '       4  | Unpin icons from Start Menu\n'
             read -e -p "  Enter Option: " input
             echo
+        }
+
+        if [ -z $1 ] ; then
+            help
         else
             input=$1
         fi
@@ -1538,14 +1819,39 @@ function win(){
         x)  : && clear ;;
         *)  win ;;
     esac
+
+    functions=(
+        "help"
+        "qaccess"
+        "icons"
+    )
+
+    variables=(
+        "input"
+        "powershellScript"
+        "p"
+        "up"
+        "pins"
+        "tpin"
+        "tunpin"
+        "spin"
+        "sunpin"
+        "patht"
+        "paths"
+        "taskbar"
+        "startmenu"
+    )
+
+    unset -f "${functions[@]}"
+    unset -v functions "${variables[@]}" variables
 }
 
 #   -------------------------------
 #   DAILY WORK
 #   -------------------------------
 
-function mywork(){
-    if [ -z $1 ] ; then
+mywork() {
+    help() {
         clear
         echo -e '\n  Available Options:'
         echo    '       x  | Exit'
@@ -1560,6 +1866,10 @@ function mywork(){
         echo -e "    8  | sport               | Open sport docs\n"
         read -e -p "  Enter Option: " input
         echo
+    }
+
+    if [ -z $1 ] ; then
+        help
     else
         input=$1
         input2=$2
@@ -1570,48 +1880,89 @@ function mywork(){
     case $input in
         1|todo)        todo ;;
         2|blog)        blog $input2 $input3 ;;
-        3|money)      money ;;
+        3|money)       money ;;
         4|series)      series ;;
         5|coc)         coc ;;
         6|social)      social $input2 $input3 $input4 ;;
         7|food)        food $input2 $input3 $input4 ;;
         8|sport)       sport $input2 ;;
-        b)  master ;;
-        x)  : && clear ;;
-        *) mywork ;;
+        b)             master ;;
+        x)             : && clear ;;
+        *)             mywork ;;
     esac
+
+    functions=(
+        "help"
+    )
+
+    variables=(
+        "input"
+        "input2"
+        "input3"
+        "input4"
+    )
+
+    unset -f "${functions[@]}"
+    unset -v functions "${variables[@]}" variables
 }
 
 #   -------------------------------
 #   MONEY BALANCE
 #   -------------------------------
 
-function money(){
-    path='/mnt/d/shared/pc/projects/scripts/Python/money'
+money() {
+    path="$python_scripts/money"
     clear && python3 $path/bg.py && python3 $path/uk.py
+    unset -v path
 }
 
 #   -------------------------------
 #   SERIES
 #   -------------------------------
 
-function series(){
-    path='/mnt/d/shared/pc/projects/scripts/Python/web'
+series() {
+    path="$python_scripts/web"
     clear && python3 $path/series.py
+    unset -v path
 }
 
 #   -------------------------------
 #   SOCIAL
 #   -------------------------------
 
-function social(){
+social() {
     # set -x
     path="/mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/wsl/net/social"
     path2="D:\shared\pc\projects\git\dotfiles\.dotfiles\wsl\net\social"
     sites=$(cat ~/.dotfiles/wsl/net/social)
     files="/home/todorov/.dotfiles/wsl/net/social"
 
-    function show_all(){
+    help() {
+        echo && echo "DESCRIPTION"
+        echo "        social - manage social network usage" && echo
+        echo "USAGE"
+        echo "        social [nt (new-tab, new-window is default)]"
+        echo "        social [OPTION]"
+        echo "        social [OPTION] [nt] [f(firefox) | c(chrome - default)]"
+        echo "        social one [ site-number | range-beginning-number,range-end-number ]" && echo
+        echo "OPTIONS"
+        echo "        all [nt]        Open all"
+        echo "        one № [nt]      Open one" && echo
+        echo "                            1   Facebook"
+        echo "                            2   MAL Profile"
+        echo "                            3   MAL Anime List"
+        echo "                            4   WhatsApp"
+        echo "                            5   LinkedIn"
+        echo "                            6   GitHub"
+        echo "                            7   Twitter"
+        echo "                            8   Reddit"
+        echo "                            9   lobste.rs"
+        echo "                            10  Hacker News" && echo
+        echo "        update     Update sites"
+        echo "        edit       Edit sites" && echo
+    }
+
+    show_all() {
         browser="chrome"
         window="--new-window"
 
@@ -1642,7 +1993,7 @@ function social(){
         esac
     }
 
-    function show_one(){
+    show_one() {
         site=$(sed -n "$1"p $path)
         browser="chrome"
         window="--new-window"
@@ -1679,11 +2030,11 @@ function social(){
         esac
     }
 
-    function social_import(){
+    social_import() {
         cp $path ~/.dotfiles/wsl/net
     }
 
-    function edit_site(){
+    edit_site() {
         sublime $path2 && social update
     }
 
@@ -1691,45 +2042,45 @@ function social(){
         show_all
     else
         case $1 in
-            nt) show_all "nt" ;;
-            0) show_all $2 $3 ;;
+            nt)        show_all "nt" ;;
+            0)         show_all $2 $3 ;;
             1|all)     mail && show_all $2 $3 ;;
             2|one)     show_one $2 $3 $4 ;;
             3|update)  social_import ;;
             4|edit)    edit_site ;;
-            b)  mywork ;;
-            x)  : && clear ;;
-            *)  echo && echo "DESCRIPTION"
-                echo "        social - manage social network usage" && echo
-                echo "SYNTAX"
-                echo "        social [nt (new-tab, new-window is default)]"
-                echo "        social [OPTION]"
-                echo "        social [OPTION] [nt] [f(firefox) | c(chrome - default)]"
-                echo "        social one [ site-number | range-beginning-number,range-end-number ]" && echo
-                echo "OPTIONS"
-                echo "        all [nt]        Open all"
-                echo "        one № [nt]      Open one" && echo
-                echo "                            1   Facebook"
-                echo "                            2   MAL Profile"
-                echo "                            3   MAL Anime List"
-                echo "                            4   WhatsApp"
-                echo "                            5   LinkedIn"
-                echo "                            6   GitHub"
-                echo "                            7   Twitter"
-                echo "                            8   Reddit"
-                echo "                            9   lobste.rs"
-                echo "                            10  Hacker News" && echo
-                echo "        update     Update sites"
-                echo "        edit       Edit sites" && echo ;;
+            b)         mywork ;;
+            x)         : && clear ;;
+            *)         help ;;
         esac
     fi
+
+    functions=(
+        "help"
+        "show_all"
+        "show_one"
+        "social_import"
+        "edit_site"
+    )
+
+    variables=(
+        "path"
+        "path2"
+        "files"
+        "window"
+        "browser"
+        "sites"
+        "site"
+    )
+
+    unset -f "${functions[@]}"
+    unset -v functions "${variables[@]}" variables
 }
 
 #   -------------------------------
 #   FOOD
 #   -------------------------------
 
-function food(){
+food() {
     path="D:\workspace\essential\cooking"
     doc1=$path"\products.xlsx"
     doc2=$path"\recipes.docx"
@@ -1742,7 +2093,24 @@ function food(){
     doc9=$path"\weekly meals.xlsx"
     re='^[0-9]+$'
 
-    function open_docs(){
+    help() {
+        echo && echo "DESCRIPTION"
+        echo "        food - open food related files" && echo
+        echo "USAGE"
+        echo "        food [OPTION]" && echo
+        echo "OPTIONS"
+        echo "        1   Products"
+        echo "        2   Recipes"
+        echo "        3   Recipes - Table"
+        echo "        4   Shoppping List"
+        echo "        5   Shoppping List - Table"
+        echo "        6   Terms"
+        echo "        7   Tips"
+        echo "        8   Weekly Meals"
+        echo "        9   Weekly Menu - Table" && echo
+    }
+
+    open_docs() {
         case $1 in
             1)  o $doc1 ;;
             2)  o $doc2 ;;
@@ -1770,32 +2138,52 @@ function food(){
     elif [[ $1 == x ]]; then
         : && clear
     else
-        echo && echo "DESCRIPTION"
-        echo "        food - open food related files" && echo
-        echo "SYNTAX"
-        echo "        food [OPTION]" && echo
-        echo "OPTIONS"
-        echo "        1   Products"
-        echo "        2   Recipes"
-        echo "        3   Recipes - Table"
-        echo "        4   Shoppping List"
-        echo "        5   Shoppping List - Table"
-        echo "        6   Terms"
-        echo "        7   Tips"
-        echo "        8   Weekly Meals"
-        echo "        9   Weekly Menu - Table" && echo
+        help
     fi
+
+    functions=(
+        "help"
+        "open_docs"
+    )
+
+    variables=(
+        "path"
+        "doc1"
+        "doc2"
+        "doc3"
+        "doc4"
+        "doc5"
+        "doc6"
+        "doc7"
+        "doc8"
+        "doc9"
+        "re"
+    )
+
+    unset -f "${functions[@]}"
+    unset -v functions "${variables[@]}" variables
 }
 
 #   -------------------------------
 #   SPORT
 #   -------------------------------
 
-function sport(){
+sport() {
     path="d:\workspace\essential\health\sport\fitness"
     doc1=$path"\2018-04.xlsx"
     doc2=$path"\exercises.xlsx"
     doc3=$path"\training program.docx"
+
+    help() {
+        echo && echo "DESCRIPTION"
+        echo "        sport - open sport related files" && echo
+        echo "SYNTAX"
+        echo "        sport [OPTION]" && echo
+        echo "OPTIONS"
+        echo "        1   2018-04 Schedule"
+        echo "        2   Exercises"
+        echo "        3   Training Program" && echo
+    }
 
     case $1 in
         1)  o $doc1 ;;
@@ -1803,40 +2191,110 @@ function sport(){
         3)  o $doc3 ;;
         b)  mywork ;;
         x)  : && clear ;;
-        *)  echo && echo "DESCRIPTION"
-            echo "        sport - open sport related files" && echo
-            echo "SYNTAX"
-            echo "        sport [OPTION]" && echo
-            echo "OPTIONS"
-            echo "        1   2018-04 Schedule"
-            echo "        2   Exercises"
-            echo "        3   Training Program" && echo ;;
+        *)  help ;;
     esac
+
+    functions=(
+        "help"
+    )
+
+    variables=(
+        "path"
+        "doc1"
+        "doc2"
+        "doc3"
+    )
+
+    unset -f "${functions[@]}"
+    unset -v functions "${variables[@]}" variables
 }
 
 #   -------------------------------
 #   CLASH OF CLANS BOT
 #   -------------------------------
 
-function coc (){
-    echo -e '\n Opening Clash of Clans Bot....\n'
-    cd "/mnt/c/Users/Todorov/Downloads"
-    name=$(dir -AN1 | grep MyBot)
-    path='C:\Users\Todorov\Downloads\'$name'\MyBot.run.exe'
-    timeout 6s cmd.exe /c $path MyVillage MEmu MEmu
-}
+coc() {
+    help() {
+        echo && echo "DESCRIPTION"
+        echo "        coc - Clash of Clans Management" && echo
+        echo "USAGE"
+        echo "        coc [OPTION]" && echo
+        echo "OPTIONS"
+        echo "    -u | u | update      -  update local files"
+        echo "    -ug | ug | upgrade   -  upgrade bot version"
+        echo "    -h | help            -  show help" && echo
+    }
 
-function cocu() {
-    rm -rfv /mnt/c/Users/Todorov/Downloads/MyBot-MBR_v*
-    cp -r /mnt/d/shared/pc/MyBotRun/MyBot-MBR_v* /mnt/c/Users/Todorov/Downloads
-}
+    coc_run() {
+        cd "/mnt/c/Users/Todorov/Downloads"
+        name=$(dir -AN1 | grep MyBot)
+        path='C:\Users\Todorov\Downloads\'$name'\MyBot.run.exe'
+        timeout 6s cmd.exe /c $path MyVillage MEmu MEmu
+        echo -e '\n [opening] mybotrun - Clash of Clans Bot\n'
+        unset -v name path
+    }
 
+    coc_update() {
+        rm -rfv /mnt/c/Users/Todorov/Downloads/MyBot-MBR_v*
+        path="/mnt/d/shared/pc/apps/mybotrun/MyBot-MBR_v*"
+        des="/mnt/c/Users/Todorov/Downloads"
+        base=$(basename $path)
+        source=$(wslpath -w "$path")
+        dest=$(wslpath -w "$des/$base")
+        cmdc robocopy $source $dest * /E /SL /MT:20 /XO /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1
+        # cp -rfv $path $dest
+    }
+
+    coc_upgrade() {
+        # cd "/mnt/d/shared/pc/apps/mybotrun"
+        old=$(dir -AN1 | grep -v '.zip' | grep MyBot)
+        new=$(dir -AN1 | grep MyBot-MBR_v*.zip)
+        unziped=$(echo "$new" | sed 's/.zip//g')
+        unzip "$new"
+        cp -rv "$old/Profiles" "$unziped"
+        cp -v "$old/CSV/Attack/TH 10 2Hound26Loon10Wb15Min11Haste.csv" "$unziped/CSV/Attack"
+        rm -rfv "$old"
+        mv -v "$new" "/mnt/d/~temp"
+    }
+
+    if [[ -z $1 ]]; then
+        coc_run
+    fi
+
+    case $1 in
+        -u|u|update)     coc_update ;;
+        -ug|ug|upgrade)  coc_upgrade ;;
+        -h|help)         help ;;
+    esac
+
+    functions=(
+        "help"
+        "coc_run"
+        "coc_update"
+        "coc_upgrade"
+    )
+
+    variables=(
+        "name"
+        "path"
+        "old"
+        "new"
+        "unziped"
+        "des"
+        "base"
+        "source"
+        "dest"
+    )
+
+    unset -f "${functions[@]}"
+    unset -v functions "${variables[@]}" variables
+}
 
 #   -------------------------------
 #   MANAGE MY BLOG
 #   -------------------------------
 
-function blog(){
+blog() {
     gamespath="/mnt/d/shared/pc/projects/blog/bgrebbels.mlvnt.com/public_html"
     blogpath="/mnt/d/shared/pc/projects/blog/mlvnt.com/mvlnt"
     content="/mnt/d/shared/pc/projects/blog/mlvnt.com/mlvnt/content"
@@ -1845,7 +2303,7 @@ function blog(){
     filezilladir="D:\apps\suites\portableapps.com\PortableApps\FileZillaPortable"
     ext=".md"
 
-    if [ -z $1 ] ; then
+    help() {
         clear
         echo -e '\n  Available Options:'
         echo    '           x  | Exit'
@@ -1864,11 +2322,26 @@ function blog(){
         echo -e '           9  | SFTP\n'
         read -e -p "  Enter Option: " input
         echo
+    }
+
+    if [ -z $1 ] ; then
+        help
     else
         input=$1
     fi
 
-    function tpe() {
+    tpe() {
+        help() {
+            clear && echo
+            echo -e '\n  available types:'
+            echo    '       1  |  code'
+            echo    '       2  |  default'
+            echo    '       3  |  interests'
+            echo    '       4  |  projects'
+            echo    '       5  |  tech'
+            echo -e '       6  |  wechat\n'
+        }
+
         read -e -p "  type? " type
         case $type in
             1|code)
@@ -1889,15 +2362,7 @@ function blog(){
             6|wechat)
                 t="wechat"  
                 path="blog/wechat" ;;
-            *)  clear && echo
-                echo -e '\n  available types:'
-                echo    '       1  |  code'
-                echo    '       2  |  default'
-                echo    '       3  |  interests'
-                echo    '       4  |  projects'
-                echo    '       5  |  tech'
-                echo -e '       6  |  wechat\n'
-                tpe ;;
+            *)  help && tpe ;;
         esac
     }
 
@@ -1928,43 +2393,56 @@ function blog(){
         x)  : && clear ;;
         *)  blog ;;
     esac
+
+    functions=(
+        "help"
+        "tpe"
+    )
+
+    variables=(
+        "gamespath"
+        "blogpath"
+        "content"
+        "contents"
+        "bakedpath"
+        "filezilladir"
+        "ext"
+    )
+
+    unset -f "${functions[@]}"
+    unset -v functions "${variables[@]}" variables
 }
 
 #   -------------------------------
-#   MANAGE MY TODOS
+#   MANAGE TODOS
 #   -------------------------------
 
-function todo(){
-    guipath='D:\apps\productivity\notes\jdotxt'
-    # todotxtpath="/mnt/d/shared/mobile/config/notes/todo.txt"
-    todotxtpath="D:\shared\mobile\config\notes\todo.txt"
-    todopath=~/bin/todo.txt-cli/todo.sh
-    clear && echo && $todopath -z -P -@ -+ list && echo
-    read -p "Press enter to continue"
+todo() {
+    help() {
+        echo
+        echo -e '\n  Available Options:\n'
+        echo    '           x  | exit   | Exit'
+        echo    '           b  | back   | Go Back'
+        echo    '       CLI:'
+        echo    '           1  | Add'
+        echo    '           2  | Done'
+        echo    '           3  | Delete, Replace, Append'
+        echo    '           4  | List'
+        echo    '           5  | Help'
+        echo    '           6  | Open todo.txt Dir'
+        echo    '       GUI:'
+        echo -e '           7  | Start GUI\n'
+        read -e -p "  Enter Option: " input
+        echo
+    }
 
-    echo
-    echo -e '\n  Available Options:\n'
-    echo    '           x  | exit   | Exit'
-    echo    '           b  | back   | Go Back'
-    echo    '       CLI:'
-    echo    '           1  | Add'
-    echo    '           2  | Done'
-    echo    '           3  | Delete, Replace, Append'
-    echo    '           4  | List'
-    echo    '           5  | Help'
-    echo    '           6  | Open todo.txt Dir'
-    echo    '       GUI:'
-    echo -e '           7  | Start GUI\n'
-    read -e -p "  Enter Option: " input
-    echo
-
-    function refresh(){
+    refresh() {
         echo
         read -p "Press enter to continue"
         todo
     }
 
-    function add(){
+    add() {
         clear
         echo "  New TASK [PRIORITY TASK PROJECT TAG DUE]" && echo
         read -e -p "  Priority [A-Z] : " priority
@@ -2007,7 +2485,7 @@ function todo(){
         refresh
     }
 
-    function completed(){
+    completed() {
         clear && echo && $todopath -z -P -@ -+ list && echo
         read -e -p "  Task ID to mark as done: " ID
         echo && $todopath -A do $ID && echo
@@ -2015,7 +2493,7 @@ function todo(){
         refresh
     }
 
-    function manage (){
+    manage_todo() {
         clear
         echo -e '\n  Available Options:\n'
         echo    '       x  | Exit'
@@ -2057,7 +2535,7 @@ function todo(){
         esac
     }
 
-    function list (){
+    list() {
         clear
         echo -e '\n  Available Options:\n'
         echo    '       x  | Exit'
@@ -2095,7 +2573,7 @@ function todo(){
         esac
     }
 
-    function helpt (){
+    helpt() {
         clear
         echo -e '\n  Available Options:\n'
         echo    '       x  | Exit'
@@ -2113,10 +2591,18 @@ function todo(){
         esac
     }
 
+    guipath='D:\apps\productivity\notes\jdotxt'
+    # todotxtpath="/mnt/d/shared/mobile/config/notes/todo.txt"
+    todotxtpath="D:\shared\mobile\config\notes\todo.txt"
+    todopath=~/bin/todo.txt-cli/todo.sh
+    clear && echo && $todopath -z -P -@ -+ list && echo
+    read -p "Press enter to continue"
+    help
+
     case $input in
         1)  add ;;
         2)  completed ;;
-        3)  manage ;;
+        3)  manage_todo ;;
         4)  list ;;
         5)  helpt ;;
         6)  o $todotxtpath && refresh ;;
@@ -2127,15 +2613,34 @@ function todo(){
         x|exit)  : && clear ;;
         *)  todo ;;
     esac
+
+    functions=(
+        "add"
+        "completed"
+        "manage_todo"
+        "list"
+        "helpt"
+        "help"
+    )
+
+    variables=(
+        "guipath"
+        "todotxtpath"
+        "todotxtpath"
+        "todopath"
+    )
+
+    unset -f "${functions[@]}"
+    unset -v functions "${variables[@]}" variables
 }
 
 #   -------------------------------
 #   MY PROGRAMS
 #   -------------------------------
 
-function apps(){
-    function portable_apps() {
-        if [ -z $input2 ] ; then
+apps() {
+    portable_apps() {
+        help() {
             clear
             echo -e '\n  Available Options:'
             echo    '           x   Exit'
@@ -2249,6 +2754,10 @@ function apps(){
             echo -e '           5   SyMenu Apps\n'
             read -e -p "  Enter Option: " input
             echo
+        }
+
+        if [ -z $input2 ] ; then
+            help
         else
             input=$input2
         fi
@@ -2339,8 +2848,8 @@ function apps(){
         esac
     }
 
-    function msoffice(){
-        if [ -z $input2 ] ; then
+    msoffice() {
+        help() {
             clear
             echo -e '\n  Available Options:\n'
             echo    '       x  | Exit'
@@ -2354,6 +2863,10 @@ function apps(){
             echo -e '       7  | Outlook\n'
             read -e -p "  Enter Option: " input
             echo
+        }
+
+        if [ -z $input2 ] ; then
+            help
         else
             input=$input2
         fi
@@ -2375,8 +2888,8 @@ function apps(){
         esac
     }
 
-    function adobe(){
-        if [ -z $input2 ] ; then
+    adobe() {
+        help() {
             clear
             echo -e '\n  Available Options:\n'
             echo    '       x  | Exit'
@@ -2390,6 +2903,10 @@ function apps(){
             echo -e '       7  | Media Encoder CC\n'
             read -e -p "  Enter Option: " input
             echo
+        }
+
+        if [ -z $input2 ] ; then
+            help
         else
             input=$input2
         fi
@@ -2417,8 +2934,8 @@ function apps(){
         esac
     }
 
-    function installed_apps(){
-        if [ -z $input2 ] ; then
+    installed_apps() {
+        help() {
             clear
             echo -e '\n  Available Options:'
             echo    '           x   Exit'
@@ -2478,6 +2995,10 @@ function apps(){
             echo -e '           16  IObit Advanced SystemCare\n'
             read -e -p "  Enter Option: " input
             echo
+        }
+
+        if [ -z $input2 ] ; then
+            help
         else
             input=$input2
         fi
@@ -2525,20 +3046,20 @@ function apps(){
         esac
     }
 
-    function sysmenu_clean(){
+    sysmenu_clean() {
         rm -rfv /mnt/d/apps/suites/symenu/ProgramFiles/SPSSuite/SyMenuSuite/_Trash/*
         rm -rfv /mnt/d/apps/suites/symenu/ProgramFiles/SPSSuite/NirSoftSuite/_Trash/*
         rm -rfv /mnt/d/apps/suites/symenu/ProgramFiles/SPSSuite/SysinternalsSuite/_Trash/*
         clear
     }
 
-    function qbittorrent(){
+    qbittorrent() {
         rm -rfv /mnt/c/Users/Todorov/AppData/Local/qBittorrent
         rm -rfv /mnt/c/Users/Todorov/AppData/Roaming/qBittorrent
     }
 
-    function program_management(){
-        if [ -z $input2 ] ; then
+    program_management() {
+        help() {
             clear
             echo -e '\n  Available Options:'
             echo    '       x  | Exit'
@@ -2546,25 +3067,33 @@ function apps(){
             echo    "    1  | word                 | Open Word Documets"
             echo    "    2  | m3u                  | Create m3u Playlists"
             echo    "    3  | sysmenu_clean        | Clean SysMenu Trash"
-            echo -e "    4  | qbittorrent          | Delete qBittorrent Config\n"
+            echo    "    4  | radicale_backup      | Backup radicale config"
+            echo    "    5  | radicale_restore     | Restore radicale config"
+            echo -e "    6  | qbittorrent          | Delete qBittorrent Config\n"
             read -e -p "  Enter Option: " input
             echo
+        }
+
+        if [ -z $input2 ] ; then
+            help
         else
             input=$input2
         fi
 
         case $input in
-            1|word)            word ;;
-            2|m3u)             m3u ;;
-            3|sysmenu_clean)   sysmenu_clean ;;
-            4|qbittorrent)     qbittorrent ;;
+            1|word)              word ;;
+            2|m3u)               m3u ;;
+            3|sysmenu_clean)     sysmenu_clean ;;
+            4|radicale_backup)   radicale_backup ;;
+            5|radicale_restore)  radicale_restore ;;
+            6|qbittorrent)       qbittorrent ;;
             b)  apps ;;
             x)  : && clear ;;
             *)  program_management ;;
         esac
     }
 
-    if [ -z $1 ] ; then
+    help() {
         clear
         echo -e '\n  Available Options:'
         echo    '       x  | Exit'
@@ -2574,6 +3103,10 @@ function apps(){
         echo -e "    3  | program_management   | Program Management\n"
         read -e -p "  Enter Option: " input
         echo
+    }
+
+    if [ -z $1 ] ; then
+        help
     else
         input=$1
         input2=$2
@@ -2587,17 +3120,53 @@ function apps(){
         x)  : && clear ;;
         *)  apps ;;
     esac
+
+    functions=(
+        "help"
+        "portable_apps"
+        "installed_apps"
+        "program_management"
+        "sysmenu_clean"
+        "qbittorrent"
+    )
+
+    variables=(
+        "input"
+        "input2"
+        "path"
+        "options"
+        "path_acrobat"
+        "path_photo"
+        "path_illust"
+        "path_after"
+        "path_audition"
+        "path_premiere"
+        "path_encoder"
+    )
+
+    unset -f "${functions[@]}"
+    unset -v functions "${variables[@]}" variables
 }
 
 #   -------------------------------
 #   OPEN MULTIPLE WORD DOCUMETS
 #   -------------------------------
 
-function word(){
+word() {
     re='^[0-9]+$'
     path="D:\workspace\tech\programing\~references\programs\office\Microsoft Office\Templates\Landscape.dotm"
 
-    function wordo(){
+    help() {
+        echo && echo "DESCRIPTION"
+        echo "        word - open Microsoft Word documents" && echo
+        echo "SYNTAX"
+        echo "        word [OPTION] [FILE NUMBER]"
+        echo "        word [FILE NUMBER] [OPTION]" && echo
+        echo "OPTIONS"
+        echo "        l   Landscape orientation" && echo
+    }
+
+    wordo() {
         clear && echo
         for (( i=1; i<=$input; i++ ))
         do
@@ -2626,39 +3195,135 @@ function word(){
         orientation=$1
         wordo
     else
-        echo && echo "DESCRIPTION"
-        echo "        word - open Microsoft Word documents" && echo
-        echo "SYNTAX"
-        echo "        word [OPTION] [FILE NUMBER]"
-        echo "        word [FILE NUMBER] [OPTION]" && echo
-        echo "OPTIONS"
-        echo "        l   Landscape orientation" && echo
+        help
     fi
+
+    functions=(
+        "help"
+        "wordo"
+    )
+
+    variables=(
+        "re"
+        "path"
+        "input"
+        "orientation"
+    )
+
+    unset -f "${functions[@]}"
+    unset -v functions "${variables[@]}" variables
 }
 
 #   -------------------------------
 #   CREATE M3U PLAYLISTS
 #   -------------------------------
 
-function m3u() {
-    echo -e '\n Tracklist \n    '_tracklist[ ${PWD##*/} ].m3u'\n Created....\n'
-    find . -maxdepth 1 -not -type d -type f \( ! -iname "*.m3u" ! -iname "*.jpg" ! -iname "*.png" ! -iname "*.html" ! -iname "*.url" ! -iname "*.pdf" ! -iname "*.log" ! -iname "*.nfo" \) -printf "%P\n" >> "_tracklist[ ${PWD##*/} ].m3u"
-    o "_tracklist[ ${PWD##*/} ].m3u"
-    # find . -maxdepth 1 -not -type d -type f \( ! -iname "*.m3u" ! -iname "*.jpg" ! -iname "*.png" ! -iname "*.html" ! -iname "*.url" ! -iname "*.pdf" \) | sed 's|./||' >> "_tracklist[ ${PWD##*/} ].m3u"
-    # dir -AN1I "*.jpg" -I "*.png" -I "*.html" -I "*.url" -I "*.m3u" -I "*.pdf" >> "_tracklist[ ${PWD##*/} ].m3u"
+m3u() {
+    # variables
+    dirname="${PWD##*/}"
+    filename="~playlist[ ${dirname} ].m3u"
+
+    help() {
+        echo && echo "DESCRIPTION"
+        echo "        m3u - create m3u playlist" && echo
+        echo "USAGE"
+        echo "        m3u [OPTION]" && echo
+        echo "OPTIONS"
+        echo "    1 | -e | e | ext | extended   -  create extended m3u"
+        echo "    -h | help                     -  show help" && echo
+    }
+
+    # remove old playlist
+    remove_old() {
+        old_new="$(dir -AN1 | grep "~playlist")"
+        old_old="$(dir -AN1 | grep "_tracklist")"
+
+        if [[ ! -z $old_new ]]; then
+            rm "$old_new" && echo
+            # echo "[remove] $old_new"
+        fi
+
+        if [[ ! -z $old_old ]]; then
+            rm "$old_old" && echo
+            # echo "[remove] $old_old"
+        fi
+    }
+
+    create_extended() {
+        echo ''
+        remove_old
+        echo -e "#EXTM3U\n" >> "$filename"
+
+        # read track into array
+        tracks=()
+        while IFS=  read -r -d $'\0'; do
+            tracks+=("$REPLY")
+        done < <(find . -maxdepth 1 -type f -regextype posix-extended -not -type d -not -regex "(.*.(m3u|txt|jpg|png|html|url|pdf|log|nfo))" -print0)
+
+        # create playlist
+        for track in "${tracks[@]}"
+        do :
+            t=$(echo "$track" | sed 's/\.\///g')
+            duration=$(ffprobe "$t" 2>&1 | grep 'Duration:' | tr ' ' '\n' | tail -n6 | head -n1 | sed 's/,//g ; s/://g ; s/\.[0-9]*//g ; s/^0*//g')
+            title=$(ffprobe "$t" 2>&1 | grep 'TITLE' | tr ':' '\n' | tail -n1 | sed 's/^ //g')
+            artist=$(ffprobe "$t" 2>&1 | grep 'ARTIST' | tr ':' '\n' | tail -n1 | sed 's/^ //g')
+            echo "#EXTINF:$duration, $artist - $title" >> "$filename"
+            echo "$t" >> "$filename"
+            echo >> "$filename"
+        done
+        echo "[created] ${filename}" && echo
+        o "${filename}"
+    }
+
+    create_simple() {
+        echo ''
+        remove_old
+        find . -maxdepth 1 -type f -regextype posix-extended -not -type d -not -regex "(.*.(m3u|txt|jpg|png|html|url|pdf|log|nfo))" -printf "%P\n" >> "${filename}"
+        echo "[created] ${filename}" && echo
+        o "${filename}"
+    }
+
+    if [[ -z $1 ]]; then
+        create_simple
+    fi
+
+    case $1 in
+        1|-e|e|ext|extended) create_extended ;;
+        -h|help)             help ;;
+    esac
+
+    functions=(
+        "help"
+        "create_simple"
+        "create_extended"
+        "remove_old"
+    )
+
+    variables=(
+        "dirname"
+        "filename"
+        "tracks"
+        "t"
+        "duration"
+        "title"
+        "artist"
+    )
+
+    unset -f "${functions[@]}"
+    unset -v functions "${variables[@]}" variables
 }
 
-#=========================================================================================
-#=========================================================================================
-#=========================================================================================
+#-------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 
 # find shorthand
-function f() {
+f() {
   find . -name "$1" 2>&1 | grep -v 'Permission denied'
 }
 
 # List all files, long format, colorized, permissions in octal
-function la() {
+la() {
    ls -l  "$@" | awk '
     {
       k=0;
@@ -2672,7 +3337,7 @@ function la() {
 
 # `v` with no arguments opens the current directory in Vim, otherwise opens the
 # given location
-function v() {
+v() {
     if [ $# -eq 0 ]; then
         vim .;
     else
@@ -2682,7 +3347,7 @@ function v() {
 
 # Show all the names (CNs and SANs) listed in the SSL certificate
 # for a given domain
-function getcertnames() {
+getcertnames() {
     if [ -z "${1}" ]; then
         echo "ERROR: No domain specified.";
         return 1;
@@ -2715,12 +3380,12 @@ function getcertnames() {
 }
 
 # Run `dig` and display the most useful info
-function digga() {
+digga() {
     dig +nocmd "$1" any +multiline +noall +answer;
 }
 
 # UTF-8-encode a string of Unicode symbols
-function escape() {
+escape() {
     printf "\\\x%s" $(printf "$@" | xxd -p -c1 -u);
     # print a newline unless we’re piping the output to another program
     if [ -t 1 ]; then
@@ -2729,7 +3394,7 @@ function escape() {
 }
 
 # Create a data URL from a file
-function dataurl() {
+dataurl() {
     local mimeType=$(file -b --mime-type "$1");
     if [[ $mimeType == text/* ]]; then
         mimeType="${mimeType};charset=utf-8";
@@ -2738,7 +3403,7 @@ function dataurl() {
 }
 
 # Start an HTTP server from a directory, optionally specifying the port
-function server() {
+server() {
     local port="${1:-8000}";
     sleep 1 && open "http://localhost:${port}/" &
     # Set the default Content-Type to `text/plain` instead of `application/octet-stream`
@@ -2748,7 +3413,7 @@ function server() {
 
 # Start a PHP server from a directory, optionally specifying the port
 # (Requires PHP 5.4.0+.)
-function phpserver() {
+phpserver() {
     local port="${1:-4000}";
     local ip=$(ipconfig getifaddr en1);
     sleep 1 && open "http://${ip}:${port}/" &
@@ -2756,7 +3421,7 @@ function phpserver() {
 }
 
 # Compare original and gzipped file size
-function gz1() {
+gz1() {
     local origsize=$(wc -c < "$1");
     local gzipsize=$(gzip -c "$1" | wc -c);
     local ratio=$(echo "$gzipsize * 100 / $origsize" | bc -l);
@@ -2765,7 +3430,7 @@ function gz1() {
 }
 
 # get gzipped size
-function gz2() {
+gz2() {
   echo "orig size    (bytes): "
   cat "$1" | wc -c
   echo "gzipped size (bytes): "
@@ -2773,7 +3438,7 @@ function gz2() {
 }
 
 # whois a domain or a URL
-# function whois() {
+# whois() {
 #   local domain=$(echo "$1" | awk -F/ '{print $3}') # get domain from URL
 #   if [ -z $domain ] ; then
 #     domain=$1
@@ -2787,7 +3452,7 @@ function gz2() {
 # }
 
 # Create a .tar.gz archive, using `zopfli`, `pigz` or `gzip` for compression
-function targz() {
+targz() {
     local tmpFile="${@%/}.tar";
     tar -cvf "${tmpFile}" --exclude=".DS_Store" "${@}" || return 1;
 
@@ -2822,7 +3487,7 @@ function targz() {
 
 # Extract archives - use: extract <file>
 # Based on http://dotfiles.org/~pseup/.bashrc
-function extract() {
+extract() {
   if [ -f "$1" ] ; then
     local filename=$(basename "$1")
     local foldername="${filename%%.*}"
@@ -2858,7 +3523,7 @@ function extract() {
 }
 
 # Determine size of a file or total size of a directory
-function fs() {
+fs() {
     if du -b /dev/null > /dev/null 2>&1; then
         local arg=-sbh;
     else
@@ -2873,7 +3538,7 @@ function fs() {
 
 # animated gifs from any video
 # from Alex Sexton gist.github.com/SlexAxton/4989674
-gifify () {
+gifify() {
   if [[ -n "$1" ]]; then
   if [[ $2 == '--good' ]]; then
     ffmpeg -i "$1" -r 10 -vcodec png out-static-%05d.png
@@ -2889,19 +3554,19 @@ gifify () {
 
 # turn that video into webm.
 # brew reinstall ffmpeg --with-libvpx
-webmify () {
+webmify() {
   ffmpeg -i "$1" -vcodec libvpx -acodec libvorbis -isync -copyts -aq 80 -threads 3 -qmax 30 -y "$2" "$1.webm"
 }
 
 # `shellswitch [bash |zsh]`
 #   Must be in /etc/shells
-shellswitch () {
+shellswitch() {
   chsh -s /usr/bin/$1
 }
 
 # Copy w/ progress
-cp_p () {
+cp_p() {
   rsync -WavP --human-readable --progress $1 $2
 }
 
-#=========================================================================================================
+#-------------------------------------------------------------------------------
