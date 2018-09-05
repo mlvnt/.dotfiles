@@ -146,7 +146,7 @@ variables=(
     "columns"
 )
 
-unset -f "${functions[@]}"
-unset -v functions "${variables[@]}" variables
+unset -f "${functions[@]}";
+unset -v functions "${variables[@]}" variables;
 
 #-------------------------------------------------------------------------------

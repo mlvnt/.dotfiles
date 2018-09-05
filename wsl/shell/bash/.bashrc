@@ -12,8 +12,9 @@ export PATH="$PATH:/usr/local/bin/"
 export PATH="$PATH:/usr/local/sbin/"
 export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:$HOME/.local/bin"
-export PATH="$PATH:/mnt/c/Users/Todorov/Downloads/VSCode-win32-x64-1.17.0/bin"
+# export PATH="$PATH:/mnt/c/Users/Todorov/Downloads/VSCode-win32-x64-1.17.0/bin"
 export PATH="$PATH:/usr/lib/chromium-browser"
+export PATH="$PATH:/mnt/c/Windows/System32"
 
 # PAGER
 export PAGER="most"
@@ -57,6 +58,7 @@ fi
 # ALIASES
 if [ -f ~/.bash_aliases ]; then
     source ~/.bash_aliases
+    source ~/.bash_aliases_win
 else
     print "404: ~/.bash_aliases not found."
 fi
@@ -98,7 +100,7 @@ tmux_workspace() {
     tmux send-keys -t 5.0 'lin' Enter
     # tmux send-keys -t 6.1 'enpas' Enter
     # tmux send-keys -t 6.2 'pas' Enter
-    tmux send-keys -t 5.1 'python3 -m radicale --config ~/.config/radicale/config' Enter
+    tmux send-keys -t 5.1 'radicalerun' Enter
     # tmux new-window -n '4'
     # tmux split-window -v -p 50
     # tmux new-window -n '5'

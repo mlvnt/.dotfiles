@@ -9,7 +9,7 @@ else
     sublime_path="'C:\Users\Todorov\Downloads\pc\apps\development\Sublime_Text'"
 fi
 
-os=$(uname -a | grep -qw 'Microsoft' && echo "win" || echo "unix");
+os=$(currentdevice -o);
 
 #   -------------------------------
 #   DIRECTORIES
@@ -27,7 +27,6 @@ alias treei='tree -ahpuF'
 # alias path="pwd"
 
 # CD
-cd() { builtin cd "$@"; ll; }         # Always list directory contents upon 'cd'
 alias cd..='cd ../'                   # Go back 1 directory level
 alias ..='cd ../'                     # Go back 1 directory level
 alias ...='cd ../../'                 # Go back 2 directory levels
@@ -37,17 +36,22 @@ alias .5='cd ../../../../../'         # Go back 5 directory levels
 alias .6='cd ../../../../../../'      # Go back 6 directory levels
 
 # SHORTCUTS
+alias d="cd /mnt/d"
 alias home="cd ~"
 alias root="cd /"
 alias temp="cd /mnt/d/~temp"
+alias temppc="cd /mnt/d/shared/pc/~temp"
+alias tempmobile="cd /mnt/d/shared/mobile/~temp"
+alias shared="cd /mnt/d/shared"
+alias sharedpc="cd /mnt/d/shared/pc"
+alias sharedmobile="cd /mnt/d/shared/mobile"
 alias workspace="cd /mnt/d/workspace"
-alias gitf="cd /mnt/d/shared/pc/projects/git"
+alias gitprojects="cd /mnt/d/shared/pc/projects/git"
 alias dotfiles="cd /mnt/d/shared/pc/projects/git/dotfiles/.dotfiles"
-alias homeu="cd /mnt/c/Users/Todorov/AppData/Local/Packages/CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc/LocalState/rootfs/home/todorov"
 alias down="cd /mnt/c/Users/Todorov/Downloads"
 alias docs="cd /mnt/c/Users/Todorov/Documents"
 # Print each PATH entry on a separate line
-alias pathv='echo -e ${PATH//:/\\n}'
+alias pathenv='echo -e ${PATH//:/\\n}'
 
 # CURRENT
 alias uni="cd /mnt/d/workspace/university/course"
@@ -239,6 +243,9 @@ alias ydl="youtube-dl -f '(bestvideo[ext=mp4])[fps!=60]+bestaudio[ext=m4a]/mp4' 
 # youtube-dl -f 'bestvideo[fps!=60]+bestaudio/best[ext=mp4]/best' -o '%(title)s.%(ext)s' -
 # -restrict-filenames --write-sub --sub-format 'ass/srt/best' --sub-lang en https://youtu.be/5BBT7tmkBEA
 
+# radicale
+alias radicalerun="python3 -m radicale --config ~/.config/radicale/config"
+
 #   -------------------------------
 #   GIT
 #   -------------------------------
@@ -290,18 +297,17 @@ alias trns='tmux rename-session -t'
 #   -------------------------------
 
 # Opening Directories
-alias o="open"
-alias open="explorer.exe"
-alias openh=" open ."
+alias o="openwin"
+alias openhere="o ."
 alias openi="gnome-open ." # Inside a Desktop environment
-alias tempo="open 'D:\~temp'"
-alias downo="open 'C:\Users\Todorov\Downloads'"
-alias docso="open 'C:\Users\Todorov\Documents'"
-alias screenshots="open 'C:\Users\Todorov\Pictures\My Screen Shots'"
-alias appdata="open 'C:\Users\Todorov\AppData'"
-alias roaming="open 'C:\Users\Todorov\AppData\Roaming'"
-alias startmenu="open 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs'"
-alias autostart="open 'C:\Users\Todorov\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup'"
+alias tempopen="o 'D:\~temp'"
+alias downopen="o 'C:\Users\Todorov\Downloads'"
+alias docsopen="o 'C:\Users\Todorov\Documents'"
+alias screenshots="o 'C:\Users\Todorov\Pictures\My Screen Shots'"
+alias appdata="o 'C:\Users\Todorov\AppData'"
+alias roaming="o 'C:\Users\Todorov\AppData\Roaming'"
+alias startmenu="o 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs'"
+alias autostart="o 'C:\Users\Todorov\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup'"
 
 # Edit Documents
 alias cv="o 'D:\workspace\personal\professional\cv\cv.docx'"

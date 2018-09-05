@@ -4,9 +4,15 @@
 #-------------------------------------------------------------------------------
 
 # Variables
-path_dots=/mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/wsl
+if [[ $(currentdevice) == pc ]]; then
+    local=/mnt/d/shared
+else
+    local=/mnt/c/Users/Todorov/Downloads
+fi
+
+path_dots=$local/pc/projects/git/dotfiles/.dotfiles/wsl
+python_scripts=$local/pc/projects/scripts/Python
 path_dots_local=~/.dotfiles/wsl
-python_scripts=/mnt/d/shared/pc/projects/scripts/Python
 
 #   -------------------------------
 #   MASTER FUNCTION
@@ -50,8 +56,8 @@ master() {
         "input"
     )
 
-    unset -f "${functions[@]}"
-    unset -v functions "${variables[@]}" variables
+    unset -f "${functions[@]}";
+    unset -v functions "${variables[@]}" variables;
 }
 
 #   -------------------------------
@@ -74,14 +80,14 @@ filec() {
     }
 
     if [ -z $1 ] ; then
-        raw=$(ls -l | wc -l)
-        num=$(echo $raw | awk '{ print $NF}')
+        raw=$(ls -l | wc -l);
+        num=$(echo $raw | awk '{ print $NF}');
         echo "$num - 1" | bc
     else
         case $1 in
             a|all)
-                raw=$(ls -al | wc -l)
-                num=$(echo $raw | awk '{ print $NF}')
+                raw=$(ls -al | wc -l);
+                num=$(echo $raw | awk '{ print $NF}');
                 echo "$num - 3" | bc ;;
             *)  help ;;
         esac
@@ -96,8 +102,8 @@ filec() {
         "num"
     )
 
-    unset -f "${functions[@]}"
-    unset -v functions "${variables[@]}" variables
+    unset -f "${functions[@]}";
+    unset -v functions "${variables[@]}" variables;
 }
 
 linx() {
@@ -505,8 +511,8 @@ linx() {
         "win32"
     )
 
-    unset -f "${functions[@]}"
-    unset -v functions "${variables[@]}" variables
+    unset -f "${functions[@]}";
+    unset -v functions "${variables[@]}" variables;
 }
 
 #   -------------------------------
@@ -548,8 +554,8 @@ manage() {
         "input"
     )
 
-    unset -f "${functions[@]}"
-    unset -v functions "${variables[@]}" variables
+    unset -f "${functions[@]}";
+    unset -v functions "${variables[@]}" variables;
 }
 
 #   -------------------------------
@@ -557,9 +563,9 @@ manage() {
 #   -------------------------------
 
 ipdiscovery() {
-    local re='((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)'
-    local os=$(uname -a | grep -qw 'Microsoft' && echo "win" || echo "unix");
-    local macs=~/.dotfiles/wsl/net/mac.txt
+    local re='((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)';
+    local os=$(currentdevice -o);
+    local macs=~/.dotfiles/wsl/net/mac.txt;
 
     help() {
         echo && echo "DESCRIPTION"
@@ -590,39 +596,39 @@ ipdiscovery() {
     else
         case $1 in
             s8|1)          local mac="$(tail -n+1 $macs | head -n1)";
-                           local device='s8'
-                           local type='mobile' ;;
+                           local device='s8';
+                           local type='mobile'; ;;
             s8hotspot|2)   local mac="$(tail -n+2 $macs | head -n1)";
-                           local device='s8hotspot'
-                           local type='mobile' ;;
+                           local device='s8hotspot';
+                           local type='mobile'; ;;
             tab|3)         local mac="$(tail -n+3 $macs | head -n1)";
-                           local device='tab'
-                           local type='mobile' ;;
+                           local device='tab';
+                           local type='mobile'; ;;
             p8|4)          local mac="$(tail -n+4 $macs | head -n1)";
-                           local device='p8'
-                           local type='mobile' ;;
+                           local device='p8';
+                           local type='mobile'; ;;
             pclan|5)       local mac="$(tail -n+5 $macs | head -n1)";
-                           local device='pclan'
-                           local type='desktop' ;;
+                           local device='pclan';
+                           local type='desktop'; ;;
             pcwifi|6)      local mac="$(tail -n+6 $macs | head -n1)";
-                           local device='pcwifi'
-                           local type='desktop' ;;
+                           local device='pcwifi';
+                           local type='desktop'; ;;
             surface|7)     local mac="$(tail -n+7 $macs | head -n1)";
-                           local device='surface'
-                           local type='desktop' ;;
+                           local device='surface';
+                           local type='desktop'; ;;
             delllan|8)     local mac="$(tail -n+8 $macs | head -n1)";
-                           local device='delllan'
-                           local type='desktop' ;;
+                           local device='delllan';
+                           local type='desktop'; ;;
             dellwifi|9)    local mac="$(tail -n+9 $macs | head -n1)";
-                           local device='dellwifi'
-                           local type='desktop' ;;
+                           local device='dellwifi';
+                           local type='desktop'; ;;
             msilan|10)     local mac="$(tail -n+10 $macs | head -n1)";
-                           local device='msilan'
-                           local type='desktop' ;;
+                           local device='msilan';
+                           local type='desktop'; ;;
             msiwifi|11)    local mac="$(tail -n+11 $macs | head -n1)";
-                           local device='msiwifi'
-                           local type='desktop' ;;
-            *)             local mac='n' ;;
+                           local device='msiwifi';
+                           local type='desktop'; ;;
+            *)             local mac='n'; ;;
         esac
 
         if [ "$mac" == "n" ] ; then
@@ -636,7 +642,7 @@ ipdiscovery() {
                       echo && echo "[mac] $(echo "$mac" | sed 's/\[//g ; s/\]//g ; s/-//g')"; ;;
             esac
 
-            local ip=$(echo "$arplist" | awk '{print tolower($0)}' | grep "$mac" | grep -oE "$re")
+            local ip=$(echo "$arplist" | awk '{print tolower($0)}' | grep "$mac" | grep -oE "$re");
 
             if [[ $ip =~ $re ]]; then
                 echo "[$device] $ip" && echo
@@ -689,8 +695,8 @@ ipdiscovery() {
         "service"
     )
 
-    unset -f "${functions[@]}"
-    unset -v functions "${variables[@]}" variables
+    unset -f "${functions[@]}";
+    unset -v functions "${variables[@]}" variables;
 }
 
 #   -------------------------------
@@ -716,7 +722,7 @@ watching-single() {
     done
 
     echo "loop reading from { when-changed } finished with status $?"
-    unset -v dirs files events
+    unset -v dirs files events;
 }
 
 watching-double() {
@@ -738,7 +744,7 @@ watching-double() {
     done
 
     echo "loop reading from { when-changed } finished with status $?"
-    unset -v dirs files events
+    unset -v dirs files events;
 }
 
 lin() {
@@ -857,8 +863,8 @@ bin() {
         "trashdir"
     )
 
-    unset -f "${functions[@]}"
-    unset -v functions "${variables[@]}" variables
+    unset -f "${functions[@]}";
+    unset -v functions "${variables[@]}" variables;
 }
 
 #   -------------------------------
@@ -887,16 +893,14 @@ links() {
 
     # Delete Specified symbilic links
     delsymb() {
-    echo -e '\n Deleting Symbolic Links....\n'
-    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-    find -type l -print | while IFS= read -r lnk
-    do
-      if readlink "$lnk" | grep '/mnt/' ; then
-        rm "$lnk"
-      fi
-    done
-    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-    echo -e '\n Symbolic Links Deleted!\n'
+        echo -e '\n ~~~~~~~~~~~~~~ Deleting Symbolic Links.... ~~~~~~~~~~~~~~\n'
+        find -type l -print | while IFS= read -r lnk
+        do
+          if readlink "$lnk" | grep '/mnt/' ; then
+            rm -v "$lnk"
+          fi
+        done
+        echo -e '\n ~~~~~~~~~~~~~~ Symbolic Links Deleted! ~~~~~~~~~~~~~~\n'
     }
 
     path='/mnt/d/shared/mobile/notebook/~genLinks'
@@ -913,35 +917,29 @@ links() {
             cd $path && delsymb ;;
         2)
             cd $path && delsymb
-            python3 .symb.py && open $pathwin ;;
+            python3 .symb.py && o $pathwin ;;
         3)
             cd $path && delsymb
-            python3 .symbf.py && open $pathwin ;;
+            python3 .symbf.py && o $pathwin ;;
         4)
             read -e -p "    Enter Target: " target
             read -e -p "    Enter Link Name: " linkname
-            echo -e '\n Creating symblink '$linkname' to '$target'\n'
-            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+            echo -e '\n ~~~~~~~~~~~~~~ [link] '$linkname' -> '$target' ~~~~~~~~~~~~~~\n'
             ln -sv $target $linkname
-            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-            echo -e '\n ....Link Created!\n' ;;
+            echo -e '\n ~~~~~~~~~~~~~~ Link Created! ~~~~~~~~~~~~~~\n' ;;
         5)
             read -e -p "    Enter Target: " -r target
             read -e -p "    Enter Link Name: " -r linkname
-            echo -e '\n Creating symblink '$linkname' to '$target'\n'
-            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+             echo -e '\n ~~~~~~~~~~~~~~ [link] '$linkname' -> '$target' ~~~~~~~~~~~~~~\n'
             # lnk='cmd.exe /c mklink'
             cmd.exe /c mklink $linkname $target
-            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-            echo -e '\n ....Link Created!\n' ;;
+            echo -e '\n ~~~~~~~~~~~~~~ Link Created! ~~~~~~~~~~~~~~\n' ;;
         6)
             read -e -p "    Enter Target: " -r target
             read -e -p "    Enter Link Name: " -r linkname
-            echo -e '\n Creating symblink '$linkname' to '$target'\n'
-            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+            echo -e '\n ~~~~~~~~~~~~~~ [link] '$linkname' -> '$target' ~~~~~~~~~~~~~~\n'
             cmd.exe /c mklink /D $linkname $target
-            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-            echo -e '\n ....Link Created!\n' ;;
+            echo -e '\n ~~~~~~~~~~~~~~ Link Created! ~~~~~~~~~~~~~~\n' ;;
         b)  manage ;;
         x)  : && clear ;;
         *)  links ;;
@@ -961,8 +959,8 @@ links() {
         "linkname"
     )
 
-    unset -f "${functions[@]}"
-    unset -v functions "${variables[@]}" variables
+    unset -f "${functions[@]}";
+    unset -v functions "${variables[@]}" variables;
 }
 
 #   -------------------------------
@@ -1433,8 +1431,8 @@ move() {
         "temp"
     )
 
-    unset -f "${functions[@]}"
-    unset -v functions "${variables[@]}" variables
+    unset -f "${functions[@]}";
+    unset -v functions "${variables[@]}" variables;
 }
 
 #   -------------------------------
@@ -1447,47 +1445,40 @@ dots() {
         echo -e '\n  Available Options:'
         echo    '       x  | Exit'
         echo    '       b  | Go Back'
-        echo    '       1  | Update'
+        echo    '       1  | update  | Update'
         echo    '       2  | Update Clean'
         read -e -p "  Enter Option: " input
         echo
     }
-    help
 
-    if [ $input -eq 1 ] ; then
-        dotfiles && gac
-        cd ~/.dotfiles/ && git stash && gf
-        cd ~/.dotfiles/wsl/ && sudo chmod -Rv +x ./*.sh ./bin/*
-        sca && clear
-    elif [ $input -eq 2 ] ; then
-        echo -e '\n Removing old .dotfiles....\n'
-        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        sudo rm -rfv ~/.dotfiles 
-        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        echo -e '\n Cloning new .dotfiles....\n'
-        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        git clone /mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/ ~/.dotfiles
-        # oh-my-zsh
-        sudo cp -rv /mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/wsl/shell/zsh/.oh-my-zsh ~/.dotfiles/wsl/shell/zsh/
-        sudo cp -rv /mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/wsl/.config/sublime-text-3 ~/.dotfiles/wsl/.config/
-        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        echo -e '\n Converting .dotfiles to LF endings....\n'
-        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        sudo dos2unix ~/.dotfiles/wsl/*.* ~/.dotfiles/wsl/shell/zsh/.* ~/.dotfiles/wsl/shell/zsh/.oh-my-zsh-custom/.* ~/.dotfiles/wsl/shell/bash/.* ~/.dotfiles/wsl/editors/.* ~/.dotfiles/wsl/git/.* ~/.dotfiles/wsl/git/*.* ~/.dotfiles/wsl/bin/*
-        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        echo -e '\n Sourcing .dotfiles....\n'
-        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        cd ~/.dotfiles/wsl/ && sudo chmod -Rv +x ./*.sh ./bin/*
-        sca && clear
-        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        echo -e '\n Dotfiles Updated!\n'
-    elif [ $input == b ] ; then
-        linx
-    elif [ $input == x ] ; then
-        : && clear
+    if [ -z $1 ] ; then
+        help
     else
-        dots
+        input=$1
     fi
+
+    case $input in
+        1|update)  dotfiles && gac
+            cd ~/.dotfiles && git stash && gf
+            cd ~/.dotfiles/wsl && sudo chmod -Rv +x ./*.sh ./bin/*
+            sca && clear ;;
+        2)  echo -e '\n ~~~~~~~~~~~~~~ Removing old .dotfiles.... ~~~~~~~~~~~~~~\n' 
+            sudo rm -rfv ~/.dotfiles 
+            echo -e '\n ~~~~~~~~~~~~~~ Cloning new .dotfiles.... ~~~~~~~~~~~~~~\n'
+            git clone /mnt/d/shared/pc/projects/git/dotfiles/.dotfiles ~/.dotfiles
+            # oh-my-zsh
+            sudo cp -rfv  $path_dots/shell/zsh/.oh-my-zsh ~/.dotfiles/wsl/shell/zsh
+            sudo cp -rfv  $path_dots/.config/sublime-text-3 ~/.dotfiles/wsl/.config
+            echo -e '\n ~~~~~~~~~~~~~~ Converting .dotfiles to LF endings.... ~~~~~~~~~~~~~~\n'
+            sudo dos2unix ~/.dotfiles/wsl/*.* ~/.dotfiles/wsl/shell/zsh/.* ~/.dotfiles/wsl/shell/zsh/.oh-my-zsh-custom/.* ~/.dotfiles/wsl/shell/bash/.* ~/.dotfiles/wsl/editors/.* ~/.dotfiles/wsl/git/.* ~/.dotfiles/wsl/git/*.* ~/.dotfiles/wsl/bin/*
+            echo -e '\n ~~~~~~~~~~~~~~ Sourcing .dotfiles.... ~~~~~~~~~~~~~~\n'
+            cd ~/.dotfiles/wsl && sudo chmod -Rv +x ./*.sh ./bin/*
+            sca && clear
+            echo -e '\n ~~~~~~~~~~~~~~ Dotfiles Updated! ~~~~~~~~~~~~~~\n' ;;
+        b)  linx ;;
+        x)  : && clear ;;
+        *)  dots ;;
+    esac
 
     functions=(
         "help"
@@ -1497,8 +1488,8 @@ dots() {
         "input"
     )
 
-    unset -f "${functions[@]}"
-    unset -v functions "${variables[@]}" variables
+    unset -f "${functions[@]}";
+    unset -v functions "${variables[@]}" variables;
 }
 
 #   -------------------------------
@@ -1524,55 +1515,40 @@ handles() {
         read -e -p "  Enter Option: " input
         echo
     }
-    help
 
-    if [ $input -eq 1 ] ; then
-        read -e -p "    Enter Drive Letter: " input2
-        echo -e '\n Showing Handles for '$input2':\....\n'
-        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        cmd.exe /c 'handle.exe' | grep ''$input2':\\'
-        # cmd.exe /c 'handle.exe | findstr /i D:\'
-        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        echo -e '\n ....Query Completed!\n'
-    elif [ $input -eq 2 ] ; then
-        echo -e '\n Showing All File Handles....\n'
-        cmd.exe /c 'handle.exe'
-        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        echo -e '\n ....Query Completed!\n'
-    elif [ $input -eq 3 ] ; then
-        echo -e '\n Showing All Process PIDs....\n'
-        cmd.exe /c 'handle.exe' | grep 'pid'
-        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        echo -e '\n ....Query Completed!\n'
-    elif [ $input -eq 4 ] ; then
-        echo -e '\n Closig File Handles....\n'
-        cmds 'D:\apps\suites\portableapps.com\PortableApps\ProcessExplorerPortable' ProcessExplorerPortable.exe
-        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        echo -e '\n ....Query Completed!\n'
-    elif [ $input -eq 5 ] ; then
-        cmd.exe /c handle.exe /?
-        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        echo -e '\n ....Query Completed!\n'
-    elif [ $input -eq 6 ] ; then
-        echo -e '\n Showing the number of All Open Descriptors....\n'
-        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        echo -e "\n     The number of all open descriptors is: $(lsof | wc -l)\n"
-        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        echo -e '\n ....Query Completed!\n'
-    elif [ $input -eq 7 ] ; then
-        echo -e '\n Showing All Descriptors....\n'
-        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        # lsof
-        ls /proc/*/fd
-        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        echo -e '\n ....Query Completed!\n'
-    elif [ $input == b ] ; then
-        manage
-    elif [ $input == x ] ; then
-        : && clear
+    if [ -z $1 ] ; then
+        help
     else
-        handles
+        input=$1
     fi
+
+    case $input in
+        1)  clear
+            read -e -p "    Enter Drive Letter: " input2
+            echo -e '\n ~~~~~~~~~~~~~~ Showing Handles for '$input2':\.... ~~~~~~~~~~~~~~\n'
+            cmd.exe /c 'handle.exe' | grep ''$input2':\\'
+            # cmd.exe /c 'handle.exe | findstr /i D:\'
+            echo -e '\n ~~~~~~~~~~~~~~ Query Completed! ~~~~~~~~~~~~~~\n' ;;
+        2)  clear
+            echo -e '\n ~~~~~~~~~~~~~~ Showing All File Handles.... ~~~~~~~~~~~~~~\n'
+            cmd.exe /c 'handle.exe'
+            echo -e '\n ~~~~~~~~~~~~~~ Query Completed! ~~~~~~~~~~~~~~\n' ;;
+        3)  clear
+            echo -e '\n ~~~~~~~~~~~~~~ Showing All Process PIDs.... ~~~~~~~~~~~~~~\n'
+            cmd.exe /c 'handle.exe' | grep 'pid'
+            echo -e '\n ~~~~~~~~~~~~~~ Query Completed! ~~~~~~~~~~~~~~\n' ;;
+        4)  cmds 'D:\apps\suites\portableapps.com\PortableApps\ProcessExplorerPortable' ProcessExplorerPortable.exe && clear ;;
+        5)  cmd.exe /c handle.exe /? ;;
+        6)  clear
+            echo -e "\n     The number of all open descriptors is: $(lsof | wc -l)\n" ;;
+        7)  echo -e '\n ~~~~~~~~~~~~~~ Showing All Descriptors.... ~~~~~~~~~~~~~~\n' 
+            # lsof
+            ls /proc/*/fd
+            echo -e '\n ~~~~~~~~~~~~~~ Query Completed! ~~~~~~~~~~~~~~\n' ;;
+        b)  manage ;;
+        x)  : && clear ;;
+        *)  handles ;;
+    esac
 
     functions=(
         "help"
@@ -1583,8 +1559,8 @@ handles() {
         "input2"
     )
 
-    unset -f "${functions[@]}"
-    unset -v functions "${variables[@]}" variables
+    unset -f "${functions[@]}";
+    unset -v functions "${variables[@]}" variables;
 }
 
 #   -------------------------------
@@ -1645,17 +1621,18 @@ win() {
         pins=(
             "'D:\'"
             "'D:\~temp'"
+            "'D:\shared\pc\projects\git\dotfiles\.dotfiles'"
+            "'D:\shared\pc\projects\blog'"
+            "'D:\shared\mobile'"
+            "'D:\shared\pc'"
             "'D:\workspace'"
             "'D:\workspace\essential'"
             "'D:\workspace\essential\lists'"
             "'D:\apps'"
             "'D:\workspace\tech'"
-            "'D:\shared'"
+            "'D:\workspace\tech\programing'"
             "'D:\workspace\personal'"
             "'D:\workspace\personal\professional\cv'"
-            "'D:\shared\pc\projects\blog'"
-            "'D:\workspace\projects'"
-            "'D:\workspace\tech\programing'"
             "'D:\workspace\university'"
             "'D:\media\anime'"
             "'D:\media\movies'"
@@ -1664,7 +1641,6 @@ win() {
             "'D:\workspace\essential\art\screenshots\pics'"
             "'C:\Users\Todorov\Pictures\My Screen Shots'"
             "'C:\Users\Todorov\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs\home\todorov'"
-            "'C:\ProgramData\Microsoft\Windows\Start Menu\Programs'"
         )
 
         case $input in
@@ -1842,8 +1818,8 @@ win() {
         "startmenu"
     )
 
-    unset -f "${functions[@]}"
-    unset -v functions "${variables[@]}" variables
+    unset -f "${functions[@]}";
+    unset -v functions "${variables[@]}" variables;
 }
 
 #   -------------------------------
@@ -1902,8 +1878,8 @@ mywork() {
         "input4"
     )
 
-    unset -f "${functions[@]}"
-    unset -v functions "${variables[@]}" variables
+    unset -f "${functions[@]}";
+    unset -v functions "${variables[@]}" variables;
 }
 
 #   -------------------------------
@@ -1913,7 +1889,7 @@ mywork() {
 money() {
     path="$python_scripts/money"
     clear && python3 $path/bg.py && python3 $path/uk.py
-    unset -v path
+    unset -v path;
 }
 
 #   -------------------------------
@@ -1923,7 +1899,7 @@ money() {
 series() {
     path="$python_scripts/web"
     clear && python3 $path/series.py
-    unset -v path
+    unset -v path;
 }
 
 #   -------------------------------
@@ -1934,7 +1910,7 @@ social() {
     # set -x
     path="/mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/wsl/net/social"
     path2="D:\shared\pc\projects\git\dotfiles\.dotfiles\wsl\net\social"
-    sites=$(cat ~/.dotfiles/wsl/net/social)
+    sites=$(cat ~/.dotfiles/wsl/net/social);
     files="/home/todorov/.dotfiles/wsl/net/social"
 
     help() {
@@ -1994,7 +1970,7 @@ social() {
     }
 
     show_one() {
-        site=$(sed -n "$1"p $path)
+        site=$(sed -n "$1"p $path);
         browser="chrome"
         window="--new-window"
 
@@ -2072,8 +2048,8 @@ social() {
         "site"
     )
 
-    unset -f "${functions[@]}"
-    unset -v functions "${variables[@]}" variables
+    unset -f "${functions[@]}";
+    unset -v functions "${variables[@]}" variables;
 }
 
 #   -------------------------------
@@ -2160,8 +2136,8 @@ food() {
         "re"
     )
 
-    unset -f "${functions[@]}"
-    unset -v functions "${variables[@]}" variables
+    unset -f "${functions[@]}";
+    unset -v functions "${variables[@]}" variables;
 }
 
 #   -------------------------------
@@ -2205,8 +2181,8 @@ sport() {
         "doc3"
     )
 
-    unset -f "${functions[@]}"
-    unset -v functions "${variables[@]}" variables
+    unset -f "${functions[@]}";
+    unset -v functions "${variables[@]}" variables;
 }
 
 #   -------------------------------
@@ -2227,29 +2203,29 @@ coc() {
 
     coc_run() {
         cd "/mnt/c/Users/Todorov/Downloads"
-        name=$(dir -AN1 | grep MyBot)
+        name=$(dir -AN1 | grep MyBot);
         path='C:\Users\Todorov\Downloads\'$name'\MyBot.run.exe'
         timeout 6s cmd.exe /c $path MyVillage MEmu MEmu
         echo -e '\n [opening] mybotrun - Clash of Clans Bot\n'
-        unset -v name path
+        unset -v name path;
     }
 
     coc_update() {
-        rm -rfv /mnt/c/Users/Todorov/Downloads/MyBot-MBR_v*
+        rm -rfv /mnt/c/Users/Todorov/Downloads/MyBot-MBR_v*;
         path="/mnt/d/shared/pc/apps/mybotrun/MyBot-MBR_v*"
         des="/mnt/c/Users/Todorov/Downloads"
-        base=$(basename $path)
-        source=$(wslpath -w "$path")
-        dest=$(wslpath -w "$des/$base")
-        cmdc robocopy $source $dest * /E /SL /MT:20 /XO /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1
+        base=$(basename $path);
+        source=$(wslpath -w "$path");
+        dest=$(wslpath -w "$des/$base");
+        cmdc robocopy $source $dest * /E /SL /MT:20 /XO /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1;
         # cp -rfv $path $dest
     }
 
     coc_upgrade() {
         # cd "/mnt/d/shared/pc/apps/mybotrun"
-        old=$(dir -AN1 | grep -v '.zip' | grep MyBot)
-        new=$(dir -AN1 | grep MyBot-MBR_v*.zip)
-        unziped=$(echo "$new" | sed 's/.zip//g')
+        old=$(dir -AN1 | grep -v '.zip' | grep MyBot);
+        new=$(dir -AN1 | grep MyBot-MBR_v*.zip);
+        unziped=$(echo "$new" | sed 's/.zip//g');
         unzip "$new"
         cp -rv "$old/Profiles" "$unziped"
         cp -v "$old/CSV/Attack/TH 10 2Hound26Loon10Wb15Min11Haste.csv" "$unziped/CSV/Attack"
@@ -2286,8 +2262,8 @@ coc() {
         "dest"
     )
 
-    unset -f "${functions[@]}"
-    unset -v functions "${variables[@]}" variables
+    unset -f "${functions[@]}";
+    unset -v functions "${variables[@]}" variables;
 }
 
 #   -------------------------------
@@ -2409,8 +2385,8 @@ blog() {
         "ext"
     )
 
-    unset -f "${functions[@]}"
-    unset -v functions "${variables[@]}" variables
+    unset -f "${functions[@]}";
+    unset -v functions "${variables[@]}" variables;
 }
 
 #   -------------------------------
@@ -2630,8 +2606,8 @@ todo() {
         "todopath"
     )
 
-    unset -f "${functions[@]}"
-    unset -v functions "${variables[@]}" variables
+    unset -f "${functions[@]}";
+    unset -v functions "${variables[@]}" variables;
 }
 
 #   -------------------------------
@@ -2822,7 +2798,7 @@ apps() {
             57) cmds "D:\apps\file-management\media\images\Instant-eyedropper" instanteyedropper.exe && clear ;;
             58) cmds "D:\apps\suites\symenu\ProgramFiles\SPSSuite\SyMenuSuite\MKVToolNix_(x64)_sps" gMKVExtractGUI.exe && clear ;;
             59) cmds "D:\apps\suites\symenu\ProgramFiles\SPSSuite\SyMenuSuite\MKVToolNix_(x64)_sps" mkvtoolnix-gui.exe && clear ;;
-            60) cmds "D:\apps\file-management\media\video\Screen Recording\OBS Studio\bin\64bit" obs64.exe && clear ;;
+            60) cmds "D:\apps\suites\portableapps.com\PortableApps\OBSPortable" OBSPortable.exe && clear ;;
             61) cmds "D:\apps\suites\symenu\ProgramFiles\SPSSuite\SyMenuSuite\Everything_(x64)_sps" Everything.exe && clear ;;
             62) cmds "D:\apps\file-management\file-managers\MultiCommander_x64_Portable" MultiCommander.exe && clear ;;
             63) cmds "D:\apps\suites\portableapps.com\PortableApps\ProcessExplorerPortable" ProcessExplorerPortable.exe && clear ;;
@@ -3144,8 +3120,8 @@ apps() {
         "path_encoder"
     )
 
-    unset -f "${functions[@]}"
-    unset -v functions "${variables[@]}" variables
+    unset -f "${functions[@]}";
+    unset -v functions "${variables[@]}" variables;
 }
 
 #   -------------------------------
@@ -3210,8 +3186,8 @@ word() {
         "orientation"
     )
 
-    unset -f "${functions[@]}"
-    unset -v functions "${variables[@]}" variables
+    unset -f "${functions[@]}";
+    unset -v functions "${variables[@]}" variables;
 }
 
 #   -------------------------------
@@ -3309,8 +3285,8 @@ m3u() {
         "artist"
     )
 
-    unset -f "${functions[@]}"
-    unset -v functions "${variables[@]}" variables
+    unset -f "${functions[@]}";
+    unset -v functions "${variables[@]}" variables;
 }
 
 base64_imggen() {
@@ -3357,7 +3333,7 @@ base64_imggen() {
 
     remove_base
     create_base
-    unset -f remove_base create_base
+    unset -f remove_base create_base;
 }
 
 currentdevice() {
@@ -3367,17 +3343,20 @@ currentdevice() {
         echo "USAGE"
         echo "        currentdevice [OPTION]" && echo
         echo "OPTIONS"
-        echo "    -hn | hostname     show device hostname"
-        echo "     -u | user         show device user"
-        echo "     -h | help         show help" && echo
+        echo "    -hn           show device hostname"
+        echo "     -u           show current user"
+        echo "     -o           show operating system"
+        echo "     -h | help    show help" && echo
     }
 
     local user=$(whoami)
     local hostname=$(hostname)
+    local os=$(uname -a | grep -qw 'Microsoft' && echo "win" || echo "unix");
     case $1 in
-        -hn|hostname) echo "$hostname" ;;
-        -u|user)      echo "$user" ;;
-        -h|help)      help ;;
+        -hn)        echo "$hostname" ;;
+        -u)         echo "$user" ;;
+        -o)         echo "$os" ;;
+        -h|help)    help ;;
         *)
             case $user in
                 todorov) 
@@ -3389,7 +3368,7 @@ currentdevice() {
                 u0_a105)    echo "tab" ;;
             esac ;;
     esac
-    unset -f help
+    unset -f help;
 }
 
 openfile() {
@@ -3429,12 +3408,12 @@ openfile() {
     fi
 
     case $cmd in
-        -s) sublime $(wslpath -w $(pwd)/$input) ;;
-        -d) explorer.exe $(wslpath -w $(pwd)/$input) ;;
+        -s)         sublime $(wslpath -w $(pwd)/$input) ;;
+        -d)         explorer.exe $(wslpath -w $(pwd)/$input) ;;
         -h|help)    help ;;
         *)          "$cmd" $(wslpath -w $(pwd)/$input) ;;
     esac
-    unset -f help
+    unset -f help;
 }
 
 getpath() {
@@ -3449,7 +3428,7 @@ getpath() {
         echo "     -c                current directory"
         echo "     -h | help         show help" && echo
     }
-    local os=$(uname -a | grep -qw 'Microsoft' && echo "win" || echo "unix");
+    local os=$(currentdevice -o);
     local re='(^-[c])'
 
     if [[ $os == win ]]; then
@@ -3469,12 +3448,12 @@ getpath() {
 
     case $1 in
         -w) wslpath -w "$input"
-            wslpath -w "$input" | $clipboard ;;
+            wslpath -w "$input" | tr -d '\n' | $clipboard ;;
         -u) wslpath -u "$input"
-            wslpath -u "$input" | $clipboard ;;
+            wslpath -u "$input" | tr -d '\n' | $clipboard ;;
         *)  help ;;
     esac
-    unset -f help
+    unset -f help;
 }
 
 sortkml() {
@@ -3502,6 +3481,47 @@ reverse() {
 
 pyclean() {
     find . -regex '.*\(__pycache__\|\.py[co]\)' -delete
+}
+
+# Always list directory contents upon 'cd'
+cd() { builtin cd "$@"; ll; }
+
+openwin() {
+    if [[ ! -z $1 ]]; then
+        target=$(getpath -w "$1")
+        explorer.exe $target
+    fi
+}
+
+winalias() {
+    #This will turn every executable inside of system32 into a bash alias so that it can be
+    #executed easily.. such as ipconfig, tasklist, taskkill, etc
+    #there is no error checking.. its pretty basic/simple
+
+    echo "scanning win32 and creating aliases…"
+    unset -f cd
+    # remove all sourced aliases
+    unalias -a
+    rm -fv ~/.bash_aliases_win ~/.windows.exe
+    cd /mnt/c/Windows/System32
+    ls *.exe > ~/.windows.exe
+    for i in $(cat ~/.windows.exe);
+    do 
+        a=$(echo $i | cut -d. -f1);
+        b=$(echo $a | awk '{print tolower($0)}');
+        alias $b="$a.exe";
+    done
+    cd ~
+    echo -e '#!/bin/bash\n\n' > ~/.bash_aliases_win
+    alias >> ~/.bash_aliases_win
+    unalias -a
+    source ~/.bash_aliases ~/.bash_aliases_win ~/.bash_functions
+    rm -f ~/.windows.exe
+    # echo "export PATH=\"\$PATH:/mnt/c/Windows/System32\"" >> ~/.bashrc
+    # echo "source ~/.bash_aliases_win" >> ~/.bashrc
+    # source ~/.bashrc
+    # echo "restart bash to use.. or type source ~/.bashrc"
+    unset -v a b
 }
 
 #-------------------------------------------------------------------------------

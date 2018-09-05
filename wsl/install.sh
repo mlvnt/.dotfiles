@@ -71,6 +71,7 @@ appz=(
     "pandoc"
     "diffutils"
     "djvulibre-bin"
+    # "texlive-full"
 # ------------- files
     "tar"
     "zip"
@@ -111,6 +112,14 @@ appz=(
     # "netcat-traditional"
     # "nginx"
     # "apache2"
+    "dsniff"
+    "p0f"
+    "arping"
+    "hping3"
+    "sox"
+    "fonts-liberation"
+    "gnuplot"
+    "python-gnuplot"
 # ------------- stats
     # "screenfetch"
     "inxi"
@@ -209,6 +218,11 @@ modules=(
     "libusb1"
     "adb"
     "configparser"
+    "scapy"
+    "pyx"
+    "vpython"
+    "cryptography"
+    "PyGnuplot"
 # ------------- SciPy
     "matplotlib"
     "numpy"
@@ -847,7 +861,7 @@ variables=(
     "name"
 )
 
-unset -f "${functions[@]}"
-unset -v functions "${variables[@]}" variables
+unset -f "${functions[@]}";
+unset -v functions "${variables[@]}" variables;
 
 #-------------------------------------------------------------------------------
