@@ -159,6 +159,7 @@ appz=(
     "inotify-tools"
     "entr"
     "zsh"
+    "libnotify-bin"
 # ---------------------------------------------------- gui
 # ------------- xfce4
     "xfce4"

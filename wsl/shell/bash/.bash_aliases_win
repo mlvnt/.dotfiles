@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 alias adminservice='AdminService.exe'
 alias agentservice='AgentService.exe'
 alias aitstatic='aitstatic.exe'

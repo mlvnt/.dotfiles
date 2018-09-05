@@ -146,7 +146,7 @@ linx() {
         path="C:\Program Files\VcXsrv"
         win32="C:\Windows\System32"
 
-        if [ -z $input2 ] ; then
+        if [ -z $input2 ]; then
             help
         else
             input=$input2
@@ -894,12 +894,11 @@ links() {
     # Delete Specified symbilic links
     delsymb() {
         echo -e '\n ~~~~~~~~~~~~~~ Deleting Symbolic Links.... ~~~~~~~~~~~~~~\n'
-        find -type l -print | while IFS= read -r lnk
-        do
+        find -type l -print | while IFS= read -r lnk; do
           if readlink "$lnk" | grep '/mnt/' ; then
             rm -v "$lnk"
           fi
-        done
+        done;
         echo -e '\n ~~~~~~~~~~~~~~ Symbolic Links Deleted! ~~~~~~~~~~~~~~\n'
     }
 
@@ -1445,13 +1444,14 @@ dots() {
         echo -e '\n  Available Options:'
         echo    '       x  | Exit'
         echo    '       b  | Go Back'
-        echo    '       1  | update  | Update'
+        echo    '       1  | update  | Update from Remote'
         echo    '       2  | Update Clean'
+        echo    '       3  | Update from Local'
         read -e -p "  Enter Option: " input
         echo
     }
 
-    if [ -z $1 ] ; then
+    if [ -z $1 ]; then
         help
     else
         input=$1
@@ -1475,6 +1475,10 @@ dots() {
             cd ~/.dotfiles/wsl && sudo chmod -Rv +x ./*.sh ./bin/*
             sca && clear
             echo -e '\n ~~~~~~~~~~~~~~ Dotfiles Updated! ~~~~~~~~~~~~~~\n' ;;
+        3)  cd ~/.dotfiles && git stash && git fetch /mnt/d/shared/pc/projects/git/dotfiles/.dotfiles
+            git pull /mnt/d/shared/pc/projects/git/dotfiles/.dotfiles 
+            cd ~/.dotfiles/wsl && sudo chmod -Rv +x ./*.sh ./bin/*
+            sca && clear ;;
         b)  linx ;;
         x)  : && clear ;;
         *)  dots ;;
@@ -1646,17 +1650,15 @@ win() {
         case $input in
             1)
                 echo -e '\n Pinnig folders to Quick Access....\n'
-                for pin in "${pins[@]}"
-                do : 
+                for pin in "${pins[@]}"; do 
                     powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& $powershellScript $p $pin"
-                done
+                done;
                 echo -e '\n    Folders pinned!\n'  ;;
             2)
                 echo -e '\n Unpinnig folders from Quick Access....\n'
-                for pin in "${pins[@]}"
-                do : 
+                for pin in "${pins[@]}"; do 
                     powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& $powershellScript $up $pin"
-                done
+                done;
                 echo -e '\n    Folders unpinned!\n'  ;;
             b)  win ;;
             x)  : && clear ;;
@@ -1730,19 +1732,17 @@ win() {
         case $input in
             1)
                 echo -e '\n Pinnig icons to Taskbar....\n'
-                for pin in "${taskbar[@]}"
-                do : 
+                for pin in "${taskbar[@]}"; do
                     cmd.exe /c syspin.exe "$patht$pin" $tpin
                     sleep 0.3s
-                done
+                done;
                 echo -e '\n    Icons pinned!\n'  ;;
             2)
                 echo -e '\n Pinnig icons to Start Menu....\n'
-                for pin in "${startmenu[@]}"
-                do : 
+                for pin in "${startmenu[@]}"; do
                     cmd.exe /c syspin.exe "$paths$pin" $spin
                     sleep 0.3s
-                done
+                done;
                 echo -e '\n    Icons pinned!\n'  ;;
             3)
                 echo -e '\n Unpinnig icons from Taskbar....\n'
@@ -1751,11 +1751,10 @@ win() {
                 echo -e '\n    Icons unpinned!\n'  ;;
             4)
                 echo -e '\n Unpinnig icons from Start Menu....\n'
-                for pin in "${startmenu[@]}"
-                do : 
+                for pin in "${startmenu[@]}"; do
                     cmd.exe /c syspin.exe "$paths$pin" $sunpin
                     sleep 0.2s
-                done
+                done;
                 echo -e '\n    Icons unpinned!\n'  ;;
             b)  win ;;
             x)  : && clear ;;
@@ -3144,8 +3143,7 @@ word() {
 
     wordo() {
         clear && echo
-        for (( i=1; i<=$input; i++ ))
-        do
+        for (( i=1; i<=$input; i++ )); do
            # echo "   Opening word document $i...."
            if [[ $orientation == l ]] ; then
                cmds 'C:\Program Files\Microsoft Office\Office16' /MAX WINWORD.EXE /t"$path"
@@ -3153,8 +3151,8 @@ word() {
             else
                cmds 'C:\Program Files\Microsoft Office\Office16' /MAX WINWORD.EXE /w
                sleep 0.2s
-            fi
-        done
+            fi;
+        done;
         clear
     }
 
@@ -3237,8 +3235,7 @@ m3u() {
         done < <(find . -maxdepth 1 -type f -regextype posix-extended -not -type d -not -regex "(.*.(m3u|txt|jpg|png|html|url|pdf|log|nfo))" -print0)
 
         # create playlist
-        for track in "${tracks[@]}"
-        do :
+        for track in "${tracks[@]}"; do
             t=$(echo "$track" | sed 's/\.\///g')
             duration=$(ffprobe "$t" 2>&1 | grep 'Duration:' | tr ' ' '\n' | tail -n6 | head -n1 | sed 's/,//g ; s/://g ; s/\.[0-9]*//g ; s/^0*//g')
             title=$(ffprobe "$t" 2>&1 | grep 'TITLE' | tr ':' '\n' | tail -n1 | sed 's/^ //g')
@@ -3304,8 +3301,7 @@ base64_imggen() {
 
     remove_base() {
         readarray list < <(dir -AN1)
-        for element in "${list[@]}"
-        do :
+        for element in "${list[@]}"; do
             local extention=$(echo $element | tr '.' $'\n' | tr '[A-Z]' '[a-z]' | tail -n1 | tr -d '\n')
             if [ "$extention" == "base64" ]; then
                 rm -v $element
@@ -3317,8 +3313,7 @@ base64_imggen() {
 
     create_base() {
         readarray list < <(dir -AN1)
-        for element in "${list[@]}"
-        do :
+        for element in "${list[@]}"; do
             if [ "$extention" == "base64" ]; then
                 :
             else
@@ -3327,48 +3322,13 @@ base64_imggen() {
                 # echo "data:image/$extention;base64,$(base64 -w 0 $element)" > "$file.base64"
                 echo "PHOTO;ENCODING=b;TYPE=$extention:$(base64 -w 0 $element)" > "$file.base64"
                 echo "[created] $file.base64"
-            fi
-        done
+            fi;
+        done;
     }
 
     remove_base
     create_base
     unset -f remove_base create_base;
-}
-
-currentdevice() {
-    help() {
-        echo && echo "DESCRIPTION"
-        echo "        currentdevice - show info about current device" && echo
-        echo "USAGE"
-        echo "        currentdevice [OPTION]" && echo
-        echo "OPTIONS"
-        echo "    -hn           show device hostname"
-        echo "     -u           show current user"
-        echo "     -o           show operating system"
-        echo "     -h | help    show help" && echo
-    }
-
-    local user=$(whoami)
-    local hostname=$(hostname)
-    local os=$(uname -a | grep -qw 'Microsoft' && echo "win" || echo "unix");
-    case $1 in
-        -hn)        echo "$hostname" ;;
-        -u)         echo "$user" ;;
-        -o)         echo "$os" ;;
-        -h|help)    help ;;
-        *)
-            case $user in
-                todorov) 
-                            case $hostname in
-                                DESKTOP-6QS0DON) echo "surface" ;;
-                                DESKTOP-HMLNHB8) echo "pc" ;;
-                            esac ;;
-                u0_a802)    echo "s8" ;;
-                u0_a105)    echo "tab" ;;
-            esac ;;
-    esac
-    unset -f help;
 }
 
 openfile() {
@@ -3505,14 +3465,13 @@ winalias() {
     rm -fv ~/.bash_aliases_win ~/.windows.exe
     cd /mnt/c/Windows/System32
     ls *.exe > ~/.windows.exe
-    for i in $(cat ~/.windows.exe);
-    do 
+    for i in $(cat ~/.windows.exe); do 
         a=$(echo $i | cut -d. -f1);
         b=$(echo $a | awk '{print tolower($0)}');
         alias $b="$a.exe";
     done
     cd ~
-    echo -e '#!/bin/bash\n\n' > ~/.bash_aliases_win
+    echo -e '#!/bin/bash\n' > ~/.bash_aliases_win
     alias >> ~/.bash_aliases_win
     unalias -a
     source ~/.bash_aliases ~/.bash_aliases_win ~/.bash_functions
@@ -3529,7 +3488,7 @@ winalias() {
 #-------------------------------------------------------------------------------
 
 # find shorthand
-f() {
+findname() {
   find . -name "$1" 2>&1 | grep -v 'Permission denied'
 }
 

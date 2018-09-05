@@ -1,0 +1,76 @@
+#!/bin/bash
+#   -------------------------------
+#   ONLOAD FUNCTIONS
+#   -------------------------------
+
+currentdevice() {
+    help() {
+        echo && echo "DESCRIPTION"
+        echo "        currentdevice - show info about current device" && echo
+        echo "USAGE"
+        echo "        currentdevice [OPTION]" && echo
+        echo "OPTIONS"
+        echo "    -hn           show device hostname"
+        echo "     -u           show current user"
+        echo "     -o           show operating system"
+        echo "     -h | help    show help" && echo
+    }
+
+    local user=$(whoami);
+    local hostname=$(hostname);
+    local os=$(uname -a | grep -qw 'Microsoft' && echo "win" || echo "unix");
+    case $1 in
+        -hn)        echo "$hostname" ;;
+        -u)         echo "$user" ;;
+        -o)         echo "$os" ;;
+        -h|help)    help ;;
+        *)
+            case $user in
+                todorov) 
+                            case $hostname in
+                                DESKTOP-6QS0DON) echo "surface" ;;
+                                DESKTOP-HMLNHB8) echo "pc" ;;
+                            esac ;;
+                u0_a802)    echo "s8" ;;
+                u0_a105)    echo "tab" ;;
+            esac; ;;
+    esac;
+    unset -f help;
+}
+
+
+#-------------------------------------------------------------------------------
+
+tmux_workspace() {
+    local SESSION_NAME="wkse";
+    local process=$(ps -e);
+    # tmux set -g base-index 1
+    tmux new -d -s ${SESSION_NAME}
+    tmux rename-window 'whole'
+    tmux new-window -n 'whole'
+    tmux new-window -n 'horizontal'
+    tmux split-window -v -p 50
+    # tmux new-window -n 'horizontal'
+    # tmux split-window -v -p 50
+    tmux new-window -n 'todo'
+    echo $process | grep -qw sshd || tmux send-keys -t 4.0 'sudo /usr/sbin/sshd' Enter
+    tmux send-keys -t 4.0 'todo' Enter
+    # tmux new-window -n 'inotify' \; split-window \; split-window \; split-window
+    tmux new-window -n 'inotify' \; split-window \;
+    tmux select-layout tiled
+    tmux send-keys -t 5.0 'lin' Enter
+    # tmux send-keys -t 6.1 'enpas' Enter
+    # tmux send-keys -t 6.2 'pas' Enter
+    tmux send-keys -t 5.1 'radicalerun' Enter
+    # tmux new-window -n '4'
+    # tmux split-window -v -p 50
+    # tmux new-window -n '5'
+    # tmux split-window -v -p 50
+    tmux select-window -t 1
+    # tmux send-keys -t 1.0 'neofetch' Enter
+    # tmux send-keys -t 2.0 'fzf' Enter
+    # tmux select-pane -t 0
+    tmux attach -t ${SESSION_NAME}
+}
+
+#-------------------------------------------------------------------------------

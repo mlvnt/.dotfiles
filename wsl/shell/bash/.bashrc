@@ -48,71 +48,31 @@ export EDITOR=/usr/bin/vim
 #   SOURCE EXTERNAL FILES
 #   -------------------------------
 
-# FUNCTIONS
-if [ -f ~/.bash_functions ]; then
-    source ~/.bash_functions
-else
-    print "404: ~/.bash_functions not found."
-fi
+# Shell dotfiles
+# * ~/.bash_private can be used for other settings you don’t want to commit.
+files=(
+    "~/.bash_functions_onload"
+    "~/.bash_aliases_win"
+    "~/.bash_aliases"
+    "~/.bash_functions"
+    # "~/.bash_private"
+    # "~/.rvm/scripts/rvm"
+    "~/.vimrc"
+    "~/.fzf.bash" # fzf - A command-line fuzzy finder
+)
 
-# ALIASES
-if [ -f ~/.bash_aliases ]; then
-    source ~/.bash_aliases
-    source ~/.bash_aliases_win
-else
-    print "404: ~/.bash_aliases not found."
-fi
+# Load the shell dotfiles
+for f in "${files[@]}"; do
+    if [ -r "$f" ] && [ -f "$f" ]; then
+        source "$f";
+    else
+        printf "404: $f not found.";
+    fi
+done;
 
-# fzf - A command-line fuzzy finder
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
-# RVM
-# source /home/todorov/.rvm/scripts/rvm
-
-# Load the shell dotfiles, and then some:
-# * ~/.private can be used for other settings you don’t want to commit.
-# for file in ~/.{private,bash_prompt,exports,aliases,functions,vimrc}; do
-#     [ -r "$file" ] && [ -f "$file" ] && source "$file";
-# done;
-# unset file;
-
-#   -------------------------------
-#   LOAD TMUX SESSION
-#   -------------------------------
-
-tmux_workspace() {
-    SESSION_NAME="wkse"
-    process=$(ps -e)
-    # tmux set -g base-index 1
-    tmux new -d -s ${SESSION_NAME}
-    tmux rename-window 'whole'
-    tmux new-window -n 'whole'
-    tmux new-window -n 'horizontal'
-    tmux split-window -v -p 50
-    # tmux new-window -n 'horizontal'
-    # tmux split-window -v -p 50
-    tmux new-window -n 'todo'
-    echo $process | grep -qw sshd || tmux send-keys -t 4.0 'sudo /usr/sbin/sshd' Enter
-    tmux send-keys -t 4.0 'todo' Enter
-    # tmux new-window -n 'inotify' \; split-window \; split-window \; split-window
-    tmux new-window -n 'inotify' \; split-window \;
-    tmux select-layout tiled
-    tmux send-keys -t 5.0 'lin' Enter
-    # tmux send-keys -t 6.1 'enpas' Enter
-    # tmux send-keys -t 6.2 'pas' Enter
-    tmux send-keys -t 5.1 'radicalerun' Enter
-    # tmux new-window -n '4'
-    # tmux split-window -v -p 50
-    # tmux new-window -n '5'
-    # tmux split-window -v -p 50
-    tmux select-window -t 1
-    # tmux send-keys -t 1.0 'neofetch' Enter
-    # tmux send-keys -t 2.0 'fzf' Enter
-    # tmux select-pane -t 0
-    tmux attach -t ${SESSION_NAME}
-}
-sessions=$(tmux ls)
-echo $sessions | grep -qw wkse || tmux_workspace
+# Load tmux session
+sessions=$(tmux ls);
+echo $sessions | grep -qw wkse || tmux_workspace;
 
 #   -------------------------------
 #   TWEAKS
@@ -204,7 +164,6 @@ if [ "$color_prompt" = yes ]; then
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
-unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
@@ -253,5 +212,19 @@ export HISTFILE=~/.bash_history
 export HISTSIZE=
 export HISTFILESIZE=
 export HISTCONTROL=erasedups
+
+#   -------------------------------
+#   UNSET VARIABLES
+#   -------------------------------
+
+variables=(
+    "sessions"
+    "files"
+    "f"
+    "color_prompt"
+    "force_color_prompt"
+)
+
+unset -v "${variables[@]}" variables;
 
 #-------------------------------------------------------------------------------

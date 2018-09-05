@@ -138,13 +138,13 @@ functions=(
     "get_dots"
     "source_all"
     "run"
-)
+);
 
 variables=(
     "line1"
     "line2"
     "columns"
-)
+);
 
 unset -f "${functions[@]}";
 unset -v functions "${variables[@]}" variables;

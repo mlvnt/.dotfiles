@@ -196,31 +196,22 @@ install_vim() {
 
 install_bash() {
     info 'installing bash'
-    local overwrite_all=true backup_all=false skip_all=false
+    local overwrite_all=true backup_all=false skip_all=false;
+    local source=(
+        "bashrc"
+        "bash_profile"
+        "bash_aliases"
+        "bash_aliases_win"
+        "bash_functions"
+        "bash_functions_onload"
+        "bash_logout"
+    );
 
-    src="$DOTFILES_ROOT/shell/bash/.bashrc"
-    dst="$HOME/$(basename "$src")"
-    link_file "$src" "$dst"
-
-    src="$DOTFILES_ROOT/shell/bash/.bash_profile"
-    dst="$HOME/$(basename "$src")"
-    link_file "$src" "$dst"
-
-    src="$DOTFILES_ROOT/shell/bash/.bash_aliases"
-    dst="$HOME/$(basename "$src")"
-    link_file "$src" "$dst"
-
-    src="$DOTFILES_ROOT/shell/bash/.bash_functions"
-    dst="$HOME/$(basename "$src")"
-    link_file "$src" "$dst"
-
-    src="$DOTFILES_ROOT/shell/bash/.bash_logout"
-    dst="$HOME/$(basename "$src")"
-    link_file "$src" "$dst"
-
-    src="$DOTFILES_ROOT/shell/bash/.bash_aliases_win"
-    dst="$HOME/$(basename "$src")"
-    link_file "$src" "$dst"
+    for i in "${source[@]}"; do
+        src="$DOTFILES_ROOT/shell/bash/.$i";
+        dst="$HOME/$(basename "$src")";
+        link_file "$src" "$dst";
+    done;
 }
 
 install_zsh() {
@@ -327,5 +318,50 @@ install_tmux
 
 echo ''
 echo '  All installed!'
+
+
+#   -------------------------------
+#   UNSET FUNCTONS & VARIABLES
+#   -------------------------------
+
+functions=(
+    "info"
+    "user"
+    "success"
+    "fail"
+    "link_file"
+    "install_dotfiles"
+    "install_bin"
+    "install_config"
+    "install_dir_colors"
+    "install_fonts"
+    "install_local"
+    "install_nano"
+    "install_vim"
+    "install_bash"
+    "install_zsh"
+    "install_git"
+    "install_emacs"
+    "install_tmux"
+    "install_curl"
+    "install_wget"
+);
+
+variables=(
+    "IGNORE"
+    "DOTFILES_ROOT"
+    "action"
+    "overwrite"
+    "overwrite_all"
+    "backup"
+    "backup_all"
+    "skip"
+    "skip_all"
+    "src"
+    "dst"
+);
+
+unset -f "${functions[@]}";
+unset -v functions "${variables[@]}" variables;
 
 #-------------------------------------------------------------------------------
