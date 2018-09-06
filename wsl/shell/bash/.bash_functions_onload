@@ -22,29 +22,30 @@ sca() {
     );
 
     case $1 in
-        i) files=( "${files[@]:2}" ); ;;
+        i) files=( "${files[@]:2}" );
+           printing="true" ;;
         *) files=( "${files[1]}" ); ;;
     esac
 
     # Load the shell dotfiles
-    printf "\n";
+    [ ! -z "$printing" ] && printf "\n";
     for f in "${files[@]}"; do
         f="$HOME/.$f"
         if [ -r "$f" ] && [ -f "$f" ]; then
             if [ "$f" == "$HOME/.tmux.conf" ]; then
                 tmux source-file "$f";
-                printf "[sourcing] $f\n";
+                [ ! -z "$printing" ] && printf "[sourcing] $f\n";
             else
                 source "$f";
-                printf "[sourcing] $f\n";
+                [ ! -z "$printing" ] && printf "[sourcing] $f\n";
             fi
         else
             printf "404: $f not found.\n";
         fi
     done;
-    printf "\n";
+    [ ! -z "$printing" ] && printf "\n";
     # clear
-    unset files f;
+    unset files f printing;
 }
 
 #-------------------------------------------------------------------------------

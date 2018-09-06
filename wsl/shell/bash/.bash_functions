@@ -1444,9 +1444,9 @@ dots() {
         echo -e '\n  Available Options:'
         echo    '       x  | Exit'
         echo    '       b  | Go Back'
-        echo    '       1  | update  | Update from Remote'
-        echo    '       2  | Update Clean'
-        echo    '       3  | Update from Local'
+        echo    '       1  | remote     | Update from Remote'
+        echo    '       2  | clean      | Update Clean'
+        echo    '       3  | local      | Update from Local'
         read -e -p "  Enter Option: " input
         echo
     }
@@ -1458,11 +1458,11 @@ dots() {
     fi
 
     case $input in
-        1|update)  dotfiles && gac
+        1|remote)  dotfiles && gac
             cd ~/.dotfiles && git stash && gf
             cd ~/.dotfiles/wsl && sudo chmod -Rv +x ./*.sh ./bin/*
             sca && clear ;;
-        2)  echo -e '\n ~~~~~~~~~~~~~~ Removing old .dotfiles.... ~~~~~~~~~~~~~~\n' 
+        2|clean)  echo -e '\n ~~~~~~~~~~~~~~ Removing old .dotfiles.... ~~~~~~~~~~~~~~\n' 
             sudo rm -rfv ~/.dotfiles 
             echo -e '\n ~~~~~~~~~~~~~~ Cloning new .dotfiles.... ~~~~~~~~~~~~~~\n'
             git clone /mnt/d/shared/pc/projects/git/dotfiles/.dotfiles ~/.dotfiles
@@ -1475,7 +1475,7 @@ dots() {
             cd ~/.dotfiles/wsl && sudo chmod -Rv +x ./*.sh ./bin/*
             sca && clear
             echo -e '\n ~~~~~~~~~~~~~~ Dotfiles Updated! ~~~~~~~~~~~~~~\n' ;;
-        3)  cd ~/.dotfiles && git stash && git fetch /mnt/d/shared/pc/projects/git/dotfiles/.dotfiles
+        3|local)  cd ~/.dotfiles && git stash && git fetch /mnt/d/shared/pc/projects/git/dotfiles/.dotfiles
             git pull /mnt/d/shared/pc/projects/git/dotfiles/.dotfiles 
             cd ~/.dotfiles/wsl && sudo chmod -Rv +x ./*.sh ./bin/*
             sca && clear ;;
