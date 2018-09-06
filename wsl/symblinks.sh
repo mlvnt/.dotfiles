@@ -205,6 +205,8 @@ install_bash() {
         "bash_functions"
         "bash_functions_onload"
         "bash_logout"
+        "bash-powerline.sh"
+        "bash_private"
     );
 
     for i in "${source[@]}"; do

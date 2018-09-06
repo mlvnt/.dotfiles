@@ -1,3 +1,5 @@
+#!/usr/bin/vim
+
 set background=dark
 colors zenburn "Load the color scheme
 set nocompatible

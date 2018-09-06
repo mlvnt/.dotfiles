@@ -3,6 +3,52 @@
 #   ONLOAD FUNCTIONS
 #   -------------------------------
 
+sca() {
+    # Shell dotfiles
+    files=(
+        "bash_functions_onload"
+        "bashrc"
+        "bash_aliases_win"
+        "bash_aliases"
+        "bash_functions"
+        "fzf.bash" # fzf - A command-line fuzzy finder
+        "tmux.conf"
+        # "zshrc"
+        # "yarnrc"
+        # "vimrc"
+        # "bash_private"
+        # "bash-powerline.sh"
+        # "rvm/scripts/rvm"
+    );
+
+    case $1 in
+        i) files=( "${files[@]:2}" ); ;;
+        *) files=( "${files[1]}" ); ;;
+    esac
+
+    # Load the shell dotfiles
+    printf "\n";
+    for f in "${files[@]}"; do
+        f="$HOME/.$f"
+        if [ -r "$f" ] && [ -f "$f" ]; then
+            if [ "$f" == "$HOME/.tmux.conf" ]; then
+                tmux source-file "$f";
+                printf "[sourcing] $f\n";
+            else
+                source "$f";
+                printf "[sourcing] $f\n";
+            fi
+        else
+            printf "404: $f not found.\n";
+        fi
+    done;
+    printf "\n";
+    # clear
+    unset files f;
+}
+
+#-------------------------------------------------------------------------------
+
 currentdevice() {
     help() {
         echo && echo "DESCRIPTION"
@@ -37,7 +83,6 @@ currentdevice() {
     esac;
     unset -f help;
 }
-
 
 #-------------------------------------------------------------------------------
 

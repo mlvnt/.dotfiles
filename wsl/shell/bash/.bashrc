@@ -48,27 +48,14 @@ export EDITOR=/usr/bin/vim
 #   SOURCE EXTERNAL FILES
 #   -------------------------------
 
-# Shell dotfiles
-# * ~/.bash_private can be used for other settings you don’t want to commit.
-files=(
-    "~/.bash_functions_onload"
-    "~/.bash_aliases_win"
-    "~/.bash_aliases"
-    "~/.bash_functions"
-    # "~/.bash_private"
-    # "~/.rvm/scripts/rvm"
-    "~/.vimrc"
-    "~/.fzf.bash" # fzf - A command-line fuzzy finder
-)
-
-# Load the shell dotfiles
-for f in "${files[@]}"; do
-    if [ -r "$f" ] && [ -f "$f" ]; then
-        source "$f";
-    else
-        printf "404: $f not found.";
-    fi
-done;
+# Sorce all dotfiles
+f=$HOME/.bash_functions_onload
+if [ -r "$f" ] && [ -f "$f" ]; then
+    source "$f";
+else
+    printf "404: $f not found.\n";
+fi;
+sca i;
 
 # Load tmux session
 sessions=$(tmux ls);
@@ -219,7 +206,6 @@ export HISTCONTROL=erasedups
 
 variables=(
     "sessions"
-    "files"
     "f"
     "color_prompt"
     "force_color_prompt"
