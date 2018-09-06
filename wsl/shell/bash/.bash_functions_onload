@@ -8,7 +8,7 @@ sca() {
     files=(
         "bash_functions_onload"
         "bashrc"
-        "bash_aliases_win"
+        # "bash_aliases_win"
         "bash_aliases"
         "bash_functions"
         "fzf.bash" # fzf - A command-line fuzzy finder
