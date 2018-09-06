@@ -22,12 +22,11 @@ sca() {
     );
 
     case $1 in
-        i) files=( "${files[@]:2}" );
+        i) files=( "${files[@]:2}" ); ;;
+        *) files=( "${files[1]}" );
            printing="true"; ;;
-        *) files=( "${files[1]}" ); ;;
     esac
 
-    echo "$printing"
     # Load the shell dotfiles
     [ "$printing" == "true" ] && printf "\n";
     for f in "${files[@]}"; do
