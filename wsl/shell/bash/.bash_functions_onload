@@ -12,7 +12,7 @@ sca() {
         "bash_aliases"
         "bash_functions"
         "fzf.bash" # fzf - A command-line fuzzy finder
-        "tmux.conf"
+        # "tmux.conf"
         # "zshrc"
         # "yarnrc"
         # "vimrc"
@@ -23,27 +23,28 @@ sca() {
 
     case $1 in
         i) files=( "${files[@]:2}" );
-           printing="true" ;;
+           printing="true"; ;;
         *) files=( "${files[1]}" ); ;;
     esac
 
+    echo "$printing"
     # Load the shell dotfiles
-    [ ! -z "$printing" ] && printf "\n";
+    [ "$printing" == "true" ] && printf "\n";
     for f in "${files[@]}"; do
         f="$HOME/.$f"
         if [ -r "$f" ] && [ -f "$f" ]; then
             if [ "$f" == "$HOME/.tmux.conf" ]; then
                 tmux source-file "$f";
-                [ ! -z "$printing" ] && printf "[sourcing] $f\n";
+                [ "$printing" == "true" ] && printf "[sourcing] $f\n";
             else
                 source "$f";
-                [ ! -z "$printing" ] && printf "[sourcing] $f\n";
+                [ "$printing" == "true" ] && printf "[sourcing] $f\n";
             fi
         else
             printf "404: $f not found.\n";
         fi
     done;
-    [ ! -z "$printing" ] && printf "\n";
+    [ "$printing" == "true" ] && printf "\n";
     # clear
     unset files f printing;
 }
