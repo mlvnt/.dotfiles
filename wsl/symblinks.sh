@@ -287,6 +287,19 @@ install_tmux() {
 #     link_file "$src" "$dst"
 # }
 
+install_fzf() {
+    info 'installing fzf'
+    local overwrite_all=true backup_all=false skip_all=false
+
+    src="$DOTFILES_ROOT/theming/fzf/.fzf.bash"
+    dst="$HOME/$(basename "$src")"
+    link_file "$src" "$dst"
+
+    src="$DOTFILES_ROOT/theming/fzf/.fzf.zsh"
+    dst="$HOME/$(basename "$src")"
+    link_file "$src" "$dst"
+}
+
 printf "\n      Runtime: $(date) @ $(hostname)\n\n"
 printf '\n      Setting up symbolic links....\n\n'
 
@@ -317,6 +330,8 @@ install_tmux
 # install_curl
 # echo ''
 # install_wget
+echo ''
+install_fzf
 
 echo ''
 echo '  All installed!'

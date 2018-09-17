@@ -1912,9 +1912,8 @@ mywork() {
 #   -------------------------------
 
 money() {
-    path="$python_scripts/money"
+    local path="$python_scripts/money"
     clear && python3 $path/bg.py && python3 $path/uk.py
-    unset -v path;
 }
 
 #-------------------------------------------------------------------------------
@@ -1924,12 +1923,26 @@ money() {
 #   -------------------------------
 
 series() {
-    path="$python_scripts/web"
+    local path="$python_scripts/web"
     clear && python3 $path/series.py
-    unset -v path;
 }
 
 #-------------------------------------------------------------------------------
+
+sortkml() {
+    local path="$python_scripts/sortkml"
+    clear && python3 $path/sortkml.py "$@"
+}
+
+#-------------------------------------------------------------------------------
+
+apkinstall() {
+    local path="$python_scripts/apkinstall"
+    clear && python3 $path/apkinstall.py "$@"
+}
+
+#-------------------------------------------------------------------------------
+
 
 #   -------------------------------
 #   SOCIAL
@@ -2048,9 +2061,9 @@ social() {
     else
         case $1 in
             nt)        show_all "nt" ;;
-            0)         show_all $2 $3 ;;
-            1|all)     mail && show_all $2 $3 ;;
-            2|one)     show_one $2 $3 $4 ;;
+            0)         show_all "$@" ;;
+            1|all)     mail && show_all "$@" ;;
+            2|one)     show_one "$@" ;;
             3|update)  social_import ;;
             4|edit)    edit_site ;;
             b)         mywork ;;
@@ -2258,7 +2271,7 @@ coc() {
 
     coc_upgrade() {
         # cd "/mnt/d/shared/pc/apps/mybotrun"
-        old=$(dir -AN1 | grep -v '.zip' | grep MyBot);
+        old=$(dir -AN1 | grep -v '.zip' | grep MyBot); # exclude zips
         new=$(dir -AN1 | grep MyBot-MBR_v*.zip);
         unziped=$(echo "$new" | sed 's/.zip//g');
         unzip "$new"
@@ -3020,9 +3033,10 @@ apps() {
             input=$input2
         fi
 
+        shift 1
         case $input in
-            1) msoffice && clear ;;
-            2) adobe && clear ;;
+            1) msoffice "$@" && clear ;;
+            2) adobe "$@" && clear ;;
             3) cmds "C:\Program Files (x86)\4KDownload\4kvideodownloader" 4kvideodownloader.exe && clear ;;
             4) cmds "C:\Program Files (x86)\PureVPN" purevpn.exe && clear ;;
             5) cmds "C:\Program Files\Oracle\VirtualBox" VirtualBox.exe && clear ;;
@@ -3075,6 +3089,97 @@ apps() {
         rm -rfv /mnt/c/Users/Todorov/AppData/Roaming/qBittorrent
     }
 
+    radicalle() {
+
+        radicale_backup () {
+            local old=(
+                "collections"
+                "config"
+                "log"
+                "rights"
+                "ssl"
+                "users"
+            )
+
+            for i in "${old[@]}"
+            do :
+                rm -rfv "$path_dots"/.config/radicale/"$i"
+            done
+
+            delete_cache
+
+            yes yes | sudo cp -rv "$path_dots_local"/.config/radicale "$path_dots"/.config
+        }
+
+        radicale_restore() {
+            local old=(
+                "collections"
+                "config"
+                "log"
+                "rights"
+                "ssl"
+                "users"
+            )
+
+            for i in "${old[@]}"
+            do :
+                rm -rfv "$path_dots_local"/.config/radicale/"$i"
+            done
+
+          yes yes | sudo cp -rv "$path_dots"/.config/radicale "$path_dots_local"/.config
+        }
+
+        dav_main() {
+            local path="$python_scripts/radicale"
+            clear && python3 $path/dav_main.py "$@"
+        }
+
+        delete_cache() {
+            local currpath=$(pwd)
+            unset -f cd
+            cd /home/todorov/.config/radicale/collections/collection-root/mlvnt
+            find . -name '.Radicale.cache' -type d -exec rm -rfv {} \;
+            cd "$currpath"
+        }
+
+        help() {
+            clear
+            echo -e '\n  Available Options:'
+            echo    '       x  | Exit'
+            echo -e '       b  | Go Back\n'
+            echo    "    1  | radicale_backup      | Backup radicale config"
+            echo    "    2  | radicale_restore     | Restore radicale config"
+            echo    "    3  | delete_cache         | Delete .Radicale.cache"
+            echo    "    4  | dav_main             | Run DAV management"
+            echo    "    5  | local                | Goto local radicale"
+            echo -e "    6  | remote               | Goto remote backup\n"
+            read -e -p "  Enter Option: " input
+            echo
+        }
+
+        if [ -z $1 ] ; then
+            help
+        else
+            input="$1"
+        fi
+
+        local local="$path_dots_local"/.config/radicale
+        local remote="$path_dots"/.config/radicale
+
+        shift 1
+        case $input in
+            1|radicale_backup)   radicale_backup ;;
+            2|radicale_restore)  radicale_restore ;;
+            3|delete_cache)      delete_cache ;;
+            4|davmain)           dav_main "$@" ;;
+            5|local)             cd $local ;;
+            6|remote)            cd $remote ;;
+            b)  apps 3 ;;
+            x)  : && clear ;;
+            *)  radicalle ;;
+        esac
+    }
+
     program_management() {
         help() {
             clear
@@ -3084,9 +3189,8 @@ apps() {
             echo    "    1  | word                 | Open Word Documets"
             echo    "    2  | m3u                  | Create m3u Playlists"
             echo    "    3  | sysmenu_clean        | Clean SysMenu Trash"
-            echo    "    4  | radicale_backup      | Backup radicale config"
-            echo    "    5  | radicale_restore     | Restore radicale config"
-            echo -e "    6  | qbittorrent          | Delete qBittorrent Config\n"
+            echo    "    4  | radicalle            | Manage calDAV / cardDAV"
+            echo -e "    5  | qbittorrent          | Delete qBittorrent Config\n"
             read -e -p "  Enter Option: " input
             echo
         }
@@ -3097,13 +3201,13 @@ apps() {
             input=$input2
         fi
 
+        shift 1
         case $input in
-            1|word)              word ;;
-            2|m3u)               m3u ;;
+            1|word)              word "$@" ;;
+            2|m3u)               m3u "$@" ;;
             3|sysmenu_clean)     sysmenu_clean ;;
-            4|radicale_backup)   radicale_backup ;;
-            5|radicale_restore)  radicale_restore ;;
-            6|qbittorrent)       qbittorrent ;;
+            4|radicalle)         radicalle "$@" ;;
+            5|qbittorrent)       qbittorrent ;;
             b)  apps ;;
             x)  : && clear ;;
             *)  program_management ;;
@@ -3129,10 +3233,11 @@ apps() {
         input2=$2
     fi
 
+    shift 1
     case $input in
-        1|portable_apps)       portable_apps ;;
-        2|installed_apps)      installed_apps ;;
-        3|program_management)  program_management ;;
+        1|portable_apps)       portable_apps "$@" ;;
+        2|installed_apps)      installed_apps "$@" ;;
+        3|program_management)  program_management "$@" ;;
         b)  master ;;
         x)  : && clear ;;
         *)  apps ;;
@@ -3145,6 +3250,11 @@ apps() {
         "program_management"
         "sysmenu_clean"
         "qbittorrent"
+        "radicalle"
+        "radicale_backup"
+        "radicale_restore"
+        "dav_main"
+        "delete_cache"
     )
 
     variables=(
@@ -3467,22 +3577,6 @@ getpath() {
     esac
     unset -f help;
 }
-
-#-------------------------------------------------------------------------------
-
-sortkml() {
-    path="$python_scripts/sortkml"
-    clear && python3 $path/sortkml.py $1 $2 $3 $4
-}
-
-#-------------------------------------------------------------------------------
-
-apkinstall() {
-    path="$python_scripts/apkinstall"
-    clear && python3 $path/apkinstall.py $1 $2 $3 $4
-}
-
-#-------------------------------------------------------------------------------
 
 linuxpath() {
     echo "$@" | sed -e 's|\\|/|g' -e 's|^\([A-Za-z]\)\:/\(.*\)|/mnt/\L\1\E/\2|'

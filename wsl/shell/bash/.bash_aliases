@@ -56,6 +56,7 @@ alias down="cd /mnt/c/Users/Todorov/Downloads"
 alias docs="cd /mnt/c/Users/Todorov/Documents"
 # Print each PATH entry on a separate line
 alias pathenv='echo -e ${PATH//:/\\n}'
+alias mapsme="cd /mnt/d/shared/mobile/config/travel/MAPS.\ ME"
 
 # CURRENT
 alias uni="cd /mnt/d/workspace/university/course"

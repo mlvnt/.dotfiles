@@ -120,6 +120,7 @@ appz=(
     "fonts-liberation"
     "gnuplot"
     "python-gnuplot"
+    "knockd"
 # ------------- stats
     # "screenfetch"
     "inxi"
@@ -146,6 +147,7 @@ appz=(
     "moreutils"
     "ncdu"
     "espeak"
+    "speech-dispatcher"
     "xclip"
     "x11-apps"
     "xinit"
