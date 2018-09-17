@@ -2056,10 +2056,12 @@ social() {
         sublime $path2 && social update
     }
 
-    if [[ -z $1 ]]; then
+    local input=$1
+    shift 1
+    if [[ -z $input ]]; then
         show_all
     else
-        case $1 in
+        case $input in
             nt)        show_all "nt" ;;
             0)         show_all "$@" ;;
             1|all)     mail && show_all "$@" ;;

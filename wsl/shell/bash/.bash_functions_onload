@@ -110,9 +110,6 @@ tmux_workspace() {
         # tmux send-keys -t 6.1 'enpas' Enter
         # tmux send-keys -t 6.2 'pas' Enter
         tmux send-keys -t 5.1 'radicalerun' Enter
-    else
-        tmux new-window -n 'inotify'
-        tmux send-keys -t 5.0 'lin' Enter
     fi
 
     # tmux new-window -n '4'
