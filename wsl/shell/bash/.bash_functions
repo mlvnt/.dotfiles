@@ -4,12 +4,6 @@
 #-------------------------------------------------------------------------------
 
 # Variables
-if [[ $(currentdevice) == pc ]]; then
-    local=/mnt/d/shared
-else
-    local=/mnt/c/Users/Todorov/Downloads
-fi
-
 path_dots=$local/pc/projects/git/dotfiles/.dotfiles/wsl
 python_scripts=$local/pc/projects/scripts/Python
 path_dots_local=~/.dotfiles/wsl

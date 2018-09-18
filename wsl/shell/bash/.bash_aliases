@@ -4,9 +4,19 @@
 #-------------------------------------------------------------------------------
 
 if [[ $(currentdevice) == pc ]]; then
+    aps="D:"
     sublime_path="'D:\apps\development\editors\editors\Sublime_Text'"
+    revo_path="D:\apps\program-management\uninstallers"
+    enpass_path="D:\apps\net\security"
+    synctrayzor_path="D:\apps\net\file-sharing"
+    local=/mnt/d/shared
 else
-    sublime_path="'C:\Users\Todorov\Downloads\pc\apps\development\Sublime_Text'"
+    aps="C:\Users\Todorov\Downloads\pc"
+    sublime_path="'$aps\apps\development\Sublime_Text'"
+    revo_path="$aps\apps\system"
+    enpass_path="$aps\apps\net"
+    synctrayzor_path="$aps"
+    local=/mnt/c/Users/Todorov/Downloads
 fi
 
 os=$(currentdevice -o);
@@ -44,11 +54,11 @@ alias d="cd /mnt/d"
 alias home="cd ~"
 alias root="cd /"
 alias temp="cd /mnt/d/~temp"
-alias temppc="cd /mnt/d/shared/pc/~temp"
-alias tempmobile="cd /mnt/d/shared/mobile/~temp"
-alias shared="cd /mnt/d/shared"
-alias sharedpc="cd /mnt/d/shared/pc"
-alias sharedmobile="cd /mnt/d/shared/mobile"
+alias temppc="cd $local/pc/~temp"
+alias tempmobile="cd $local/mobile/~temp"
+alias shared="cd $local"
+alias sharedpc="cd $local/pc"
+alias sharedmobile="cd $local/mobile"
 alias workspace="cd /mnt/d/workspace"
 alias gitprojects="cd /mnt/d/shared/pc/projects/git"
 alias dotfiles="cd /mnt/d/shared/pc/projects/git/dotfiles/.dotfiles"
@@ -232,6 +242,8 @@ alias pingpi='cmd.exe /c ping -4 raspberrypi.local'
 
 # youtube-dl
 alias ydl="youtube-dl -f '(bestvideo[ext=mp4])[fps!=60]+bestaudio[ext=m4a]/mp4' -o '%(title)s/%(title)s.%(ext)s' --write-description"
+alias ydlsub="youtube-dl -f '(bestvideo[ext=mp4])[fps!=60]+bestaudio[ext=m4a]/mp4' -o '%(title)s/%(title)s.%(ext)s' --write-description --write-sub --sub-format 'ass/srt/best' --sub-lang en"
+alias ydlupdate="sudo -H pip install --upgrade youtube-dl"
 
 # # Download Youtube playlist in a folder and indexing videos using youtube-dl
 # alias youtube-dl-playlist="youtube-dl --ignore-errors --output '%(playlist)s/%(playlist_index)s- %(title)s.%(ext)s'"
@@ -346,28 +358,28 @@ alias chrome="cmds 'C:\Program Files (x86)\Google\Chrome\Application' /MAX chrom
 alias excel="cmds 'C:\Program Files\Microsoft Office\Office16' /MAX EXCEL.EXE /x"
 alias ppoint="cmds 'C:\Program Files (x86)\Microsoft Office\Root\Office16'  /MAX POWERPNT.EXE /B"
 
-alias mail="cmds 'D:\apps\suites\portableapps.com\PortableApps\ThunderbirdPortable' ThunderbirdPortable.exe"
-alias torrent="cmds 'D:\apps\suites\portableapps.com\PortableApps\qBittorrentPortable' qBittorrentPortable.exe"
-alias enpass="cmds 'D:\apps\net\security\EnpassPortable_5_6_9\Windows' EnpassPortable.exe"
+alias mail="cmds '$aps\apps\suites\portableapps.com\PortableApps\ThunderbirdPortable' ThunderbirdPortable.exe"
+alias torrent="cmds '$aps\apps\suites\portableapps.com\PortableApps\qBittorrentPortable' qBittorrentPortable.exe"
+alias enpass="cmds '$enpass_path\EnpassPortable_5_6_9\Windows' EnpassPortable.exe"
 alias firefox="cmds 'D:\apps\suites\portableapps.com\PortableApps\FirefoxPortable' FirefoxPortable.exe"
 alias taiga="cmds 'D:\apps\net\social\Taiga' Taiga.exe"
-alias gnucash="cmds 'D:\apps\suites\portableapps.com\PortableApps\GnuCashPortable' GnuCashPortable.exe"
+alias gnucash="cmds '$aps\apps\suites\portableapps.com\PortableApps\GnuCashPortable' GnuCashPortable.exe"
 alias sublime="cmds "$sublime_path" sublime_text.exe"
-alias irc="cmds 'D:\apps\suites\portableapps.com\PortableApps\HexChatPortable' HexChatPortable.exe"
-alias sync="cmds 'D:\apps\net\file-sharing\SyncTrayzorPortable-x64' SyncTrayzor.exe"
-alias ftpstart="cmds 'D:\apps\suites\portableapps.com\PortableApps\FileZillaPortable' FileZillaPortable.exe"
-alias keepass="cat /mnt/d/shared/mobile/notebook/necessities/k.txt | cmd.exe /c clip && cmds 'D:\apps\suites\portableapps.com\PortableApps\KeePassProPortable' KeePassProPortable.exe"
+alias irc="cmds '$aps\apps\suites\portableapps.com\PortableApps\HexChatPortable' HexChatPortable.exe"
+alias sync="cmds '$synctrayzor_path\SyncTrayzorPortable-x64' SyncTrayzor.exe"
+alias ftpstart="cmds '$aps\apps\suites\portableapps.com\PortableApps\FileZillaPortable' FileZillaPortable.exe"
+alias keepass="cat $local/mobile/notebook/necessities/k.txt | cmd.exe /c clip && cmds '$aps\apps\suites\portableapps.com\PortableApps\KeePassProPortable' KeePassProPortable.exe"
 alias calibre="cmds 'D:\apps\suites\portableapps.com\PortableApps\calibrePortable' calibrePortable.exe"
 alias kodi="cmds 'D:\apps\file-management\media\media-centers\Kodi\Server' kodi.exe -p"
 alias plex="cmdc 'D:\apps\file-management\media\media-centers\Plex\Server\Plex Media Server.exe'"
 alias npp="cmds 'D:\apps\development\editors\editors\Notepad++\Notepad++ 7.5.1' /MAX notepad++.exe"
-alias flash="cmds 'D:\apps\suites\portableapps.com\PortableApps\RufusPortable' RufusPortable.exe"
+alias flash="cmds '$aps\apps\suites\portableapps.com\PortableApps\RufusPortable' RufusPortable.exe"
 alias sysmenu="cmds 'D:\apps\suites\symenu' SyMenu.exe"
-alias portableapps="cmds 'D:\apps\suites\portableapps.com' Start.exe"
-alias rss="cmds 'D:\apps\suites\portableapps.com\PortableApps\QuiteRSSPortable' QuiteRSSPortable.exe"
+alias portableapps="cmds '$aps\apps\suites\portableapps.com' Start.exe"
+alias rss="cmds '$aps\apps\suites\portableapps.com\PortableApps\QuiteRSSPortable' QuiteRSSPortable.exe"
 alias unicode="cmds 'D:\apps\productivity\office\unicode\character-maps\BabelStone' BabelMap.exe"
-alias revo="cmds 'D:\apps\program-management\uninstallers\RevoPortable64' RevoUninstallerPortable.exe"
-alias ditto="cmds 'D:\apps\suites\portableapps.com\PortableApps\DittoPortable' DittoPortable.exe"
+alias revo="cmds '$revo_path\RevoPortable64' RevoUninstallerPortable.exe"
+alias ditto="cmds '$aps\apps\suites\portableapps.com\PortableApps\DittoPortable' DittoPortable.exe"
 alias remotes="cmds 'D:\apps\net\remote-control\Unified Remote\server' RemoteServerWin.exe"
 
 alias vnc="~/software/VNC-Viewer-6.17.1113-Linux-x64"

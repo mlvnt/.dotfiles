@@ -481,10 +481,17 @@ yarn_install() {
 #   -------------------------------
 
 youtube-dl_install() {
-    sudo curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl
-    sudo chmod a+rx /usr/local/bin/youtube-dl
+    # sudo curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl
+    # sudo chmod a+rx /usr/local/bin/youtube-dl
     # Upgrade
-    # sudo -H pip install --upgrade youtube-dl
+    sudo -H pip install --upgrade youtube-dl
+}
+
+youtube-dl_update() {
+    sudo apt-get remove -y youtube-dl
+    sudo wget https://yt-dl.org/latest/youtube-dl -O /usr/local/bin/youtube-dl
+    sudo chmod a+x /usr/local/bin/youtube-dl
+    hash -r
 }
 
 #   -------------------------------
