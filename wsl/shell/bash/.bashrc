@@ -57,6 +57,9 @@ else
 fi;
 sca i;
 
+# Set todo.txt path
+export TODO_DIR="$local/mobile/config/notes/todo.txt"
+
 # Load tmux session
 sessions=$(tmux ls);
 echo $sessions | grep -qw wkse || tmux_workspace;
