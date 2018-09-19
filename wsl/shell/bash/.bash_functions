@@ -79,7 +79,7 @@ filec() {
             a|all)
                 raw=$(ls -al | wc -l);
                 num=$(echo $raw | awk '{ print $NF}');
-                echo "$num - 3" | bc ;;
+                echo "$num - 3" | bc -l ;;
             *)  help ;;
         esac
     fi
@@ -3555,6 +3555,15 @@ openfile() {
 
 #-------------------------------------------------------------------------------
 
+openwin() {
+    if [[ ! -z $1 ]]; then
+        target="$(wslpath -w "$1")"
+        explorer.exe "$target"
+    fi
+}
+
+#-------------------------------------------------------------------------------
+
 reverse() {
     if [ "$#" -gt 0 ]; then
         local arg=$1
@@ -3577,12 +3586,8 @@ cd() { builtin cd "$@"; ll; }
 
 #-------------------------------------------------------------------------------
 
-openwin() {
-    if [[ ! -z $1 ]]; then
-        target=$(getpath -w "$1")
-        explorer.exe $target
-    fi
-}
+# prevent printing the stack
+pushd() { builtin pushd "$@" > /dev/null; }
 
 #-------------------------------------------------------------------------------
 
@@ -3614,6 +3619,102 @@ winalias() {
     # source ~/.bashrc
     # echo "restart bash to use.. or type source ~/.bashrc"
     unset -v a b
+}
+
+#-------------------------------------------------------------------------------
+
+gdiff () {
+    help() {
+        echo && echo "DESCRIPTION"
+        echo "        gdiff - show differences between 2 files" && echo
+        echo "USAGE"
+        echo "        gdiff [command] [file1...]" && echo
+        echo "OPTIONS"
+        echo "     -s                show status only"
+        echo "     -p                diff from clipboard"
+        echo "     -t                diff from /tem (old clipboard)"
+        echo "     -g                diff graphical"
+        echo "     -h | help         show help" && echo
+    }
+
+    cattemp() {
+        # local i=5
+        # local input=${1:-0}
+        # local n=$(echo "$i + $input" | bc -l )
+        # cat > /temp/f${n}
+        echo "    Ctrl + D on new line to save"
+        echo "    Paste 1"
+        pushd /tmp
+        cat > f1;
+        read -e -p "    Paste 2 [y]: " input
+        case $input in
+            y|Y)  cat > f2 && clear; ;;
+            *)    echo "    aboring"
+        esac
+        popd
+    }
+
+    dodiff() {
+        if [[ "$(status "$@")" == 'differ' ]]; then
+            diff -u "$@" | colordiff | less -R;
+        else
+            status "$@";
+        fi;
+    }
+
+    status() {
+        echo "$(diff -sq $@ | awk '{print $NF}')";
+    }
+
+    if [[ -z "$@" ]]; then
+        help
+    else
+        local input="$1";
+        local temp1="/tmp/f1";
+        local temp2="/tmp/f2";
+        case $input in
+            -t)         shift 1;
+                        case "$1" in
+                             -s) gdiff -s "$temp1" "$temp2"; ;;
+                             *)  gdiff "$temp1" "$temp2"; ;;
+                         esac ;;
+            -g)         cmds "$aps\apps\productivity\diff-checker-x64.nsis" Diff-Checker.exe; ;;
+            -s)         shift 1 && status "$@"; ;;
+            -p)         shift 1 && cattemp;
+                        gdiff "$temp1" "$temp2"; ;;
+            -h|help)    help ;;
+            *)          dodiff "$@"; ;;
+        esac;
+    fi;
+    unset -f help cattemp dodiff;
+}
+
+#-------------------------------------------------------------------------------
+
+man2pdf() {
+    usage() {
+       echo "usage:- man2pdf [manpage]";
+    }
+
+    create_pdf() {
+       man -t $manpage > /tmp/${manpage}.ps && ps2pdf /tmp/${manpage}.ps
+       rm -f /tmp/${manpage}.ps
+       openfile "${manpage}.pdf"
+    }
+
+    manpage=$1
+
+    if [ -z "$manpage" ]; then
+       usage
+    else
+        if [ -f ${manpage}.pdf ]; then
+           read -p "${manpage}.pdf file exists, do you want to replace it?:" ans_yn
+           case "$ans_yn" in
+              [Yy]|[Yy][Ee][Ss]) echo "Replacing ${manpage}.pdf ...";;
+           esac
+        fi
+        create_pdf
+    fi
 }
 
 #-------------------------------------------------------------------------------

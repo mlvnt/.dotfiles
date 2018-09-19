@@ -77,6 +77,7 @@ appz=(
     "djvulibre-bin"
     # "texlive-full"
     "ascii"
+    "colordiff"
 # ------------- files
     "tar"
     "zip"
@@ -158,6 +159,7 @@ appz=(
     "xclip"
     "x11-apps"
     "xinit"
+    "xdotool"
     "most"
     "gnome-keyring"
     "lsof"
