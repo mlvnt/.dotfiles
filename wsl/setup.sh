@@ -53,7 +53,7 @@ get_dots() {
 
     printf '\n      >>> Converting files to linux linebreaks....\n\n'
     cd ~/.dotfiles/wsl/
-    sudo dos2unix ./*.* ./shell/* ./shell/zsh/.* ./shell/zsh/.oh-my-zsh-custom/.* ./shell/bash/.* ./editors/.* ./git/.* ./bin/*
+    sudo dos2unix ./*.* ./shell/zsh/.* ./shell/zsh/.oh-my-zsh-custom/.* ./shell/bash/.* ./editors/.* ./git/.* ./bin/*
 
     printf '\n      >>> Making files executable....\n\n'
     sudo chmod -Rv +x ./*.sh ./bin/*

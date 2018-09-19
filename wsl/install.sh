@@ -795,7 +795,7 @@ import_other() {
     yes yes | sudo cp -rv "$path_dots"/.config/sublime-text-3 "$path_dots_local"/.config
     yes yes | sudo cp -rv "$path_dots"/.config/radicale "$path_dots_local"/.config
     yes yes | sudo cp -rv "$path_dots"/.local/share/tldr "$path_dots_local"/.local/share
-    yes yes | sudo cp -rv ${path_dots}/net/mac.txt "$path_dots_local"/net
+    yes yes | sudo cp -rv "${path_dots}"/net/mac.txt "$path_dots_local"/net
 }
 
 #   -------------------------------
