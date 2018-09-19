@@ -7,40 +7,38 @@
 #   DYNAMIC DIRECTORY DISPATCH
 #   -------------------------------
 
-function winhome() {
+winhome() {
     cmd.exe /c echo %USERPROFILE% | clip.exe;
     # read var < <(powershell.exe -Command Get-Clipboard);
     # read var < <(powershell.exe -sta "add-type -as System.Windows.Forms; [windows.forms.clipboard]::GetText()");
-    local var="$(powershell.exe -Command Get-Clipboard)"
+    local var="$(powershell.exe -Command Get-Clipboard)";
     echo "$var" | tr -d '\r\n';
 }
-winhome
 
 winhw="$(winhome)";
 winhl="$(getpath -u "$winhw")";
 
 if [[ $(currentdevice) == pc ]]; then
-    aps="D:"
-    sublime_path="'D:\apps\development\editors\editors\Sublime_Text'"
-    revo_path="D:\apps\program-management\uninstallers"
-    enpass_path="D:\apps\net\security"
-    synctrayzor_path="D:\apps\net\file-sharing"
-    jdotxt_path="D:\apps\productivity\notes"
-    local=/mnt/d/shared
+    aps="D:";
+    sublime_path="'D:\apps\development\editors\editors\Sublime_Text'";
+    revo_path="D:\apps\program-management\uninstallers";
+    enpass_path="D:\apps\net\security";
+    synctrayzor_path="D:\apps\net\file-sharing";
+    jdotxt_path="D:\apps\productivity\notes";
+    local=/mnt/d/shared;
 else
-    aps="$winhw\Downloads\pc"
-    sublime_path="'$aps\apps\development\Sublime_Text'"
-    revo_path="$aps\apps\system"
-    enpass_path="$aps\apps\net"
-    synctrayzor_path="$aps"
-    jdotxt_path="C:\Users\Todorov\Downloads\pc\apps\productivity"
-    local=$winhl/Downloads
-fi
+    aps="$winhw\Downloads\pc";
+    sublime_path="'$aps\apps\development\Sublime_Text'";
+    revo_path="$aps\apps\system";
+    enpass_path="$aps\apps\net";
+    synctrayzor_path="$aps";
+    jdotxt_path="C:\Users\Todorov\Downloads\pc\apps\productivity";
+    local=$winhl/Downloads;
+fi;
 
-path_dots=$local/pc/projects/git/dotfiles/.dotfiles/wsl
-python_scripts=$local/pc/projects/scripts/Python
-path_dots_local=~/.dotfiles/wsl
-
+path_dots=$local/pc/projects/git/dotfiles/.dotfiles/wsl;
+python_scripts=$local/pc/projects/scripts/Python;
+path_dots_local=~/.dotfiles/wsl;
 os=$(currentdevice -o);
 
 #-------------------------------------------------------------------------------

@@ -7,9 +7,9 @@ sca() {
     # Shell dotfiles
     files=(
         "bash_onload"
-        "bash_dirs"
         "bashrc"
         # "bash_aliaswin"
+        "bash_dirs"
         "bash_aliases"
         "bash_functions"
         "fzf.bash" # fzf - A command-line fuzzy finder
@@ -23,7 +23,7 @@ sca() {
     );
 
     case $1 in
-        i) files=( "${files[@]:3}" ); ;;
+        i) files=( "${files[@]:2}" ); ;;
         *) files=( "${files[2]}" );
            printing="true"; ;;
     esac
