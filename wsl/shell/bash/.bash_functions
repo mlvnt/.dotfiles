@@ -1457,27 +1457,29 @@ dots() {
     fi
 
     case $input in
-        1|remote)  dotfiles && gac
-            cd ~/.dotfiles && git stash && gf
-            cd ~/.dotfiles/wsl && sudo chmod -Rv +x ./*.sh ./bin/*
-            sca && clear ;;
-        2|clean)  echo -e '\n ~~~~~~~~~~~~~~ Removing old .dotfiles.... ~~~~~~~~~~~~~~\n' 
-            sudo rm -rfv ~/.dotfiles 
-            echo -e '\n ~~~~~~~~~~~~~~ Cloning new .dotfiles.... ~~~~~~~~~~~~~~\n'
-            git clone $local/pc/projects/git/dotfiles/.dotfiles ~/.dotfiles
-            # oh-my-zsh
-            sudo cp -rfv  $path_dots/shell/zsh/.oh-my-zsh ~/.dotfiles/wsl/shell/zsh
-            sudo cp -rfv  $path_dots/.config/sublime-text-3 ~/.dotfiles/wsl/.config
-            echo -e '\n ~~~~~~~~~~~~~~ Converting .dotfiles to LF endings.... ~~~~~~~~~~~~~~\n'
-            sudo dos2unix ~/.dotfiles/wsl/*.* ~/.dotfiles/wsl/shell/zsh/.* ~/.dotfiles/wsl/shell/zsh/.oh-my-zsh-custom/.* ~/.dotfiles/wsl/shell/bash/.* ~/.dotfiles/wsl/editors/.* ~/.dotfiles/wsl/git/.* ~/.dotfiles/wsl/git/*.* ~/.dotfiles/wsl/bin/*
-            echo -e '\n ~~~~~~~~~~~~~~ Sourcing .dotfiles.... ~~~~~~~~~~~~~~\n'
-            cd ~/.dotfiles/wsl && sudo chmod -Rv +x ./*.sh ./bin/*
-            sca && clear
-            echo -e '\n ~~~~~~~~~~~~~~ Dotfiles Updated! ~~~~~~~~~~~~~~\n' ;;
-        3|local)  cd ~/.dotfiles && git stash && git fetch $local/pc/projects/git/dotfiles/.dotfiles
-            git pull $local/pc/projects/git/dotfiles/.dotfiles 
-            cd ~/.dotfiles/wsl && sudo chmod -Rv +x ./*.sh ./bin/*
-            sca && clear ;;
+        1|remote)   pushd $local/pc/projects/git/dotfiles/.dotfiles && gac
+                    cd ~/.dotfiles && git stash && gf
+                    cd ~/.dotfiles/wsl && sudo chmod -Rv +x ./*.sh ./bin/*
+                    sca && clear 
+                    popd ;;
+        2|clean)    echo -e '\n -------------- Removing old .dotfiles....\n' 
+                    sudo rm -rfv ~/.dotfiles 
+                    echo -e '\n -------------- Cloning new .dotfiles....\n'
+                    git clone $local/pc/projects/git/dotfiles/.dotfiles ~/.dotfiles
+                    # oh-my-zsh
+                    sudo cp -rfv  $path_dots/shell/zsh/.oh-my-zsh ~/.dotfiles/wsl/shell/zsh
+                    sudo cp -rfv  $path_dots/.config/sublime-text-3 ~/.dotfiles/wsl/.config
+                    echo -e '\n -------------- Converting .dotfiles to LF endings....\n'
+                    sudo dos2unix ~/.dotfiles/wsl/*.* ~/.dotfiles/wsl/shell/zsh/.* ~/.dotfiles/wsl/shell/zsh/.oh-my-zsh-custom/.* ~/.dotfiles/wsl/shell/bash/.* ~/.dotfiles/wsl/editors/.* ~/.dotfiles/wsl/git/.* ~/.dotfiles/wsl/git/*.* ~/.dotfiles/wsl/bin/*
+                    echo -e '\n -------------- Sourcing .dotfiles....\n'
+                    cd ~/.dotfiles/wsl && sudo chmod -Rv +x ./*.sh ./bin/*
+                    sca && clear
+                    echo -e '\n -------------- Dotfiles Updated!\n' ;;
+        3|local)    pushd ~/.dotfiles && git stash && git fetch $local/pc/projects/git/dotfiles/.dotfiles
+                    git pull $local/pc/projects/git/dotfiles/.dotfiles 
+                    cd ~/.dotfiles/wsl && sudo chmod -Rv +x ./*.sh ./bin/*
+                    sca && clear 
+                    popd ;;
         b)  linx ;;
         x)  : && clear ;;
         *)  dots ;;
@@ -1598,10 +1600,10 @@ win() {
     }
 
     if [ -z $1 ] ; then
-        help
+        help;
     else
-        input=$1
-    fi
+        input=$1;
+    fi;
 
     qaccess() {
         help() {
@@ -1616,16 +1618,16 @@ win() {
         }
 
         if [ -z $1 ] ; then
-            help
+            help;
         else
-            input=$1
-        fi
+            input=$1;
+        fi;
 
         # Variables
-        powershellScript=''$(getpath -w $local)'\pc\projects\scripts\PowerShell\Quick_Access\Set-QuickAccess.ps1'
+        powershellScript=''$(getpath -w $local)'\pc\projects\scripts\PowerShell\Quick_Access\Set-QuickAccess.ps1';
         # cmd.exe /c "$(getpath -w $local)\pc\projects\scripts\PowerShell\Quick Access\Set-QuickAccess.cmd"
-        p='Pin'
-        up='Unpin'
+        p='Pin';
+        up='Unpin';
 
         if [[ $(currentdevice) == pc ]]; then
             pins=(
@@ -1651,7 +1653,7 @@ win() {
                     "'D:\workspace\essential\art\screenshots\pics'"
                     "'$winhw\Pictures\My Screen Shots'"
                     "'$winhw\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs\home\todorov'"
-                )
+                );
         else
             pins=(
                     "'C:\Users\Todorov\Downloads\mobile\~temp'"
@@ -1662,9 +1664,8 @@ win() {
                     "'C:\Users\Todorov\Downloads\pc\projects\blog\mlvnt.com'"
                     "'$winhw\Pictures\My Screen Shots'"
                     "'$winhw\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs\home\todorov'"
-                )
-        fi
-    
+                );
+        fi;
 
         case $input in
             1)
@@ -1700,24 +1701,24 @@ win() {
         }
 
         if [ -z $1 ] ; then
-            help
+            help;
         else
-            input=$1
-        fi
+            input=$1;
+        fi;
 
-        tpin=c:5386
-        tunpin=c:5387
-        spin=c:51201
-        sunpin=c:51394
-        patht="$(getpath -w $local)\pc\config\universial\shortcuts\taskbar"
-        paths="$(getpath -w $local)\pc\config\universial\shortcuts\start menu\windows"
+        tpin=c:5386;
+        tunpin=c:5387;
+        spin=c:51201;
+        sunpin=c:51394;
+        patht="$(getpath -w $local)\pc\config\universial\shortcuts\taskbar";
+        paths="$(getpath -w $local)\pc\config\universial\shortcuts\start menu\windows";
         taskbar=(
             "File Explorer.lnk"
             "ConEmu.lnk"
             "Microsoft Edge.lnk"
             "Google Chrome.lnk"
             "Sublime Text 3.lnk"
-        )
+        );
         startmenu=(
             "Weather.lnk"
             "Alarms & Clock.lnk"
@@ -1745,8 +1746,8 @@ win() {
             "System Information.lnk"
             "System Configuration.lnk"
             "System Properties Protection.lnk"
-        )
-        pushd $local/pc/apps/system/Syspin
+        );
+        pushd $local/pc/apps/system/Syspin;
 
         case $input in
             1)
@@ -1777,9 +1778,9 @@ win() {
                 echo -e '\n    Icons unpinned!\n'  ;;
             b)  win ;;
             x)  : && clear ;;
-            *)  icons
+            *)  icons ;;
         esac
-        popd
+        popd;
     }
 
     case $input in
