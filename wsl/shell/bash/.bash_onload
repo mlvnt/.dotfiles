@@ -136,7 +136,7 @@ linuxpath() {
 
 tmux_workspace() {
     local SESSION_NAME="wkse";
-    local process=$(ps -e);;
+    local process=$(ps -e);
     # tmux set -g base-index 1;
     tmux new -d -s ${SESSION_NAME};
     tmux rename-window 'whole';
