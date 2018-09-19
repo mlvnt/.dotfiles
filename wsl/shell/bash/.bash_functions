@@ -61,7 +61,7 @@ mkd() {
 
 filec() {
     help() {
-        echo && echo "DESCRIPTION"
+        clear && echo && echo "DESCRIPTION"
         echo "        filec - list number of files in a directory" && echo
         echo "USAGE"
         echo "        filc [OPTION]" && echo
@@ -557,7 +557,7 @@ ipdiscovery() {
     local macs=~/.dotfiles/wsl/net/mac.txt;
 
     help() {
-        echo && echo "DESCRIPTION"
+        clear && echo && echo "DESCRIPTION"
         echo "        ipdiscovery - find device ip by mac and run a service" && echo
         echo "USAGE"
         echo "        ipdiscovery [DEVICE] [SERVICE]" && echo
@@ -1439,70 +1439,72 @@ move() {
 
 dots() {
     help() {
-        clear
-        echo -e '\n  Available Options:'
-        echo    '       x  | Exit'
-        echo    '       b  | Go Back'
-        echo    '       1  | push           | Update from Remote'
-        echo    '       2  | pushlocal      | Update Clean'
-        echo    '       3  | pullclean      | Update Clean'
-        echo -e '       4  | pull           | Update from Local\n'
-        read -e -p "  Enter Option: " input
-        echo
+        clear && echo && echo "DESCRIPTION"
+        echo "        dots - update dotfiles" && echo
+        echo "USAGE"
+        echo "        dots [option]" && echo
+        echo "OPTIONS"
+        echo "     push              push to remote"
+        echo "     pushlocal         push to local"
+        echo "     pullclean         remove old and pull from local"
+        echo "     pull              pull from local"
+        echo "     b                 go back"
+        echo "     -h | help         show help" && echo
     }
 
     if [ -z $1 ]; then
         help
     else
-        input=$1
+        case $1 in
+            1|push)         pushd $local/pc/projects/git/dotfiles/.dotfiles && gac
+                            cd ~/.dotfiles && git stash && gf
+                            cd ~/.dotfiles/wsl && sudo chmod -Rv +x ./*.sh ./bin/*
+                            sca && clear 
+                            popd ;;
+            2|pushlocal)    pushd $local/pc/projects/git/dotfiles/.dotfiles
+                            git add -A && git commit && git push $local/pc/projects/git/dotfiles/.dotfiles
+                            git push
+                            pushd ~/.dotfiles && git stash && git fetch $local/pc/projects/git/dotfiles/.dotfiles
+                            git pull $local/pc/projects/git/dotfiles/.dotfiles 
+                            popd
+                            pushd ~/.dotfiles/wsl && sudo chmod -Rv +x ./*.sh ./bin/*
+                            popd
+                            sca && clear 
+                            popd ;;
+            3|pullclean)    echo -e '\n -------------- Removing old .dotfiles....\n' 
+                            sudo rm -rfv ~/.dotfiles 
+                            echo -e '\n -------------- Cloning new .dotfiles....\n'
+                            git clone $local/pc/projects/git/dotfiles/.dotfiles ~/.dotfiles
+                            # oh-my-zsh
+                            sudo cp -rfv  $path_dots/shell/zsh/.oh-my-zsh ~/.dotfiles/wsl/shell/zsh
+                            sudo cp -rfv  $path_dots/.config/sublime-text-3 ~/.dotfiles/wsl/.config
+                            echo -e '\n -------------- Converting .dotfiles to LF endings....\n'
+                            sudo dos2unix ~/.dotfiles/wsl/*.* ~/.dotfiles/wsl/shell/zsh/.* ~/.dotfiles/wsl/shell/zsh/.oh-my-zsh-custom/.* ~/.dotfiles/wsl/shell/bash/.* ~/.dotfiles/wsl/editors/.* ~/.dotfiles/wsl/git/.* ~/.dotfiles/wsl/git/*.* ~/.dotfiles/wsl/bin/*
+                            echo -e '\n -------------- Sourcing .dotfiles....\n'
+                            cd ~/.dotfiles/wsl && sudo chmod -Rv +x ./*.sh ./bin/*
+                            sca && clear
+                            echo -e '\n -------------- Dotfiles Updated!\n' ;;
+            4|pull)         pushd ~/.dotfiles && git stash && git fetch $local/pc/projects/git/dotfiles/.dotfiles
+                            git pull $local/pc/projects/git/dotfiles/.dotfiles 
+                            cd ~/.dotfiles/wsl && sudo chmod -Rv +x ./*.sh ./bin/*
+                            sca && clear 
+                            popd ;;
+            b)  linx ;;
+            *)  help ;;
+        esac
     fi
-
-    case $input in
-        1|push)         pushd $local/pc/projects/git/dotfiles/.dotfiles && gac
-                        cd ~/.dotfiles && git stash && gf
-                        cd ~/.dotfiles/wsl && sudo chmod -Rv +x ./*.sh ./bin/*
-                        sca && clear 
-                        popd ;;
-        2|pushlocal)    pushd $local/pc/projects/git/dotfiles/.dotfiles
-                        git add -A && git commit && git push $local/pc/projects/git/dotfiles/.dotfiles
-                        cd ~/.dotfiles && git stash && git fetch $local/pc/projects/git/dotfiles/.dotfiles
-                        git pull $local/pc/projects/git/dotfiles/.dotfiles 
-                        cd ~/.dotfiles/wsl && sudo chmod -Rv +x ./*.sh ./bin/*
-                        sca && clear 
-                        popd ;;
-        3|pullclean)    echo -e '\n -------------- Removing old .dotfiles....\n' 
-                        sudo rm -rfv ~/.dotfiles 
-                        echo -e '\n -------------- Cloning new .dotfiles....\n'
-                        git clone $local/pc/projects/git/dotfiles/.dotfiles ~/.dotfiles
-                        # oh-my-zsh
-                        sudo cp -rfv  $path_dots/shell/zsh/.oh-my-zsh ~/.dotfiles/wsl/shell/zsh
-                        sudo cp -rfv  $path_dots/.config/sublime-text-3 ~/.dotfiles/wsl/.config
-                        echo -e '\n -------------- Converting .dotfiles to LF endings....\n'
-                        sudo dos2unix ~/.dotfiles/wsl/*.* ~/.dotfiles/wsl/shell/zsh/.* ~/.dotfiles/wsl/shell/zsh/.oh-my-zsh-custom/.* ~/.dotfiles/wsl/shell/bash/.* ~/.dotfiles/wsl/editors/.* ~/.dotfiles/wsl/git/.* ~/.dotfiles/wsl/git/*.* ~/.dotfiles/wsl/bin/*
-                        echo -e '\n -------------- Sourcing .dotfiles....\n'
-                        cd ~/.dotfiles/wsl && sudo chmod -Rv +x ./*.sh ./bin/*
-                        sca && clear
-                        echo -e '\n -------------- Dotfiles Updated!\n' ;;
-        4|pull)         pushd ~/.dotfiles && git stash && git fetch $local/pc/projects/git/dotfiles/.dotfiles
-                        git pull $local/pc/projects/git/dotfiles/.dotfiles 
-                        cd ~/.dotfiles/wsl && sudo chmod -Rv +x ./*.sh ./bin/*
-                        sca && clear 
-                        popd ;;
-        b)  linx ;;
-        x)  : && clear ;;
-        *)  dots ;;
-    esac
 
     functions=(
         "help"
     )
 
-    variables=(
-        "input"
-    )
+    # variables=(
+    #     ""
+    # )
 
     unset -f "${functions[@]}";
-    unset -v functions "${variables[@]}" variables;
+    # unset -v functions "${variables[@]}" variables;
+    unset -v functions;
 }
 
 #-------------------------------------------------------------------------------
@@ -1962,7 +1964,7 @@ social() {
     files="$HOME/.dotfiles/wsl/net/social"
 
     help() {
-        echo && echo "DESCRIPTION"
+        clear && echo && echo "DESCRIPTION"
         echo "        social - manage social network usage" && echo
         echo "USAGE"
         echo "        social [nt (new-tab, new-window is default)]"
@@ -2122,7 +2124,7 @@ food() {
     re='^[0-9]+$'
 
     help() {
-        echo && echo "DESCRIPTION"
+        clear && echo && echo "DESCRIPTION"
         echo "        food - open food related files" && echo
         echo "USAGE"
         echo "        food [OPTION]" && echo
@@ -2205,7 +2207,7 @@ sport() {
     doc3=$path"\training program.docx"
 
     help() {
-        echo && echo "DESCRIPTION"
+        clear && echo && echo "DESCRIPTION"
         echo "        sport - open sport related files" && echo
         echo "SYNTAX"
         echo "        sport [OPTION]" && echo
@@ -2247,7 +2249,7 @@ sport() {
 
 coc() {
     help() {
-        echo && echo "DESCRIPTION"
+        clear && echo && echo "DESCRIPTION"
         echo "        coc - Clash of Clans Management" && echo
         echo "USAGE"
         echo "        coc [OPTION]" && echo
@@ -3311,7 +3313,7 @@ word() {
     path="$(getpath -w $local)\mobile\docs\templates\microsoft office\landscape.dotm"
 
     help() {
-        echo && echo "DESCRIPTION"
+        clear && echo && echo "DESCRIPTION"
         echo "        word - open Microsoft Word documents" && echo
         echo "SYNTAX"
         echo "        word [OPTION] [FILE NUMBER]"
@@ -3379,7 +3381,7 @@ m3u() {
     filename="~playlist[ ${dirname} ].m3u"
 
     help() {
-        echo && echo "DESCRIPTION"
+        clear && echo && echo "DESCRIPTION"
         echo "        m3u - create m3u playlist" && echo
         echo "USAGE"
         echo "        m3u [OPTION]" && echo
@@ -3518,7 +3520,7 @@ base64_imggen() {
 
 openfile() {
     help() {
-        echo && echo "DESCRIPTION"
+        clear && echo && echo "DESCRIPTION"
         echo "        openfile - open a file" && echo
         echo "USAGE"
         echo "        openfile [file] [command]"
@@ -3633,7 +3635,7 @@ winalias() {
 
 gdiff () {
     help() {
-        echo && echo "DESCRIPTION"
+        clear && echo && echo "DESCRIPTION"
         echo "        gdiff - show differences between 2 files" && echo
         echo "USAGE"
         echo "        gdiff [command] [file1...]" && echo
