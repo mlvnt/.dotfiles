@@ -42,6 +42,9 @@ appz=(
 # -- haskell
     "ghc"
     "cabal-install"
+# -- android
+    # "adb"
+    # "android-tools-adb"
 # -- other
     "php7.0-cli"
     "ghostscript"
@@ -65,6 +68,7 @@ appz=(
     "vim"
     "vim-gui-common"
     "nano"
+    "ed"
     "emacs"
     "graphviz"
     "groff"
@@ -72,6 +76,7 @@ appz=(
     "diffutils"
     "djvulibre-bin"
     # "texlive-full"
+    "ascii"
 # ------------- files
     "tar"
     "zip"
@@ -121,6 +126,8 @@ appz=(
     "gnuplot"
     "python-gnuplot"
     "knockd"
+    "vpnc"
+    "keepalived"
 # ------------- stats
     # "screenfetch"
     "inxi"

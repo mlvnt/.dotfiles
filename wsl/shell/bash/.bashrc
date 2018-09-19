@@ -49,7 +49,7 @@ export EDITOR=/usr/bin/vim
 #   -------------------------------
 
 # Sorce all dotfiles
-f=$HOME/.bash_functions_onload
+f=$HOME/.bash_onload
 if [ -r "$f" ] && [ -f "$f" ]; then
     source "$f";
 else

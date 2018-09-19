@@ -3,13 +3,6 @@
 #------------------------ FUNCTIONS --------------------------------------------
 #-------------------------------------------------------------------------------
 
-# Variables
-path_dots=$local/pc/projects/git/dotfiles/.dotfiles/wsl
-python_scripts=$local/pc/projects/scripts/Python
-path_dots_local=~/.dotfiles/wsl
-
-#-------------------------------------------------------------------------------
-
 #   -------------------------------
 #   MASTER FUNCTION
 #   -------------------------------
@@ -140,7 +133,7 @@ linx() {
             echo
         }
 
-        path2="C:\Users\Todorov\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs\home\todorov\.dotfiles\wsl\vcxsrv\\"
+        path2="$winhw\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs\home\todorov\.dotfiles\wsl\vcxsrv\\"
         path="C:\Program Files\VcXsrv"
         win32="C:\Windows\System32"
 
@@ -235,9 +228,9 @@ linx() {
                 sudo vim /etc/ssh/sshd_config
                 sudo service ssh restart ;;
             8)
-                sudo cp -r ~/.ssh/* /mnt/d/shared/mobile/config/notes/p/.ssh ;;
+                sudo cp -r ~/.ssh/* $local/mobile/config/notes/p/.ssh ;;
             9)
-                sudo cp -r /mnt/d/shared/mobile/config/notes/p/.ssh/* ~/.ssh/
+                sudo cp -r $local/mobile/config/notes/p/.ssh/* ~/.ssh/
                 ssh_permissons ;;
             b)
                 linx ;;
@@ -465,12 +458,6 @@ linx() {
             4)  revoke_key ;;
             5)  list ;;
             6)  delete_key ;;
-            7)
-                 ;;
-            8)
-                 ;;
-            9)
-                 ;;
             b)  linx ;;
             x)  : && clear ;;
             *)  gpg_manage ;;
@@ -752,7 +739,7 @@ watching-double() {
 }
 
 lin() {
-    cd '/mnt/d/shared/mobile/config/notes/markor'
+    cd '$local/mobile/config/notes/markor'
     watching-double . linkbox.txt "$python_scripts/web/links.py"
 }
 
@@ -763,7 +750,7 @@ lin() {
 #   -------------------------------
 
 bin() {
-    patht="D:\apps\suites\symenu\ProgramFiles\SPSSuite\NirSoftSuite\NirCmd_x64_sps\nircmd.exe"
+    patht="$aps\apps\suites\symenu\ProgramFiles\SPSSuite\NirSoftSuite\NirCmd_x64_sps\nircmd.exe"
     trashdir=~/.local/share/Trash
 
     list() {
@@ -910,8 +897,8 @@ links() {
         echo -e '\n ~~~~~~~~~~~~~~ Symbolic Links Deleted! ~~~~~~~~~~~~~~\n'
     }
 
-    path='/mnt/d/shared/mobile/notebook/~genLinks'
-    pathwin='D:\shared\mobile\notebook\~genLinks'
+    path='$local/mobile/notebook/~genLinks'
+    pathwin='$(getpath -w $local)\mobile\notebook\~genLinks'
 
     if [ -z $1 ] ; then
         help
@@ -1312,7 +1299,7 @@ move() {
         help
 
         temp="/mnt/d/~temp"
-        screenshotsdir="/mnt/c/Users/Todorov/Pictures/My Screen Shots/"
+        screenshotsdir="$winhl/Pictures/My Screen Shots/"
         animepicsdir="/mnt/d/workspace/essential/art/screenshots/pics"
         animepicsdirwin="D:\workspace\essential\art\screenshots\pics"
         acerscreendir="/mnt/d/workspace/tech/devices/laptops/Acer Predator G9-792/screenshots"
@@ -1339,8 +1326,8 @@ move() {
     }
 
     move_all() {
-        downloads="/mnt/c/Users/Todorov/Downloads/"
-        documents="/mnt/c/Users/Todorov/Documents/"
+        downloads="$winhl/Downloads/"
+        documents="$winhl/Documents/"
         temp="/mnt/d/~temp"
 
         echo -e '\n ~~~~~~~~~~~~~~ Moving from Downloads.... ~~~~~~~~~~~~~~\n'
@@ -1477,7 +1464,7 @@ dots() {
         2|clean)  echo -e '\n ~~~~~~~~~~~~~~ Removing old .dotfiles.... ~~~~~~~~~~~~~~\n' 
             sudo rm -rfv ~/.dotfiles 
             echo -e '\n ~~~~~~~~~~~~~~ Cloning new .dotfiles.... ~~~~~~~~~~~~~~\n'
-            git clone /mnt/d/shared/pc/projects/git/dotfiles/.dotfiles ~/.dotfiles
+            git clone $local/pc/projects/git/dotfiles/.dotfiles ~/.dotfiles
             # oh-my-zsh
             sudo cp -rfv  $path_dots/shell/zsh/.oh-my-zsh ~/.dotfiles/wsl/shell/zsh
             sudo cp -rfv  $path_dots/.config/sublime-text-3 ~/.dotfiles/wsl/.config
@@ -1487,8 +1474,8 @@ dots() {
             cd ~/.dotfiles/wsl && sudo chmod -Rv +x ./*.sh ./bin/*
             sca && clear
             echo -e '\n ~~~~~~~~~~~~~~ Dotfiles Updated! ~~~~~~~~~~~~~~\n' ;;
-        3|local)  cd ~/.dotfiles && git stash && git fetch /mnt/d/shared/pc/projects/git/dotfiles/.dotfiles
-            git pull /mnt/d/shared/pc/projects/git/dotfiles/.dotfiles 
+        3|local)  cd ~/.dotfiles && git stash && git fetch $local/pc/projects/git/dotfiles/.dotfiles
+            git pull $local/pc/projects/git/dotfiles/.dotfiles 
             cd ~/.dotfiles/wsl && sudo chmod -Rv +x ./*.sh ./bin/*
             sca && clear ;;
         b)  linx ;;
@@ -1515,7 +1502,7 @@ dots() {
 #   -------------------------------
 
 handles() {
-    cd /mnt/d/apps/suites/symenu/ProgramFiles/SPSSuite/SysinternalsSuite/Handle_sps
+    pushd $(getpath -u $aps)/apps/suites/symenu/ProgramFiles/SPSSuite/SysinternalsSuite/Handle_sps;
     help() {
         clear
         echo -e '\n  Available Options:\n'
@@ -1537,7 +1524,7 @@ handles() {
     if [ -z $1 ] ; then
         help
     else
-        input=$1
+        input=$1;
     fi
 
     case $input in
@@ -1555,7 +1542,7 @@ handles() {
             echo -e '\n ~~~~~~~~~~~~~~ Showing All Process PIDs.... ~~~~~~~~~~~~~~\n'
             cmd.exe /c 'handle.exe' | grep 'pid'
             echo -e '\n ~~~~~~~~~~~~~~ Query Completed! ~~~~~~~~~~~~~~\n' ;;
-        4)  cmds 'D:\apps\suites\portableapps.com\PortableApps\ProcessExplorerPortable' ProcessExplorerPortable.exe && clear ;;
+        4)  cmds "$aps\apps\suites\portableapps.com\PortableApps\ProcessExplorerPortable" ProcessExplorerPortable.exe && clear ;;
         5)  cmd.exe /c handle.exe /? ;;
         6)  clear
             echo -e "\n     The number of all open descriptors is: $(lsof | wc -l)\n" ;;
@@ -1579,6 +1566,7 @@ handles() {
 
     unset -f "${functions[@]}";
     unset -v functions "${variables[@]}" variables;
+    popd;
 }
 
 #-------------------------------------------------------------------------------
@@ -1634,34 +1622,49 @@ win() {
         fi
 
         # Variables
-        powershellScript='D:\shared\pc\projects\scripts\PowerShell\Quick_Access\Set-QuickAccess.ps1'
-        # cmd.exe /c "D:\shared\pc\projects\scripts\PowerShell\Quick Access\Set-QuickAccess.cmd"
+        powershellScript=''$(getpath -w $local)'\pc\projects\scripts\PowerShell\Quick_Access\Set-QuickAccess.ps1'
+        # cmd.exe /c "$(getpath -w $local)\pc\projects\scripts\PowerShell\Quick Access\Set-QuickAccess.cmd"
         p='Pin'
         up='Unpin'
-        pins=(
-            "'D:\'"
-            "'D:\~temp'"
-            "'D:\shared\pc\projects\git\dotfiles\.dotfiles'"
-            "'D:\shared\pc\projects\blog'"
-            "'D:\shared\mobile'"
-            "'D:\shared\pc'"
-            "'D:\workspace'"
-            "'D:\workspace\essential'"
-            "'D:\workspace\essential\lists'"
-            "'D:\apps'"
-            "'D:\workspace\tech'"
-            "'D:\workspace\tech\programing'"
-            "'D:\workspace\personal'"
-            "'D:\workspace\personal\professional\cv'"
-            "'D:\workspace\university'"
-            "'D:\media\anime'"
-            "'D:\media\movies'"
-            "'D:\media\series'"
-            "'D:\workspace\tech\programing\~references\programs\browsers\chrome\bookmarks\archive'"
-            "'D:\workspace\essential\art\screenshots\pics'"
-            "'C:\Users\Todorov\Pictures\My Screen Shots'"
-            "'C:\Users\Todorov\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs\home\todorov'"
-        )
+
+        if [[ $(currentdevice) == pc ]]; then
+            pins=(
+                    "'D:\'"
+                    "'D:\~temp'"
+                    "'D:\shared\pc\projects\git\dotfiles\.dotfiles'"
+                    "'D:\shared\pc\projects\blog'"
+                    "'D:\shared\mobile'"
+                    "'D:\shared\pc'"
+                    "'D:\workspace'"
+                    "'D:\workspace\essential'"
+                    "'D:\workspace\essential\lists'"
+                    "'D:\apps'"
+                    "'D:\workspace\tech'"
+                    "'D:\workspace\tech\programing'"
+                    "'D:\workspace\personal'"
+                    "'D:\workspace\personal\professional\cv'"
+                    "'D:\workspace\university'"
+                    "'D:\media\anime'"
+                    "'D:\media\movies'"
+                    "'D:\media\series'"
+                    "'D:\workspace\tech\programing\~references\programs\browsers\chrome\bookmarks\archive'"
+                    "'D:\workspace\essential\art\screenshots\pics'"
+                    "'$winhw\Pictures\My Screen Shots'"
+                    "'$winhw\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs\home\todorov'"
+                )
+        else
+            pins=(
+                    "'C:\Users\Todorov\Downloads\mobile\~temp'"
+                    "'C:\Users\Todorov\Downloads\pc\projects\git\dotfiles\.dotfiles'"
+                    "'C:\Users\Todorov\Downloads\mobile'"
+                    "'C:\Users\Todorov\Downloads\pc'"
+                    "'C:\Users\Todorov\Downloads\pc\projects\git'"
+                    "'C:\Users\Todorov\Downloads\pc\projects\blog\mlvnt.com'"
+                    "'$winhw\Pictures\My Screen Shots'"
+                    "'$winhw\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs\home\todorov'"
+                )
+        fi
+    
 
         case $input in
             1)
@@ -1706,69 +1709,69 @@ win() {
         tunpin=c:5387
         spin=c:51201
         sunpin=c:51394
-        patht="D:\workspace\tech\shortcuts\taskbar"
-        paths="D:\workspace\tech\shortcuts\start menu\windows"
+        patht="$(getpath -w $local)\pc\config\universial\shortcuts\taskbar"
+        paths="$(getpath -w $local)\pc\config\universial\shortcuts\start menu\windows"
         taskbar=(
-            "\File Explorer.lnk"
-            "\ConEmu.lnk"
-            "\Microsoft Edge.lnk"
-            "\Google Chrome.lnk"
-            "\Sublime Text 3.lnk"
+            "File Explorer.lnk"
+            "ConEmu.lnk"
+            "Microsoft Edge.lnk"
+            "Google Chrome.lnk"
+            "Sublime Text 3.lnk"
         )
         startmenu=(
-            "\Weather.lnk"
-            "\Alarms & Clock.lnk"
-            "\Camera.lnk"
-            "\Maps.lnk"
-            "\Calculator.lnk"
-            "\Microsoft Store.lnk"
-            "\News.lnk"
-            "\Skype.lnk"
-            "\Internet Explorer.lnk"
-            "\Paint.lnk"
-            "\Paint 3D.lnk"
-            "\Registry Editor.lnk"
-            "\Windows PowerShell ISE.lnk"
-            "\Command Prompt.lnk"
-            "\Run.lnk"
-            "\Control Panel.lnk"
-            "\Task Manager.lnk"
-            "\Services.lnk"
-            "\Disk Cleanup.lnk"
-            "\Windows Defender Firewall with Advanced Security.lnk"
-            "\Windows Mobility Center.lnk"
-            "\On-Screen Keyboard.lnk"
-            "\Computer Management.lnk"
-            "\System Information.lnk"
-            "\System Configuration.lnk"
-            "\System Properties Protection.lnk"
+            "Weather.lnk"
+            "Alarms & Clock.lnk"
+            "Camera.lnk"
+            "Maps.lnk"
+            "Calculator.lnk"
+            "Microsoft Store.lnk"
+            "News.lnk"
+            "Skype.lnk"
+            "Internet Explorer.lnk"
+            "Paint.lnk"
+            "Paint 3D.lnk"
+            "Registry Editor.lnk"
+            "Windows PowerShell ISE.lnk"
+            "Command Prompt.lnk"
+            "Run.lnk"
+            "Control Panel.lnk"
+            "Task Manager.lnk"
+            "Services.lnk"
+            "Disk Cleanup.lnk"
+            "Windows Defender Firewall with Advanced Security.lnk"
+            "Windows Mobility Center.lnk"
+            "On-Screen Keyboard.lnk"
+            "Computer Management.lnk"
+            "System Information.lnk"
+            "System Configuration.lnk"
+            "System Properties Protection.lnk"
         )
-        cd /mnt/d/apps/system/Syspin
+        pushd $local/pc/apps/system/Syspin
 
         case $input in
             1)
                 echo -e '\n Pinnig icons to Taskbar....\n'
                 for pin in "${taskbar[@]}"; do
-                    cmd.exe /c syspin.exe "$patht$pin" $tpin
+                    cmd.exe /c syspin.exe "${patht}\\${pin}" $tpin
                     sleep 0.3s
                 done;
                 echo -e '\n    Icons pinned!\n'  ;;
             2)
                 echo -e '\n Pinnig icons to Start Menu....\n'
                 for pin in "${startmenu[@]}"; do
-                    cmd.exe /c syspin.exe "$paths$pin" $spin
+                    cmd.exe /c syspin.exe "${paths}\\${pin}" $spin
                     sleep 0.3s
                 done;
                 echo -e '\n    Icons pinned!\n'  ;;
             3)
                 echo -e '\n Unpinnig icons from Taskbar....\n'
                 cmd.exe /c reg delete "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" /f
-                rm /mnt/c/Users/Todorov/AppData/Roaming/Microsoft/Internet\ Explorer/Quick\ Launch/User\ Pinned/TaskBar/*.lnk
+                rm $winhl/AppData/Roaming/Microsoft/Internet\ Explorer/Quick\ Launch/User\ Pinned/TaskBar/*.lnk
                 echo -e '\n    Icons unpinned!\n'  ;;
             4)
                 echo -e '\n Unpinnig icons from Start Menu....\n'
                 for pin in "${startmenu[@]}"; do
-                    cmd.exe /c syspin.exe "$paths$pin" $sunpin
+                    cmd.exe /c syspin.exe "${paths}\\${pin}" $sunpin
                     sleep 0.2s
                 done;
                 echo -e '\n    Icons unpinned!\n'  ;;
@@ -1776,6 +1779,7 @@ win() {
             x)  : && clear ;;
             *)  icons
         esac
+        popd
     }
 
     case $input in
@@ -1906,8 +1910,8 @@ mywork() {
 #   -------------------------------
 
 money() {
-    local path="$python_scripts/money"
-    clear && python3 $path/bg.py && python3 $path/uk.py
+    local path="$python_scripts/money";
+    clear && python3 $path/bg.py && python3 $path/uk.py;
 }
 
 #-------------------------------------------------------------------------------
@@ -1917,26 +1921,25 @@ money() {
 #   -------------------------------
 
 series() {
-    local path="$python_scripts/web"
-    clear && python3 $path/series.py
+    local path="$python_scripts/web";
+    clear && python3 $path/series.py;
 }
 
 #-------------------------------------------------------------------------------
 
 sortkml() {
-    local path="$python_scripts/sortkml"
-    clear && python3 $path/sortkml.py "$@"
+    local path="$python_scripts/sortkml";
+    clear && python3 $path/sortkml.py "$@";
 }
 
 #-------------------------------------------------------------------------------
 
 apkinstall() {
-    local path="$python_scripts/apkinstall"
-    clear && python3 $path/apkinstall.py "$@"
+    local path="$python_scripts/apkinstall";
+    clear && python3 $path/apkinstall.py "$@";
 }
 
 #-------------------------------------------------------------------------------
-
 
 #   -------------------------------
 #   SOCIAL
@@ -1944,10 +1947,10 @@ apkinstall() {
 
 social() {
     # set -x
-    path="/mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/wsl/net/social"
-    path2="D:\shared\pc\projects\git\dotfiles\.dotfiles\wsl\net\social"
+    path="$local/pc/projects/git/dotfiles/.dotfiles/wsl/net/social"
+    path2="$(getpath -w $local)\pc\projects\git\dotfiles\.dotfiles\wsl\net\social"
     sites=$(cat ~/.dotfiles/wsl/net/social);
-    files="/home/todorov/.dotfiles/wsl/net/social"
+    files="$HOME/.dotfiles/wsl/net/social"
 
     help() {
         echo && echo "DESCRIPTION"
@@ -1996,8 +1999,8 @@ social() {
                         while IFS= read -r line ; do
                             firefox $window "$line"
                         done < "$files"
-                        # cat /home/todorov/.dotfiles/wsl/net/social | xargs -I % cmds 'D:\apps\suites\portableapps.com\PortableApps\FirefoxPortable' FirefoxPortable.exe %
-                        # xargs -a /home/todorov/.dotfiles/wsl/net/social cmds 'D:\apps\suites\portableapps.com\PortableApps\FirefoxPortable' FirefoxPortable.exe "$line"
+                        # cat $HOME/.dotfiles/wsl/net/social | xargs -I % cmds 'D:\apps\suites\portableapps.com\PortableApps\FirefoxPortable' FirefoxPortable.exe %
+                        # xargs -a $HOME/.dotfiles/wsl/net/social cmds 'D:\apps\suites\portableapps.com\PortableApps\FirefoxPortable' FirefoxPortable.exe "$line"
                      else
                         window="-new-window"
                         firefox $window $sites
@@ -2246,18 +2249,19 @@ coc() {
     }
 
     coc_run() {
-        cd "/mnt/c/Users/Todorov/Downloads"
+        pushd "$winhl/Downloads";
         name=$(dir -AN1 | grep MyBot);
-        path='C:\Users\Todorov\Downloads\'$name'\MyBot.run.exe'
-        timeout 6s cmd.exe /c $path MyVillage MEmu MEmu
-        echo -e '\n [opening] mybotrun - Clash of Clans Bot\n'
+        path='$winhw\Downloads\'$name'\MyBot.run.exe';
+        timeout 6s cmd.exe /c $path MyVillage MEmu MEmu;
+        echo -e '\n [opening] mybotrun - Clash of Clans Bot\n';
         unset -v name path;
+        popd
     }
 
     coc_update() {
-        rm -rfv /mnt/c/Users/Todorov/Downloads/MyBot-MBR_v*;
-        path="/mnt/d/shared/pc/apps/mybotrun/MyBot-MBR_v*"
-        des="/mnt/c/Users/Todorov/Downloads"
+        rm -rfv $winhl/Downloads/MyBot-MBR_v*;
+        path="$local/pc/apps/mybotrun/MyBot-MBR_v*";
+        des="$winhl/Downloads"
         base=$(basename $path);
         source=$(wslpath -w "$path");
         dest=$(wslpath -w "$des/$base");
@@ -2266,7 +2270,7 @@ coc() {
     }
 
     coc_upgrade() {
-        # cd "/mnt/d/shared/pc/apps/mybotrun"
+        # cd "$local/pc/apps/mybotrun"
         old=$(dir -AN1 | grep -v '.zip' | grep MyBot); # exclude zips
         new=$(dir -AN1 | grep MyBot-MBR_v*.zip);
         unziped=$(echo "$new" | sed 's/.zip//g');
@@ -2317,12 +2321,12 @@ coc() {
 #   -------------------------------
 
 blog() {
-    gamespath="/mnt/d/shared/pc/projects/blog/bgrebbels.mlvnt.com/public_html"
-    blogpath="/mnt/d/shared/pc/projects/blog/mlvnt.com/mvlnt"
-    content="/mnt/d/shared/pc/projects/blog/mlvnt.com/mlvnt/content"
-    contents="D:\shared\pc\projects\blog\mlvnt.com\mlvnt\content"
-    bakedpath="/mnt/d/shared/pc/projects/blog/mlvnt.com/public_html"
-    filezilladir="D:\apps\suites\portableapps.com\PortableApps\FileZillaPortable"
+    gamespath="$local/pc/projects/blog/bgrebbels.mlvnt.com/public_html"
+    blogpath="$local/pc/projects/blog/mlvnt.com/mvlnt"
+    content="$local/pc/projects/blog/mlvnt.com/mlvnt/content"
+    contents="$(getpath -w $local)\pc\projects\blog\mlvnt.com\mlvnt\content"
+    bakedpath="$local/pc/projects/blog/mlvnt.com/public_html"
+    filezilladir="$aps\apps\suites\portableapps.com\PortableApps\FileZillaPortable"
     ext=".md"
 
     help() {
@@ -2615,9 +2619,9 @@ todo() {
         esac
     }
 
-    guipath='D:\apps\productivity\notes\jdotxt'
-    # todotxtpath="/mnt/d/shared/mobile/config/notes/todo.txt"
-    todotxtpath="D:\shared\mobile\config\notes\todo.txt"
+    guipath="$jdotxt_path\jdotxt"
+    # todotxtpath="$local/mobile/config/notes/todo.txt"
+    todotxtpath="$(getpath -w $local)\mobile\config\notes\todo.txt"
     todopath=~/bin/todo.txt-cli/todo.sh
     clear && echo && $todopath -z -P -@ -+ list && echo
     read -p "Press enter to continue"
@@ -2796,7 +2800,7 @@ apps() {
             5) o "D:\apps\suites\symenu\ProgramFiles\SPSSuite\SyMenuSuite" && clear ;;
             6) cmds "D:\apps\suites\gegeek_toolkit" SyMenu.exe && clear ;;
             7) cmds "D:\apps\suites\liberkey" LiberKey.exe && clear ;;
-            8) o "D:\shared\pc\MyBotRun" && clear ;;
+            8) o "$(getpath -w $local)\pc\MyBotRun" && clear ;;
             9) cmds "D:\apps\suites\symenu\ProgramFiles\SPSSuite\SyMenuSuite\AnyDesk_sps" AnyDesk.exe && clear ;;
             10) cmds "D:\apps\net\file-sharing\Downloading\aTube Catcher 2.0" yct.exe && clear ;;
             11) cmds "D:\apps\suites\portableapps.com\PortableApps\FileZillaPortable" FileZillaPortable.exe && clear ;;
@@ -3043,7 +3047,7 @@ apps() {
             10) cmds "C:\Program Files (x86)\MagicISO" MagicISO.exe && clear ;;
             11) cmds "C:\Program Files\TechSmith\Camtasia 9" CamtasiaStudio.exe && clear ;;
             12) cmds ""  && clear ;;
-            13) cmds "C:\Users\Todorov\AppData\Local\Keybase\Gui" Keybase.exe && clear ;;
+            13) cmds "$winhw\AppData\Local\Keybase\Gui" Keybase.exe && clear ;;
             14) cmds "C:\Program Files\iTunes" iTunes.exe && clear ;;
             15) cmds "C:\Program Files (x86)\KeepVid\KeepVid Pro" KeepVidPro.exe && clear ;;
             16) cmds "C:\Program Files (x86)\IObit\Advanced SystemCare" ASC.exe && clear ;;
@@ -3074,106 +3078,15 @@ apps() {
     }
 
     sysmenu_clean() {
-        rm -rfv /mnt/d/apps/suites/symenu/ProgramFiles/SPSSuite/SyMenuSuite/_Trash/*
-        rm -rfv /mnt/d/apps/suites/symenu/ProgramFiles/SPSSuite/NirSoftSuite/_Trash/*
-        rm -rfv /mnt/d/apps/suites/symenu/ProgramFiles/SPSSuite/SysinternalsSuite/_Trash/*
+        rm -rfv $(getpath -u $aps)/apps/suites/symenu/ProgramFiles/SPSSuite/SyMenuSuite/_Trash/*;
+        rm -rfv $(getpath -u $aps)/apps/suites/symenu/ProgramFiles/SPSSuite/NirSoftSuite/_Trash/*;
+        rm -rfv $(getpath -u $aps)/apps/suites/symenu/ProgramFiles/SPSSuite/SysinternalsSuite/_Trash/*;
         clear
     }
 
     qbittorrent() {
-        rm -rfv /mnt/c/Users/Todorov/AppData/Local/qBittorrent
-        rm -rfv /mnt/c/Users/Todorov/AppData/Roaming/qBittorrent
-    }
-
-    radicalle() {
-
-        radicale_backup () {
-            local old=(
-                "collections"
-                "config"
-                "log"
-                "rights"
-                "ssl"
-                "users"
-            )
-
-            for i in "${old[@]}"
-            do :
-                rm -rfv "$path_dots"/.config/radicale/"$i"
-            done
-
-            delete_cache
-
-            yes yes | sudo cp -rv "$path_dots_local"/.config/radicale "$path_dots"/.config
-        }
-
-        radicale_restore() {
-            local old=(
-                "collections"
-                "config"
-                "log"
-                "rights"
-                "ssl"
-                "users"
-            )
-
-            for i in "${old[@]}"
-            do :
-                rm -rfv "$path_dots_local"/.config/radicale/"$i"
-            done
-
-          yes yes | sudo cp -rv "$path_dots"/.config/radicale "$path_dots_local"/.config
-        }
-
-        dav_main() {
-            local path="$python_scripts/radicale"
-            clear && python3 $path/dav_main.py "$@"
-        }
-
-        delete_cache() {
-            local currpath=$(pwd)
-            unset -f cd
-            cd /home/todorov/.config/radicale/collections/collection-root/mlvnt
-            find . -name '.Radicale.cache' -type d -exec rm -rfv {} \;
-            cd "$currpath"
-        }
-
-        help() {
-            clear
-            echo -e '\n  Available Options:'
-            echo    '       x  | Exit'
-            echo -e '       b  | Go Back\n'
-            echo    "    1  | radicale_backup      | Backup radicale config"
-            echo    "    2  | radicale_restore     | Restore radicale config"
-            echo    "    3  | delete_cache         | Delete .Radicale.cache"
-            echo    "    4  | dav_main             | Run DAV management"
-            echo    "    5  | local                | Goto local radicale"
-            echo -e "    6  | remote               | Goto remote backup\n"
-            read -e -p "  Enter Option: " input
-            echo
-        }
-
-        if [ -z $1 ] ; then
-            help
-        else
-            input="$1"
-        fi
-
-        local local="$path_dots_local"/.config/radicale
-        local remote="$path_dots"/.config/radicale
-
-        shift 1
-        case $input in
-            1|radicale_backup)   radicale_backup ;;
-            2|radicale_restore)  radicale_restore ;;
-            3|delete_cache)      delete_cache ;;
-            4|davmain)           dav_main "$@" ;;
-            5|local)             cd $local ;;
-            6|remote)            cd $remote ;;
-            b)  apps 3 ;;
-            x)  : && clear ;;
-            *)  radicalle ;;
-        esac
+        rm -rfv $winhl/AppData/Local/qBittorrent;
+        rm -rfv $winhl/AppData/Roaming/qBittorrent;
     }
 
     program_management() {
@@ -3199,10 +3112,10 @@ apps() {
 
         shift 1
         case $input in
-            1|word)              word "$@" ;;
-            2|m3u)               m3u "$@" ;;
+            1|word)              word "$@"; ;;
+            2|m3u)               m3u "$@"; ;;
             3|sysmenu_clean)     sysmenu_clean ;;
-            4|radicalle)         radicalle "$@" ;;
+            4|radicalle)         radicalle "$@"; ;;
             5|qbittorrent)       qbittorrent ;;
             b)  apps ;;
             x)  : && clear ;;
@@ -3246,11 +3159,6 @@ apps() {
         "program_management"
         "sysmenu_clean"
         "qbittorrent"
-        "radicalle"
-        "radicale_backup"
-        "radicale_restore"
-        "dav_main"
-        "delete_cache"
     )
 
     variables=(
@@ -3274,12 +3182,124 @@ apps() {
 #-------------------------------------------------------------------------------
 
 #   -------------------------------
+#   DAV MANAGEMENT
+#   -------------------------------
+
+radicalle() {
+
+    radicale_backup () {
+        local old=(
+            "collections"
+            "config"
+            "log"
+            "rights"
+            "ssl"
+            "users"
+        );
+
+        for i in "${old[@]}"
+        do :
+            rm -rfv "$path_dots"/.config/radicale/"$i";
+        done
+
+        delete_cache
+
+        yes yes | sudo cp -rv "$path_dots_local"/.config/radicale "$path_dots"/.config;
+    }
+
+    radicale_restore() {
+        local old=(
+            "collections"
+            "config"
+            "log"
+            "rights"
+            "ssl"
+            "users"
+        );
+
+        for i in "${old[@]}"
+        do :
+            rm -rfv "$path_dots_local"/.config/radicale/"$i";
+        done
+
+      yes yes | sudo cp -rv "$path_dots"/.config/radicale "$path_dots_local"/.config;
+    }
+
+    dav_main() {
+        local path="$python_scripts/radicale";
+        clear && python3 $path/dav_main.py "$@";
+    }
+
+    delete_cache() {
+        local currpath=$(pwd)
+        unset -f cd
+        cd $HOME/.config/radicale/collections/collection-root/mlvnt
+        find . -name '.Radicale.cache' -type d -exec rm -rfv {} \;
+        cd "$currpath"
+    }
+
+    help() {
+        clear
+        echo -e '\n  Available Options:'
+        echo    '       x  | Exit'
+        echo -e '       b  | Go Back\n'
+        echo    "    1  | radicale_backup      | Backup radicale config"
+        echo    "    2  | radicale_restore     | Restore radicale config"
+        echo    "    3  | delete_cache         | Delete .Radicale.cache"
+        echo    "    4  | dav_main             | Run DAV management"
+        echo    "    5  | local                | Goto local radicale"
+        echo -e "    6  | remote               | Goto remote backup\n"
+        read -e -p "  Enter Option: " input
+        echo
+    }
+
+    if [ -z $1 ] ; then
+        help
+    else
+        input="$1"
+    fi
+
+    local locl="$path_dots_local"/.config/radicale
+    local remote="$path_dots"/.config/radicale
+
+    shift 1
+    case $input in
+        1|radicale_backup)   radicale_backup ;;
+        2|radicale_restore)  radicale_restore ;;
+        3|delete_cache)      delete_cache ;;
+        4|davmain)           dav_main "$@"; ;;
+        5|local)             cd $locl ;;
+        6|remote)            cd $remote ;;
+        b)  apps 3 ;;
+        x)  : && clear ;;
+        *)  radicalle ;;
+    esac
+
+    functions=(
+        "help"
+        "radicale_backup"
+        "radicale_restore"
+        "dav_main"
+        "delete_cache"
+    )
+
+    variables=(
+        "input"
+    )
+
+    unset -f "${functions[@]}";
+    unset -v functions "${variables[@]}" variables;
+}
+
+#-------------------------------------------------------------------------------
+
+#   -------------------------------
 #   OPEN MULTIPLE WORD DOCUMETS
 #   -------------------------------
 
 word() {
     re='^[0-9]+$'
-    path="D:\workspace\tech\programing\~references\programs\office\Microsoft Office\Templates\Landscape.dotm"
+    path="$(getpath -w $local)\mobile\docs\templates\microsoft office\landscape.dotm"
 
     help() {
         echo && echo "DESCRIPTION"
@@ -3530,52 +3550,6 @@ openfile() {
         *)          "$cmd" $(wslpath -w $(pwd)/$input) ;;
     esac
     unset -f help;
-}
-
-#-------------------------------------------------------------------------------
-
-getpath() {
-    help() {
-        echo && echo "DESCRIPTION"
-        echo "        getpath - convert and copy path to clipboard" && echo
-        echo "USAGE"
-        echo "        getpath [OPTIONS] path" && echo
-        echo "OPTIONS"
-        echo "     -w                convert to windows format"
-        echo "     -u                convert to unix format"
-        echo "     -c                current directory"
-        echo "     -h | help         show help" && echo
-    }
-    local os=$(currentdevice -o);
-    local re='(^-[c])'
-
-    if [[ $os == win ]]; then
-        local clipboard="cmd.exe /c clip"
-    else
-        local clipboard="xclip -sel clip"
-    fi
-
-    if [[ $1 =~ $re ]]; then
-        local input="$(pwd)"
-        shift 1
-    elif [[ $2 =~ $re ]]; then
-        local input="$(pwd)"
-    else
-        local input="$2"
-    fi
-
-    case $1 in
-        -w) wslpath -w "$input"
-            wslpath -w "$input" | tr -d '\n' | $clipboard ;;
-        -u) wslpath -u "$input"
-            wslpath -u "$input" | tr -d '\n' | $clipboard ;;
-        *)  help ;;
-    esac
-    unset -f help;
-}
-
-linuxpath() {
-    echo "$@" | sed -e 's|\\|/|g' -e 's|^\([A-Za-z]\)\:/\(.*\)|/mnt/\L\1\E/\2|'
 }
 
 #-------------------------------------------------------------------------------

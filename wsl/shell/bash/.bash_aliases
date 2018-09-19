@@ -3,24 +3,6 @@
 #------------------------ ALIASES ----------------------------------------------
 #-------------------------------------------------------------------------------
 
-if [[ $(currentdevice) == pc ]]; then
-    aps="D:"
-    sublime_path="'D:\apps\development\editors\editors\Sublime_Text'"
-    revo_path="D:\apps\program-management\uninstallers"
-    enpass_path="D:\apps\net\security"
-    synctrayzor_path="D:\apps\net\file-sharing"
-    local=/mnt/d/shared
-else
-    aps="C:\Users\Todorov\Downloads\pc"
-    sublime_path="'$aps\apps\development\Sublime_Text'"
-    revo_path="$aps\apps\system"
-    enpass_path="$aps\apps\net"
-    synctrayzor_path="$aps"
-    local=/mnt/c/Users/Todorov/Downloads
-fi
-
-os=$(currentdevice -o);
-
 #   -------------------------------
 #   DIRECTORIES
 #   -------------------------------
@@ -60,13 +42,13 @@ alias shared="cd $local"
 alias sharedpc="cd $local/pc"
 alias sharedmobile="cd $local/mobile"
 alias workspace="cd /mnt/d/workspace"
-alias gitprojects="cd /mnt/d/shared/pc/projects/git"
-alias dotfiles="cd /mnt/d/shared/pc/projects/git/dotfiles/.dotfiles"
-alias down="cd /mnt/c/Users/Todorov/Downloads"
-alias docs="cd /mnt/c/Users/Todorov/Documents"
+alias gitprojects="cd $local/pc/projects/git"
+alias dotfiles="cd $local/pc/projects/git/dotfiles/.dotfiles"
+alias down="cd $winhl/Downloads"
+alias docs="cd $winhl/Documents"
 # Print each PATH entry on a separate line
 alias pathenv='echo -e ${PATH//:/\\n}'
-alias mapsme="cd /mnt/d/shared/mobile/config/travel/MAPS.\ ME"
+alias mapsme="cd $local/mobile/config/travel/MAPS.\ ME"
 
 # CURRENT
 alias uni="cd /mnt/d/workspace/university/course"
@@ -129,7 +111,7 @@ alias vrc="sudo vim ~/.vimrc"
 alias scb="source ~/.bashrc && echo 'Shell config reloaded from ~/.bahrc'"
 alias scz="source ~/.zshrc && echo 'Shell config reloaded from ~/.zshrc'"
 alias scv="source ~/.vimrc && echo 'Shell config reloaded from ~/.vimrc'"
-alias rvmsc="source /home/todorov/.rvm/scripts/rvm"
+alias rvmsc="source $HOME/.rvm/scripts/rvm"
 
 # File size
 alias fs="stat -f \"%z bytes\""
@@ -146,6 +128,7 @@ alias logsc="rm ~/software/install_logs/*.txt"
 alias ram='free -ht'
 alias stats="echo '' && inxi -xxx && echo '' && free -ht && echo ''"
 alias distro="echo '' && uname -a && echo '' && lsb_release -a && echo ''"
+alias e=exit
 
 # Enable aliases to be sudo’ed
 alias sudo='sudo '
@@ -317,13 +300,13 @@ alias o="openwin"
 alias openhere="o ."
 alias openi="gnome-open ." # Inside a Desktop environment
 alias tempopen="o 'D:\~temp'"
-alias downopen="o 'C:\Users\Todorov\Downloads'"
-alias docsopen="o 'C:\Users\Todorov\Documents'"
-alias screenshots="o 'C:\Users\Todorov\Pictures\My Screen Shots'"
-alias appdata="o 'C:\Users\Todorov\AppData'"
-alias roaming="o 'C:\Users\Todorov\AppData\Roaming'"
+alias downopen="o '$winhw\Downloads'"
+alias docsopen="o '$winhw\Documents'"
+alias screenshots="o '$winhw\Pictures\My Screen Shots'"
+alias appdata="o '$winhw\AppData'"
+alias roaming="o '$winhw\AppData\Roaming'"
 alias startmenu="o 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs'"
-alias autostart="o 'C:\Users\Todorov\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup'"
+alias autostart="o '$winhw\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup'"
 
 # Edit Documents
 alias cv="o 'D:\workspace\personal\professional\cv\cv.docx'"
@@ -374,7 +357,7 @@ alias kodi="cmds 'D:\apps\file-management\media\media-centers\Kodi\Server' kodi.
 alias plex="cmdc 'D:\apps\file-management\media\media-centers\Plex\Server\Plex Media Server.exe'"
 alias npp="cmds 'D:\apps\development\editors\editors\Notepad++\Notepad++ 7.5.1' /MAX notepad++.exe"
 alias flash="cmds '$aps\apps\suites\portableapps.com\PortableApps\RufusPortable' RufusPortable.exe"
-alias sysmenu="cmds 'D:\apps\suites\symenu' SyMenu.exe"
+alias sysmenu="cmds '$aps\apps\suites\symenu' SyMenu.exe"
 alias portableapps="cmds '$aps\apps\suites\portableapps.com' Start.exe"
 alias rss="cmds '$aps\apps\suites\portableapps.com\PortableApps\QuiteRSSPortable' QuiteRSSPortable.exe"
 alias unicode="cmds 'D:\apps\productivity\office\unicode\character-maps\BabelStone' BabelMap.exe"
@@ -384,6 +367,9 @@ alias remotes="cmds 'D:\apps\net\remote-control\Unified Remote\server' RemoteSer
 
 alias vnc="~/software/VNC-Viewer-6.17.1113-Linux-x64"
 alias chromium-browser='sudo chromium-browser --no-sandbox'
+alias davmain="apps 3 4 4"
+alias bc='bc -l'
+alias adb='$local/pc/apps/development/adb/platform-tools/adb.exe'
 
 # Clipboard
 alias pbcopy="clip.exe"
