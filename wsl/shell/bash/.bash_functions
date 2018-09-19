@@ -1443,9 +1443,10 @@ dots() {
         echo -e '\n  Available Options:'
         echo    '       x  | Exit'
         echo    '       b  | Go Back'
-        echo    '       1  | remote     | Update from Remote'
-        echo    '       2  | clean      | Update Clean'
-        echo    '       3  | local      | Update from Local'
+        echo    '       1  | push           | Update from Remote'
+        echo    '       2  | pushlocal      | Update Clean'
+        echo    '       3  | pullclean      | Update Clean'
+        echo -e '       4  | pull           | Update from Local\n'
         read -e -p "  Enter Option: " input
         echo
     }
@@ -1457,29 +1458,36 @@ dots() {
     fi
 
     case $input in
-        1|remote)   pushd $local/pc/projects/git/dotfiles/.dotfiles && gac
-                    cd ~/.dotfiles && git stash && gf
-                    cd ~/.dotfiles/wsl && sudo chmod -Rv +x ./*.sh ./bin/*
-                    sca && clear 
-                    popd ;;
-        2|clean)    echo -e '\n -------------- Removing old .dotfiles....\n' 
-                    sudo rm -rfv ~/.dotfiles 
-                    echo -e '\n -------------- Cloning new .dotfiles....\n'
-                    git clone $local/pc/projects/git/dotfiles/.dotfiles ~/.dotfiles
-                    # oh-my-zsh
-                    sudo cp -rfv  $path_dots/shell/zsh/.oh-my-zsh ~/.dotfiles/wsl/shell/zsh
-                    sudo cp -rfv  $path_dots/.config/sublime-text-3 ~/.dotfiles/wsl/.config
-                    echo -e '\n -------------- Converting .dotfiles to LF endings....\n'
-                    sudo dos2unix ~/.dotfiles/wsl/*.* ~/.dotfiles/wsl/shell/zsh/.* ~/.dotfiles/wsl/shell/zsh/.oh-my-zsh-custom/.* ~/.dotfiles/wsl/shell/bash/.* ~/.dotfiles/wsl/editors/.* ~/.dotfiles/wsl/git/.* ~/.dotfiles/wsl/git/*.* ~/.dotfiles/wsl/bin/*
-                    echo -e '\n -------------- Sourcing .dotfiles....\n'
-                    cd ~/.dotfiles/wsl && sudo chmod -Rv +x ./*.sh ./bin/*
-                    sca && clear
-                    echo -e '\n -------------- Dotfiles Updated!\n' ;;
-        3|local)    pushd ~/.dotfiles && git stash && git fetch $local/pc/projects/git/dotfiles/.dotfiles
-                    git pull $local/pc/projects/git/dotfiles/.dotfiles 
-                    cd ~/.dotfiles/wsl && sudo chmod -Rv +x ./*.sh ./bin/*
-                    sca && clear 
-                    popd ;;
+        1|push)         pushd $local/pc/projects/git/dotfiles/.dotfiles && gac
+                        cd ~/.dotfiles && git stash && gf
+                        cd ~/.dotfiles/wsl && sudo chmod -Rv +x ./*.sh ./bin/*
+                        sca && clear 
+                        popd ;;
+        2|pushlocal)    pushd $local/pc/projects/git/dotfiles/.dotfiles
+                        git add -A && git commit && git push $local/pc/projects/git/dotfiles/.dotfiles
+                        cd ~/.dotfiles && git stash && git fetch $local/pc/projects/git/dotfiles/.dotfiles
+                        git pull $local/pc/projects/git/dotfiles/.dotfiles 
+                        cd ~/.dotfiles/wsl && sudo chmod -Rv +x ./*.sh ./bin/*
+                        sca && clear 
+                        popd ;;
+        3|pullclean)    echo -e '\n -------------- Removing old .dotfiles....\n' 
+                        sudo rm -rfv ~/.dotfiles 
+                        echo -e '\n -------------- Cloning new .dotfiles....\n'
+                        git clone $local/pc/projects/git/dotfiles/.dotfiles ~/.dotfiles
+                        # oh-my-zsh
+                        sudo cp -rfv  $path_dots/shell/zsh/.oh-my-zsh ~/.dotfiles/wsl/shell/zsh
+                        sudo cp -rfv  $path_dots/.config/sublime-text-3 ~/.dotfiles/wsl/.config
+                        echo -e '\n -------------- Converting .dotfiles to LF endings....\n'
+                        sudo dos2unix ~/.dotfiles/wsl/*.* ~/.dotfiles/wsl/shell/zsh/.* ~/.dotfiles/wsl/shell/zsh/.oh-my-zsh-custom/.* ~/.dotfiles/wsl/shell/bash/.* ~/.dotfiles/wsl/editors/.* ~/.dotfiles/wsl/git/.* ~/.dotfiles/wsl/git/*.* ~/.dotfiles/wsl/bin/*
+                        echo -e '\n -------------- Sourcing .dotfiles....\n'
+                        cd ~/.dotfiles/wsl && sudo chmod -Rv +x ./*.sh ./bin/*
+                        sca && clear
+                        echo -e '\n -------------- Dotfiles Updated!\n' ;;
+        4|pull)         pushd ~/.dotfiles && git stash && git fetch $local/pc/projects/git/dotfiles/.dotfiles
+                        git pull $local/pc/projects/git/dotfiles/.dotfiles 
+                        cd ~/.dotfiles/wsl && sudo chmod -Rv +x ./*.sh ./bin/*
+                        sca && clear 
+                        popd ;;
         b)  linx ;;
         x)  : && clear ;;
         *)  dots ;;
@@ -3678,7 +3686,7 @@ gdiff () {
                              -s) gdiff -s "$temp1" "$temp2"; ;;
                              *)  gdiff "$temp1" "$temp2"; ;;
                          esac ;;
-            -g)         cmds "$aps\apps\productivity\diff-checker-x64.nsis" Diff-Checker.exe; ;;
+            -g)         cmds "$(getpath -w $local)\pc\apps\productivity\diff-checker-x64.nsis" Diff-Checker.exe; ;;
             -s)         shift 1 && status "$@"; ;;
             -p)         shift 1 && cattemp;
                         gdiff "$temp1" "$temp2"; ;;
