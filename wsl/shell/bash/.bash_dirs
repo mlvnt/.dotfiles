@@ -41,7 +41,7 @@ else
     enpass_path="${aps}\net";
     synctrayzor_path="${winhwr}";
     jdotxt_path="${aps}\productivity";
-    local=${winhlr};
+    local=${winhlr%?};
 fi;
 
 path_dots=${local}/pc/projects/git/dotfiles/.dotfiles/wsl;

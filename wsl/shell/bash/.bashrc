@@ -58,7 +58,7 @@ fi;
 sca i;
 
 # Set todo.txt path
-export TODO_DIR="$local/mobile/config/notes/todo.txt"
+export TODO_DIR="${local}/mobile/config/notes/todo.txt"
 
 # Load tmux session
 sessions=$(tmux ls);
