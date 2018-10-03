@@ -48,7 +48,7 @@ appz=(
 # -- other
     "php7.0-cli"
     "ghostscript"
-    "puredata"
+    # "puredata"
     # "npm"
 # ------------- media
     "ffmpeg"

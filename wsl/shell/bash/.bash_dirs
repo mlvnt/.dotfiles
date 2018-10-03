@@ -24,7 +24,7 @@ winhw="$(winhome)";
 winhl="$(getpath -u "${winhw}")";
 
 winhwr="$(winhome -r)\\";
-winhlr="$(getpath -u "${winhw}")";
+winhlr="$(getpath -u "${winhwr}")";
 
 if [[ $(currentdevice) == pc ]]; then
     aps="D:\apps";
