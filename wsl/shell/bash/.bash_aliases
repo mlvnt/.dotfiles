@@ -49,6 +49,7 @@ alias docs="cd $winhl/Documents"
 # Print each PATH entry on a separate line
 alias pathenv='echo -e ${PATH//:/\\n}'
 alias mapsme="cd $local/mobile/config/travel/MAPS.\ ME"
+alias scripts="cd $local/pc/projects/scripts"
 
 # CURRENT
 alias uni="cd /mnt/d/workspace/university/course"
@@ -314,12 +315,11 @@ alias music="o 'D:\workspace\essential\media\music\music.xlsx'"
 alias pics="o 'D:\workspace\essential\art\screenshots\pics.xlsx'"
 alias quotes="o 'D:\workspace\personal\me\intro\quotes\quotes.xlsx'"
 alias habbits="o 'D:\workspace\personal\time\habits\2018.xlsx'"
-alias packlist="o 'D:\workspace\essential\lists\packing.xlsx'"
-alias kitchen="o 'D:\workspace\essential\lists\kitchen.xlsx'"
-alias techlist="o 'D:\workspace\essential\lists\tech.xlsx'"
-alias clothlist="o 'D:\workspace\essential\lists\clothing.xlsx'"
-alias index="o 'D:\workspace\essential\lists\memory\index.xlsx'"
-alias memory="o 'D:\workspace\essential\lists\memory\index.html'"
+alias packlist="o '$(getpath -w $local)\pc\docs\lists\packing.xlsx'"
+alias kitchen="o '$(getpath -w $local)\pc\docs\lists\kitchen.xlsx'"
+alias techlist="o '$(getpath -w $local)\pc\docs\lists\tech.xlsx'"
+alias clothlist="o '$(getpath -w $local)\pc\docs\lists\clothing.xlsx'"
+alias index="o '$(getpath -w $local)\pc\docs\lists\memory\index.xlsx'"
 
 # Launch Applications
 alias cmd='cmd.exe'
@@ -341,28 +341,33 @@ alias chrome="cmds 'C:\Program Files (x86)\Google\Chrome\Application' /MAX chrom
 alias excel="cmds 'C:\Program Files\Microsoft Office\Office16' /MAX EXCEL.EXE /x"
 alias ppoint="cmds 'C:\Program Files (x86)\Microsoft Office\Root\Office16'  /MAX POWERPNT.EXE /B"
 
-alias mail="cmds '$aps\apps\suites\portableapps.com\PortableApps\ThunderbirdPortable' ThunderbirdPortable.exe"
-alias torrent="cmds '$aps\apps\suites\portableapps.com\PortableApps\qBittorrentPortable' qBittorrentPortable.exe"
+alias mail="cmds '$aps\suites\portableapps.com\PortableApps\ThunderbirdPortable' ThunderbirdPortable.exe"
+alias torrent="cmds '$aps\suites\portableapps.com\PortableApps\qBittorrentPortable' qBittorrentPortable.exe"
 alias enpass="cmds '$enpass_path\EnpassPortable_5_6_9\Windows' EnpassPortable.exe"
 alias firefox="cmds 'D:\apps\suites\portableapps.com\PortableApps\FirefoxPortable' FirefoxPortable.exe"
 alias taiga="cmds 'D:\apps\net\social\Taiga' Taiga.exe"
-alias gnucash="cmds '$aps\apps\suites\portableapps.com\PortableApps\GnuCashPortable' GnuCashPortable.exe"
+alias gnucash="cmds '$aps\suites\portableapps.com\PortableApps\GnuCashPortable' GnuCashPortable.exe"
 alias sublime="cmds "$sublime_path" sublime_text.exe"
-alias irc="cmds '$aps\apps\suites\portableapps.com\PortableApps\HexChatPortable' HexChatPortable.exe"
+alias irc="cmds '$aps\suites\portableapps.com\PortableApps\HexChatPortable' HexChatPortable.exe"
 alias sync="cmds '$synctrayzor_path\SyncTrayzorPortable-x64' SyncTrayzor.exe"
-alias ftpstart="cmds '$aps\apps\suites\portableapps.com\PortableApps\FileZillaPortable' FileZillaPortable.exe"
-alias keepass="cat $local/mobile/notebook/necessities/k.txt | cmd.exe /c clip && cmds '$aps\apps\suites\portableapps.com\PortableApps\KeePassProPortable' KeePassProPortable.exe"
+alias ftpstart="cmds '$aps\suites\portableapps.com\PortableApps\FileZillaPortable' FileZillaPortable.exe"
+keepass() {
+    cat "$local/mobile/notebook/necessities/k.txt" | cmd.exe /c clip;
+    cmds "$aps\suites\portableapps.com\PortableApps\KeePassProPortable" KeePassProPortable.exe;
+    sleep 10s;
+    cmdc "echo off" | clip.exe;
+}
 alias calibre="cmds 'D:\apps\suites\portableapps.com\PortableApps\calibrePortable' calibrePortable.exe"
 alias kodi="cmds 'D:\apps\file-management\media\media-centers\Kodi\Server' kodi.exe -p"
 alias plex="cmdc 'D:\apps\file-management\media\media-centers\Plex\Server\Plex Media Server.exe'"
 alias npp="cmds 'D:\apps\development\editors\editors\Notepad++\Notepad++ 7.5.1' /MAX notepad++.exe"
-alias flash="cmds '$aps\apps\suites\portableapps.com\PortableApps\RufusPortable' RufusPortable.exe"
-alias sysmenu="cmds '$aps\apps\suites\symenu' SyMenu.exe"
-alias portableapps="cmds '$aps\apps\suites\portableapps.com' Start.exe"
-alias rss="cmds '$aps\apps\suites\portableapps.com\PortableApps\QuiteRSSPortable' QuiteRSSPortable.exe"
+alias flash="cmds '$aps\suites\portableapps.com\PortableApps\RufusPortable' RufusPortable.exe"
+alias sysmenu="cmds '$aps\suites\symenu' SyMenu.exe"
+alias portableapps="cmds '$aps\suites\portableapps.com' Start.exe"
+alias rss="cmds '$aps\suites\portableapps.com\PortableApps\QuiteRSSPortable' QuiteRSSPortable.exe"
 alias unicode="cmds 'D:\apps\productivity\office\unicode\character-maps\BabelStone' BabelMap.exe"
 alias revo="cmds '$revo_path\RevoPortable64' RevoUninstallerPortable.exe"
-alias ditto="cmds '$aps\apps\suites\portableapps.com\PortableApps\DittoPortable' DittoPortable.exe"
+alias ditto="cmds '$aps\suites\portableapps.com\PortableApps\DittoPortable' DittoPortable.exe"
 alias remotes="cmds 'D:\apps\net\remote-control\Unified Remote\server' RemoteServerWin.exe"
 
 alias vnc="~/software/VNC-Viewer-6.17.1113-Linux-x64"

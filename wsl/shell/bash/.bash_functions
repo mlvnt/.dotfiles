@@ -133,7 +133,7 @@ linx() {
             echo
         }
 
-        path2="$winhw\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs\home\todorov\.dotfiles\wsl\vcxsrv\\"
+        path2="$(getpath -c -w $HOME/.dotfiles/wsl/vcxsrv)\\"
         path="C:\Program Files\VcXsrv"
         win32="C:\Windows\System32"
 
@@ -232,12 +232,9 @@ linx() {
             9)
                 sudo cp -r $local/mobile/config/notes/p/.ssh/* ~/.ssh/
                 ssh_permissons ;;
-            b)
-                linx ;;
-            x)
-                : && clear ;;
-            *)
-                ssh_manage ;;
+            b)  linx ;;
+            x)  : && clear ;;
+            *)  ssh_manage ;;
         esac
     }
 
@@ -739,8 +736,12 @@ watching-double() {
 }
 
 lin() {
-    cd '$local/mobile/config/notes/markor'
-    watching-double . linkbox.txt "$python_scripts/web/links.py"
+    pushd "$local/mobile/config/notes/markor"
+    case $1 in
+        -r|run)  "$python_scripts/web/links.py"; ;;
+        *)       watching-double . linkbox.txt "$python_scripts/web/links.py"; ;;
+    esac
+    popd
 }
 
 #-------------------------------------------------------------------------------
@@ -750,7 +751,7 @@ lin() {
 #   -------------------------------
 
 bin() {
-    patht="$aps\apps\suites\symenu\ProgramFiles\SPSSuite\NirSoftSuite\NirCmd_x64_sps\nircmd.exe"
+    patht="$aps\suites\symenu\ProgramFiles\SPSSuite\NirSoftSuite\NirCmd_x64_sps\nircmd.exe"
     trashdir=~/.local/share/Trash
 
     list() {
@@ -897,8 +898,8 @@ links() {
         echo -e '\n ~~~~~~~~~~~~~~ Symbolic Links Deleted! ~~~~~~~~~~~~~~\n'
     }
 
-    path='$local/mobile/notebook/~genLinks'
-    pathwin='$(getpath -w $local)\mobile\notebook\~genLinks'
+    path="$local/mobile/notebook/~genLinks"
+    pathwin="$(getpath -w $local)\mobile\notebook\~genLinks"
 
     if [ -z $1 ] ; then
         help
@@ -963,473 +964,474 @@ links() {
 #   MOVE, COPY
 #   -------------------------------
 
-move() {
-    main_backup() {
-        help() {
-            clear 
-            echo -e '\n  Available Options:\n'
-            echo    '           x  | Exit'
-            echo    '           b  | Go Back'
-            echo    '           1  | Normal'
-            echo    '           2  | Mirroring'
-            echo    '           3  | Dry-Run Normal'
-            echo -e '           4  | Dry-Run Mirroring\n'
-            read -e -p "  Option: " input
-        }
-        help
+# move() {
 
-        excludeddir="/mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/wsl/rsync/excluded"
-        animemain="/mnt/e/backup/media/anime/seasonal/~main/"
-        dotfilesdird="/mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/"
-        dotfilesdire="/mnt/e/backup/shared/pc/projects/git/dotfiles/.dotfiles"
-        drived="/mnt/d/"
-        bakcupdire="/mnt/e/backup"
-        logdir="/mnt/e/backup_logs/"
-        logfile="log_backup-$(date "+%Y-%m-%d-%H-%M").txt"
-        workspacedird="D:\workspace"
-        workspacedire="E:\backup\workspace"
-        link_dir_1="/mnt/e/backup/workspace"
-        link_dir_2="/mnt/e/backup/workspace/shared"
+#     dotfilesdird="/mnt/d/shared/pc/projects/git/dotfiles/.dotfiles"
+#     dotfilesdire="/mnt/e/backup/shared/pc/projects/git/dotfiles/.dotfiles"
+#     animemain="/mnt/e/backup/media/anime/seasonal/~main/"
 
-        case $input in
-            1|3) robonorm="/E" && rsyncnorm='' ;;
-            2|4) robonorm="/E /PURGE" && rsyncnorm="--delete " ;;
-        esac
+#             case $input in
+#                 1|3) robonorm="/E" && rsyncnorm='' ;;
+#                 2|4) robonorm="/E /PURGE" && rsyncnorm="--delete " ;;
+#             esac
 
-        case $input in
-            1|2) robocopyoptions=""$robonorm" /ZB /SL /MT:20 /XO /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1 /ETA"
-                 ryncoptions="-avhzH --progress --stats "$rsyncnorm"" ;;
-            3|4) robocopyoptions="/L "$robonorm" /ZB /SL /MT:20 /XO /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1 /ETA"
-                 ryncoptions="-avhzH --progress --stats --dry-run "$rsyncnorm"" ;;
-        esac
+#             case $input in
+#                 1|2) robocopyoptions=""$robonorm" /ZB /SL /MT:20 /XO /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1 /ETA"
+#                      ryncoptions="-avhzH --progress --stats "$rsyncnorm"" ;;
+#                 3|4) robocopyoptions="/L "$robonorm" /ZB /SL /MT:20 /XO /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1 /ETA"
+#                      ryncoptions="-avhzH --progress --stats --dry-run "$rsyncnorm"" ;;
+#             esac
 
-        case $input in 
-            1|2|3|4)
-                    echo -e '\n ~~~~~~~~~~~~~~ Backup Main Drive.... ~~~~~~~~~~~~~~\n'
-                    mkdir -p "$logdir" && sudo touch "$logdir$logfile"
 
-                    backups() {
-                        mkdir -p "$animemain"
-                        #-------------------------------------------------------
-                        sudo rsync $ryncoptions --exclude-from="$excludeddir" "$drived" "$bakcupdire"
-                        echo -e "\n     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                        sudo rsync $ryncoptions "$dotfilesdird" "$dotfilesdire"
-                        echo -e "\n     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                        #-------------------------------------------------------
-                        case $input in
-                            1|2) find "$link_dir_1" "$link_dir_2" -type l -print0 | xargs -0 rm -v -- ;;
-                            3|4) find "$link_dir_1" "$link_dir_2" -type l ;;
-                        esac
-                        cmd.exe /c robocopy "$workspacedird" "$workspacedire" "*" $robocopyoptions
-                        # CHCP 1251
-                    }
+#             case $input in
+#                 1|2) robocopyoptions=""$robonorm" /ZB /SL /MT:20 /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1 /ETA"
+#                      ryncoptions="-avhzH --progress --stats --ignore-times "$rsyncnorm"" ;;
+#                 3|4) robocopyoptions="/L "$robonorm" /ZB /SL /MT:20 /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1 /ETA"
+#                      ryncoptions="-avhzH --progress --stats --ignore-times --dry-run "$rsyncnorm"" ;;
+#             esac
 
-                    backups | sudo tee -ai "$logdir$logfile"
-                    echo -e '\n ~~~~~~~~~~~~~~ Backup Complete! ~~~~~~~~~~~~~~\n' ;;
-            b)
-                    move ;;
-            x)
-                    : && clear ;;
-            *)
-                    main ;;
-        esac
-    }
+#     case $input in
+#         1)  main_backup
 
-    main_clone() {
-        help() {
-            clear 
-            echo -e '\n  Available Options:\n'
-            echo    '           x  | Exit'
-            echo    '           b  | Go Back'
-            echo -e '           1  | Proceed\n'
-            read -e -p "  Option: " input
-        }
-        help
+#             excludeddir="/mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/wsl/rsync/excluded"
+#             drived="/mnt/d/"
+#             bakcupdire="/mnt/e/backup"
+#             logdir="/mnt/e/backup_logs/"
+#             logfile="log_backup-$(date "+%Y-%m-%d-%H-%M").txt"
+#             workspacedird="D:\workspace"
+#             workspacedire="E:\backup\workspace"
+#             link_dir_1="/mnt/e/backup/workspace"
+#             link_dir_2="/mnt/e/backup/workspace/shared"
+#             ;;
+#         2)  mobile_backup 
 
-        case $input in 
-            1)
-                    echo
-                    read -e -p "  Enter Drive Letter/Path [c]:" backdir
-                    dotfilesdird="/mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/"
-                    dotfilesdire="/mnt/"$backdir"/workspace/tech/programing/git/dotfiles/.dotfiles"
-                    drived="/mnt/d/"
-                    drivedwin="D:\\"
+#             excludeddir="/mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/wsl/rsync/excluded_mobile"
+#             sdcard=""
+#             bakcupdire="/mnt/e/backup_mobile/"
+#             logdir="/mnt/e/backup_logs/"
+#             logfile="log_backup-$(date "+%Y-%m-%d-%H-%M").txt"
 
-                    robocopyoptions="/E /ZB /SL /MT:20 /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1 /ETA"
-                    ryncoptions="-avhzH --progress --stats"
+#             if [ $input -eq 1 ] || [ $input -eq 3 ] ; then 
+#                 rsyncnorm=''
+#             elif [ $input -eq 2 ] || [ $input -eq 4 ] ; then 
+#                 rsyncnorm="--delete "
+#             fi
 
-                    echo -e '\n ~~~~~~~~~~~~~~ Cloning Main Drive.... ~~~~~~~~~~~~~~\n'
-                    clone() {
-                        echo -e "\n     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                        mkdir -p "/mnt/"$backdir"/workspace/Projects/Programing/Git/dotfiles/.dotfiles/"
-                        sudo rsync $ryncoptions "$dotfilesdird" "$dotfilesdire"
-                        echo -e "\n     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                        cmd.exe /c robocopy "$drivedwin" "$backdir:\\" "*" $robocopyoptions
-                    }
-                    clone 
-                    echo -e '\n ~~~~~~~~~~~~~~ Cloning Complete! ~~~~~~~~~~~~~~\n' 
-                    ;;
-            b)
-                    move ;;
-            x)
-                    : && clear ;;
-            *)
-                    main ;;
-        esac
-    }
+#             if [ $input -eq 3 ] || [ $input -eq 4 ] ; then
+#                 ryncoptions="-avhzH --progress --stats --dry-run "$rsyncnorm""
+#             elif [ $input -eq 1 ] || [ $input -eq 2 ] ; then 
+#                 ryncoptions="-avhzH --progress --stats "$rsyncnorm""
+#             fi
+#             ;;
+#         3)  main_restore
 
-    main_restore() {
-        help() {
-            clear 
-            echo -e '\n  Available Options:\n'
-            echo    '           x  | Exit'
-            echo    '           b  | Go Back'
-            echo    '           1  | Normal'
-            echo    '           2  | Mirroring'
-            echo    '           3  | Dry-Run Normal'
-            echo -e '           4  | Dry-Run Mirroring\n'
-            read -e -p "  Option: " input
-        }
-        help
+#             drived="/mnt/d"
+#             bakcupdire="/mnt/e/backup/"
+#             logdir="/mnt/e/restore_logs/"
+#             logfile="log_restore-$(date "+%Y-%m-%d-%H-%M").txt"
+#             workspacedird="D:\workspace"
+#             workspacedire="E:\backup\workspace"
+#             link_dir_1="/mnt/d/workspace"
+#             link_dir_2="/mnt/d/shared"
+#             ;;
+#         4)  mobile_restore
 
-        dotfilesdird="/mnt/d/shared/pc/projects/git/dotfiles/.dotfiles"
-        dotfilesdire="/mnt/e/backup/shared/pc/projects/git/dotfiles/.dotfiles/"
-        drived="/mnt/d"
-        bakcupdire="/mnt/e/backup/"
-        logdir="/mnt/e/restore_logs/"
-        logfile="log_restore-$(date "+%Y-%m-%d-%H-%M").txt"
-        workspacedird="D:\workspace"
-        workspacedire="E:\backup\workspace"
-        link_dir_1="/mnt/d/workspace"
-        link_dir_2="/mnt/d/shared"
+#             drived="/mnt/d"
+#             bakcupdire="/mnt/e/backup/"
+#             logdir="/mnt/e/restore_logs/"
+#             logfile="log_restore-$(date "+%Y-%m-%d-%H-%M").txt"
+#             workspacedird="D:\workspace"
+#             workspacedire="E:\backup\workspace"
+#             link_dir_1="/mnt/d/workspace"
+#             link_dir_2="/mnt/d/shared"
 
-        case $input in
-            1|3) robonorm="/E" && rsyncnorm='' ;;
-            2|4) robonorm="/E /PURGE" && rsyncnorm="--delete " ;;
-        esac
+#             case $input in
+#                 1|3) robonorm="/E" && rsyncnorm='' ;;
+#                 2|4) robonorm="/E /PURGE" && rsyncnorm="--delete " ;;
+#             esac
 
-        case $input in
-            1|2) robocopyoptions=""$robonorm" /ZB /SL /MT:20 /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1 /ETA"
-                 ryncoptions="-avhzH --progress --stats --ignore-times "$rsyncnorm"" ;;
-            3|4) robocopyoptions="/L "$robonorm" /ZB /SL /MT:20 /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1 /ETA"
-                 ryncoptions="-avhzH --progress --stats --ignore-times --dry-run "$rsyncnorm"" ;;
-        esac
+#             case $input in
+#                 1|2) ryncoptions="-avhzH --progress --stats --ignore-times "$rsyncnorm"" ;;
+#                 3|4) ryncoptions="-avhzH --progress --stats --ignore-times --dry-run "$rsyncnorm"" ;;
+#             esac
+#             ;;
+#         5)  main_clone
 
-        case $input in 
-            1|2|3|4)
-                    echo -e '\n ~~~~~~~~~~~~~~ Backup Main Drive.... ~~~~~~~~~~~~~~\n'
-                    mkdir -p "$logdir" && sudo touch "$logdir$logfile"
+#                 echo
+#                 read -e -p "  Enter Drive Letter/Path [c]:" backdir
+#                 dotfilesdird="/mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/"
+#                 dotfilesdire="/mnt/"$backdir"/workspace/tech/programing/git/dotfiles/.dotfiles"
+#                 drived="/mnt/d/"
+#                 drivedwin="D:\\"
 
-                    backups() {
-                        sudo rsync $ryncoptions "$dotfilesdire" "$dotfilesdird"
-                        echo -e "\n     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                        case $input in
-                            1|2) find "$link_dir_1" "$link_dir_2" -type l -print0 | xargs -0 rm -v -- ;;
-                            3|4) find "$link_dir_1" "$link_dir_2" -type l ;;
-                        esac
-                        cmd.exe /c robocopy "$workspacedire" "$workspacedird" "*" $robocopyoptions
-                        # CHCP 1251
-                    }
+#                 robocopyoptions="/E /ZB /SL /MT:20 /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1 /ETA"
+#                 ryncoptions="-avhzH --progress --stats"
+#                 ;;
+#         6)  mobile_clone
 
-                    backups | sudo tee -ai "$logdir$logfile"
-                    echo -e '\n ~~~~~~~~~~~~~~ Backup Complete! ~~~~~~~~~~~~~~\n' ;;
-            b)
-                    move ;;
-            x)
-                    : && clear ;;
-            *)
-                    main ;;
-        esac
-    }
+#                 echo
+#                 read -e -p "  Enter Drive Letter/Path [c]:" backdir
+#                 dotfilesdird="/mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/"
+#                 dotfilesdire="/mnt/"$backdir"/workspace/tech/programing/git/dotfiles"
+#                 drived="/mnt/e/backup_mobile/"
+#                 drivedwin="E:\\backup_mobile"
+#                 ryncoptions="-avhzH --progress --stats"
+#                 ;;
+#         7)  move_all
+#                 downloads="$winhl/Downloads/"
+#                 documents="$winhl/Documents/"
+#                 temp="/mnt/d/~temp"
+#                 ;;
+#         8)  move_screenshots
 
-    mobile_backup() {
-        help() {
-            clear 
-            echo -e '\n  Available Options:\n'
-            echo    '           x  | Exit'
-            echo    '           b  | Go Back'
-            echo    '           1  | Normal'
-            echo    '           2  | Mirroring'
-            echo    '           3  | Dry-Run Normal'
-            echo -e '           4  | Dry-Run Mirroring\n'
-            read -e -p "  Option: " input
-        }
-        help
+#                 temp="/mnt/d/~temp"
+#                 screenshotsdir="$winhl/Pictures/My Screen Shots/"
+#                 animepicsdir="/mnt/d/workspace/essential/art/screenshots/pics"
+#                 animepicsdirwin="D:\workspace\essential\art\screenshots\pics"
+#                 acerscreendir="/mnt/d/workspace/tech/devices/laptops/Acer Predator G9-792/screenshots"
+#                 surfscreendir="/mnt/d/workspace/tech/devices/laptops/Microsoft Surface Pro 4/screenshots"
+#                 ;;
+#     esac
 
-        excludeddir="/mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/wsl/rsync/excluded_mobile"
-        sdcard=""
-        bakcupdire="/mnt/e/backup_mobile/"
-        logdir="/mnt/e/backup_logs/"
-        logfile="log_backup-$(date "+%Y-%m-%d-%H-%M").txt"
+#     main_backup() {
+#         help() {
+#             clear 
+#             echo -e '\n  Available Options:\n'
+#             echo    '           x  | Exit'
+#             echo    '           b  | Go Back'
+#             echo    '           1  | Normal'
+#             echo    '           2  | Mirroring'
+#             echo    '           3  | Dry-Run Normal'
+#             echo -e '           4  | Dry-Run Mirroring\n'
+#             read -e -p "  Option: " input
+#         }
+#         help
 
-        if [ $input -eq 1 ] || [ $input -eq 3 ] ; then 
-            rsyncnorm=''
-        elif [ $input -eq 2 ] || [ $input -eq 4 ] ; then 
-            rsyncnorm="--delete "
-        fi
+#         case $input in 
+#             1|2|3|4)
+#                     echo -e '\n ~~~~~~~~~~~~~~ Backup Main Drive.... ~~~~~~~~~~~~~~\n'
+#                     mkdir -p "$logdir" && sudo touch "$logdir$logfile"
 
-        if [ $input -eq 3 ] || [ $input -eq 4 ] ; then
-            ryncoptions="-avhzH --progress --stats --dry-run "$rsyncnorm""
-        elif [ $input -eq 1 ] || [ $input -eq 2 ] ; then 
-            ryncoptions="-avhzH --progress --stats "$rsyncnorm""
-        fi
+#                     backups() {
+#                         mkdir -p "$animemain"
+#                         #-------------------------------------------------------
+#                         sudo rsync $ryncoptions --exclude-from="$excludeddir" "$drived" "$bakcupdire"
+#                         echo -e "\n     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+#                         sudo rsync $ryncoptions "${dotfilesdird}/" "$dotfilesdire"
+#                         echo -e "\n     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+#                         #-------------------------------------------------------
+#                         case $input in
+#                             1|2) find "$link_dir_1" "$link_dir_2" -type l -print0 | xargs -0 rm -v -- ;;
+#                             3|4) find "$link_dir_1" "$link_dir_2" -type l ;;
+#                         esac
+#                         cmd.exe /c robocopy "$workspacedird" "$workspacedire" "*" $robocopyoptions
+#                         # CHCP 1251
+#                     }
 
-        if [ $input -eq 1 ] || [ $input -eq 2 ] || [ $input -eq 3 ] || [ $input -eq 4 ]; then
-            echo -e '\n ~~~~~~~~~~~~~~ Backup Mobile SD Card.... ~~~~~~~~~~~~~~\n'
-            mkdir -p "$logdir" && sudo touch "$logdir$logfile"
+#                     backups | sudo tee -ai "$logdir$logfile"
+#                     echo -e '\n ~~~~~~~~~~~~~~ Backup Complete! ~~~~~~~~~~~~~~\n' ;;
+#             b)
+#                     move ;;
+#             x)
+#                     : && clear ;;
+#             *)
+#                     main ;;
+#         esac
+#     }
 
-            backups() {
-                sudo rsync $ryncoptions --exclude-from="$excludeddir" "$sdcard" "$bakcupdire"
-            }
+#     main_clone() {
+#         help() {
+#             clear 
+#             echo -e '\n  Available Options:\n'
+#             echo    '           x  | Exit'
+#             echo    '           b  | Go Back'
+#             echo -e '           1  | Proceed\n'
+#             read -e -p "  Option: " input
+#         }
+#         help
 
-            backups | sudo tee -ai "$logdir$logfile"
-            echo -e '\n ~~~~~~~~~~~~~~ Backup Complete! ~~~~~~~~~~~~~~\n'
-        elif [ $input == b ] ; then
-            move
-        elif [ $input == x ] ; then
-            : && clear
-        else
-            mobile
-        fi
-    }
+#         case $input in 
+#             1)
 
-    mobile_clone() {
-        help() {
-            clear 
-            echo -e '\n  Available Options:\n'
-            echo    '           x  | Exit'
-            echo    '           b  | Go Back'
-            echo -e '           1  | Proceed\n'
-            read -e -p "  Option: " input
-        }
-        help
+#                     echo -e '\n ~~~~~~~~~~~~~~ Cloning Main Drive.... ~~~~~~~~~~~~~~\n'
+#                     clone() {
+#                         echo -e "\n     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+#                         mkdir -p "/mnt/"$backdir"/workspace/Projects/Programing/Git/dotfiles/.dotfiles/"
+#                         sudo rsync $ryncoptions "$dotfilesdird" "$dotfilesdire"
+#                         echo -e "\n     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+#                         cmd.exe /c robocopy "$drivedwin" "$backdir:\\" "*" $robocopyoptions
+#                     }
+#                     clone 
+#                     echo -e '\n ~~~~~~~~~~~~~~ Cloning Complete! ~~~~~~~~~~~~~~\n' 
+#                     ;;
+#             b)      move ;;
+#             x)      : && clear ;;
+#             *)      main ;;
+#         esac
+#     }
 
-        case $input in 
-            1)
-                    echo
-                    read -e -p "  Enter Drive Letter/Path [c]:" backdir
-                    dotfilesdird="/mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/"
-                    dotfilesdire="/mnt/"$backdir"/workspace/tech/programing/git/dotfiles"
-                    drived="/mnt/e/backup_mobile/"
-                    drivedwin="E:\\backup_mobile"
-                    ryncoptions="-avhzH --progress --stats"
+#     main_restore() {
+#         help() {
+#             clear 
+#             echo -e '\n  Available Options:\n'
+#             echo    '           x  | Exit'
+#             echo    '           b  | Go Back'
+#             echo    '           1  | Normal'
+#             echo    '           2  | Mirroring'
+#             echo    '           3  | Dry-Run Normal'
+#             echo -e '           4  | Dry-Run Mirroring\n'
+#             read -e -p "  Option: " input
+#         }
+#         help
 
-                    echo -e '\n ~~~~~~~~~~~~~~ Cloning Main Drive.... ~~~~~~~~~~~~~~\n'
-                    clone() {
-                        sudo rsync $ryncoptions "$dotfilesdird" "$dotfilesdire"
-                    }
-                    clone 
-                    echo -e '\n ~~~~~~~~~~~~~~ Cloning Complete! ~~~~~~~~~~~~~~\n' 
-                    ;;
-            b)
-                    move ;;
-            x)
-                    : && clear ;;
-            *)
-                    main ;;
-        esac
-    }
+#         case $input in 
+#             1|2|3|4)
+#                     echo -e '\n ~~~~~~~~~~~~~~ Backup Main Drive.... ~~~~~~~~~~~~~~\n'
+#                     mkdir -p "$logdir" && sudo touch "$logdir$logfile"
 
-    mobile_restore() {
-        help() {
-            clear 
-            echo -e '\n  Available Options:\n'
-            echo    '           x  | Exit'
-            echo    '           b  | Go Back'
-            echo    '           1  | Normal'
-            echo    '           2  | Mirroring'
-            echo    '           3  | Dry-Run Normal'
-            echo -e '           4  | Dry-Run Mirroring\n'
-            read -e -p "  Option: " input
-        }
-        help
+#                     backups() {
+#                         sudo rsync $ryncoptions "${dotfilesdire}/" "$dotfilesdird"
+#                         echo -e "\n     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+#                         case $input in
+#                             1|2) find "$link_dir_1" "$link_dir_2" -type l -print0 | xargs -0 rm -v -- ;;
+#                             3|4) find "$link_dir_1" "$link_dir_2" -type l ;;
+#                         esac
+#                         cmd.exe /c robocopy "$workspacedire" "$workspacedird" "*" $robocopyoptions
+#                         # CHCP 1251
+#                     }
 
-        dotfilesdird="/mnt/d/shared/pc/projects/git/dotfiles/.dotfiles"
-        dotfilesdire="/mnt/e/backup/shared/pc/projects/git/dotfiles/.dotfiles/"
-        drived="/mnt/d"
-        bakcupdire="/mnt/e/backup/"
-        logdir="/mnt/e/restore_logs/"
-        logfile="log_restore-$(date "+%Y-%m-%d-%H-%M").txt"
-        workspacedird="D:\workspace"
-        workspacedire="E:\backup\workspace"
-        link_dir_1="/mnt/d/workspace"
-        link_dir_2="/mnt/d/shared"
+#                     backups | sudo tee -ai "$logdir$logfile"
+#                     echo -e '\n ~~~~~~~~~~~~~~ Backup Complete! ~~~~~~~~~~~~~~\n' ;;
+#             b)      move ;;
+#             x)      : && clear ;;
+#             *)      main ;;
+#         esac
+#     }
 
-        case $input in
-            1|3) robonorm="/E" && rsyncnorm='' ;;
-            2|4) robonorm="/E /PURGE" && rsyncnorm="--delete " ;;
-        esac
+#     mobile_backup() {
+#         help() {
+#             clear 
+#             echo -e '\n  Available Options:\n'
+#             echo    '           x  | Exit'
+#             echo    '           b  | Go Back'
+#             echo    '           1  | Normal'
+#             echo    '           2  | Mirroring'
+#             echo    '           3  | Dry-Run Normal'
+#             echo -e '           4  | Dry-Run Mirroring\n'
+#             read -e -p "  Option: " input
+#         }
+#         help
 
-        case $input in
-            1|2) ryncoptions="-avhzH --progress --stats --ignore-times "$rsyncnorm"" ;;
-            3|4) ryncoptions="-avhzH --progress --stats --ignore-times --dry-run "$rsyncnorm"" ;;
-        esac
+#         if [ $input -eq 1 ] || [ $input -eq 2 ] || [ $input -eq 3 ] || [ $input -eq 4 ]; then
+#             echo -e '\n ~~~~~~~~~~~~~~ Backup Mobile SD Card.... ~~~~~~~~~~~~~~\n'
+#             mkdir -p "$logdir" && sudo touch "$logdir$logfile"
 
-        case $input in 
-            1|2|3|4)
-                    echo -e '\n ~~~~~~~~~~~~~~ Backup Main Drive.... ~~~~~~~~~~~~~~\n'
-                    mkdir -p "$logdir" && sudo touch "$logdir$logfile"
+#             backups() {
+#                 sudo rsync $ryncoptions --exclude-from="$excludeddir" "$sdcard" "$bakcupdire"
+#             }
 
-                    backups() {
-                        sudo rsync $ryncoptions "$dotfilesdire" "$dotfilesdird"
-                    }
+#             backups | sudo tee -ai "$logdir$logfile"
+#             echo -e '\n ~~~~~~~~~~~~~~ Backup Complete! ~~~~~~~~~~~~~~\n'
+#         elif [ $input == b ] ; then
+#             move
+#         elif [ $input == x ] ; then
+#             : && clear
+#         else
+#             mobile
+#         fi
+#     }
 
-                    backups | sudo tee -ai "$logdir$logfile"
-                    echo -e '\n ~~~~~~~~~~~~~~ Backup Complete! ~~~~~~~~~~~~~~\n' ;;
-            b)
-                    move ;;
-            x)
-                    : && clear ;;
-            *)
-                    main ;;
-        esac
-    }
+#     mobile_clone() {
+#         help() {
+#             clear 
+#             echo -e '\n  Available Options:\n'
+#             echo    '           x  | Exit'
+#             echo    '           b  | Go Back'
+#             echo -e '           1  | Proceed\n'
+#             read -e -p "  Option: " input
+#         }
+#         help
 
-    move_screenshots() {
-        help() {
-            clear
-            echo -e '\n  Available Options:\n'
-            echo    '           x  | Exit'
-            echo    '           b  | Go Back'
-            echo    '           1  | Anime Pics to Permanent Directory'
-            echo    '           2  | Acer Screenshots to Permanent Directory'
-            echo -e '           3  | Surface Screenshots to Permanent Directory\n'
-            read -e -p "  Option: " input
-        }
-        help
+#         case $input in 
+#             1)
+#                     echo -e '\n ~~~~~~~~~~~~~~ Cloning Main Drive.... ~~~~~~~~~~~~~~\n'
+#                     clone() {
+#                         sudo rsync $ryncoptions "$dotfilesdird" "$dotfilesdire"
+#                     }
+#                     clone 
+#                     echo -e '\n ~~~~~~~~~~~~~~ Cloning Complete! ~~~~~~~~~~~~~~\n' 
+#                     ;;
+#             b)      move ;;
+#             x)      : && clear ;;
+#             *)      main ;;
+#         esac
+#     }
 
-        temp="/mnt/d/~temp"
-        screenshotsdir="$winhl/Pictures/My Screen Shots/"
-        animepicsdir="/mnt/d/workspace/essential/art/screenshots/pics"
-        animepicsdirwin="D:\workspace\essential\art\screenshots\pics"
-        acerscreendir="/mnt/d/workspace/tech/devices/laptops/Acer Predator G9-792/screenshots"
-        surfscreendir="/mnt/d/workspace/tech/devices/laptops/Microsoft Surface Pro 4/screenshots"
+#     mobile_restore() {
+#         help() {
+#             clear 
+#             echo -e '\n  Available Options:\n'
+#             echo    '           x  | Exit'
+#             echo    '           b  | Go Back'
+#             echo    '           1  | Normal'
+#             echo    '           2  | Mirroring'
+#             echo    '           3  | Dry-Run Normal'
+#             echo -e '           4  | Dry-Run Mirroring\n'
+#             read -e -p "  Option: " input
+#         }
+#         help
 
-        case $input in
-            1)
-                echo -e '\n ~~~~~~~~~~~~~~ Moving to Anime Pics.... ~~~~~~~~~~~~~~\n'
-                rsync -avhz --progress --stats --ignore-existing --remove-source-files --include=\[0-9\]*.PNG --exclude=\* "$screenshotsdir" "$animepicsdir"
-                echo -e '\n ~~~~~~~~~~~~~~ Finished! ~~~~~~~~~~~~~~\n'
-                o "$animepicsdirwin" ;;
-            2)
-                echo -e '\n ~~~~~~~~~~~~~~ Moving to Acer Screenshots.... ~~~~~~~~~~~~~~\n'
-                    rsync -avhz --progress --stats --ignore-existing --remove-source-files --include=\Screen\ Shot*.PNG --exclude=\* "$screenshotsdir" "$acerscreendir"
-                echo -e '\n ~~~~~~~~~~~~~~ Finished! ~~~~~~~~~~~~~~\n' ;;
-            3)
-                echo -e '\n ~~~~~~~~~~~~~~ Moving to Surface Screenshots.... ~~~~~~~~~~~~~~\n'
-                rsync -avhz --progress --stats --ignore-existing --remove-source-files --include=\Screen\ Shot*.PNG --exclude=\* "$screenshotsdir" "$surfscreendir"
-                echo -e '\n ~~~~~~~~~~~~~~ Finished! ~~~~~~~~~~~~~~\n' ;;
-            b)  move ;;
-            x)  : && clear ;;
-            *)  move_screenshots ;;
-        esac
-    }
+#         case $input in 
+#             1|2|3|4)
+#                     echo -e '\n ~~~~~~~~~~~~~~ Backup Main Drive.... ~~~~~~~~~~~~~~\n'
+#                     mkdir -p "$logdir" && sudo touch "$logdir$logfile"
 
-    move_all() {
-        downloads="$winhl/Downloads/"
-        documents="$winhl/Documents/"
-        temp="/mnt/d/~temp"
+#                     backups() {
+#                         sudo rsync $ryncoptions "$dotfilesdire" "$dotfilesdird"
+#                     }
 
-        echo -e '\n ~~~~~~~~~~~~~~ Moving from Downloads.... ~~~~~~~~~~~~~~\n'
-        rsync -avhz --progress --stats --ignore-existing --remove-source-files --exclude desktop.ini "$downloads" "$temp"
-        find "$downloads" -depth -type d -empty -delete
-        echo -e '\n ~~~~~~~~~~~~~~ Moving from Documents.... ~~~~~~~~~~~~~~\n'
-        rsync -avhz --progress --stats --ignore-existing --remove-source-files --include=\*.docx --include=\*.doc --include=\*.pdf --include=\*xlsx --exclude=\*  "$documents" "$temp"
-        echo -e '\n ~~~~~~~~~~~~~~ Finished! ~~~~~~~~~~~~~~\n'
-        # find "$downloads"-mindepth 1 -not -name '*.ini' -print0 | xargs -0 mv -t "$temp"
-        # find "$downloads"-mindepth 1 -not -name '*.ini' -print0 | xargs -0 -I {} cp -p -r  {} "$temp"
-        # find "$downloads"-mindepth 1 -not -name '*.ini' -print0 -exec {} cp -p -r  {} "$temp" \;
-    }
+#                     backups | sudo tee -ai "$logdir$logfile"
+#                     echo -e '\n ~~~~~~~~~~~~~~ Backup Complete! ~~~~~~~~~~~~~~\n' ;;
+#             b)      move ;;
+#             x)      : && clear ;;
+#             *)      main ;;
+#         esac
+#     }
 
-    help() {
-        clear
-        echo -e '\n  Available Options:\n'
-        echo    '           x  | Exit'
-        echo    '           b  | Go Back'
-        echo    '       Backup:'
-        echo    '           1  | Main Drive'
-        echo    '           2  | Mobile SD Card'
-        echo    '       Restore:'
-        echo    '           3  | Main Drive'
-        echo    '           4  | Mobile SD Card'
-        echo    '       Clone:'
-        echo    '           5  | Main Drive'
-        echo    '           6  | Mobile SD Card'
-        echo    '       Move:'
-        echo    '           7  | ALL from Windows Temporary Directories'
-        echo -e '           8  | Screenshots\n'
-        read -e -p "  Enter Option: " input
-        echo
-    }
+#     move_screenshots() {
+#         help() {
+#             clear
+#             echo -e '\n  Available Options:\n'
+#             echo    '           x  | Exit'
+#             echo    '           b  | Go Back'
+#             echo    '           1  | Anime Pics'
+#             echo    '           2  | Acer Screenshots'
+#             echo -e '           3  | Surface Screenshots'
+#             read -e -p "  Option: " input
+#         }
+#         help
 
-    if [ -z $1 ] ; then
-        help
-    else
-        input=$1
-        input2=$2
-    fi
+#         case $input in
+#             1)
+#                 echo -e '\n ~~~~~~~~~~~~~~ Moving to Anime Pics.... ~~~~~~~~~~~~~~\n'
+#                 rsync -avhz --progress --stats --ignore-existing --remove-source-files --include=\[0-9\]*.PNG --exclude=\* "$screenshotsdir" "$animepicsdir"
+#                 echo -e '\n ~~~~~~~~~~~~~~ Finished! ~~~~~~~~~~~~~~\n'
+#                 o "$animepicsdirwin" ;;
+#             2)
+#                 echo -e '\n ~~~~~~~~~~~~~~ Moving to Acer Screenshots.... ~~~~~~~~~~~~~~\n'
+#                     rsync -avhz --progress --stats --ignore-existing --remove-source-files --include=\Screen\ Shot*.PNG --exclude=\* "$screenshotsdir" "$acerscreendir"
+#                 echo -e '\n ~~~~~~~~~~~~~~ Finished! ~~~~~~~~~~~~~~\n' ;;
+#             3)
+#                 echo -e '\n ~~~~~~~~~~~~~~ Moving to Surface Screenshots.... ~~~~~~~~~~~~~~\n'
+#                 rsync -avhz --progress --stats --ignore-existing --remove-source-files --include=\Screen\ Shot*.PNG --exclude=\* "$screenshotsdir" "$surfscreendir"
+#                 echo -e '\n ~~~~~~~~~~~~~~ Finished! ~~~~~~~~~~~~~~\n' ;;
+#             b)  move ;;
+#             x)  : && clear ;;
+#             *)  move_screenshots ;;
+#         esac
+#     }
 
-    case $input in
-        1)  main_backup ;;
-        2)  mobile_backup ;;
-        3)  main_restore ;;
-        4)  mobile_restore ;;
-        5)  main_clone ;;
-        6)  mobile_clone ;;
-        7)  move_all ;;
-        8)  move_screenshots ;;
-        b)  manage ;;
-        x)  : && clear ;;
-        *)  move ;;
-    esac
+#     move_all() {
+#         echo -e '\n ~~~~~~~~~~~~~~ Moving from Downloads.... ~~~~~~~~~~~~~~\n'
+#         rsync -avhz --progress --stats --ignore-existing --remove-source-files --exclude desktop.ini "$downloads" "$temp"
+#         find "$downloads" -depth -type d -empty -delete
+#         echo -e '\n ~~~~~~~~~~~~~~ Moving from Documents.... ~~~~~~~~~~~~~~\n'
+#         rsync -avhz --progress --stats --ignore-existing --remove-source-files --include=\*.docx --include=\*.doc --include=\*.pdf --include=\*xlsx --exclude=\*  "$documents" "$temp"
+#         echo -e '\n ~~~~~~~~~~~~~~ Finished! ~~~~~~~~~~~~~~\n'
+#         # find "$downloads"-mindepth 1 -not -name '*.ini' -print0 | xargs -0 mv -t "$temp"
+#         # find "$downloads"-mindepth 1 -not -name '*.ini' -print0 | xargs -0 -I {} cp -p -r  {} "$temp"
+#         # find "$downloads"-mindepth 1 -not -name '*.ini' -print0 -exec {} cp -p -r  {} "$temp" \;
+#     }
 
-    functions=(
-        "help"
-        "main_backup"
-        "mobile_backup"
-        "main_restore"
-        "mobile_restore"
-        "main_clone"
-        "mobile_clone"
-        "move_all"
-        "move_screenshots"
-        "clone"
-        "backups"
-    )
+#     help() {
+#         clear
+#         echo -e '\n  Available Options:\n'
+#         echo    '           x  | Exit'
+#         echo    '           b  | Go Back'
+#         echo    '       Backup:'
+#         echo    '           1  | Main Drive'
+#         echo    '           2  | Mobile SD Card'
+#         echo    '       Restore:'
+#         echo    '           3  | Main Drive'
+#         echo    '           4  | Mobile SD Card'
+#         echo    '       Clone:'
+#         echo    '           5  | Main Drive'
+#         echo    '           6  | Mobile SD Card'
+#         echo    '       Move:'
+#         echo    '           7  | ALL from Windows Temporary Directories'
+#         echo -e '           8  | Screenshots\n'
+#         read -e -p "  Enter Option: " input
+#         echo
+#     }
 
-    variables=(
-        "input"
-        "input2"
-        "robocopyoptions"
-        "robonorm"
-        "ryncoptions"
-        "excludeddir"
-        "sdcard"
-        "drivedwin"
-        "dotfilesdird"
-        "dotfilesdire"
-        "drived"
-        "bakcupdire"
-        "logdir"
-        "logfile"
-        "workspacedird"
-        "workspacedire"
-        "link_dir_1"
-        "link_dir_2"
-        "screenshotsdir"
-        "animemain"
-        "animepicsdir"
-        "animepicsdirwin"
-        "acerscreendir"
-        "surfscreendir"
-        "downloads"
-        "documents"
-        "temp"
-    )
+#     if [ -z $1 ] ; then
+#         help
+#     else
+#         input=$1
+#         input2=$2
+#     fi
 
-    unset -f "${functions[@]}";
-    unset -v functions "${variables[@]}" variables;
-}
+#     case $input in
+#         1)  main_backup ;;
+#         2)  mobile_backup ;;
+#         3)  main_restore ;;
+#         4)  mobile_restore ;;
+#         5)  main_clone ;;
+#         6)  mobile_clone ;;
+#         7)  move_all ;;
+#         8)  move_screenshots ;;
+#         b)  manage ;;
+#         x)  : && clear ;;
+#         *)  move ;;
+#     esac
+
+#     functions=(
+#         "help"
+#         "main_backup"
+#         "mobile_backup"
+#         "main_restore"
+#         "mobile_restore"
+#         "main_clone"
+#         "mobile_clone"
+#         "move_all"
+#         "move_screenshots"
+#         "clone"
+#         "backups"
+#     )
+
+#     variables=(
+#         "input"
+#         "input2"
+#         "robocopyoptions"
+#         "robonorm"
+#         "ryncoptions"
+#         "excludeddir"
+#         "sdcard"
+#         "drivedwin"
+#         "dotfilesdird"
+#         "dotfilesdire"
+#         "drived"
+#         "bakcupdire"
+#         "logdir"
+#         "logfile"
+#         "workspacedird"
+#         "workspacedire"
+#         "link_dir_1"
+#         "link_dir_2"
+#         "screenshotsdir"
+#         "animemain"
+#         "animepicsdir"
+#         "animepicsdirwin"
+#         "acerscreendir"
+#         "surfscreendir"
+#         "downloads"
+#         "documents"
+#         "temp"
+#     )
+
+#     unset -f "${functions[@]}";
+#     unset -v functions "${variables[@]}" variables;
+# }
 
 #-------------------------------------------------------------------------------
 
@@ -1536,7 +1538,7 @@ dots() {
 #   -------------------------------
 
 handles() {
-    pushd $(getpath -u $aps)/apps/suites/symenu/ProgramFiles/SPSSuite/SysinternalsSuite/Handle_sps;
+    pushd $(getpath -u $aps)/suites/symenu/ProgramFiles/SPSSuite/SysinternalsSuite/Handle_sps;
     help() {
         clear
         echo -e '\n  Available Options:\n'
@@ -1576,7 +1578,7 @@ handles() {
             echo -e '\n ~~~~~~~~~~~~~~ Showing All Process PIDs.... ~~~~~~~~~~~~~~\n'
             cmd.exe /c 'handle.exe' | grep 'pid'
             echo -e '\n ~~~~~~~~~~~~~~ Query Completed! ~~~~~~~~~~~~~~\n' ;;
-        4)  cmds "$aps\apps\suites\portableapps.com\PortableApps\ProcessExplorerPortable" ProcessExplorerPortable.exe && clear ;;
+        4)  cmds "$aps\suites\portableapps.com\PortableApps\ProcessExplorerPortable" ProcessExplorerPortable.exe && clear ;;
         5)  cmd.exe /c handle.exe /? ;;
         6)  clear
             echo -e "\n     The number of all open descriptors is: $(lsof | wc -l)\n" ;;
@@ -1671,7 +1673,7 @@ win() {
                     "'D:\shared\pc'"
                     "'D:\workspace'"
                     "'D:\workspace\essential'"
-                    "'D:\workspace\essential\lists'"
+                    "'D:\shared\pc\docs\lists'"
                     "'D:\apps'"
                     "'D:\workspace\tech'"
                     "'D:\workspace\tech\programing'"
@@ -1688,12 +1690,13 @@ win() {
                 );
         else
             pins=(
-                    "'C:\Users\Todorov\Downloads\mobile\~temp'"
-                    "'C:\Users\Todorov\Downloads\pc\projects\git\dotfiles\.dotfiles'"
-                    "'C:\Users\Todorov\Downloads\mobile'"
-                    "'C:\Users\Todorov\Downloads\pc'"
-                    "'C:\Users\Todorov\Downloads\pc\projects\git'"
-                    "'C:\Users\Todorov\Downloads\pc\projects\blog\mlvnt.com'"
+                    "'${winhwr}mobile\~temp'"
+                    "'${winhwr}mobile'"
+                    "'${winhwr}pc\~temp'"
+                    "'${winhwr}pc\projects\git\dotfiles\.dotfiles'"
+                    "'${winhwr}pc'"
+                    "'${winhwr}pc\projects\git'"
+                    "'${winhwr}pc\projects\blog\mlvnt.com'"
                     "'$winhw\Pictures\My Screen Shots'"
                     "'$winhw\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs\home\todorov'"
                 );
@@ -1974,6 +1977,13 @@ apkinstall() {
 
 #-------------------------------------------------------------------------------
 
+memory() {
+    case $1 in
+        -r|run)  "$python_scripts/memory/memory.py" ;;
+        *)       o "$(getpath -w $local)\pc\docs\lists\memory\index.html" ;;
+    esac
+}
+
 #   -------------------------------
 #   SOCIAL
 #   -------------------------------
@@ -2164,15 +2174,15 @@ food() {
 
     open_docs() {
         case $1 in
-            1)  o $doc1 ;;
-            2)  o $doc2 ;;
-            3)  o $doc3 ;;
-            4)  o $doc4 ;;
-            5)  o $doc5 ;;
-            6)  o $doc6 ;;
-            7)  o $doc7 ;;
-            8)  o $doc8 ;;
-            9)  o $doc9 ;;
+            1)  o "$doc1" ;;
+            2)  o "$doc2" ;;
+            3)  o "$doc3" ;;
+            4)  o "$doc4" ;;
+            5)  o "$doc5" ;;
+            6)  o "$doc6" ;;
+            7)  o "$doc7" ;;
+            8)  o "$doc8" ;;
+            9)  o "$doc9" ;;
         esac
     }
 
@@ -2240,9 +2250,9 @@ sport() {
     }
 
     case $1 in
-        1)  o $doc1 ;;
-        2)  o $doc2 ;;
-        3)  o $doc3 ;;
+        1)  o "$doc1" ;;
+        2)  o "$doc2" ;;
+        3)  o "$doc3" ;;
         b)  mywork ;;
         x)  : && clear ;;
         *)  help ;;
@@ -2276,15 +2286,15 @@ coc() {
         echo "USAGE"
         echo "        coc [OPTION]" && echo
         echo "OPTIONS"
-        echo "    -u | u | update      -  update local files"
+        echo "    -u  | u  | update    -  update local files"
         echo "    -ug | ug | upgrade   -  upgrade bot version"
-        echo "    -h | help            -  show help" && echo
+        echo "    -h  | help           -  show help" && echo
     }
 
     coc_run() {
         pushd "$winhl/Downloads";
         name=$(dir -AN1 | grep MyBot);
-        path='$winhw\Downloads\'$name'\MyBot.run.exe';
+        path="$winhw\Downloads\\$name\MyBot.run.exe";
         timeout 6s cmd.exe /c $path MyVillage MEmu MEmu;
         echo -e '\n [opening] mybotrun - Clash of Clans Bot\n';
         unset -v name path;
@@ -2298,7 +2308,7 @@ coc() {
         base=$(basename $path);
         source=$(wslpath -w "$path");
         dest=$(wslpath -w "$des/$base");
-        cmdc robocopy $source $dest * /E /SL /MT:20 /XO /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1;
+        cmdc robocopy $source $dest /E /SL /MT:20 /XO /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1;
         # cp -rfv $path $dest
     }
 
@@ -2359,7 +2369,7 @@ blog() {
     content="$local/pc/projects/blog/mlvnt.com/mlvnt/content"
     contents="$(getpath -w $local)\pc\projects\blog\mlvnt.com\mlvnt\content"
     bakedpath="$local/pc/projects/blog/mlvnt.com/public_html"
-    filezilladir="$aps\apps\suites\portableapps.com\PortableApps\FileZillaPortable"
+    filezilladir="$aps\suites\portableapps.com\PortableApps\FileZillaPortable"
     ext=".md"
 
     help() {
@@ -2744,7 +2754,7 @@ apps() {
             echo    '           31  Meld'
             echo    '           32  NetBeans'
             echo    '           33  Notepad++'
-            echo    '           34  R-Studio'
+            echo    '           34  '
             echo    '           35  RegexBuddy4'
             echo    '           36  RegExr'
             echo    '           37  Sublime Text'
@@ -2859,7 +2869,7 @@ apps() {
             31) cmds "D:\apps\file-management\compare\Meld" Meld.exe && clear ;;
             32) cmds "D:\apps\development\editors\IDEs\NetBeans 8.2\bin" netbeans64.exe && clear ;;
             33) cmds "D:\apps\development\editors\editors\Notepad++\Notepad++ 7.5.1" notepad++.exe && clear ;;
-            34) cmds "D:\apps\file-management\recovery\R-StudioPortable 8.5.Build 170117" R-StudioPortable.exe && clear ;;
+            34)  ;;
             35) cmds "D:\apps\development\tools\regex\RegexBuddy4" RegexBuddy4.exe && clear ;;
             36) cmds "D:\apps\development\tools\regex\RegExr" RegExr.exe && clear ;;
             37) cmds "D:\apps\development\editors\editors\Sublime_Text" sublime_text.exe && clear ;;
@@ -2900,7 +2910,7 @@ apps() {
             72) cmds "D:\apps\net\remote-control\VNC\RealVNC" VNC-Viewer-6.17.1113-Windows-64bit.exe && clear ;;
             73) cmds "D:\apps\net\remote-control\VNC" TigerVNC-VncViewer-1.8.0.jar && clear ;;
             74) cmds "D:\apps\Office\Office\TeX\TikzEdtBeta0_2_3" TikzEdt.exe && clear ;;
-            75) cmds "D:\apps\File Management\Recovery\R-StudioPortable 8.5.Build 170117" R-StudioPortable.exe && clear ;;
+            75) cmds "D:\apps\file-management\recovery\R-StudioPortable 8.5.Build 170117" R-StudioPortable.exe && clear ;;
             76) cmds "D:\apps\productivity\office\TeX\MikTEX\texmfs\install\miktex\bin" miktex-console.exe && clear ;;
             77) cmds "D:\apps\file-management\media\media-centers\Kodi\Server" kodi.exe -p && clear ;;
             78) cmd.exe /c "D:\apps\file-management\media\media-centers\Plex\Server\Plex Media Server.exe" && clear ;;
@@ -3111,9 +3121,9 @@ apps() {
     }
 
     sysmenu_clean() {
-        rm -rfv $(getpath -u $aps)/apps/suites/symenu/ProgramFiles/SPSSuite/SyMenuSuite/_Trash/*;
-        rm -rfv $(getpath -u $aps)/apps/suites/symenu/ProgramFiles/SPSSuite/NirSoftSuite/_Trash/*;
-        rm -rfv $(getpath -u $aps)/apps/suites/symenu/ProgramFiles/SPSSuite/SysinternalsSuite/_Trash/*;
+        rm -rfv $(getpath -u $aps)/suites/symenu/ProgramFiles/SPSSuite/SyMenuSuite/_Trash/*;
+        rm -rfv $(getpath -u $aps)/suites/symenu/ProgramFiles/SPSSuite/NirSoftSuite/_Trash/*;
+        rm -rfv $(getpath -u $aps)/suites/symenu/ProgramFiles/SPSSuite/SysinternalsSuite/_Trash/*;
         clear
     }
 
@@ -3235,7 +3245,7 @@ radicalle() {
             rm -rfv "$path_dots"/.config/radicale/"$i";
         done
 
-        delete_cache
+        # delete_cache
 
         yes yes | sudo cp -rv "$path_dots_local"/.config/radicale "$path_dots"/.config;
     }
@@ -3272,41 +3282,40 @@ radicalle() {
     }
 
     help() {
-        clear
-        echo -e '\n  Available Options:'
-        echo    '       x  | Exit'
-        echo -e '       b  | Go Back\n'
-        echo    "    1  | radicale_backup      | Backup radicale config"
-        echo    "    2  | radicale_restore     | Restore radicale config"
-        echo    "    3  | delete_cache         | Delete .Radicale.cache"
-        echo    "    4  | dav_main             | Run DAV management"
-        echo    "    5  | local                | Goto local radicale"
-        echo -e "    6  | remote               | Goto remote backup\n"
-        read -e -p "  Enter Option: " input
-        echo
+        clear && echo && echo "DESCRIPTION"
+        echo "        radicalle - calDAV / cardDAV management" && echo
+        echo "USAGE"
+        echo "        radicalle [option]" && echo
+        echo "OPTIONS"
+        echo "     1 | radicale_backup     backup radicale config"
+        echo "     2 | radicale_restore    restore radicale config"
+        echo "     3 | delete_cache        delete .Radicale.cache"
+        echo "     4 | dav_main            run DAV managemental"
+        echo "     5 | local               goto local radicale"
+        echo "     6 | remote              goto remote backup"
+        echo "     b                 go back"
+        echo "     -h | help         show help" && echo
     }
 
     if [ -z $1 ] ; then
         help
     else
         input="$1"
+        local locl="$path_dots_local"/.config/radicale
+        local remote="$path_dots"/.config/radicale
+
+        shift 1
+        case $input in
+            1|radicale_backup)   radicale_backup ;;
+            2|radicale_restore)  radicale_restore ;;
+            3|delete_cache)      delete_cache ;;
+            4|davmain)           dav_main "$@"; ;;
+            5|local)             cd $locl ;;
+            6|remote)            cd $remote ;;
+            b)  apps 3 ;;
+            *)  help ;;
+        esac
     fi
-
-    local locl="$path_dots_local"/.config/radicale
-    local remote="$path_dots"/.config/radicale
-
-    shift 1
-    case $input in
-        1|radicale_backup)   radicale_backup ;;
-        2|radicale_restore)  radicale_restore ;;
-        3|delete_cache)      delete_cache ;;
-        4|davmain)           dav_main "$@"; ;;
-        5|local)             cd $locl ;;
-        6|remote)            cd $remote ;;
-        b)  apps 3 ;;
-        x)  : && clear ;;
-        *)  radicalle ;;
-    esac
 
     functions=(
         "help"
@@ -3332,7 +3341,7 @@ radicalle() {
 
 word() {
     re='^[0-9]+$'
-    path="$(getpath -w $local)\mobile\docs\templates\microsoft office\landscape.dotm"
+    path="$(getpath -w $local)\pc\docs\templates\microsoft office\landscape.dotm"
 
     help() {
         clear && echo && echo "DESCRIPTION"
