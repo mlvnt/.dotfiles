@@ -23,9 +23,6 @@ winhome() {
 winhw="$(winhome)";
 winhl="$(getpath -u "${winhw}")";
 
-winhwr="$(winhome -r)\\";
-winhlr="$(getpath -u "${winhwr}")";
-
 if [[ $(currentdevice) == pc ]]; then
     aps="D:\apps";
     sublime_path="'D:\development\editors\editors\Sublime_Text'";
@@ -35,6 +32,8 @@ if [[ $(currentdevice) == pc ]]; then
     jdotxt_path="D:\productivity\notes";
     local=/mnt/d/shared;
 else
+    winhwr="$(winhome -r)\\";
+    winhlr="$(getpath -u "${winhwr}")";
     aps="${winhwr%?}\pc\apps";
     sublime_path="'${aps}\development\Sublime_Text'";
     revo_path="${aps}\system";
