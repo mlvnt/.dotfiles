@@ -61,7 +61,7 @@ sca i;
 export TODO_DIR="${local}/mobile/config/notes/todo.txt"
 
 # Load tmux session
-sessions=$(tmux ls);
+sessions=$(tmux ls 2>&1);
 echo $sessions | grep -qw wkse || tmux_workspace;
 
 #   -------------------------------
