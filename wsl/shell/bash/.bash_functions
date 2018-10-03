@@ -1449,7 +1449,8 @@ dots() {
         echo "     push              push to remote"
         echo "     pushlocal         push to local"
         echo "     pullclean         remove old and pull from local"
-        echo "     pull              pull from local"
+        echo "     pull              pull from remote"
+        echo "     pulllocal         pull from local"
         echo "     b                 go back"
         echo "     -h | help         show help" && echo
     }
@@ -1458,7 +1459,8 @@ dots() {
         pushd $p && gac
         pushd ~/.dotfiles && git stash && gf && popd
         pushd ~/.dotfiles/wsl
-        sudo chmod -Rv +x ./*.sh ./bin/* && popd
+        sudo chmod -Rv +x ./*
+        sudo chown -Rv $USER:$USER ./* && popd
         sca && clear && popd
     }
 
@@ -1469,7 +1471,8 @@ dots() {
         pushd ~/.dotfiles && git stash && git fetch $p
         git pull $p && popd
         pushd ~/.dotfiles/wsl
-        sudo chmod -Rv +x ./*.sh ./bin/* && popd
+        sudo chmod -Rv +x ./*
+        sudo chown -Rv $USER:$USER ./* && popd
         sca && clear && popd
     }
 
@@ -1490,16 +1493,26 @@ dots() {
         pushd ~/.dotfiles/wsl
         sudo dos2unix ./*.* ./shell/zsh/.* ./shell/zsh/.oh-my-zsh-custom/.* ./shell/bash/.* ./editors/.* ./git/.* ./git/*.* ./bin/*
         echo -e '\n -------------- Sourcing .dotfiles....\n'
-        sudo chmod -Rv +x ./*.sh ./bin/*
+        sudo chmod -Rv +x ./*
+        sudo chown -Rv $USER:$USER ./* && popd
         sca && clear && popd
         echo -e '\n -------------- Dotfiles Updated!\n'
     }
 
-    pull() {
+    pulllocal() {
         pushd ~/.dotfiles && git stash && git fetch $p
         git pull $p 
         pushd ~/.dotfiles/wsl
-        sudo chmod -Rv +x ./*.sh ./bin/* && popd
+        sudo chmod -Rv +x ./*
+        sudo chown -Rv $USER:$USER ./* && popd
+        sca && clear && popd
+    }
+
+    pull() {
+        pushd ~/.dotfiles && git stash && gf
+        pushd ~/.dotfiles/wsl
+        sudo chmod -Rv +x ./*
+        sudo chown -Rv $USER:$USER ./* && popd
         sca && clear && popd
     }
 
@@ -1513,6 +1526,7 @@ dots() {
             pushlocal)    pushlocal ;;
             pullclean)    pullclean ;;
             pull)         pull ;;
+            pulllocal)    pulllocal ;;
             b)  linx ;;
             *)  help ;;
         esac
@@ -1690,13 +1704,13 @@ win() {
                 );
         else
             pins=(
-                    "'${winhwr}mobile\~temp'"
-                    "'${winhwr}mobile'"
-                    "'${winhwr}pc\~temp'"
-                    "'${winhwr}pc\projects\git\dotfiles\.dotfiles'"
-                    "'${winhwr}pc'"
-                    "'${winhwr}pc\projects\git'"
-                    "'${winhwr}pc\projects\blog\mlvnt.com'"
+                    "'${winhwr%?}\mobile\~temp'"
+                    "'${winhwr%?}\mobile'"
+                    "'${winhwr%?}\pc\~temp'"
+                    "'${winhwr%?}\pc\projects\git\dotfiles\.dotfiles'"
+                    "'${winhwr%?}\pc'"
+                    "'${winhwr%?}\pc\projects\git'"
+                    "'${winhwr%?}\pc\projects\blog\mlvnt.com'"
                     "'$winhw\Pictures\My Screen Shots'"
                     "'$winhw\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs\home\todorov'"
                 );

@@ -35,11 +35,11 @@ if [[ $(currentdevice) == pc ]]; then
     jdotxt_path="D:\productivity\notes";
     local=/mnt/d/shared;
 else
-    aps="${winhwr}pc\apps";
+    aps="${winhwr%?}\pc\apps";
     sublime_path="'${aps}\development\Sublime_Text'";
     revo_path="${aps}\system";
     enpass_path="${aps}\net";
-    synctrayzor_path="${winhwr}";
+    synctrayzor_path="${winhwr%?}";
     jdotxt_path="${aps}\productivity";
     local=${winhlr%?};
 fi;
