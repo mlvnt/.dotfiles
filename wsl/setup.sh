@@ -56,7 +56,8 @@ get_dots() {
     sudo dos2unix ./*.* ./shell/zsh/.* ./shell/zsh/.oh-my-zsh-custom/.* ./shell/bash/.* ./editors/.* ./git/.* ./bin/*
 
     printf '\n      >>> Making files executable....\n\n'
-    sudo chmod -Rv +x ./*.sh ./bin/*
+    sudo chmod -Rv +x ./*
+    sudo chown -Rv $USER:$USER ./*
 }
 
 #   -------------------------------

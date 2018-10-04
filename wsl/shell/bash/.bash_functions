@@ -133,7 +133,7 @@ linx() {
             echo
         }
 
-        path2="$(getpath -c -w $HOME/.dotfiles/wsl/vcxsrv)\\"
+        path2="$(wslpath -w $HOME/.dotfiles/wsl/vcxsrv)\\"
         path="C:\Program Files\VcXsrv"
         win32="C:\Windows\System32"
 
@@ -899,7 +899,7 @@ links() {
     }
 
     path="$local/mobile/notebook/~genLinks"
-    pathwin="$(getpath -w $local)\mobile\notebook\~genLinks"
+    pathwin="$(wslpath -w $local)\mobile\notebook\~genLinks"
 
     if [ -z $1 ] ; then
         help
@@ -1552,7 +1552,7 @@ dots() {
 #   -------------------------------
 
 handles() {
-    pushd $(getpath -u $aps)/suites/symenu/ProgramFiles/SPSSuite/SysinternalsSuite/Handle_sps;
+    pushd $(wslpath $aps)/suites/symenu/ProgramFiles/SPSSuite/SysinternalsSuite/Handle_sps;
     help() {
         clear
         echo -e '\n  Available Options:\n'
@@ -1672,8 +1672,8 @@ win() {
         fi;
 
         # Variables
-        powershellScript=''$(getpath -w $local)'\pc\projects\scripts\PowerShell\Quick_Access\Set-QuickAccess.ps1';
-        # cmd.exe /c "$(getpath -w $local)\pc\projects\scripts\PowerShell\Quick Access\Set-QuickAccess.cmd"
+        powershellScript=''$(wslpath -w $local)'\pc\projects\scripts\PowerShell\Quick_Access\Set-QuickAccess.ps1';
+        # cmd.exe /c "$(wslpath -w $local)\pc\projects\scripts\PowerShell\Quick Access\Set-QuickAccess.cmd"
         p='Pin';
         up='Unpin';
 
@@ -1759,8 +1759,8 @@ win() {
         tunpin=c:5387;
         spin=c:51201;
         sunpin=c:51394;
-        patht="$(getpath -w $local)\pc\config\universial\shortcuts\taskbar";
-        paths="$(getpath -w $local)\pc\config\universial\shortcuts\start menu\windows";
+        patht="$(wslpath -w $local)\pc\config\universial\shortcuts\taskbar";
+        paths="$(wslpath -w $local)\pc\config\universial\shortcuts\start menu\windows";
         taskbar=(
             "File Explorer.lnk"
             "ConEmu.lnk"
@@ -1994,7 +1994,7 @@ apkinstall() {
 memory() {
     case $1 in
         -r|run)  "$python_scripts/memory/memory.py" ;;
-        *)       o "$(getpath -w $local)\pc\docs\lists\memory\index.html" ;;
+        *)       o "$(wslpath -w $local)\pc\docs\lists\memory\index.html" ;;
     esac
 }
 
@@ -2005,7 +2005,7 @@ memory() {
 social() {
     # set -x
     path="$local/pc/projects/git/dotfiles/.dotfiles/wsl/net/social"
-    path2="$(getpath -w $local)\pc\projects\git\dotfiles\.dotfiles\wsl\net\social"
+    path2="$(wslpath -w $local)\pc\projects\git\dotfiles\.dotfiles\wsl\net\social"
     sites=$(cat ~/.dotfiles/wsl/net/social);
     files="$HOME/.dotfiles/wsl/net/social"
 
@@ -2381,7 +2381,7 @@ blog() {
     gamespath="$local/pc/projects/blog/bgrebbels.mlvnt.com/public_html"
     blogpath="$local/pc/projects/blog/mlvnt.com/mvlnt"
     content="$local/pc/projects/blog/mlvnt.com/mlvnt/content"
-    contents="$(getpath -w $local)\pc\projects\blog\mlvnt.com\mlvnt\content"
+    contents="$(wslpath -w $local)\pc\projects\blog\mlvnt.com\mlvnt\content"
     bakedpath="$local/pc/projects/blog/mlvnt.com/public_html"
     filezilladir="$aps\suites\portableapps.com\PortableApps\FileZillaPortable"
     ext=".md"
@@ -2678,7 +2678,7 @@ todo() {
 
     guipath="$jdotxt_path\jdotxt"
     # todotxtpath="$local/mobile/config/notes/todo.txt"
-    todotxtpath="$(getpath -w $local)\mobile\config\notes\todo.txt"
+    todotxtpath="$(wslpath -w $local)\mobile\config\notes\todo.txt"
     todopath=~/bin/todo.txt-cli/todo.sh
     clear && echo && $todopath -z -P -@ -+ list && echo
     read -p "Press enter to continue"
@@ -2857,7 +2857,7 @@ apps() {
             5) o "D:\apps\suites\symenu\ProgramFiles\SPSSuite\SyMenuSuite" && clear ;;
             6) cmds "D:\apps\suites\gegeek_toolkit" SyMenu.exe && clear ;;
             7) cmds "D:\apps\suites\liberkey" LiberKey.exe && clear ;;
-            8) o "$(getpath -w $local)\pc\MyBotRun" && clear ;;
+            8) o "$(wslpath -w $local)\pc\MyBotRun" && clear ;;
             9) cmds "D:\apps\suites\symenu\ProgramFiles\SPSSuite\SyMenuSuite\AnyDesk_sps" AnyDesk.exe && clear ;;
             10) cmds "D:\apps\net\file-sharing\Downloading\aTube Catcher 2.0" yct.exe && clear ;;
             11) cmds "D:\apps\suites\portableapps.com\PortableApps\FileZillaPortable" FileZillaPortable.exe && clear ;;
@@ -3135,9 +3135,9 @@ apps() {
     }
 
     sysmenu_clean() {
-        rm -rfv $(getpath -u $aps)/suites/symenu/ProgramFiles/SPSSuite/SyMenuSuite/_Trash/*;
-        rm -rfv $(getpath -u $aps)/suites/symenu/ProgramFiles/SPSSuite/NirSoftSuite/_Trash/*;
-        rm -rfv $(getpath -u $aps)/suites/symenu/ProgramFiles/SPSSuite/SysinternalsSuite/_Trash/*;
+        rm -rfv $(wslpath $aps)/suites/symenu/ProgramFiles/SPSSuite/SyMenuSuite/_Trash/*;
+        rm -rfv $(wslpath $aps)/suites/symenu/ProgramFiles/SPSSuite/NirSoftSuite/_Trash/*;
+        rm -rfv $(wslpath $aps)/suites/symenu/ProgramFiles/SPSSuite/SysinternalsSuite/_Trash/*;
         clear
     }
 
@@ -3355,7 +3355,7 @@ radicalle() {
 
 word() {
     re='^[0-9]+$'
-    path="$(getpath -w $local)\pc\docs\templates\microsoft office\landscape.dotm"
+    path="$(wslpath -w $local)\pc\docs\templates\microsoft office\landscape.dotm"
 
     help() {
         clear && echo && echo "DESCRIPTION"
@@ -3734,7 +3734,7 @@ gdiff () {
                              -s) gdiff -s "$temp1" "$temp2"; ;;
                              *)  gdiff "$temp1" "$temp2"; ;;
                          esac ;;
-            -g)         cmds "$(getpath -w $local)\pc\apps\productivity\diff-checker-x64.nsis" Diff-Checker.exe; ;;
+            -g)         cmds "$(wslpath -w $local)\pc\apps\productivity\diff-checker-x64.nsis" Diff-Checker.exe; ;;
             -s)         shift 1 && status "$@"; ;;
             -p)         shift 1 && cattemp;
                         gdiff "$temp1" "$temp2"; ;;

@@ -371,10 +371,13 @@ alias ditto="cmds '$aps\suites\portableapps.com\PortableApps\DittoPortable' Ditt
 alias remotes="cmds 'D:\apps\net\remote-control\Unified Remote\server' RemoteServerWin.exe"
 
 alias vnc="~/software/VNC-Viewer-6.17.1113-Linux-x64"
-alias chromium-browser='sudo chromium-browser --no-sandbox'
+alias chromium-browser="sudo chromium-browser --no-sandbox"
 alias davmain="apps 3 4 4"
-alias bc='bc -l'
-alias adb='$local/pc/apps/development/adb/platform-tools/adb.exe'
+alias bc="bc -l"
+alias adb="$(wslpath ${aps})/development/adb/platform-tools/adb.exe"
+alias arduino="$(wslpath ${aps})/development/arduino/arduino-1.8.7-win/arduino.exe"
+alias puredata="$(wslpath ${aps})/development/puredata/Purr\ Data/Purr\ Data\ 2.6.0/bin/pd.exe"
+alias jogl=". $(wslpath ${aps})/development/jogl/jogl2/setupJOGL.sh"
 
 # Clipboard
 alias pbcopy="clip.exe"
