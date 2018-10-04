@@ -739,7 +739,8 @@ lin() {
     pushd "$local/mobile/config/notes/markor"
     case $1 in
         -r|run)  "$python_scripts/web/links.py"; ;;
-        *)       watching-double . linkbox.txt "$python_scripts/web/links.py"; ;;
+        *)       ls
+                 watching-double . linkbox.txt "$python_scripts/web/links.py"; ;;
     esac
     popd
 }
