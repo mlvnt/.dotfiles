@@ -88,52 +88,6 @@ currentdevice() {
 
 #-------------------------------------------------------------------------------
 
-getpath() {
-    help() {
-        echo && echo "DESCRIPTION"
-        echo "        getpath - convert and copy path to clipboard" && echo
-        echo "USAGE"
-        echo "        getpath [OPTIONS] path" && echo
-        echo "OPTIONS"
-        echo "     -w                convert to windows format"
-        echo "     -u                convert to unix format"
-        echo "     -c                current directory"
-        echo "     -h | help         show help" && echo
-    }
-    local os=$(currentdevice -o);
-    local re='(^-[c])';
-
-    if [[ $os == win ]]; then
-        local clipboard="cmd.exe /c clip";
-    else
-        local clipboard="xclip -sel clip";
-    fi;
-
-    if [[ $1 =~ $re ]]; then
-        local input="$(pwd)";
-        shift 1
-    elif [[ $2 =~ $re ]]; then
-        local input="$(pwd)";
-    else
-        local input="$2";
-    fi;
-
-    case $1 in
-        -w) wslpath -w "$input";
-            wslpath -w "$input" | tr -d '\n' | $clipboard; ;;
-        -u) wslpath -u "$input";
-            wslpath -u "$input" | tr -d '\n' | $clipboard; ;;
-        *)  help ;;
-    esac
-    unset -f help;
-}
-
-linuxpath() {
-    echo "$@" | sed -e 's|\\|/|g' -e 's|^\([A-Za-z]\)\:/\(.*\)|/mnt/\L\1\E/\2|';
-}
-
-#-------------------------------------------------------------------------------
-
 tmux_workspace() {
     local SESSION_NAME="wkse";
     local process=$(ps -e);

@@ -21,9 +21,9 @@
 # }
 
 winhw="$(cmd.exe /c echo %USERPROFILE% | tr -d '\r\n')";
-winhl="$(getpath -u "${winhw}")";
+winhl="$(wslpath -u "${winhw}")";
 winhwr="$(cmd.exe /c echo %HOMEDRIVE% | tr -d '\r\n')\\";
-winhlr="$(getpath -u "${winhwr}")";
+winhlr="$(wslpath -u "${winhwr}")";
 
 if [[ $(currentdevice) == pc ]]; then
     aps="D:\apps";

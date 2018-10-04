@@ -315,11 +315,11 @@ alias music="o 'D:\workspace\essential\media\music\music.xlsx'"
 alias pics="o 'D:\workspace\essential\art\screenshots\pics.xlsx'"
 alias quotes="o 'D:\workspace\personal\me\intro\quotes\quotes.xlsx'"
 alias habbits="o 'D:\workspace\personal\time\habits\2018.xlsx'"
-alias packlist="o '$(getpath -w $local)\pc\docs\lists\packing.xlsx'"
-alias kitchen="o '$(getpath -w $local)\pc\docs\lists\kitchen.xlsx'"
-alias techlist="o '$(getpath -w $local)\pc\docs\lists\tech.xlsx'"
-alias clothlist="o '$(getpath -w $local)\pc\docs\lists\clothing.xlsx'"
-alias index="o '$(getpath -w $local)\pc\docs\lists\memory\index.xlsx'"
+alias packlist="o '$(wslpath -w $local)\pc\docs\lists\packing.xlsx'"
+alias kitchen="o '$(wslpath -w $local)\pc\docs\lists\kitchen.xlsx'"
+alias techlist="o '$(wslpath -w $local)\pc\docs\lists\tech.xlsx'"
+alias clothlist="o '$(wslpath -w $local)\pc\docs\lists\clothing.xlsx'"
+alias index="o '$(wslpath -w $local)\pc\docs\lists\memory\index.xlsx'"
 
 # Launch Applications
 alias cmd='cmd.exe'
