@@ -74,14 +74,14 @@ currentdevice() {
         -h|help)    help ;;
         *)
             case $user in
-                todorov) 
+                todorov|root) 
                             case $hostname in
                                 DESKTOP-6QS0DON) echo "surface" ;;
                                 DESKTOP-HMLNHB8) echo "pc" ;;
-                            esac ;;
+                            esac; ;;
                 u0_a802)    echo "s8" ;;
                 u0_a105)    echo "tab" ;;
-            esac; ;;
+            esac;
     esac;
     unset -f help;
 }

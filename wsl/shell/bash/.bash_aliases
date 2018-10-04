@@ -377,7 +377,6 @@ alias bc="bc -l"
 alias adb="${local}/pc/apps/development/adb/platform-tools/adb.exe"
 alias arduino="${local}/pc/apps/development/arduino/arduino-1.8.7-win/arduino.exe"
 alias puredata="${local}/pc/apps/development/puredata/Purr\ Data/Purr\ Data\ 2.6.0/bin/pd.exe"
-alias jogl=". ${local}/pc/apps/development/jogl/jogl2/setupJOGL.sh"
 
 # Clipboard
 alias pbcopy="clip.exe"

@@ -1705,10 +1705,10 @@ win() {
                 );
         else
             pins=(
+                    "'${winhwr%?}\pc\projects\git\dotfiles\.dotfiles'"
                     "'${winhwr%?}\mobile\~temp'"
                     "'${winhwr%?}\mobile'"
                     "'${winhwr%?}\pc\~temp'"
-                    "'${winhwr%?}\pc\projects\git\dotfiles\.dotfiles'"
                     "'${winhwr%?}\pc'"
                     "'${winhwr%?}\pc\projects\git'"
                     "'${winhwr%?}\pc\projects\blog\mlvnt.com'"
