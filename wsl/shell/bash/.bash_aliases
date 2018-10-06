@@ -377,6 +377,7 @@ alias bc="bc -l"
 alias adb="${local}/pc/apps/development/adb/platform-tools/adb.exe"
 alias arduino="${local}/pc/apps/development/arduino/arduino-1.8.7-win/arduino.exe"
 alias puredata="${local}/pc/apps/development/puredata/Purr\ Data/Purr\ Data\ 2.6.0/bin/pd.exe"
+function jogl() { . "${local}/pc/~temp/com3503/setup.sh" file="$2" local="$local" "$1"; }
 
 # Clipboard
 alias pbcopy="clip.exe"

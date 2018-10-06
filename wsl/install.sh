@@ -172,6 +172,7 @@ appz=(
     "entr"
     "zsh"
     "libnotify-bin"
+    "dateutils"
 # ---------------------------------------------------- gui
 # ------------- xfce4
     "xfce4"
