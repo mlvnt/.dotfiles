@@ -7,19 +7,6 @@
 #   DYNAMIC DIRECTORY DISPATCH
 #   -------------------------------
 
-# winhome() {
-#     case $1 in
-#         -r) cmd.exe /c echo %HOMEDRIVE% | clip.exe; ;;
-#         *)  cmd.exe /c echo %USERPROFILE% | clip.exe; ;;
-#     esac
-
-#     # read var < <(powershell.exe -Command Get-Clipboard);
-#     # read var < <(powershell.exe -sta "add-type -as System.Windows.Forms; [windows.forms.clipboard]::GetText()");
-#     local var="$(powershell.exe -Command Get-Clipboard)";
-#     echo "${var}" | tr -d '\r\n';
-#     cmd.exe /c "echo off" | clip.exe;
-# }
-
 winhw="$(cmd.exe /c echo %USERPROFILE% | tr -d '\r\n')";
 winhl="$(wslpath -u "${winhw}")";
 winhwr="$(cmd.exe /c echo %HOMEDRIVE% | tr -d '\r\n')\\";

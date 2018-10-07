@@ -899,8 +899,8 @@ links() {
         echo -e '\n ~~~~~~~~~~~~~~ Symbolic Links Deleted! ~~~~~~~~~~~~~~\n'
     }
 
-    path="$local/mobile/notebook/~genLinks"
-    pathwin="$(wslpath -w $local)\mobile\notebook\~genLinks"
+    path="${python_scripts}/genlinks"
+    pathwin="$(wslpath -w ${python_scripts})\genlinks"
 
     if [ -z $1 ] ; then
         help
@@ -1673,8 +1673,8 @@ win() {
         fi;
 
         # Variables
-        powershellScript=''$(wslpath -w $local)'\pc\projects\scripts\PowerShell\Quick_Access\Set-QuickAccess.ps1';
-        # cmd.exe /c "$(wslpath -w $local)\pc\projects\scripts\PowerShell\Quick Access\Set-QuickAccess.cmd"
+        powershellScript="$(wslpath -w $local)\pc\projects\scripts\windows\PowerShell\quickaccess\Set-QuickAccess.ps1";
+        # cmd.exe /c "$(wslpath -w $local)\pc\projects\scripts\windows\PowerShell\quickaccess\Set-QuickAccess.cmd"
         p='Pin';
         up='Unpin';
 
@@ -1694,11 +1694,11 @@ win() {
                     "'D:\workspace\tech\programing'"
                     "'D:\workspace\personal'"
                     "'D:\workspace\personal\professional\cv'"
-                    "'D:\workspace\university'"
+                    "'D:\workspace\uni'"
                     "'D:\media\anime'"
                     "'D:\media\movies'"
                     "'D:\media\series'"
-                    "'D:\workspace\tech\programing\~references\programs\browsers\chrome\bookmarks\archive'"
+                    "'D:\shared\pc\config\net\browsers\chrome\bookmarks'"
                     "'D:\workspace\essential\art\screenshots\pics'"
                     "'$winhw\Pictures\My Screen Shots'"
                     "'$winhw\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs\home\todorov'"
@@ -1760,8 +1760,8 @@ win() {
         tunpin=c:5387;
         spin=c:51201;
         sunpin=c:51394;
-        patht="$(wslpath -w $local)\pc\config\universial\shortcuts\taskbar";
-        paths="$(wslpath -w $local)\pc\config\universial\shortcuts\start menu\windows";
+        patht="$(wslpath -w $local)\pc\config\system\shortcuts\taskbar";
+        paths="$(wslpath -w $local)\pc\config\system\shortcuts\start menu\windows";
         taskbar=(
             "File Explorer.lnk"
             "ConEmu.lnk"
@@ -2891,16 +2891,16 @@ apps() {
             38) cmds "D:\apps\development\editors\editors\VSCodePortable_1.16.1" VSCodePortable.exe && clear ;;
             39) cmds "D:\apps\suites\symenu\ProgramFiles\SPSSuite\SyMenuSuite\KeePass_Professional_sps" KeePass.exe && clear ;;
             40) cmds "D:\apps\suites\portableapps.com\PortableApps\calibrePortable" calibrePortable.exe && clear ;;
-            41) cmds "D:\apps\productivity\office\diagrams\draw.io" draw.io.exe && clear ;;
+            41) cmds "$(wslpath -w ${local})\pc\apps\productivity\office\diagrams\draw.io" draw.io.exe && clear ;;
             42) cmds "D:\apps\suites\portableapps.com\PortableApps\GnuCashPortable" GnuCashPortable.exe && clear ;;
             43) cmds "D:\apps\productivity\notes\jdotxt" jdotxt-0.4.8.jar && clear ;;
             44) cmds "D:\apps\suites\portableapps.com\PortableApps\LibreOfficePortable" LibreOfficePortable.exe && clear ;;
-            45) cmds "D:\apps\productivity\office\TeX\MikTEX\texmfs\install\miktex\bin" mo.exe && clear ;;
-            46) cmds "D:\apps\productivity\office\TeX\MikTEX\texmfs\install\miktex\bin\internal" miktex-update.exe && clear ;;
-            47) cmds "D:\apps\productivity\office\TeX\texstudio-2.12.8" texstudio.exe && clear ;;
+            45) cmds "$(wslpath -w ${local})\pc\apps\productivity\office\TeX\MikTEX\texmfs\install\miktex\bin" mo.exe && clear ;;
+            46) cmds "$(wslpath -w ${local})\pc\apps\productivity\office\TeX\MikTEX\texmfs\install\miktex\bin" miktex-update.exe && clear ;;
+            47) cmds "$(wslpath -w ${local})\pc\apps\productivity\office\TeX\texstudio" texstudio.exe && clear ;;
             48) cmds "D:\apps\productivity\dictionaries\SA Dictionary 2013" Diction.exe && clear ;;
-            49) cmds "D:\apps\productivity\office\diagrams\Mind Mapping\vym" vym.exe && clear ;;
-            50) cmds "D:\apps\productivity\office\diagrams\yEd-3.17.2" yed.jar && clear ;;
+            49) cmds "$(wslpath -w ${local})\pc\apps\productivity\office\diagrams\Mind Mapping\vym" vym.exe && clear ;;
+            50) cmds "$(wslpath -w ${local})\pc\apps\productivity\office\diagrams\yEd-3.17.2" yed.jar && clear ;;
             51) cmds "D:\apps\productivity\notes\Zim Desktop Wiki Portable" zim.exe && clear ;;
             52) cmds "D:\apps\suites\portableapps.com\PortableApps\AudacityPortable" AudacityPortable.exe && clear ;;
             53) cmds "D:\apps\file-management\media\video\Bino\bin" bino.exe && clear ;;
@@ -2924,9 +2924,9 @@ apps() {
             71) cmds "D:\apps\suites\portableapps.com\PortableApps\WinDirStatPortable" WinDirStatPortable.exe && clear ;;
             72) cmds "D:\apps\net\remote-control\VNC\RealVNC" VNC-Viewer-6.17.1113-Windows-64bit.exe && clear ;;
             73) cmds "D:\apps\net\remote-control\VNC" TigerVNC-VncViewer-1.8.0.jar && clear ;;
-            74) cmds "D:\apps\Office\Office\TeX\TikzEdtBeta0_2_3" TikzEdt.exe && clear ;;
+            74) cmds "$(wslpath -w ${local})\pc\apps\Office\Office\TeX\TikzEdt" TikzEdt.exe && clear ;;
             75) cmds "D:\apps\file-management\recovery\R-StudioPortable 8.5.Build 170117" R-StudioPortable.exe && clear ;;
-            76) cmds "D:\apps\productivity\office\TeX\MikTEX\texmfs\install\miktex\bin" miktex-console.exe && clear ;;
+            76) cmds "$(wslpath -w ${local})\pc\apps\productivity\office\TeX\MikTEX\texmfs\install\miktex\bin" miktex-console.exe && clear ;;
             77) cmds "D:\apps\file-management\media\media-centers\Kodi\Server" kodi.exe -p && clear ;;
             78) cmd.exe /c "D:\apps\file-management\media\media-centers\Plex\Server\Plex Media Server.exe" && clear ;;
             79) cmds "D:\apps\suites\portableapps.com\PortableApps\DittoPortable" DittoPortable.exe && clear ;;

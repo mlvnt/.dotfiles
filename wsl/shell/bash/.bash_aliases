@@ -52,7 +52,7 @@ alias mapsme="cd $local/mobile/config/travel/MAPS.\ ME"
 alias scripts="cd $local/pc/projects/scripts"
 
 # CURRENT
-alias uni="cd /mnt/d/workspace/university/course"
+alias uni="cd /mnt/d/workspace/uni/course"
 
 #   -------------------------------
 #   FILE MANAGEMENT
@@ -352,7 +352,7 @@ alias irc="cmds '$aps\suites\portableapps.com\PortableApps\HexChatPortable' HexC
 alias sync="cmds '$synctrayzor_path\SyncTrayzorPortable-x64' SyncTrayzor.exe"
 alias ftpstart="cmds '$aps\suites\portableapps.com\PortableApps\FileZillaPortable' FileZillaPortable.exe"
 keepass() {
-    cat "$local/mobile/notebook/necessities/k.txt" | cmd.exe /c clip;
+    cat "$local/mobile/notebook/tech/tools/k.txt" | cmd.exe /c clip;
     cmds "$aps\suites\portableapps.com\PortableApps\KeePassProPortable" KeePassProPortable.exe;
     sleep 10s;
     cmdc "echo off" | clip.exe;
@@ -369,6 +369,7 @@ alias unicode="cmds 'D:\apps\productivity\office\unicode\character-maps\BabelSto
 alias revo="cmds '$revo_path\RevoPortable64' RevoUninstallerPortable.exe"
 alias ditto="cmds '$aps\suites\portableapps.com\PortableApps\DittoPortable' DittoPortable.exe"
 alias remotes="cmds 'D:\apps\net\remote-control\Unified Remote\server' RemoteServerWin.exe"
+alias texstudio="cmds '$(wslpath -w ${local})\pc\apps\productivity\office\TeX\texstudio' texstudio.exe"
 
 alias vnc="~/software/VNC-Viewer-6.17.1113-Linux-x64"
 alias chromium-browser="sudo chromium-browser --no-sandbox"
