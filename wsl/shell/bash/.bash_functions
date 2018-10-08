@@ -738,9 +738,9 @@ watching-double() {
 lin() {
     pushd "$local/mobile/config/notes/markor"
     case $1 in
-        -r|run)  "$python_scripts/web/links.py"; ;;
+        -r|run)  "${python_scripts}/web/links.py"; ;;
         *)       ls
-                 watching-double . linkbox.txt "$python_scripts/web/links.py"; ;;
+                 watching-double . linkbox.txt "${python_scripts}/web/links.py"; ;;
     esac
     popd
 }
@@ -899,8 +899,8 @@ links() {
         echo -e '\n ~~~~~~~~~~~~~~ Symbolic Links Deleted! ~~~~~~~~~~~~~~\n'
     }
 
-    path="${python_scripts}/genlinks"
-    pathwin="$(wslpath -w ${python_scripts})\genlinks"
+    path="${{python_scripts}}/genlinks"
+    pathwin="$(wslpath -w ${{python_scripts}})\genlinks"
 
     if [ -z $1 ] ; then
         help
@@ -1086,9 +1086,9 @@ links() {
 #         8)  move_screenshots
 
 #                 temp="/mnt/d/~temp"
-#                 screenshotsdir="$winhl/Pictures/My Screen Shots/"
-#                 animepicsdir="/mnt/d/workspace/essential/art/screenshots/pics"
-#                 animepicsdirwin="D:\workspace\essential\art\screenshots\pics"
+#                 screenshotsdir="${winhl}/Pictures/My Screen Shots/"
+#                 animepicsdir="/mnt/d/workspace/essential/media/pictures/art/screenshots"
+#                 animepicsdirwin="D:\workspace\essential\media\pictures\art\screenshots"
 #                 acerscreendir="/mnt/d/workspace/tech/devices/laptops/Acer Predator G9-792/screenshots"
 #                 surfscreendir="/mnt/d/workspace/tech/devices/laptops/Microsoft Surface Pro 4/screenshots"
 #                 ;;
@@ -1483,11 +1483,11 @@ dots() {
         echo -e '\n -------------- Cloning new .dotfiles....\n'
         git clone $p ~/.dotfiles
         import_other() {
-            yes yes | sudo cp -rv "$path_dots"/shell/zsh/.oh-my-zsh "$path_dots_local"/shell/zsh
-            yes yes | sudo cp -rv "$path_dots"/.config/sublime-text-3 "$path_dots_local"/.config
-            yes yes | sudo cp -rv "$path_dots"/.config/radicale "$path_dots_local"/.config
-            yes yes | sudo cp -rv "$path_dots"/.local/share/tldr "$path_dots_local"/.local/share
-            yes yes | sudo cp -rv "${path_dots}"/net/mac.txt "$path_dots_local"/net
+            yes yes | sudo cp -rv "${path_dots}"/shell/zsh/.oh-my-zsh "${path_dots_local}"/shell/zsh
+            yes yes | sudo cp -rv "${path_dots}"/.config/sublime-text-3 "${path_dots_local}"/.config
+            yes yes | sudo cp -rv "${path_dots}"/.config/radicale "${path_dots_local}"/.config
+            yes yes | sudo cp -rv "${path_dots}"/.local/share/tldr "${path_dots_local}"/.local/share
+            yes yes | sudo cp -rv "${path_dots}"/net/mac.txt "${path_dots_local}"/net
         }
         import_other
         echo -e '\n -------------- Converting .dotfiles to LF endings....\n'
@@ -1699,7 +1699,7 @@ win() {
                     "'D:\media\movies'"
                     "'D:\media\series'"
                     "'D:\shared\pc\config\net\browsers\chrome\bookmarks'"
-                    "'D:\workspace\essential\art\screenshots\pics'"
+                    "'D:\workspace\essential\media\pictures\art\screenshots'"
                     "'$winhw\Pictures\My Screen Shots'"
                     "'$winhw\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs\home\todorov'"
                 );
@@ -1961,7 +1961,7 @@ mywork() {
 #   -------------------------------
 
 money() {
-    local path="$python_scripts/money";
+    local path="${python_scripts}/money";
     clear && python3 $path/bg.py && python3 $path/uk.py;
 }
 
@@ -1972,21 +1972,21 @@ money() {
 #   -------------------------------
 
 series() {
-    local path="$python_scripts/web";
+    local path="${python_scripts}/web";
     clear && python3 $path/series.py;
 }
 
 #-------------------------------------------------------------------------------
 
 sortkml() {
-    local path="$python_scripts/sortkml";
+    local path="${python_scripts}/sortkml";
     clear && python3 $path/sortkml.py "$@";
 }
 
 #-------------------------------------------------------------------------------
 
 apkinstall() {
-    local path="$python_scripts/apkinstall";
+    local path="${python_scripts}/apkinstall";
     clear && python3 $path/apkinstall.py "$@";
 }
 
@@ -1994,7 +1994,7 @@ apkinstall() {
 
 memory() {
     case $1 in
-        -r|run)  "$python_scripts/memory/memory.py" ;;
+        -r|run)  "${python_scripts}/memory/memory.py" ;;
         *)       o "$(wslpath -w $local)\pc\docs\lists\memory\index.html" ;;
     esac
 }
@@ -2158,16 +2158,16 @@ social() {
 #   -------------------------------
 
 food() {
-    path="D:\workspace\essential\cooking"
-    doc1=$path"\products.xlsx"
-    doc2=$path"\recipes.docx"
-    doc3=$path"\recipes.xlsx"
-    doc4=$path"\shoppping list.docx"
-    doc5=$path"\shoppping list.xlsx"
-    doc6=$path"\terms.docx"
-    doc7=$path"\tips\tips.docx"
-    doc8=$path"\weekly menu.docx"
-    doc9=$path"\weekly meals.xlsx"
+    path="$(wslpath -w ${local})\pc\docs\lists\food"
+    doc1=${path}"\products.xlsx"
+    doc2=${path}"\recipes.docx"
+    doc3=${path}"\recipes.xlsx"
+    doc4=${path}"\shoppping list.docx"
+    doc5=${path}"\shoppping list.xlsx"
+    doc6=${path}"\terms.docx"
+    doc7=${path}"\tips.docx"
+    doc8=${path}"\weekly menu.docx"
+    doc9=${path}"\weekly meals.xlsx"
     re='^[0-9]+$'
 
     help() {
@@ -2189,15 +2189,15 @@ food() {
 
     open_docs() {
         case $1 in
-            1)  o "$doc1" ;;
-            2)  o "$doc2" ;;
-            3)  o "$doc3" ;;
-            4)  o "$doc4" ;;
-            5)  o "$doc5" ;;
-            6)  o "$doc6" ;;
-            7)  o "$doc7" ;;
-            8)  o "$doc8" ;;
-            9)  o "$doc9" ;;
+            1)  o "${doc1}" ;;
+            2)  o "${doc2}" ;;
+            3)  o "${doc3}" ;;
+            4)  o "${doc4}" ;;
+            5)  o "${doc5}" ;;
+            6)  o "${doc6}" ;;
+            7)  o "${doc7}" ;;
+            8)  o "${doc8}" ;;
+            9)  o "${doc9}" ;;
         esac
     }
 
@@ -2248,10 +2248,10 @@ food() {
 #   -------------------------------
 
 sport() {
-    path="d:\workspace\essential\health\sport\fitness"
-    doc1=$path"\2018-04.xlsx"
-    doc2=$path"\exercises.xlsx"
-    doc3=$path"\training program.docx"
+    path="$(wslpath -w ${local})\mobile\docs\health\sport"
+    doc1=${path}"\program.xlsx"
+    doc2=${path}"\exercises.xlsx"
+    doc3=${path}"\training program.docx"
 
     help() {
         clear && echo && echo "DESCRIPTION"
@@ -2265,9 +2265,9 @@ sport() {
     }
 
     case $1 in
-        1)  o "$doc1" ;;
-        2)  o "$doc2" ;;
-        3)  o "$doc3" ;;
+        1)  o "${doc1}" ;;
+        2)  o "${doc2}" ;;
+        3)  o "${doc3}" ;;
         b)  mywork ;;
         x)  : && clear ;;
         *)  help ;;
@@ -3257,12 +3257,12 @@ radicalle() {
 
         for i in "${old[@]}"
         do :
-            rm -rfv "$path_dots"/.config/radicale/"$i";
+            rm -rfv "${path_dots}"/.config/radicale/"$i";
         done
 
         # delete_cache
 
-        yes yes | sudo cp -rv "$path_dots_local"/.config/radicale "$path_dots"/.config;
+        yes yes | sudo cp -rv "${path_dots_local}"/.config/radicale "${path_dots}"/.config;
     }
 
     radicale_restore() {
@@ -3277,14 +3277,14 @@ radicalle() {
 
         for i in "${old[@]}"
         do :
-            rm -rfv "$path_dots_local"/.config/radicale/"$i";
+            rm -rfv "${path_dots_local}"/.config/radicale/"$i";
         done
 
-      yes yes | sudo cp -rv "$path_dots"/.config/radicale "$path_dots_local"/.config;
+      yes yes | sudo cp -rv "${path_dots}"/.config/radicale "${path_dots_local}"/.config;
     }
 
     dav_main() {
-        local path="$python_scripts/radicale";
+        local path="${python_scripts}/radicale";
         clear && python3 $path/dav_main.py "$@";
     }
 
@@ -3316,8 +3316,8 @@ radicalle() {
         help
     else
         input="$1"
-        local locl="$path_dots_local"/.config/radicale
-        local remote="$path_dots"/.config/radicale
+        local locl="${path_dots_local}"/.config/radicale
+        local remote="${path_dots}"/.config/radicale
 
         shift 1
         case $input in

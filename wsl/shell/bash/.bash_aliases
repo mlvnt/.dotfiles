@@ -53,6 +53,11 @@ alias scripts="cd $local/pc/projects/scripts"
 
 # CURRENT
 alias uni="cd /mnt/d/workspace/uni/course"
+alias text="cd $local/pc/~temp/com3110"
+alias iot="cd $local/pc/~temp/com3505"
+alias sound="cd $local/pc/~temp/com3502"
+alias graphics="cd $local/pc/~temp/com3503"
+alias law="cd $local/pc/~temp/mgt388"
 
 #   -------------------------------
 #   FILE MANAGEMENT
@@ -311,15 +316,16 @@ alias autostart="o '$winhw\AppData\Roaming\Microsoft\Windows\Start Menu\Programs
 
 # Edit Documents
 alias cv="o 'D:\workspace\personal\professional\cv\cv.docx'"
-alias music="o 'D:\workspace\essential\media\music\music.xlsx'"
-alias pics="o 'D:\workspace\essential\art\screenshots\pics.xlsx'"
-alias quotes="o 'D:\workspace\personal\me\intro\quotes\quotes.xlsx'"
-alias habbits="o 'D:\workspace\personal\time\habits\2018.xlsx'"
+alias music="o '$(wslpath -w $local)\pc\docs\lists\music.xlsx'"
+alias pics="o '$(wslpath -w $local)\pc\docs\lists\pics.xlsx'"
+alias quotes="o '$(wslpath -w $local)\pc\docs\lists\quotes\quotes.xlsx'"
+alias habits="o '$(wslpath -w $local)\pc\docs\personal\time\habits\list.xlsx'"
 alias packlist="o '$(wslpath -w $local)\pc\docs\lists\packing.xlsx'"
 alias kitchen="o '$(wslpath -w $local)\pc\docs\lists\kitchen.xlsx'"
 alias techlist="o '$(wslpath -w $local)\pc\docs\lists\tech.xlsx'"
-alias clothlist="o '$(wslpath -w $local)\pc\docs\lists\clothing.xlsx'"
+alias clothlist="o '$(wslpath -w $local)\pc\docs\lists\clothing\clothing.xlsx'"
 alias index="o '$(wslpath -w $local)\pc\docs\lists\memory\index.xlsx'"
+alias personal="o '$(wslpath -w $local)\mobile\config\notes\markor\personal.md'"
 
 # Launch Applications
 alias cmd='cmd.exe'
