@@ -1,10 +1,9 @@
 #!/bin/bash
-
 #   -------------------------------
 #   SOURCE EXTERNAL FILES
 #   -------------------------------
 
-# Sorce all dotfiles
+# Sorce all
 f=$HOME/.bash_onload
 if [ -r "$f" ] && [ -f "$f" ]; then
     source "$f";
@@ -13,57 +12,9 @@ else
 fi;
 sca i;
 
-# Set todo.txt path
-export TODO_DIR="${local}/mobile/config/notes/todo.txt"
-
 # Load tmux session
 sessions=$(tmux ls 2>&1);
 echo $sessions | grep -qw wkse || tmux_workspace;
-
-#   -------------------------------
-#   ENVIRONMETAL VARIABLES
-#   -------------------------------
-
-# PATH
-export PATH="$PATH:/bin/"
-export PATH="$PATH:/usr/bin/"
-export PATH="$PATH:/usr/sbin/"
-export PATH="$PATH:/usr/local/bin/"
-export PATH="$PATH:/usr/local/sbin/"
-export PATH="$PATH:$HOME/bin"
-export PATH="$PATH:$HOME/.local/bin"
-# export PATH="$PATH:/mnt/c/Users/Todorov/Downloads/VSCode-win32-x64-1.17.0/bin"
-export PATH="$PATH:/usr/lib/chromium-browser"
-export PATH="$PATH:/mnt/c/Windows/System32"
-export PATH="$PATH:${local}/pc/apps/suites/portableapps.com/PortableApps/7-ZipPortable/App/7-Zip64"
-
-# PAGER
-export PAGER="most"
-
-# LANGUAGE
-# export LANG=en_US.UTF-8
-# export LC_CTYPE="en_US.UTF-8"
-# export LC_NUMERIC="en_US.UTF-8"
-# export LC_TIME="en_US.UTF-8"
-# export LC_COLLATE="en_US.UTF-8"
-# export LC_MONETARY="en_US.UTF-8"
-# export LC_MESSAGES="en_US.UTF-8"
-# export LC_PAPER="en_US.UTF-8"
-# export LC_NAME="en_US.UTF-8"
-# export LC_ADDRESS="en_US.UTF-8"
-# export LC_TELEPHONE="en_US.UTF-8"
-# export LC_MEASUREMENT="en_US.UTF-8"
-# export LC_IDENTIFICATION="en_US.UTF-8"
-# export LC_ALL=
-
-# # Set Man Pages
-# export MANPATH="$(brew --prefix coreutils)/libexec/gnuman:$MANPATH"
-
-# Set Display Output
-export DISPLAY=:0.0
-
-# Set Default Editor
-export EDITOR=/usr/bin/vim
 
 #   -------------------------------
 #   TWEAKS

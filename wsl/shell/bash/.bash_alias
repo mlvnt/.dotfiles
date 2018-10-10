@@ -1,8 +1,4 @@
 #!/bin/bash
-#-------------------------------------------------------------------------------
-#------------------------ ALIASES ----------------------------------------------
-#-------------------------------------------------------------------------------
-
 #   -------------------------------
 #   DIRECTORIES
 #   -------------------------------
@@ -50,6 +46,7 @@ alias docs="cd $winhl/Documents"
 alias pathenv='echo -e ${PATH//:/\\n}'
 alias mapsme="cd ${local}/mobile/config/travel/MAPS.\ ME"
 alias scripts="cd ${local}/pc/projects/scripts"
+alias symblinks="~/.dotfiles/wsl/symblinks.sh"
 
 # CURRENT
 alias uni="cd /mnt/d/workspace/uni/course"

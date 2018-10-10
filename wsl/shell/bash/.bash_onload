@@ -9,9 +9,10 @@ sca() {
         "bash_onload"
         "bashrc"
         # "bash_aliaswin"
-        "bash_dirs"
-        "bash_aliases"
-        "bash_functions"
+        "bash_var"
+        "bash_alias"
+        "bash_env"
+        "bash_fun"
         "fzf.bash" # fzf - A command-line fuzzy finder
         # "tmux.conf"
         # "zshrc"
