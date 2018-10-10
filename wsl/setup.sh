@@ -1,9 +1,9 @@
 #!/bin/bash
 
 beginning() {
-    line1="=============================="
-    line2="Begin Installation!"
-    columns=$(tput cols)
+    local line1="=============================="
+    local line2="Begin Installation!"
+    local columns=$(tput cols)
     printf "\n"
     printf "%*s\n" $(((${#line1}+$columns)/2)) "$line1"
     printf "%*s\n" $(((${#line2}+$columns)/2)) "$line2"
@@ -15,17 +15,14 @@ beginning() {
 #   INSTALL PREREQUISITES
 #   -------------------------------
 
-# Install git
-git_install() {
-    printf '\n      >>> Installing git....\n\n'
-    sudo rm -rfv ~/.dotfiles
-    dpkg -l | grep -qw git && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq git
-    sudo cp -v /mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/wsl/git/.git-credentials ~/
-    sudo cp -v /mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/wsl/git/.gitconfig-local ~/
-    sudo cp -v /mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/wsl/git/.gitconfig ~/
-}
-
 install_prereq() {
+    printf '\n      >>> Load temp config....\n\n'
+    pushd /tmp
+    curl -O https://raw.githubusercontent.com/mlvnt/.dotfiles/master/wsl/shell/bash/.bash_onload
+    curl -O https://raw.githubusercontent.com/mlvnt/.dotfiles/master/wsl/shell/bash/.bash_dirs
+    source .bash_*
+    popd
+
     printf '\n      >>> Updating package repositories....\n\n'
     sudo apt-get update
     yes Y | sudo apt-get upgrade
@@ -36,7 +33,11 @@ install_prereq() {
     printf '\n      >>> Installing expect....\n\n'
     dpkg -l | grep -qw expect && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq expect
 
-    git_install
+    printf '\n      >>> Installing git....\n\n'
+    sudo rm -rfv ~/.dotfiles
+    dpkg -l | grep -qw git && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq git
+    local gitdir=${local}/pc/projects/git/dotfiles/.dotfiles/wsl/git
+    sudo cp -v ${gitdir}/.git-credentials ${gitdir}/.gitconfig-local ${gitdir}/.gitconfig ~/
 }
 
 #   -------------------------------
@@ -52,44 +53,67 @@ get_dots() {
     git clone https://github.com/mlvnt/.dotfiles.git ~/.dotfiles
 
     printf '\n      >>> Converting files to linux linebreaks....\n\n'
-    cd ~/.dotfiles/wsl/
+    pushd ~/.dotfiles/wsl/
     sudo dos2unix ./*.* ./shell/zsh/.* ./shell/zsh/.oh-my-zsh-custom/.* ./shell/bash/.* ./editors/.* ./git/.* ./bin/*
 
     printf '\n      >>> Making files executable....\n\n'
     sudo chmod -Rv +x ./*
     sudo chown -Rv $USER:$USER ./*
+    popd
+}
+
+#   -------------------------------
+#   IMPORT CONFIG
+#   -------------------------------
+
+import_config() {
+    printf '\n      >>> Remove existing configuraion....\n'
+    sudo rm -rfv ~/.bash* ~/.zshrc ~/.profile ~/.local /tmp/.bash_*
+
+    printf '\n      >>> Importing zsh, sublime, radicale, tldr, net configuraion....\n'
+    yes yes | sudo cp -rv "${path_dots}"/shell/zsh/.oh-my-zsh "${path_dots_local}"/shell/zsh
+    yes yes | sudo cp -rv "${path_dots}"/.config/sublime-text-3 "${path_dots_local}"/.config
+    yes yes | sudo cp -rv "${path_dots}"/.config/radicale "${path_dots_local}"/.config
+    yes yes | sudo cp -rv "${path_dots}"/.local/share/tldr "${path_dots_local}"/.local/share
+    yes yes | sudo cp -rv "${path_dots}"/net/mac.txt "${path_dots}"/net/social "${path_dots_local}"/net
+
+    printf '\n      >>> Importing Windows onload scripts....\n'
+    cp ${local}/pc/projects/scripts/windows/batch/boot/Acer\ Predator/workspace.cmd /mnt/c/Users/Todorov/AppData/Roaming/Microsoft/Windows/Start\ Menu/Programs/Startup
+
+    printf '\n      >>> Importing SSH configuraion....\n'
+    sudo cp -rv ${local}/mobile/config/notes/p/.ssh ~/
+    sudo chmod -v 600 ~/.ssh/*
+    sudo chmod -v 700 ~/.ssh
+    sudo chown -Rv $USER:$USER ~/.ssh/
+
+    printf '\n      >>> Importing GPG keys....\n'
+    path="${local}/mobile/config/notes/p/pgp/Malvin Todorov malvintodorov@gmail.com (0x74B79CF7)"
+    sudo gpg --import "$path"/mlvnt-pub.asc
+    sudo gpg --import "$path"/mlvnt-sec.asc
 }
 
 #   -------------------------------
 #   LOG INSTALLATION
 #   -------------------------------
 
-#   LOG install.sh
-log_install() {
+log() {
+    sleep 5s
+    printf '\n      >>> Logging installation....\n\n'
+    mkdir -pv ~/software/install_logs
+    pushd ~/software/install_logs
+
     printf '\n      >>> Logging install.sh....\n\n'
-    cd ~/software/install_logs/
     sudo touch log_install.sh-$(date "+%Y-%m-%d-%H-%M").txt
     sudo ~/.dotfiles/wsl/install.sh | sudo tee -ai log_install.sh-$(date "+%Y-%m-%d-%H-%M").txt
     # sudo unbuffer ~/.dotfiles/wsl/install.sh 2>&1 | tee -ai log_install.sh-$(date "+%Y-%m-%d-%H-%M").txt
     sleep 1s
-}
 
-#   LOG symblinks.sh
-log_symblinks() {
     printf '\n      >>> Logging symblinks.sh....\n\n'
-    cd ~/software/install_logs/
     sudo touch log_symblinks.sh-$(date "+%Y-%m-%d-%H-%M").txt
     sudo ~/.dotfiles/wsl/symblinks.sh | sudo tee -ai log_symblinks.sh-$(date "+%Y-%m-%d-%H-%M").txt
     # sudo unbuffer ~/.dotfiles/wsl/symblinks.sh 2>&1 | tee -ai log_symblinks.sh-$(date "+%Y-%m-%d-%H-%M").txt
-}
 
-log() {
-    sleep 5s
-    printf '\n      >>> Logging installation....\n\n'
-    printf '\n      >>> Creating log directory....\n\n'
-    mkdir -pv ~/software/install_logs/
-    log_install
-    log_symblinks
+    popd
 }
 
 #   -------------------------------
@@ -100,13 +124,13 @@ source_all() {
     printf '\n      >>> Sourcing shell....\n\n'
     cd ~/
     sudo chown $USER:$USER  ~/.*rc ~/.bash* ~/.tmux.conf
-    source ~/.*rc ~/.bash* && tmux source-file ~/.tmux.conf
+    source ~/.*rc ~/.bash*
 }
 
 ending() {
-    line1="=============================="
-    line2="Install Complete!"
-    columns=$(tput cols)
+    local line1="=============================="
+    local line2="Install Complete!"
+    local columns=$(tput cols)
     printf "\n"
     printf "%*s\n" $(((${#line1}+$columns)/2)) "$line1"
     printf "%*s\n" $(((${#line2}+$columns)/2)) "$line2"
@@ -118,6 +142,7 @@ run() {
     beginning
     install_prereq
     get_dots
+    import_config
     log
     source_all
     ending
@@ -125,29 +150,21 @@ run() {
 run
 
 #   -------------------------------
-#   UNSET FUNCTONS & VARIABLES
+#   UNSET DEFINITIONS
 #   -------------------------------
 
 functions=(
     "beginning"
     "ending"
-    "git_install"
     "install_prereq"
-    "log_install"
-    "log_symblinks"
     "log"
     "get_dots"
     "source_all"
     "run"
-);
-
-variables=(
-    "line1"
-    "line2"
-    "columns"
+    "import_config"
 );
 
 unset -f "${functions[@]}";
-unset -v functions "${variables[@]}" variables;
+unset -v functions;
 
 #-------------------------------------------------------------------------------

@@ -691,7 +691,7 @@ ipdiscovery() {
 #   INOTIFY
 #   -------------------------------
 
-watching-single() {
+watchings() {
     dirs="$1"
     files="$2"
     shift 2
@@ -713,7 +713,7 @@ watching-single() {
     unset -v dirs files events;
 }
 
-watching-double() {
+watchingd() {
     dirs="$1"
     files="$2"
     shift 2
@@ -740,7 +740,7 @@ lin() {
     case $1 in
         -r|run)  "${python_scripts}/web/links.py"; ;;
         *)       ls
-                 watching-double . linkbox.txt "${python_scripts}/web/links.py"; ;;
+                 watchingd . linkbox.txt "${python_scripts}/web/links.py"; ;;
     esac
     popd
 }
@@ -2332,7 +2332,8 @@ coc() {
         old=$(dir -AN1 | grep -v '.zip' | grep MyBot); # exclude zips
         new=$(dir -AN1 | grep MyBot-MBR_v*.zip);
         unziped=$(echo "$new" | sed 's/.zip//g');
-        unzip "$new"
+        # unzip "$new"
+        7z.exe x "$new"
         cp -rv "$old/Profiles" "$unziped"
         cp -v "$old/CSV/Attack/TH 10 2Hound26Loon10Wb15Min11Haste.csv" "$unziped/CSV/Attack"
         rm -rfv "$old"
@@ -3808,16 +3809,77 @@ getpath() {
 
     case $1 in
         -w) wslpath -w "$input";
-            wslpath -w "$input" | tr -d '\n' | $clipboard; ;;
+            wslpath -w "$input" | tr -d '\n' | ${clipboard}; ;;
         -u) wslpath -u "$input";
-            wslpath -u "$input" | tr -d '\n' | $clipboard; ;;
+            wslpath -u "$input" | tr -d '\n' | ${clipboard}; ;;
         *)  help ;;
     esac
     unset -f help;
 }
 
-linuxpath() {
-    echo "$@" | sed -e 's|\\|/|g' -e 's|^\([A-Za-z]\)\:/\(.*\)|/mnt/\L\1\E/\2|';
+linuxpath() { echo "$@" | sed -e 's|\\|/|g' -e 's|^\([A-Za-z]\)\:/\(.*\)|/mnt/\L\1\E/\2|'; }
+
+#-------------------------------------------------------------------------------
+
+unsetall() {
+    help() {
+        echo && echo "DESCRIPTION"
+        echo "        unsetall - unset all functions or variables defined in bash" && echo
+        echo "USAGE"
+        echo "        unsetall [OPTION]" && echo
+        echo "OPTIONS"
+        echo "     -f                functions"
+        echo "     -e                environmental (exported) variables"
+        echo "     -v                shell variables"
+        echo "     -a                aliases"
+        echo "     -h | help         show help" && echo
+    }
+
+    unsetenv() { unset $(env | awk -F"=" '{print $1}' | grep -v '^_'); }
+
+    unsetfun() { unset $(declare -F | awk -F" -f " '{print $2}' | grep -v '^_'); }
+
+    unsetvar() {
+        local ignores="BASH\nBASH_COMMAND\nBASH_SUBSHELL\nBASH_VERSION\nCOLUMNS\nCOMP_WORDBREAKS\nHOSTNAME\nIFS\nLINES\nMACHTYPE\nOPTERR\nOSTYPE\nPS1\nPS2\nPS4\nSECONDS\nblack\nblue\ngreen\nred\n";
+        unset $(comm -3 <(declare -p | grep "declare -- " | awk -F" -- " '{print $2}' | grep -v '^_' | awk -F"=" '{print $1}' | sort) <(printf "${ignores}" | sort));
+    }
+
+    case $1 in
+        -e) unsetenv ;;
+        -f) unsetfun ;;
+        -v) unsetvar ;;
+        -a) unalias -a ;;
+        *)  help ;;
+    esac
+    unset -f help unsetenv unsetfun unsetvar;
+}
+
+#-------------------------------------------------------------------------------
+
+listall() {
+    help() {
+        echo && echo "DESCRIPTION"
+        echo "        listall - list all functions or variables defined in bash" && echo
+        echo "USAGE"
+        echo "        listall [OPTION]" && echo
+        echo "OPTIONS"
+        echo "     -f                functions"
+        echo "     -e                environmental (exported) variables"
+        echo "     -v                shell variables"
+        echo "     -va               all variables"
+        echo "     -a                aliases"
+        echo "     -h | help         show help" && echo
+    }
+
+    case $1 in
+        -e)  env; ;;
+        -f)  declare -F; ;;
+        -v)  declare -p | grep "declare -- " | sort; ;;
+        -va) declare -p | sort; ;;
+        -a)  alias; ;;
+        *)   help; ;;
+    esac
+    unset -f help;
 }
 
 #-------------------------------------------------------------------------------

@@ -2,8 +2,6 @@
 printf "\n      Runtime: $(date) @ $(hostname)\n\n"
 
 # Variables
-path_dots=/mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/wsl
-path_dots_local=~/.dotfiles/wsl
 installed=$(dpkg -l | grep '^.i')
 gemList=$(gem list --local)
 pipFreeze=$(pip3 freeze)
@@ -407,10 +405,10 @@ postgresql_repositories() {
 
 printf '\n      >>> Installing neofetch....\n'
 neofetchs() {
-    cd ~/
+    pushd ~/
     wget https://github.com/dylanaraps/neofetch/archive/3.3.0.tar.gz -O ~/neofetch
-    tar -zxvf ~/neofetch && cd ~/neofetch*/
-    sudo make install && cd ~/
+    tar -zxvf ~/neofetch && pushd ~/neofetch*/
+    sudo make install && popd
     sudo mv -v ~/neofetch ~/software/neofetch.tar.gz
     rm -rfv ~/neofetch*/
 }
@@ -426,16 +424,16 @@ neofetchs() {
 #                  libx11-dev libxext-dev zlib1g-dev libpng12-dev \
 #                  libjpeg-dev libfreetype6-dev libxml2-dev
 #     sudo apt-get build-dep imagemagick
-#     mkdir -v $HOME/imagemagick_build && cd $HOME/imagemagick_build
+#     mkdir -v $HOME/imagemagick_build && pushd $HOME/imagemagick_build
 #     wget http://www.imagemagick.org/download/"$name" && \
-#     tar xzvf "$name" && cd ImageMagick-7.0.7-22 && ./configure && make && \
+#     tar xzvf "$name" && pushd ImageMagick-7.0.7-22 && ./configure && make && \
 #     sudo checkinstall -D --install=yes --fstrans=no --pakdir "$HOME/imagemagick_build" \
 #          --pkgname imagemagick --backup=no --deldoc=yes --deldesc=yes --delspec=yes --default \
 #          --pkgversion "7.0.7-22" && \
 #     make distclean && sudo ldconfig
 #     sudo apt update
 #     yes Y | sudo apt upgrade
-#     cd ~/
+#     popd && popd
 #     sudo mv -v ~/imagemagick_build ~/software
 #     rm -rfv ~/ImageMagick*
 # }
@@ -444,12 +442,11 @@ neofetchs() {
 # imagemagick_build() {
 #     wget https://www.imagemagick.org/download/ImageMagick.tar.gz
 #     sudo tar -xzvf ./ImageMagick.tar.gz
-#     cd ~/ImageMagick*/
+#     pushd ~/ImageMagick*
 #     sudo ./configure
-#     sudo make
-#     sudo make install
+#     sudo make && sudo make install
 #     sudo ldconfig /usr/local/lib
-#     cd ~/
+#     popd
 #     sudo mv ~/ImageMagick.tar.gz ~/software
 #     rm -rfv ~/ImageMagick*
 # }
@@ -465,7 +462,7 @@ neofetchs() {
 
 ttygif_install() {
     git clone https://github.com/icholy/ttygif.git
-    cd ttygif && make && sudo make install
+    pushd ttygif && make && sudo make install && popd
 }
 
 # ttyrec recording-name # record the tty, Ctrl+D / exit to stop
@@ -513,7 +510,7 @@ fzf_install() {
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
     ~/.fzf/install
     # # Upgrade
-    # cd ~/.fzf && git pull && ./install
+    # pushd ~/.fzf && git pull && ./install && popd
 }
 
 #   -------------------------------
@@ -564,8 +561,8 @@ sublime-texts() {
 printf '\n      >>> Installing trash-cli....\n'
 trashs() {
     sudo git clone https://github.com/andreafrancia/trash-cli.git ~/trash-cli/
-    cd ~/trash-cli/ && sudo python3 setup.py install
-    cd ~/ && sudo rm -rfv ~/trash-cli/
+    pushd ~/trash-cli/ && sudo python3 setup.py install && popd
+    sudo rm -rfv ~/trash-cli/
 }
 
 #   -------------------------------
@@ -616,10 +613,10 @@ vbox_install() {
 
 ##### DIRCOLORS-SOLARIZED #####
 # mkdir -p ~/.dir_colors
-# cd .dir_colors/
+# pushd .dir_colors/
 # git clone https://github.com/seebi/dircolors-solarized.git
 # mv dircolors-solarized/dircolors.256dark ./
-# cd ~/
+# popd
 
 #   -------------------------------
 #   POWERLINE
@@ -643,9 +640,9 @@ echo $pipFreeze | grep -qw powerline && printf '\n            powerline is alrea
 
 ##### POWERLINE FONTS #####
 # sudo git clone https://github.com/powerline/fonts.git --depth=1
-# cd fonts
+# pusd ./fonts
 # ./install.sh
-# cd ..
+# popd
 # rm -rvf fonts
 
 #   -------------------------------
@@ -663,7 +660,7 @@ echo $pipFreeze | grep -qw powerline && printf '\n            powerline is alrea
 ##### PATHOGEN PLUGIN #####
 # mkdir -pv ~/.vim/autoload ~/.vim/bundle && \
 # curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
-# cd ~/.vim/bundle/
+# pushd ~/.vim/bundle/
 # sudo wget https://github.com/rust-lang/rust.vim.git
 # sudo wget https://github.com/ervandew/supertab.git
 # sudo wget https://github.com/kien/ctrlp.vim.git
@@ -671,7 +668,7 @@ echo $pipFreeze | grep -qw powerline && printf '\n            powerline is alrea
 # sudo wget https://github.com/jceb/vim-orgmode.git
 # sudo wget https://github.com/vim-scripts/utl.vim.git
 # sudo wget https://github.com/tpope/vim-speeddating.git
-# cd ~/
+# popd
 
 #   -------------------------------
 #   HUGO
@@ -750,57 +747,6 @@ capyle() {
 }
 
 #   -------------------------------
-#   REMOVE EXISTING CONFIG
-#   -------------------------------
-
-shell_config() {
-    printf '\n      >>> Removing existing configuraion....\n'
-    sudo rm -rfv ~/.bashrc ~/.zshrc ~/.bash_profile ~/.profile ~/.bash_logout ~/.local
-    printf '\n      >>> Copy configuraion....\n'
-}
-
-#   -------------------------------
-#   IMPORT SETTINGS
-#   -------------------------------
-
-# Import SSH Keys
-ssh_import() {
-    printf '\n      >>> Setting up SSH configuraion....\n'
-    sudo cp -rv /mnt/d/shared/mobile/config/notes/p/.ssh ~/
-    sudo chmod -v 600 ~/.ssh/*
-    sudo chmod -v 700 ~/.ssh
-    sudo chown -Rv $USER ~/.ssh/
-}
-
-# Import GPG Keys
-gpg_import() {
-    printf '\n      >>> Setting up GPG configuraion....\n'
-    path="/mnt/d/shared/mobile/config/notes/p/pgp/Malvin Todorov malvintodorov@gmail.com (0x74B79CF7)"
-    sudo gpg --import "$path"/mlvnt-pub.asc
-    sudo gpg --import "$path"/mlvnt-sec.asc
-}
-
-# Windows Autoload Scipt
-windows_onload() {
-    printf '\n      >>> Setting up Windows onload scripts....\n'
-    cp /mnt/d/shared/pc/projects/scripts/Batch/workspace.cmd /mnt/c/Users/Todorov/AppData/Roaming/Microsoft/Windows/Start\ Menu/Programs/Startup
-}
-
-# Import Social Media Sites
-social_import() {
-    cp "$path_dots"/net/social "$path_dots_local"/net
-}
-
-# Import other configs
-import_other() {
-    yes yes | sudo cp -rv "$path_dots"/shell/zsh/.oh-my-zsh "$path_dots_local"/shell/zsh
-    yes yes | sudo cp -rv "$path_dots"/.config/sublime-text-3 "$path_dots_local"/.config
-    yes yes | sudo cp -rv "$path_dots"/.config/radicale "$path_dots_local"/.config
-    yes yes | sudo cp -rv "$path_dots"/.local/share/tldr "$path_dots_local"/.local/share
-    yes yes | sudo cp -rv "${path_dots}"/net/mac.txt "$path_dots_local"/net
-}
-
-#   -------------------------------
 #   RUN FUNCTIONS
 #   -------------------------------
 
@@ -825,12 +771,6 @@ run_funct() {
     # nusmv
     # isabelle
     # capyle
-    shell_config
-    ssh_import
-    gpg_import
-    windows_onload
-    social_import
-    import_other
 }
 run_funct
 
@@ -860,18 +800,11 @@ functions=(
     "nusmv"
     "isabelle"
     "capyle"
-    "ssh_import"
-    "gpg_import"
-    "windows_onload"
-    "social_import"
-    "shell_config"
     "run_funct"
     "msql_remove"
 )
 
 variables=(
-    "path_dots"
-    "path_dots_local"
     "installed"
     "gemList"
     "pipFreeze"

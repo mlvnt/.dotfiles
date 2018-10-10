@@ -1,6 +1,26 @@
 #!/bin/bash
 
 #   -------------------------------
+#   SOURCE EXTERNAL FILES
+#   -------------------------------
+
+# Sorce all dotfiles
+f=$HOME/.bash_onload
+if [ -r "$f" ] && [ -f "$f" ]; then
+    source "$f";
+else
+    printf "404: $f not found.\n";
+fi;
+sca i;
+
+# Set todo.txt path
+export TODO_DIR="${local}/mobile/config/notes/todo.txt"
+
+# Load tmux session
+sessions=$(tmux ls 2>&1);
+echo $sessions | grep -qw wkse || tmux_workspace;
+
+#   -------------------------------
 #   ENVIRONMETAL VARIABLES
 #   -------------------------------
 
@@ -15,6 +35,7 @@ export PATH="$PATH:$HOME/.local/bin"
 # export PATH="$PATH:/mnt/c/Users/Todorov/Downloads/VSCode-win32-x64-1.17.0/bin"
 export PATH="$PATH:/usr/lib/chromium-browser"
 export PATH="$PATH:/mnt/c/Windows/System32"
+export PATH="$PATH:${local}/pc/apps/suites/portableapps.com/PortableApps/7-ZipPortable/App/7-Zip64"
 
 # PAGER
 export PAGER="most"
@@ -43,26 +64,6 @@ export DISPLAY=:0.0
 
 # Set Default Editor
 export EDITOR=/usr/bin/vim
-
-#   -------------------------------
-#   SOURCE EXTERNAL FILES
-#   -------------------------------
-
-# Sorce all dotfiles
-f=$HOME/.bash_onload
-if [ -r "$f" ] && [ -f "$f" ]; then
-    source "$f";
-else
-    printf "404: $f not found.\n";
-fi;
-sca i;
-
-# Set todo.txt path
-export TODO_DIR="${local}/mobile/config/notes/todo.txt"
-
-# Load tmux session
-sessions=$(tmux ls 2>&1);
-echo $sessions | grep -qw wkse || tmux_workspace;
 
 #   -------------------------------
 #   TWEAKS
