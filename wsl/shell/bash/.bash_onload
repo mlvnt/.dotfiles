@@ -108,6 +108,7 @@ tmux_workspace() {
     # tmux split-window -v -p 50;
     tmux new-window -n 'todo';
     echo $process | grep -qw sshd || tmux send-keys -t 4.0 'sudo /usr/sbin/sshd' Enter;
+    echo $process | grep -qw dbus || tmux send-keys -t 4.0 'sudo /etc/init.d/dbus start' Enter;
     tmux send-keys -t 4.0 'todo' Enter;
 
     if [[ $(currentdevice) == pc ]]; then

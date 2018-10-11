@@ -47,6 +47,7 @@ alias pathenv='echo -e ${PATH//:/\\n}'
 alias mapsme="cd ${local}/mobile/config/travel/MAPS.\ ME"
 alias scripts="cd ${local}/pc/projects/scripts"
 alias symblinks="~/.dotfiles/wsl/symblinks.sh"
+alias ownall="sudo chown -Rv $USER:$USER ~/* &> /dev/null"
 
 # CURRENT
 alias uni="cd /mnt/d/workspace/uni/course"
@@ -378,7 +379,7 @@ alias remotes="cmds '${remote_path}\Unified Remote\server' RemoteServerWin.exe"
 alias texstudio="cmds '$(wslpath -w ${local})\pc\apps\productivity\office\TeX\texstudio' texstudio.exe"
 
 alias vnc="~/software/VNC-Viewer-6.17.1113-Linux-x64"
-alias chromium-browser="sudo chromium-browser --no-sandbox"
+# alias chromium-browser="sudo chromium-browser --no-sandbox"
 alias davmain="apps 3 4 4"
 alias bc="bc -l"
 alias adb="${local}/pc/apps/development/adb/platform-tools/adb.exe"

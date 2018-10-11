@@ -123,7 +123,7 @@ log() {
 source_all() {
     printf '\n      >>> Sourcing shell....\n\n'
     cd ~/
-    sudo chown $USER:$USER  ~/.*rc ~/.bash* ~/.tmux.conf
+    sudo chown -Rv $USER:$USER  ~/*
     source ~/.*rc ~/.bash*
 }
 

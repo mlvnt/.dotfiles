@@ -146,12 +146,12 @@ linx() {
         case $input in
             1)
                 echo -e "\n Launching xfce4....\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-                cmds "$path" /MAX "$path2"configNormal.xlaunch && sudo xfce4-session ;;
+                cmds "$path" /MAX "$path2"configNormal.xlaunch && xfce4-session ;;
                 # cmds "$win32" bash.exe --login -c "sudo xfce4-session"
                 # sudo chown -v $USER ~/.ICEauthority
             2)
                 echo -e "\n Launching i3-wm....\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-                cmds "$path" /MAX "$path2"configNormal.xlaunch && sudo i3 ;;
+                cmds "$path" /MAX "$path2"configNormal.xlaunch && i3 ;;
                 # cmds "$win32" bash.exe --login -c "sudo i3"
             3)
                 echo -e "\n Loading X Server in Multi Window mode....\n"
@@ -1961,8 +1961,27 @@ mywork() {
 #   -------------------------------
 
 money() {
+    help() {
+        echo && echo "DESCRIPTION"
+        echo "        money - display bank balance" && echo
+        echo "USAGE"
+        echo "        money [OPTION]" && echo
+        echo "OPTIONS"
+        echo "     -bg"
+        echo "     -uk"
+        echo "     -all"
+        echo "     -h | help         show help" && echo
+    }
+
     local path="${python_scripts}/money";
-    clear && python3 $path/bg.py && python3 $path/uk.py;
+
+    case $1 in
+        -bg)   clear && python3 $path/bg.py; ;;
+        -uk)   clear && python3 $path/uk.py; ;;
+        -all)  clear && python3 $path/bg.py && python3 $path/uk.py; ;;
+        *)   help; ;;
+    esac
+    unset -f help;
 }
 
 #-------------------------------------------------------------------------------
