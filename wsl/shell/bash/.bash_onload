@@ -97,7 +97,6 @@ currentdevice() {
 
 tmux_workspace() {
     local SESSION_NAME="wkse";
-    local process=$(ps -e);
     # tmux set -g base-index 1;
     tmux new -d -s ${SESSION_NAME};
     tmux rename-window 'whole';
@@ -107,8 +106,6 @@ tmux_workspace() {
     # tmux new-window -n 'horizontal';
     # tmux split-window -v -p 50;
     tmux new-window -n 'todo';
-    echo $process | grep -qw sshd || tmux send-keys -t 4.0 'sudo /usr/sbin/sshd' Enter;
-    echo $process | grep -qw dbus || tmux send-keys -t 4.0 'sudo /etc/init.d/dbus start' Enter;
     tmux send-keys -t 4.0 'todo' Enter;
 
     if [[ $(currentdevice) == pc ]]; then

@@ -12,12 +12,15 @@ else
 fi;
 sca i;
 
-# Load tmux session
 sessions=$(tmux ls 2>&1);
+process=$(ps -e);
+tasks=$(cmd.exe /c tasklist);
+
 echo $sessions | grep -qw wkse || tmux_workspace;
+echo $process | grep -qw sshd || sudo /usr/sbin/sshd;
+echo $process | grep -qw dbus || sudo /etc/init.d/dbus start;
 
 if [[ $(currentdevice) == pc ]]; then
-    tasks=$(cmd.exe /c tasklist);
     echo $tasks | grep -qw 'MyBot.run' || coc;
 fi
 
@@ -169,6 +172,7 @@ variables=(
     "f"
     "color_prompt"
     "force_color_prompt"
+    "process"
     "tasks"
 )
 
