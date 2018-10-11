@@ -18,7 +18,7 @@ echo $sessions | grep -qw wkse || tmux_workspace;
 
 if [[ $(currentdevice) == pc ]]; then
     tasks=$(cmd.exe /c tasklist);
-    echo $tasks | grep -qw 'MyBot.run' || tmux send-keys -t 4.0 'coc' Enter;
+    echo $tasks | grep -qw 'MyBot.run' || coc;
 fi
 
 #   -------------------------------
