@@ -16,6 +16,11 @@ sca i;
 sessions=$(tmux ls 2>&1);
 echo $sessions | grep -qw wkse || tmux_workspace;
 
+if [[ $(currentdevice) == pc ]]; then
+    tasks=$(cmd.exe /c tasklist);
+    echo $tasks | grep -qw 'MyBot.run' || tmux send-keys -t 4.0 'coc' Enter;
+fi
+
 #   -------------------------------
 #   TWEAKS
 #   -------------------------------
@@ -164,6 +169,7 @@ variables=(
     "f"
     "color_prompt"
     "force_color_prompt"
+    "tasks"
 )
 
 unset -v "${variables[@]}" variables;
