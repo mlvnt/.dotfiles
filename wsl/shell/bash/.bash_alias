@@ -47,7 +47,7 @@ alias pathenv='echo -e ${PATH//:/\\n}'
 alias mapsme="cd ${local}/mobile/config/travel/MAPS.\ ME"
 alias scripts="cd ${local}/pc/projects/scripts"
 alias symblinks="~/.dotfiles/wsl/symblinks.sh"
-alias ownall="sudo chown -Rv $USER:$USER ~/* &> /dev/null"
+alias ownall="sudo chown -R $USER:$USER ~/.* &> /dev/null"
 
 # CURRENT
 alias uni="cd /mnt/d/workspace/uni/course"
