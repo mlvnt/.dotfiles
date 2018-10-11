@@ -10,11 +10,12 @@ winhlr="$(wslpath -u "${winhwr}")";
 
 if [[ $(currentdevice) == pc ]]; then
     aps="D:\apps";
-    sublime_path="'D:\development\editors\editors\Sublime_Text'";
-    revo_path="D:\program-management\uninstallers";
-    enpass_path="D:\net\security";
-    synctrayzor_path="D:\net\file-sharing";
-    jdotxt_path="D:\productivity\notes";
+    sublime_path="'${aps}\development\editors\editors\Sublime_Text'";
+    revo_path="${aps}\program-management\uninstallers";
+    enpass_path="${aps}\net\security";
+    synctrayzor_path="${aps}\net\file-sharing";
+    jdotxt_path="${aps}\productivity\notes";
+    remote_path="${aps}\net\remote-control";
     local=/mnt/d/shared;
 else
     aps="${winhwr%?}\pc\apps";
@@ -23,6 +24,7 @@ else
     enpass_path="${aps}\net";
     synctrayzor_path="${winhwr%?}";
     jdotxt_path="${aps}\productivity";
+    remote_path="${aps}\net";
     local=${winhlr%?};
 fi;
 
