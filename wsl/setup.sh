@@ -81,13 +81,13 @@ import_config() {
     cp ${local}/pc/projects/scripts/windows/batch/boot/Acer\ Predator/workspace.cmd /mnt/c/Users/Todorov/AppData/Roaming/Microsoft/Windows/Start\ Menu/Programs/Startup
 
     printf '\n      >>> Importing SSH configuraion....\n'
-    sudo cp -rv ${local}/mobile/config/notes/p/.ssh ~/
+    sudo cp -rv ${local}/mobile/config/net/security/.ssh ~/
     sudo chmod -v 600 ~/.ssh/*
     sudo chmod -v 700 ~/.ssh
     sudo chown -Rv $USER:$USER ~/.ssh/
 
     printf '\n      >>> Importing GPG keys....\n'
-    path="${local}/mobile/config/notes/p/pgp/Malvin Todorov malvintodorov@gmail.com (0x74B79CF7)"
+    path="${local}/mobile/config/net/security/pgp/Malvin Todorov malvintodorov@gmail.com (0x74B79CF7)"
     sudo gpg --import "$path"/mlvnt-pub.asc
     sudo gpg --import "$path"/mlvnt-sec.asc
 }

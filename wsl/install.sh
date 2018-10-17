@@ -201,6 +201,7 @@ apppz=(
 
 modules=(
     "pep8"
+    "autopep8"
     "setuptools"
     "seaborn"
     "statsmodels"
@@ -235,6 +236,7 @@ modules=(
     "vpython"
     "cryptography"
     "PyGnuplot"
+    "pylint"
 # ------------- SciPy
     "matplotlib"
     "numpy"

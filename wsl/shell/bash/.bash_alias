@@ -30,6 +30,7 @@ alias .6='cd ../../../../../../'      # Go back 6 directory levels
 # SHORTCUTS
 alias d="cd /mnt/d"
 alias home="cd ~"
+alias homewin="cd ${winhl}"
 alias root="cd /"
 alias temp="cd /mnt/d/~temp"
 alias temppc="cd ${local}/pc/~temp"
@@ -40,8 +41,8 @@ alias sharedmobile="cd ${local}/mobile"
 alias workspace="cd /mnt/d/workspace"
 alias gitprojects="cd ${local}/pc/projects/git"
 alias dotfiles="cd ${local}/pc/projects/git/dotfiles/.dotfiles"
-alias down="cd $winhl/Downloads"
-alias docs="cd $winhl/Documents"
+alias down="cd ${winhl}/Downloads"
+alias docs="cd ${winhl}/Documents"
 # Print each PATH entry on a separate line
 alias pathenv='echo -e ${PATH//:/\\n}'
 alias mapsme="cd ${local}/mobile/config/travel/MAPS.\ ME"
@@ -303,9 +304,9 @@ alias trns='tmux rename-session -t'
 alias o="openwin"
 alias openhere="o ."
 alias openi="gnome-open ." # Inside a Desktop environment
-alias tempopen="o 'D:\~temp'"
-alias downopen="o '${winhw}\Downloads'"
-alias docsopen="o '${winhw}\Documents'"
+alias opentemp="o 'D:\~temp'"
+alias opendown="o '${winhw}\Downloads'"
+alias opendocs="o '${winhw}\Documents'"
 alias screenshots="o '${winhw}\Pictures\My Screen Shots'"
 alias appdata="o '${winhw}\AppData'"
 alias roaming="o '${winhw}\AppData\Roaming'"
@@ -314,7 +315,7 @@ alias startmenu="o 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs'"
 alias autostart="o '${winhw}\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup'"
 
 # Edit Documents
-alias cv="o 'D:\workspace\personal\professional\cv\cv.docx'"
+alias cv="o '$(wslpath -w ${local})\pc\docs\personal\professional\cv\latex\cv.tex'"
 alias music="o '$(wslpath -w ${local})\pc\docs\lists\music.xlsx'"
 alias pics="o '$(wslpath -w ${local})\pc\docs\lists\pics.xlsx'"
 alias quotes="o '$(wslpath -w ${local})\pc\docs\lists\quotes\quotes.xlsx'"
@@ -324,9 +325,9 @@ alias kitchen="o '$(wslpath -w ${local})\pc\docs\lists\kitchen.xlsx'"
 alias techlist="o '$(wslpath -w ${local})\pc\docs\lists\tech.xlsx'"
 alias clothlist="o '$(wslpath -w ${local})\pc\docs\lists\clothing\clothing.xlsx'"
 alias index="o '$(wslpath -w ${local})\pc\docs\lists\memory\index.xlsx'"
-alias personal="o '$(wslpath -w ${local})\mobile\config\notes\markor\personal.md'"
-alias linkbox="o '$(wslpath -w ${local})\mobile\config\notes\markor\linkbox.txt'"
-alias notes="o '$(wslpath -w ${local})\mobile\config\notes\markor\notes.md'"
+alias linkbox="o '$(wslpath -w ${local})\mobile\notebook\net\links\linkbox.txt'"
+alias personal="o '$(wslpath -w ${local})\mobile\notebook\mobile\markor\personal.md'"
+alias notes="o '$(wslpath -w ${local})\mobile\notebook\mobile\markor\notes.md'"
 
 # Launch Applications
 alias cmd='cmd.exe'
@@ -350,11 +351,12 @@ alias ppoint="cmds 'C:\Program Files (x86)\Microsoft Office\Root\Office16'  /MAX
 
 alias mail="cmds '${aps}\suites\portableapps.com\PortableApps\ThunderbirdPortable' ThunderbirdPortable.exe"
 alias torrent="cmds '${aps}\suites\portableapps.com\PortableApps\qBittorrentPortable' qBittorrentPortable.exe"
-alias enpass="cmds '${enpass_path}\EnpassPortable_5_6_9\Windows' EnpassPortable.exe"
+alias enpass="cmds '${aps}\net\security\EnpassPortable_5_6_9\Windows' EnpassPortable.exe"
 alias firefox="cmds 'D:\apps\suites\portableapps.com\PortableApps\FirefoxPortable' FirefoxPortable.exe"
 alias taiga="cmds 'D:\apps\net\social\Taiga' Taiga.exe"
 alias gnucash="cmds '${aps}\suites\portableapps.com\PortableApps\GnuCashPortable' GnuCashPortable.exe"
-alias sublime="cmds "${sublime_path}" sublime_text.exe"
+alias sublime="cmds '${aps}\development\editors\editors\sublime' sublime_text.exe"
+alias code="cmds '${aps}\development\editors\editors\vscode' Code.exe"
 alias irc="cmds '${aps}\suites\portableapps.com\PortableApps\HexChatPortable' HexChatPortable.exe"
 alias sync="cmds '${synctrayzor_path}\SyncTrayzorPortable-x64' SyncTrayzor.exe"
 alias ftpstart="cmds '${aps}\suites\portableapps.com\PortableApps\FileZillaPortable' FileZillaPortable.exe"
@@ -396,9 +398,9 @@ alias cpath="pwd && pwd | pbcopy"
 #   -------------------------------
 
 # XFCE
-alias xfce="xfce4-session"
+alias xfce="xfce4-session &"
 # I3-WM
-alias i3="i3"
-alias xterm="xfce4-terminal"
+alias i3="i3 &"
+alias xterm="xfce4-terminal &"
 
 #-------------------------------------------------------------------------------

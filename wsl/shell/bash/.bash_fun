@@ -27,7 +27,7 @@ master() {
             3|manage)   manage ;;
             4|mywork)   mywork ;;
             5|apps)     apps ;;
-            x|exit)  : && clear ;;
+            x|exit)     : && clear ;;
             *)          helper ;;
         esac
     }
@@ -146,12 +146,12 @@ linx() {
         case $input in
             1)
                 echo -e "\n Launching xfce4....\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-                cmds "$path" /MAX "$path2"configNormal.xlaunch && xfce4-session ;;
+                cmds "$path" /MAX "$path2"configNormal.xlaunch && xfce4-session & ;;
                 # cmds "$win32" bash.exe --login -c "sudo xfce4-session"
                 # sudo chown -v $USER ~/.ICEauthority
             2)
                 echo -e "\n Launching i3-wm....\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-                cmds "$path" /MAX "$path2"configNormal.xlaunch && i3 ;;
+                cmds "$path" /MAX "$path2"configNormal.xlaunch && i3 & ;;
                 # cmds "$win32" bash.exe --login -c "sudo i3"
             3)
                 echo -e "\n Loading X Server in Multi Window mode....\n"
@@ -199,38 +199,31 @@ linx() {
             sudo chown -Rv $USER ~/.ssh/
         }
 
+        local backup_path=${local}/mobile/config/net/security/.ssh
+
         case $input in
-            1)
-                read -e -p "  Enter Comment (Mail): " comment
+            1)  read -e -p "  Enter Comment (Mail): " comment
                 read -e -p "  Enter File Name: " output_file
                 ssh-keygen -b 4096 -t rsa -C "$comment" -f "$output_file" ;;
-            2)
-                ssh_permissons ;;
-            3)
-                ls ~/.ssh/ | grep .pub && echo
+            2)  ssh_permissons ;;
+            3)  ls ~/.ssh/ | grep .pub && echo
                 read -e -p "  Enter Public Key to Copy: " pub_key
                 echo && cat ~/.ssh/"$pub_key" && echo
                 cat ~/.ssh/"$pub_key" | cmd.exe /c clip ;;
-            4)
-                ls ~/.ssh/ | grep .pub && echo
+            4)  ls ~/.ssh/ | grep .pub && echo
                 read -e -p "  Enter Public Key to Copy: " pub_key
                 echo && cat ~/.ssh/"$pub_key" && echo
                 xclip -sel clip < ~/.ssh/"$pub_key" ;;
-            5)
-                ls ~/.ssh/ | grep .pub && echo
+            5)  ls ~/.ssh/ | grep .pub && echo
                 read -e -p "  Enter Remote Server: " remote
                 read -e -p "  Enter Public Key to Copy: " pub_key
                 echo && cat ~/.ssh/"$pub_key" && echo
                 cat ~/.ssh/"$pub_key" | ssh "$remote" "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys";;
-            6)
-                sudo vim ~/.ssh/config ;;
-            7)
-                sudo vim /etc/ssh/sshd_config
+            6)  sudo vim ~/.ssh/config ;;
+            7)  sudo vim /etc/ssh/sshd_config
                 sudo service ssh restart ;;
-            8)
-                sudo cp -r ~/.ssh/* $local/mobile/config/notes/p/.ssh ;;
-            9)
-                sudo cp -r $local/mobile/config/notes/p/.ssh/* ~/.ssh/
+            8)  sudo cp -r ~/.ssh/* ${backup_path} ;;
+            9)  sudo cp -r ${backup_path}/* ~/.ssh
                 ssh_permissons ;;
             b)  linx ;;
             x)  : && clear ;;
@@ -736,7 +729,7 @@ watchingd() {
 }
 
 lin() {
-    pushd "$local/mobile/config/notes/markor"
+    pushd "$local/mobile/notebook/net/links"
     case $1 in
         -r|run)  "${python_scripts}/web/links.py"; ;;
         *)       ls
@@ -875,9 +868,9 @@ links() {
         echo    '           x | Exit'
         echo    '           b | Go Back'
         echo    '       Generate Symbolic Links from a list:'
-        echo    '           1 | Delete'
-        echo    '           2 | Create Links for files'
-        echo    '           3 | Create Links for folders'
+        echo    '           1 | Delete at script directory'
+        echo    '           2 | Create Links at script directory'
+        echo    '           3 | Create Links at custom directory'
         echo    '       Generate Symbolic Links:'
         echo    '         Linux:'
         echo    '           4 | Create'
@@ -892,15 +885,15 @@ links() {
     delsymb() {
         echo -e '\n ~~~~~~~~~~~~~~ Deleting Symbolic Links.... ~~~~~~~~~~~~~~\n'
         find -type l -print | while IFS= read -r lnk; do
-          if readlink "$lnk" | grep '/mnt/' ; then
-            rm -v "$lnk"
+          if readlink "${lnk}" | grep '/mnt/' ; then
+            rm -v "${lnk}"
           fi
         done;
         echo -e '\n ~~~~~~~~~~~~~~ Symbolic Links Deleted! ~~~~~~~~~~~~~~\n'
     }
 
-    path="${{python_scripts}}/genlinks"
-    pathwin="$(wslpath -w ${{python_scripts}})\genlinks"
+    path="${python_scripts}/system/genlinks"
+    pathwin="$(wslpath -w ${python_scripts})\system\genlinks"
 
     if [ -z $1 ] ; then
         help
@@ -909,33 +902,32 @@ links() {
     fi
 
     case $input in
-        1)
-            cd $path && delsymb ;;
-        2)
-            cd $path && delsymb
-            python3 .symb.py && o $pathwin ;;
-        3)
-            cd $path && delsymb
-            python3 .symbf.py && o $pathwin ;;
+        1)  pushd "${path}" && delsymb && popd; ;;
+        2)  pushd "${path}";
+            [ -z $1 ] || shift 1;
+            python3 ".symblink.py" "$@";
+            o ${pathwin} && popd; ;;
+        3)  [ -z $1 ] || shift 1;
+            python3 "${path}/.symblink.py" "$@"; ;;
         4)
             read -e -p "    Enter Target: " target
             read -e -p "    Enter Link Name: " linkname
-            echo -e '\n ~~~~~~~~~~~~~~ [link] '$linkname' -> '$target' ~~~~~~~~~~~~~~\n'
-            ln -sv $target $linkname
-            echo -e '\n ~~~~~~~~~~~~~~ Link Created! ~~~~~~~~~~~~~~\n' ;;
+            echo -e '\n ~~~~~~~~~~~~~~ [link] '${linkname}' -> '${target}' ~~~~~~~~~~~~~~\n'
+            ln -sv ${target} ${linkname}
+            echo '' ;;
         5)
             read -e -p "    Enter Target: " -r target
             read -e -p "    Enter Link Name: " -r linkname
-             echo -e '\n ~~~~~~~~~~~~~~ [link] '$linkname' -> '$target' ~~~~~~~~~~~~~~\n'
+            yecho -e '\n ~~~~~~~~~~~~~~ [link] '${linkname}' -> '${target}' ~~~~~~~~~~~~~~\n'
             # lnk='cmd.exe /c mklink'
-            cmd.exe /c mklink $linkname $target
-            echo -e '\n ~~~~~~~~~~~~~~ Link Created! ~~~~~~~~~~~~~~\n' ;;
+            cmd.exe /c mklink ${linkname} ${target}
+            echo '' ;;
         6)
             read -e -p "    Enter Target: " -r target
             read -e -p "    Enter Link Name: " -r linkname
-            echo -e '\n ~~~~~~~~~~~~~~ [link] '$linkname' -> '$target' ~~~~~~~~~~~~~~\n'
-            cmd.exe /c mklink /D $linkname $target
-            echo -e '\n ~~~~~~~~~~~~~~ Link Created! ~~~~~~~~~~~~~~\n' ;;
+            echo -e '\n ~~~~~~~~~~~~~~ [link] '${linkname}' -> '${target}' ~~~~~~~~~~~~~~\n'
+            cmd.exe /c mklink /D ${linkname} ${target}
+            echo '' ;;
         b)  manage ;;
         x)  : && clear ;;
         *)  links ;;
@@ -1973,7 +1965,7 @@ money() {
         echo "     -h | help         show help" && echo
     }
 
-    local path="${python_scripts}/money";
+    local path="${python_scripts}/personal/money";
 
     case $1 in
         -bg)   clear && python3 $path/bg.py; ;;
@@ -1998,14 +1990,14 @@ series() {
 #-------------------------------------------------------------------------------
 
 sortkml() {
-    local path="${python_scripts}/sortkml";
+    local path="${python_scripts}/files/sortkml";
     clear && python3 $path/sortkml.py "$@";
 }
 
 #-------------------------------------------------------------------------------
 
 apkinstall() {
-    local path="${python_scripts}/apkinstall";
+    local path="${python_scripts}/system/apkinstall";
     clear && python3 $path/apkinstall.py "$@";
 }
 
@@ -2013,7 +2005,7 @@ apkinstall() {
 
 memory() {
     case $1 in
-        -r|run)  "${python_scripts}/memory/memory.py" ;;
+        -r|run)  "${python_scripts}/files/memory.py" ;;
         *)       o "$(wslpath -w $local)\pc\docs\lists\memory\index.html" ;;
     esac
 }
@@ -2699,7 +2691,7 @@ todo() {
 
     guipath="$jdotxt_path\jdotxt"
     # todotxtpath="$local/mobile/config/notes/todo.txt"
-    todotxtpath="$(wslpath -w $local)\mobile\config\notes\todo.txt"
+    todotxtpath="$(wslpath -w $local)\mobile\notebook\todo\todo.txt"
     todopath=~/bin/todo.txt-cli/todo.sh
     clear && echo && $todopath -z -P -@ -+ list && echo
     read -p "Press enter to continue"
@@ -2944,7 +2936,7 @@ apps() {
             71) cmds "D:\apps\suites\portableapps.com\PortableApps\WinDirStatPortable" WinDirStatPortable.exe && clear ;;
             72) cmds "D:\apps\net\remote-control\VNC\RealVNC" VNC-Viewer-6.17.1113-Windows-64bit.exe && clear ;;
             73) cmds "D:\apps\net\remote-control\VNC" TigerVNC-VncViewer-1.8.0.jar && clear ;;
-            74) cmds "$(wslpath -w ${local})\pc\apps\Office\Office\TeX\TikzEdt" TikzEdt.exe && clear ;;
+            74) cmds "$(wslpath -w ${local})\pc\apps\productivity\office\TeX\TikzEdt" TikzEdt.exe && clear ;;
             75) cmds "D:\apps\file-management\recovery\R-StudioPortable 8.5.Build 170117" R-StudioPortable.exe && clear ;;
             76) cmds "$(wslpath -w ${local})\pc\apps\productivity\office\TeX\MikTEX\texmfs\install\miktex\bin" miktex-console.exe && clear ;;
             77) cmds "D:\apps\file-management\media\media-centers\Kodi\Server" kodi.exe -p && clear ;;
@@ -3084,7 +3076,7 @@ apps() {
             echo    '           36  TightVNC'
             echo -e '\n   >>> Development\n'
             echo    '           31  VcXsrv'
-            echo    '           32  Sublime Text'
+            echo    '           32  '
             echo    '           33  Android Studio'
             echo    '           34  Unity'
             echo -e '\n   >>> Games\n'
@@ -3097,7 +3089,6 @@ apps() {
             echo    '           4   PureVPN'
             echo    '           6   MEmu-Multi'
             echo    '           7   MEmu'
-            echo    '           32  Sublime Text'
             echo    '           26  Windows 10 Upgrade Assistant'
             echo    '           15  KeepVID'
             echo -e '           16  IObit Advanced SystemCare\n'
@@ -3144,7 +3135,7 @@ apps() {
             29) cmds ""  && clear ;;
             30) cmds ""  && clear ;;
             31) cmds "C:\Program Files\VcXsrv" xlaunch.exe && clear ;;
-            32) cmds "C:\Program Files\Sublime Text 3" sublime_text.exe && clear ;;
+            32) cmds ""  && clear ;;
             33) cmds ""  && clear ;;
             34) cmds ""  && clear ;;
             35) cmds "C:\Program Files (x86)\Steam" Steam.exe && clear ;;
@@ -3304,7 +3295,7 @@ radicalle() {
     }
 
     dav_main() {
-        local path="${python_scripts}/radicale";
+        local path="${python_scripts}/personal/radicale";
         clear && python3 $path/dav_main.py "$@";
     }
 

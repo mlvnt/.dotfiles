@@ -17,7 +17,7 @@ export PATH="$PATH:/mnt/c/Windows/System32"
 export PATH="$PATH:${local}/pc/apps/suites/portableapps.com/PortableApps/7-ZipPortable/App/7-Zip64"
 
 # Set todo.txt path
-export TODO_DIR="${local}/mobile/config/notes/todo.txt"
+export TODO_DIR="${local}/mobile/notebook/todo/todo.txt"
 
 # PAGER
 export PAGER="most"
