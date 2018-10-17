@@ -146,12 +146,14 @@ linx() {
         case $input in
             1)
                 echo -e "\n Launching xfce4....\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-                cmds "$path" /MAX "$path2"configNormal.xlaunch && xfce4-session & ;;
+                cmds "$path" /MAX "$path2"configNormal.xlaunch
+                xfce4-session &>/dev/null & ;;
                 # cmds "$win32" bash.exe --login -c "sudo xfce4-session"
                 # sudo chown -v $USER ~/.ICEauthority
             2)
                 echo -e "\n Launching i3-wm....\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-                cmds "$path" /MAX "$path2"configNormal.xlaunch && i3 & ;;
+                cmds "$path" /MAX "$path2"configNormal.xlaunch
+                i3 &>/dev/null & ;;
                 # cmds "$win32" bash.exe --login -c "sudo i3"
             3)
                 echo -e "\n Loading X Server in Multi Window mode....\n"
@@ -196,7 +198,7 @@ linx() {
         ssh_permissons() {
             sudo chmod -v 600 ~/.ssh/*
             sudo chmod -v 700 ~/.ssh
-            sudo chown -Rv $USER ~/.ssh/
+            sudo chown -Rv $USER ~/.ssh
         }
 
         local backup_path=${local}/mobile/config/net/security/.ssh
@@ -204,7 +206,7 @@ linx() {
         case $input in
             1)  read -e -p "  Enter Comment (Mail): " comment
                 read -e -p "  Enter File Name: " output_file
-                ssh-keygen -b 4096 -t rsa -C "$comment" -f "$output_file" ;;
+                ssh-keygen -b 4096 -t rsa -C "${comment}" -f "${output_file}" ;;
             2)  ssh_permissons ;;
             3)  ls ~/.ssh/ | grep .pub && echo
                 read -e -p "  Enter Public Key to Copy: " pub_key
