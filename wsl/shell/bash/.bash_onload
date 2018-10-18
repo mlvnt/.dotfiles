@@ -110,7 +110,7 @@ tmux_workspace() {
     echo $process | grep -qw dbus || tmux send-keys -t 4.0 'sudo /etc/init.d/dbus start' Enter;
 
     if [[ $(currentdevice) == pc ]]; then
-        echo $tasks | grep -qw 'MyBot.run' || tmux send-keys -t 4.0 'coc' Enter;
+        echo ${tasks} | grep -qw 'MyBot.run' || tmux send-keys -t 4.0 'coc' Enter;
         # tmux new-window -n 'inotify' \; split-window \; split-window \; split-window;
         tmux new-window -n 'inotify' \; split-window \;
         tmux select-layout tiled;

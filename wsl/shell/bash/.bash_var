@@ -10,18 +10,12 @@ winhlr="$(wslpath -u "${winhwr}")";
 
 if [[ $(currentdevice) == pc ]]; then
     aps="D:\apps";
-    revo_path="${aps}\program-management\uninstallers";
-    synctrayzor_path="${aps}\net\file-sharing";
-    jdotxt_path="${aps}\productivity\notes";
-    remote_path="${aps}\net\remote-control";
     local=/mnt/d/shared;
+    synctrayzor_path="${aps}\net\file-sharing";
 else
     aps="${winhwr%?}\pc\apps";
-    revo_path="${aps}\system";
-    synctrayzor_path="${winhwr%?}";
-    jdotxt_path="${aps}\productivity";
-    remote_path="${aps}\net";
     local=${winhlr%?};
+    synctrayzor_path="${winhwr%?}";
 fi;
 
 path_dots=${local}/pc/projects/git/dotfiles/.dotfiles/wsl;
