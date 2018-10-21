@@ -14,9 +14,11 @@ appz=(
 # ---------------------------------------------------- non-gui
 # ------------- runtimes
 # -- python
+    "python"
     "python3"
     "ipython3"
     "python-pip"
+    "python-pip3"
     "python3-pip"
     "spyder"
 # -- ruby
@@ -268,6 +270,7 @@ gems=(
     "jekyll"
     "saas"
     "compass"
+    "haml"
     )
 
 for a in "${appz[@]}"
