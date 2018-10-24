@@ -248,7 +248,8 @@ alias ydlupdate="sudo -H pip install --upgrade youtube-dl"
 # -restrict-filenames --write-sub --sub-format 'ass/srt/best' --sub-lang en https://youtu.be/5BBT7tmkBEA
 
 # radicale
-alias radicalerun="python3 -m radicale --config ~/.config/radicale/config"
+# alias radicalerun="python3 -m radicale --config ~/.config/radicale/config"
+alias radicalerun="python3 -m radicale --config  ${path_dots}/.config/radicale/config"
 
 #   -------------------------------
 #   GIT

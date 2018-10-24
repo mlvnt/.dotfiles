@@ -15,8 +15,11 @@ export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:/usr/lib/chromium-browser"
 export PATH="$PATH:/mnt/c/Windows/System32"
 export PATH="$PATH:${local}/pc/apps/suites/portableapps.com/PortableApps/7-ZipPortable/App/7-Zip64"
+
+# androind sdk
 export PATH="$PATH:${local}/pc/apps/development/langs/android_sdk/build-tools/28.0.3"
 export PATH="$PATH:${local}/pc/apps/development/langs/android_sdk/platform-tools"
+export PATH="$PATH:${local}/pc/apps/development/langs/android_sdk/tools/bin"
 
 # Set todo.txt path
 export TODO_DIR="${local}/mobile/notebook/todo/todo.txt"
