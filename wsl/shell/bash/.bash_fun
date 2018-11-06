@@ -224,8 +224,8 @@ linx() {
             6)  sudo vim ~/.ssh/config ;;
             7)  sudo vim /etc/ssh/sshd_config
                 sudo service ssh restart ;;
-            8)  sudo cp -r ~/.ssh/* ${backup_path} ;;
-            9)  sudo cp -r ${backup_path}/* ~/.ssh
+            8)  yes y | sudo cp -r ~/.ssh/* ${backup_path} ;;
+            9)  yes y | sudo cp -r ${backup_path}/* ~/.ssh
                 ssh_permissons ;;
             b)  linx ;;
             x)  : && clear ;;
@@ -571,7 +571,7 @@ ipdiscovery() {
         echo "        2   |  ftp" && echo
     }
 
-    if [[ -z $1 ]] ; then 
+    if [[ -z $1 ]] ; then
         echo && echo "no device selected"
         help
     else
@@ -617,9 +617,9 @@ ipdiscovery() {
             help
         else
             case $os in
-                win)  local arplist=$(cmd.exe /c arp -a); 
+                win)  local arplist=$(cmd.exe /c arp -a);
                       echo && echo "[mac] $(echo "$mac" | sed 's/\[//g ; s/\]//g ; s/://g')"; ;;
-                unix) local arplist=$(arp -a); 
+                unix) local arplist=$(arp -a);
                       echo && echo "[mac] $(echo "$mac" | sed 's/\[//g ; s/\]//g ; s/-//g')"; ;;
             esac
 
@@ -631,14 +631,14 @@ ipdiscovery() {
                         :
                 else
                     case $2 in
-                        ssh|1) 
+                        ssh|1)
                                 if [ "$type" == "mobile" ]; then
-                                    ssh "$ip" -p 8022 
+                                    ssh "$ip" -p 8022
                                 else
                                     ssh -t todorov@"$ip" -p 2222
                                 fi
                                     ;;
-                        ftp|2) 
+                        ftp|2)
                                 if [ "$type" == "mobile" ]; then
                                     cmd.exe /c start "C:\Windows\explorer.exe" ftp://$ip:2121/
                                 else
@@ -654,7 +654,7 @@ ipdiscovery() {
                     fi
                 fi
             else
-                echo  && echo "arp entry ip unavailable" && echo 
+                echo  && echo "arp entry ip unavailable" && echo
             fi
         fi
     fi
@@ -998,7 +998,7 @@ links() {
 #             link_dir_1="/mnt/e/backup/workspace"
 #             link_dir_2="/mnt/e/backup/workspace/shared"
 #             ;;
-#         2)  mobile_backup 
+#         2)  mobile_backup
 
 #             excludeddir="/mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/wsl/rsync/excluded_mobile"
 #             sdcard=""
@@ -1006,15 +1006,15 @@ links() {
 #             logdir="/mnt/e/backup_logs/"
 #             logfile="log_backup-$(date "+%Y-%m-%d-%H-%M").txt"
 
-#             if [ $input -eq 1 ] || [ $input -eq 3 ] ; then 
+#             if [ $input -eq 1 ] || [ $input -eq 3 ] ; then
 #                 rsyncnorm=''
-#             elif [ $input -eq 2 ] || [ $input -eq 4 ] ; then 
+#             elif [ $input -eq 2 ] || [ $input -eq 4 ] ; then
 #                 rsyncnorm="--delete "
 #             fi
 
 #             if [ $input -eq 3 ] || [ $input -eq 4 ] ; then
 #                 ryncoptions="-avhzH --progress --stats --dry-run "$rsyncnorm""
-#             elif [ $input -eq 1 ] || [ $input -eq 2 ] ; then 
+#             elif [ $input -eq 1 ] || [ $input -eq 2 ] ; then
 #                 ryncoptions="-avhzH --progress --stats "$rsyncnorm""
 #             fi
 #             ;;
@@ -1090,7 +1090,7 @@ links() {
 
 #     main_backup() {
 #         help() {
-#             clear 
+#             clear
 #             echo -e '\n  Available Options:\n'
 #             echo    '           x  | Exit'
 #             echo    '           b  | Go Back'
@@ -1102,7 +1102,7 @@ links() {
 #         }
 #         help
 
-#         case $input in 
+#         case $input in
 #             1|2|3|4)
 #                     echo -e '\n ~~~~~~~~~~~~~~ Backup Main Drive.... ~~~~~~~~~~~~~~\n'
 #                     mkdir -p "$logdir" && sudo touch "$logdir$logfile"
@@ -1136,7 +1136,7 @@ links() {
 
 #     main_clone() {
 #         help() {
-#             clear 
+#             clear
 #             echo -e '\n  Available Options:\n'
 #             echo    '           x  | Exit'
 #             echo    '           b  | Go Back'
@@ -1145,7 +1145,7 @@ links() {
 #         }
 #         help
 
-#         case $input in 
+#         case $input in
 #             1)
 
 #                     echo -e '\n ~~~~~~~~~~~~~~ Cloning Main Drive.... ~~~~~~~~~~~~~~\n'
@@ -1156,8 +1156,8 @@ links() {
 #                         echo -e "\n     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
 #                         cmd.exe /c robocopy "$drivedwin" "$backdir:\\" "*" $robocopyoptions
 #                     }
-#                     clone 
-#                     echo -e '\n ~~~~~~~~~~~~~~ Cloning Complete! ~~~~~~~~~~~~~~\n' 
+#                     clone
+#                     echo -e '\n ~~~~~~~~~~~~~~ Cloning Complete! ~~~~~~~~~~~~~~\n'
 #                     ;;
 #             b)      move ;;
 #             x)      : && clear ;;
@@ -1167,7 +1167,7 @@ links() {
 
 #     main_restore() {
 #         help() {
-#             clear 
+#             clear
 #             echo -e '\n  Available Options:\n'
 #             echo    '           x  | Exit'
 #             echo    '           b  | Go Back'
@@ -1179,7 +1179,7 @@ links() {
 #         }
 #         help
 
-#         case $input in 
+#         case $input in
 #             1|2|3|4)
 #                     echo -e '\n ~~~~~~~~~~~~~~ Backup Main Drive.... ~~~~~~~~~~~~~~\n'
 #                     mkdir -p "$logdir" && sudo touch "$logdir$logfile"
@@ -1205,7 +1205,7 @@ links() {
 
 #     mobile_backup() {
 #         help() {
-#             clear 
+#             clear
 #             echo -e '\n  Available Options:\n'
 #             echo    '           x  | Exit'
 #             echo    '           b  | Go Back'
@@ -1238,7 +1238,7 @@ links() {
 
 #     mobile_clone() {
 #         help() {
-#             clear 
+#             clear
 #             echo -e '\n  Available Options:\n'
 #             echo    '           x  | Exit'
 #             echo    '           b  | Go Back'
@@ -1247,14 +1247,14 @@ links() {
 #         }
 #         help
 
-#         case $input in 
+#         case $input in
 #             1)
 #                     echo -e '\n ~~~~~~~~~~~~~~ Cloning Main Drive.... ~~~~~~~~~~~~~~\n'
 #                     clone() {
 #                         sudo rsync $ryncoptions "$dotfilesdird" "$dotfilesdire"
 #                     }
-#                     clone 
-#                     echo -e '\n ~~~~~~~~~~~~~~ Cloning Complete! ~~~~~~~~~~~~~~\n' 
+#                     clone
+#                     echo -e '\n ~~~~~~~~~~~~~~ Cloning Complete! ~~~~~~~~~~~~~~\n'
 #                     ;;
 #             b)      move ;;
 #             x)      : && clear ;;
@@ -1264,7 +1264,7 @@ links() {
 
 #     mobile_restore() {
 #         help() {
-#             clear 
+#             clear
 #             echo -e '\n  Available Options:\n'
 #             echo    '           x  | Exit'
 #             echo    '           b  | Go Back'
@@ -1276,7 +1276,7 @@ links() {
 #         }
 #         help
 
-#         case $input in 
+#         case $input in
 #             1|2|3|4)
 #                     echo -e '\n ~~~~~~~~~~~~~~ Backup Main Drive.... ~~~~~~~~~~~~~~\n'
 #                     mkdir -p "$logdir" && sudo touch "$logdir$logfile"
@@ -1472,8 +1472,8 @@ dots() {
     }
 
     pullclean() {
-        echo -e '\n -------------- Removing old .dotfiles....\n' 
-        sudo rm -rfv ~/.dotfiles 
+        echo -e '\n -------------- Removing old .dotfiles....\n'
+        sudo rm -rfv ~/.dotfiles
         echo -e '\n -------------- Cloning new .dotfiles....\n'
         git clone $p ~/.dotfiles
         import_other() {
@@ -1496,7 +1496,7 @@ dots() {
 
     pulllocal() {
         pushd ~/.dotfiles && git stash && git fetch $p
-        git pull $p 
+        git pull $p
         pushd ~/.dotfiles/wsl
         sudo chmod -Rv +x ./*
         sudo chown -Rv $USER:$USER ./* && popd
@@ -1591,7 +1591,7 @@ handles() {
         5)  cmd.exe /c handle.exe /? ;;
         6)  clear
             echo -e "\n     The number of all open descriptors is: $(lsof | wc -l)\n" ;;
-        7)  echo -e '\n ~~~~~~~~~~~~~~ Showing All Descriptors.... ~~~~~~~~~~~~~~\n' 
+        7)  echo -e '\n ~~~~~~~~~~~~~~ Showing All Descriptors.... ~~~~~~~~~~~~~~\n'
             # lsof
             ls /proc/*/fd
             echo -e '\n ~~~~~~~~~~~~~~ Query Completed! ~~~~~~~~~~~~~~\n' ;;
@@ -1681,7 +1681,6 @@ win() {
                     "'D:\shared\mobile'"
                     "'D:\workspace'"
                     "'D:\shared\pc\docs\lists'"
-                    "'D:\workspace\tech\programing'"
                     "'D:\workspace\uni'"
                     "'D:\media\anime'"
                     "'D:\media\movies'"
@@ -1706,13 +1705,13 @@ win() {
         case $input in
             1)
                 echo -e '\n Pinnig folders to Quick Access....\n'
-                for pin in "${pins[@]}"; do 
+                for pin in "${pins[@]}"; do
                     powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& $powershellScript ${p} ${pin}"
                 done;
                 echo -e '\n    Folders pinned!\n'  ;;
             2)
                 echo -e '\n Unpinnig folders from Quick Access....\n'
-                for pin in "${pins[@]}"; do 
+                for pin in "${pins[@]}"; do
                     powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& $powershellScript ${up} ${pin}"
                 done;
                 echo -e '\n    Folders unpinned!\n'  ;;
@@ -1990,7 +1989,7 @@ series() {
 #-------------------------------------------------------------------------------
 
 sortkml() {
-    local path="${python_scripts}/files/sortkml";
+    local path="${python_scripts}/files";
     clear && python3 $path/sortkml.py "$@";
 }
 
@@ -2262,7 +2261,6 @@ sport() {
     path="$(wslpath -w ${local})\mobile\docs\health\sport"
     doc1=${path}"\program.xlsx"
     doc2=${path}"\exercises.xlsx"
-    doc3=${path}"\training program.docx"
 
     help() {
         clear && echo && echo "DESCRIPTION"
@@ -2270,15 +2268,13 @@ sport() {
         echo "SYNTAX"
         echo "        sport [OPTION]" && echo
         echo "OPTIONS"
-        echo "        1   2018-04 Schedule"
-        echo "        2   Exercises"
-        echo "        3   Training Program" && echo
+        echo "        1   Program"
+        echo "        2   Exercises" && echo
     }
 
     case $1 in
         1)  o "${doc1}" ;;
         2)  o "${doc2}" ;;
-        3)  o "${doc3}" ;;
         b)  mywork ;;
         x)  : && clear ;;
         *)  help ;;
@@ -2441,22 +2437,22 @@ blog() {
         read -e -p "  type? " type
         case $type in
             1|code)
-                t="code"  
+                t="code"
                 path="blog/tech/code/" ;;
             2|default)
-                t="default"  
+                t="default"
                 path="blog/" ;;
             3|interests)
-                t="interests"  
+                t="interests"
                 path="blog/interests/" ;;
             4|projects)
-                t="projects"  
+                t="projects"
                 path="projects/" ;;
             5|tech)
-                t="tech"  
+                t="tech"
                 path="blog/tech/2018/" ;;
             6|wechat)
-                t="wechat"  
+                t="wechat"
                 path="blog/wechat" ;;
             *)  help && tpe ;;
         esac
@@ -2466,21 +2462,21 @@ blog() {
         1|goto)  cd "$blogpath" ;;
         2|run)  cd "$blogpath" && hugos ;;
         3|server)  rm -rfv "$bakedpath" && mkdir -p -v "$bakedpath"
-            cd "$blogpath" && hugo 
+            cd "$blogpath" && hugo
             cd "$bakedpath" && caddy ;;
         4|bake)  rm -rfv "$bakedpath" && mkdir -p -v "$bakedpath"
-            cd "$blogpath" && hugo 
+            cd "$blogpath" && hugo
             rm -rfv "$bakedpath/tags" "$bakedpath/categories";;
         5|new)  clear && echo
             tpe
             clear && echo "$t"
-            echo && tree "$content/$path" && echo 
+            echo && tree "$content/$path" && echo
             read -e -p "  post name? " post
             cd "$blogpath" && echo && hugo new $path/$post$ext -k $t && echo
             sublime "$contents/$path/$post$ext" ;;
         6)  cd "$gamespath" ;;
         7)  cd "$gamespath" && caddy ;;
-        8)  # rsync -a ~/testfile todorov@mlvnt.com:~/ 
+        8)  # rsync -a ~/testfile todorov@mlvnt.com:~/
             ;;
         9)  cmds "$filezilladir" FileZillaPortable.exe ;;
             # sftp -b ~/.dotfiles/wsl/net/sftpbatch todorovfiles@mlvnt.com
@@ -2609,7 +2605,7 @@ todo() {
                 read -e -p "  Task ID to delete: " ID
                 read -e -p "  Term to delete: " term
                 $todopath del $ID $term
-                echo && $todopath -z -P -@ -+ list && echo 
+                echo && $todopath -z -P -@ -+ list && echo
                 refresh ;;
             2)
                 clear && echo && $todopath -z -P -@ -+ list && echo
@@ -2617,7 +2613,7 @@ todo() {
                 read -e -p "  Task ID to replace: " ID
                 read -e -p "  Term to replace: " term
                 $todopath replace $ID $term
-                echo && $todopath -z -P -@ -+ list && echo 
+                echo && $todopath -z -P -@ -+ list && echo
                 refresh ;;
             3)
                 clear && echo && $todopath -z -P -@ -+ list && echo
@@ -2625,7 +2621,7 @@ todo() {
                 read -e -p "  Task ID to append to: " ID
                 read -e -p "  Term to append: " term
                 $todopath append $ID $term
-                echo && $todopath -z -P -@ -+ list && echo 
+                echo && $todopath -z -P -@ -+ list && echo
                 refresh ;;
             b)  todo ;;
             x)  : && clear ;;
@@ -2647,23 +2643,23 @@ todo() {
 
         case $input in
             1)
-                clear && echo && ${todopath} -z -P -@ -+ list && echo 
+                clear && echo && ${todopath} -z -P -@ -+ list && echo
                 refresh ;;
             2)
-                clear && echo && ${todopath} -P list && echo 
+                clear && echo && ${todopath} -P list && echo
                 refresh ;;
             3)
-                clear && echo && ${todopath} listfile done.txt && echo 
+                clear && echo && ${todopath} listfile done.txt && echo
                 refresh ;;
             4)
                 clear && echo -e "\nProjecs Available:\n" && ${todopath} listcon
                 echo && read -e -p "  Project : " project
-                echo && clear && echo && ${todopath} -z -@ list @$project && echo 
+                echo && clear && echo && ${todopath} -z -@ list @$project && echo
                 refresh ;;
             5)
                 clear && echo -e "\nTags Available:\n" && ${todopath} listproj
                 echo && read -e -p "  Tag : " tag
-                echo && clear && echo && ${todopath} -z -+ list +$tag && echo 
+                echo && clear && echo && ${todopath} -z -+ list +$tag && echo
                 refresh ;;
             b)  todo ;;
             x)  : && clear ;;
@@ -2704,7 +2700,7 @@ todo() {
         4)  list ;;
         5)  helpt ;;
         6)  o $todotxtpath && refresh ;;
-        7)  cmds "${guipath}" jdotxt-0.4.8.jar 
+        7)  cmds "${guipath}" jdotxt-0.4.8.jar
             refresh ;;
             # java -jar jdotxt-0.4.8.jar
         b|back)  mywork ;;
@@ -3671,7 +3667,7 @@ winalias() {
     rm -fv ~/.bash_aliases_win ~/.windows.exe
     cd /mnt/c/Windows/System32
     ls *.exe > ~/.windows.exe
-    for i in $(cat ~/.windows.exe); do 
+    for i in $(cat ~/.windows.exe); do
         a=$(echo $i | cut -d. -f1);
         b=$(echo $a | awk '{print tolower($0)}');
         alias $b="$a.exe";
