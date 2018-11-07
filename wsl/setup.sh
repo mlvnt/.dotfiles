@@ -34,10 +34,10 @@ install_prereq() {
     dpkg -l | grep -qw expect && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq expect
 
     printf '\n      >>> Installing git....\n\n'
-    sudo rm -rfv ~/.dotfiles
     dpkg -l | grep -qw git && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq git
     local gitdir=${local}/pc/projects/git/dotfiles/.dotfiles/wsl/git
     sudo cp -v ${gitdir}/.git-credentials ${gitdir}/.gitconfig-local ${gitdir}/.gitconfig ~/
+    sudo chown -Rv $USER:$USER ~/.git*
 }
 
 #   -------------------------------
@@ -51,6 +51,7 @@ get_dots() {
     # git clone /mnt/d/shared/pc/projects/git/dotfiles/.dotfiles
     rm -rfv ~/.dotfiles/
     git clone https://github.com/mlvnt/.dotfiles.git ~/.dotfiles
+    git remote set-url origin git@github.com:mlvnt/.dotfiles.git
 
     printf '\n      >>> Converting files to linux linebreaks....\n\n'
     pushd ~/.dotfiles/wsl/

@@ -71,12 +71,12 @@ alias gzipdir="gzip -kr"
 alias tarbackup='tar -zcvf "backup-$(date "+%Y-%m-%d-%H-%M").tar.gz"'
 
 # RM, CP, MV, MKDIR, CHMOD
-alias rm="sudo rm -v"
-alias cp='sudo cp -iva'
-alias cpd='sudo cp -ri'
-alias mv='sudo mv -iv'
-alias mkdir='sudo mkdir -pv'
-alias chmod='sudo chmod -v'
+alias rm="rm -v"
+alias cp='cp -iva'
+alias cpd='cp -ri'
+alias mv='mv -iv'
+alias mkdir='mkdir -pv'
+alias chmod='chmod -v'
 alias x+="chmod +x"
 alias rwx+="chmod +rwx"
 
@@ -256,7 +256,6 @@ alias radicalerun="python3 -m radicale --config  ${path_dots}/.config/radicale/c
 #   -------------------------------
 
 alias undopush="git push -f origin HEAD^:master"  # Undo a `git push`
-# alias git="sudo git"
 alias g="git"
 alias gf="git fetch && git pull"
 alias gac='git add -A && git commit && git push'

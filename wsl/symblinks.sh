@@ -232,7 +232,7 @@ install_zsh() {
 
     src="$DOTFILES_ROOT/shell/zsh/.zshrc"
     dst="$HOME/$(basename "$src")"
-    link_file "$src" "$dst"   
+    link_file "$src" "$dst"
 }
 
 install_git() {
@@ -240,14 +240,6 @@ install_git() {
     local overwrite_all=true backup_all=false skip_all=false
 
     src="$DOTFILES_ROOT/git/.gitconfig"
-    dst="$HOME/$(basename "$src")"
-    link_file "$src" "$dst"
-
-    src="$DOTFILES_ROOT/git/.gitattributes"
-    dst="$HOME/$(basename "$src")"
-    link_file "$src" "$dst"
-
-    src="$DOTFILES_ROOT/git/.gitignore"
     dst="$HOME/$(basename "$src")"
     link_file "$src" "$dst"
 }

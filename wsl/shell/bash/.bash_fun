@@ -1456,6 +1456,7 @@ dots() {
         pushd ~/.dotfiles/wsl
         sudo chmod -Rv +x ./*
         sudo chown -Rv $USER:$USER ./* && popd
+        sudo chown -Rv $USER:$USER ~/.git*
         sca && clear && popd
     }
 
@@ -1468,6 +1469,7 @@ dots() {
         pushd ~/.dotfiles/wsl
         sudo chmod -Rv +x ./*
         sudo chown -Rv $USER:$USER ./* && popd
+        sudo chown -Rv $USER:$USER ~/.git*
         sca && clear && popd
     }
 
@@ -1490,6 +1492,7 @@ dots() {
         echo -e '\n -------------- Sourcing .dotfiles....\n'
         sudo chmod -Rv +x ./*
         sudo chown -Rv $USER:$USER ./* && popd
+        sudo chown -Rv $USER:$USER ~/.git*
         sca && clear && popd
         echo -e '\n -------------- Dotfiles Updated!\n'
     }
@@ -1500,6 +1503,7 @@ dots() {
         pushd ~/.dotfiles/wsl
         sudo chmod -Rv +x ./*
         sudo chown -Rv $USER:$USER ./* && popd
+        sudo chown -Rv $USER:$USER ~/.git*
         sca && clear && popd
     }
 
@@ -1508,6 +1512,7 @@ dots() {
         pushd ~/.dotfiles/wsl
         sudo chmod -Rv +x ./*
         sudo chown -Rv $USER:$USER ./* && popd
+        sudo chown -Rv $USER:$USER ~/.git*
         sca && clear && popd
     }
 
