@@ -102,23 +102,31 @@ tmux_workspace() {
     # tmux set -g base-index 1;
     tmux new -d -s ${SESSION_NAME};
     tmux rename-window 'whole';
-    tmux new-window -n 'whole';
-    tmux new-window -n 'horizontal';
     tmux split-window -v -p 50;
-    tmux new-window -n 'todo';
-    echo $process | grep -qw sshd || tmux send-keys -t 4.0 'sudo /usr/sbin/sshd' Enter;
-    echo $process | grep -qw dbus || tmux send-keys -t 4.0 'sudo /etc/init.d/dbus start' Enter;
+    tmux resize-pane -Z -t 1.0;
+    tmux new-window -n 'whole';
+    tmux split-window -v -p 50;
+    tmux resize-pane -Z -t 2.0;
+
 
     if [[ $(currentdevice) == pc ]]; then
         echo ${tasks} | grep -qw 'MyBot.run' || tmux send-keys -t 4.0 'coc' Enter;
         # tmux new-window -n 'inotify' \; split-window \; split-window \; split-window;
-        tmux new-window -n 'inotify' \; split-window \;
+        tmux new-window -n 'todo' \; split-window \; split-window \;
         tmux select-layout tiled;
-        tmux send-keys -t 5.0 'lin' Enter;
-        tmux send-keys -t 5.1 'radicalerun' Enter;
+        tmux send-keys -t 3.0 'lin' Enter;
+        tmux send-keys -t 3.1 'radicalerun' Enter;
+        echo $process | grep -qw sshd || tmux send-keys -t 3.2 'sudo /usr/sbin/sshd' Enter;
+        echo $process | grep -qw dbus || tmux send-keys -t 3.2 'sudo /etc/init.d/dbus start' Enter;
+        tmux send-keys -t 3.2 'todo' Enter;
+        tmux resize-pane -Z -t 3.2;
+    else
+        tmux new-window -n 'todo';
+        echo $process | grep -qw sshd || tmux send-keys -t 3.0 'sudo /usr/sbin/sshd' Enter;
+        echo $process | grep -qw dbus || tmux send-keys -t 3.0 'sudo /etc/init.d/dbus start' Enter;
+        tmux send-keys -t 3.0 'todo' Enter;
     fi;
 
-    tmux send-keys -t 4.0 'todo' Enter;
     tmux select-window -t 1;
     # tmux send-keys -t 1.0 'neofetch' Enter;
     # tmux send-keys -t 2.0 'fzf' Enter;

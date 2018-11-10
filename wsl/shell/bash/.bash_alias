@@ -380,6 +380,7 @@ alias revo="cmds '${aps}\system\program management\uninstallers\RevoPortable64' 
 alias ditto="cmds '${aps}\suites\portableapps.com\PortableApps\DittoPortable' DittoPortable.exe"
 alias remotes="cmds '${aps}\net\remote control\unified remote\server' RemoteServerWin.exe"
 alias texstudio="cmds '$(wslpath -w ${local})\pc\apps\productivity\office\TeX\texstudio' texstudio.exe"
+alias kdeconnect="cmds '$(wslpath -w ${local}/pc/apps/net/kdeconnect-kde-master-*/bin)' kdeconnect-indicator.exe"
 
 alias vnc="~/software/VNC-Viewer-6.17.1113-Linux-x64"
 # alias chromium-browser="sudo chromium-browser --no-sandbox"
