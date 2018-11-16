@@ -2175,14 +2175,13 @@ social() {
 food() {
     path="$(wslpath -w ${local})\pc\docs\lists\food"
     doc1=${path}"\products.xlsx"
-    doc2=${path}"\recipes.docx"
-    doc3=${path}"\recipes.xlsx"
-    doc4=${path}"\shoppping list.docx"
-    doc5=${path}"\shoppping list.xlsx"
-    doc6=${path}"\terms.docx"
-    doc7=${path}"\tips.docx"
-    doc8=${path}"\weekly menu.docx"
-    doc9=${path}"\weekly meals.xlsx"
+    doc2=${path}"\recipes.xlsx"
+    doc3=${path}"\shoppping list.docx"
+    doc4=${path}"\shoppping list.xlsx"
+    doc5=${path}"\terms.docx"
+    doc6=${path}"\tips.docx"
+    doc7=${path}"\weekly menu.docx"
+    doc8=${path}"\weekly meals.xlsx"
     re='^[0-9]+$'
 
     help() {
@@ -2192,18 +2191,17 @@ food() {
         echo "        food [OPTION]" && echo
         echo "OPTIONS"
         echo "        1   Products"
-        echo "        2   Recipes"
-        echo "        3   Recipes - Table"
-        echo "        4   Shoppping List"
-        echo "        5   Shoppping List - Table"
-        echo "        6   Terms"
-        echo "        7   Tips"
-        echo "        8   Weekly Meals"
-        echo "        9   Weekly Menu - Table" && echo
+        echo "        2   Recipes - Table"
+        echo "        3   Shoppping List"
+        echo "        4   Shoppping List - Table"
+        echo "        5   Terms"
+        echo "        6   Tips"
+        echo "        7   Weekly Meals"
+        echo "        8   Weekly Menu - Table" && echo
     }
 
     open_docs() {
-        case $1 in
+        case "$1" in
             1)  o "${doc1}" ;;
             2)  o "${doc2}" ;;
             3)  o "${doc3}" ;;
@@ -2212,19 +2210,16 @@ food() {
             6)  o "${doc6}" ;;
             7)  o "${doc7}" ;;
             8)  o "${doc8}" ;;
-            9)  o "${doc9}" ;;
         esac
     }
 
-    if [[ $1 =~ $re ]] && [[ -z $2 ]]; then
-        open_docs "$1"
-    elif [[ $1 =~ $re ]] && [[ $2 =~ $re ]] && [[ -z $3 ]]; then
-        open_docs "$1" && sleep 0.2s
-        open_docs "$2"
-    elif [[ $1 =~ $re ]] && [[ $2 =~ $re ]] && [[ $3 =~ $re ]] && [[ -z $4 ]]; then
-        open_docs "$1" && sleep 0.2s
-        open_docs "$2" && sleep 0.2s
-        open_docs "$3"
+    if [[ ! -z $1 ]]; then
+        while test $# -gt 0 ; do
+            if [[ $1 =~ $re ]]; then
+                    open_docs "$1"
+            fi;
+            shift;
+        done;
     elif [[ $1 == b ]]; then
         mywork
     elif [[ $1 == x ]]; then
@@ -2248,7 +2243,6 @@ food() {
         "doc6"
         "doc7"
         "doc8"
-        "doc9"
         "re"
     )
 
@@ -3665,7 +3659,7 @@ winalias() {
     #executed easily.. such as ipconfig, tasklist, taskkill, etc
     #there is no error checking.. its pretty basic/simple
 
-    echo "scanning win32 and creating aliases…"
+    echo "scanning win32 and creating aliases..."
     unset -f cd
     # remove all sourced aliases
     unalias -a
@@ -3934,7 +3928,7 @@ getcertnames() {
     fi;
 
     local domain="${1}";
-    echo "Testing ${domain}…";
+    echo "Testing ${domain}...";
     echo ""; # newline
 
     local tmp=$(echo -e "GET / HTTP/1.0\nEOT" \
@@ -3967,7 +3961,7 @@ digga() {
 # UTF-8-encode a string of Unicode symbols
 escape() {
     printf "\\\x%s" $(printf "$@" | xxd -p -c1 -u);
-    # print a newline unless we’re piping the output to another program
+    # print a newline unless we're piping the output to another program
     if [ -t 1 ]; then
         echo ""; # newline
     fi;
@@ -3987,7 +3981,7 @@ httpserver() {
     local port="${1:-8000}";
     sleep 1 && open "http://localhost:${port}/" &
     # Set the default Content-Type to `text/plain` instead of `application/octet-stream`
-    # And serve everything as UTF-8 (although not technically correct, this doesn’t break anything for binary files)
+    # And serve everything as UTF-8 (although not technically correct, this doesn't break anything for binary files)
     python -c $'import SimpleHTTPServer;\nmap = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map;\nmap[""] = "text/plain";\nfor key, value in map.items():\n\tmap[key] = value + ";charset=UTF-8";\nSimpleHTTPServer.test();' "$port";
 }
 
@@ -4023,7 +4017,7 @@ gz2() {
 #   if [ -z $domain ] ; then
 #     domain=$1
 #   fi
-#   echo "Getting whois record for: $domain …"
+#   echo "Getting whois record for: $domain ..."
 
 #   # avoid recursion
 #           # this is the best whois server
@@ -4053,7 +4047,7 @@ targz() {
         fi;
     fi;
 
-    echo "Compressing .tar ($((size / 1000)) kB) using \`${cmd}\`…";
+    echo "Compressing .tar ($((size / 1000)) kB) using \`${cmd}\`...";
     "${cmd}" -v "${tmpFile}" || return 1;
     [ -f "${tmpFile}" ] && rm "${tmpFile}";
 

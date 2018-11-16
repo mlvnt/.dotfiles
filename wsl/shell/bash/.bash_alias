@@ -326,8 +326,8 @@ alias techlist="o '$(wslpath -w ${local})\pc\docs\lists\tech.xlsx'"
 alias clothlist="o '$(wslpath -w ${local})\pc\docs\lists\clothing\clothing.xlsx'"
 alias index="o '$(wslpath -w ${local})\pc\docs\lists\memory\index.xlsx'"
 alias linkbox="o '$(wslpath -w ${local})\mobile\notebook\net\links\linkbox.txt'"
-alias personal="o '$(wslpath -w ${local})\mobile\notebook\mobile\markor\personal.md'"
-alias notes="o '$(wslpath -w ${local})\mobile\notebook\mobile\markor\notes.md'"
+alias personal="o '$(wslpath -w ${local})\mobile\notebook\personal\personal.md'"
+alias notes="o '$(wslpath -w ${local})\mobile\notebook\personal\todos.md'"
 
 # Launch Applications
 alias cmd='cmd.exe'
@@ -340,7 +340,7 @@ alias wslpath="~/bin/wslpath"
 
 alias vpn="cmds 'C:\Program Files (x86)\PureVPN' purevpn.exe"
 alias vm="cmds 'C:\Program Files\Oracle\VirtualBox' VirtualBox.exe"
-alias memu="cmds 'C:\ProgramData\Microvirt\MEmu' MEmuConsole.exe MEmu"
+alias memu="cmds 'C:\Program Files\Microvirt\MEmu' MEmuConsole.exe MEmu"
 alias photoshop="cmds 'C:\Program Files\Adobe\Adobe Photoshop CC 2017' Photoshop.exe"
 alias aimp="cmds 'C:\Program Files (x86)\AIMP' AIMP.exe"
 alias vlc="cmds 'C:\Program Files\VideoLAN\VLC' vlc.exe"
@@ -372,8 +372,36 @@ alias kodi="cmds 'D:\apps\file-management\media\media-centers\Kodi\Server' kodi.
 alias plex="cmdc 'D:\apps\file-management\media\media-centers\Plex\Server\Plex Media Server.exe'"
 alias npp="cmds 'D:\apps\development\editors\editors\notepad++\Notepad++ 7.5.1' /MAX notepad++.exe"
 alias flash="cmds '${aps}\suites\portableapps.com\PortableApps\RufusPortable' RufusPortable.exe"
-alias sysmenu="cmds '${aps}\suites\symenu' SyMenu.exe"
-alias portableapps="cmds '${aps}\suites\portableapps.com' Start.exe"
+crossrun() {
+    local path="$1"
+    local name="$2"
+    local exe="$3"
+    shift 3
+
+    help() {
+        clear && echo && echo "DESCRIPTION"
+        echo "        ${name} - open ${name}" && echo
+        echo "USAGE"
+        echo "        ${name} [OPTION]" && echo
+        echo "OPTIONS"
+        echo "        p   pc"
+        echo "        m   mobile"&& echo
+    }
+
+    case "$1" in
+        p) local p="${aps}" ;;
+        m) local p="$(wslpath -w ${local})\pc\apps" ;;
+        *) help ;;
+    esac
+
+    if [[ ! -z $1 ]]; then
+        cmds "${p}${path}" "${exe}";
+    fi
+
+    unset help;
+}
+alias sysmenu="crossrun '\suites\symenu' 'sysmenu' 'SyMenu.exe'"
+alias portableapps="crossrun '\suites\portableapps.com' 'portableapps' 'Start.exe'"
 alias rss="cmds '${aps}\suites\portableapps.com\PortableApps\QuiteRSSPortable' QuiteRSSPortable.exe"
 alias unicode="cmds '$(wslpath -w ${local})\pc\apps\productivity\office\unicode\character-maps\BabelStone' BabelMap.exe"
 alias revo="cmds '${aps}\system\program management\uninstallers\RevoPortable64' RevoUninstallerPortable.exe"
@@ -381,7 +409,10 @@ alias ditto="cmds '${aps}\suites\portableapps.com\PortableApps\DittoPortable' Di
 alias remotes="cmds '${aps}\net\remote control\unified remote\server' RemoteServerWin.exe"
 alias texstudio="cmds '$(wslpath -w ${local})\pc\apps\productivity\office\TeX\texstudio' texstudio.exe"
 alias kdeconnect="cmds '$(wslpath -w ${local}/pc/apps/net/kdeconnect-kde-master-*/bin)' kdeconnect-indicator.exe"
-
+ahk() {
+    local p="$(wslpath -w $(pwd))"
+    cmds "$(wslpath -w ${local})\pc\apps\suites\symenu\ProgramFiles\SPSSuite\SyMenuSuite\AutoHotkey_Compiler_sps" AutoHotkeyU64.exe "$p"/"$1"
+}
 alias vnc="~/software/VNC-Viewer-6.17.1113-Linux-x64"
 # alias chromium-browser="sudo chromium-browser --no-sandbox"
 alias davmain="apps 3 4 4"
