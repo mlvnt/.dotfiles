@@ -153,6 +153,7 @@ appz=(
     "tmux"
     "pcregrep"
     "ngrep"
+    "ripgrep"
     "moreutils"
     "ncdu"
     "espeak"
@@ -183,7 +184,7 @@ appz=(
     "feh"
     "redshift"
     "fcitx"
-# ------------- 
+# -------------
     "chromium-browser"
     "chromium-chromedriver"
     # "firefox"
@@ -314,7 +315,7 @@ cabal install random
 
 ##### JAVA #####
 printf '\n      >>> Setting default to jdk-8....\n'
-yes 1 |sudo update-alternatives --config java 
+yes 1 |sudo update-alternatives --config java
 
 ##### RUBY #####
 printf '\n      >>> Installing ruby....\n'
@@ -359,7 +360,7 @@ which http-server | grep -qw http-server && printf '\n            http-server is
 # mysql_secure_installation
 
 # Configuration
-# /etc/mysql/mysql.conf.d/mysqld.cnf 
+# /etc/mysql/mysql.conf.d/mysqld.cnf
 
 # Start service
 # sudo service mysql start
@@ -476,7 +477,7 @@ ttygif_install() {
 # gifsicle --crop 0,60-962,638 --output out.gif in.gif # crop the gif
 # gifsicle --crop 0,25-801,477 --output out.gif in.gif
 # gifsicle -i anim.gif -O3 --colors 256 -o anim-opt.gif #optimize
-# gifsicle -U input.gif `seq -f "#%g" 105 1 127` -O2 -o output.gif 
+# gifsicle -U input.gif `seq -f "#%g" 105 1 127` -O2 -o output.gif
 # yaourt -S ttyrec ttygif
 
 #   -------------------------------
@@ -604,7 +605,7 @@ vbox_install() {
 # sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 # .oh-my-zsh/themes/ replace %~ with %c to show only the current dir name
 # To upgrade type the folling in zsh shell: upgrade_oh_my_zsh
-# To unistall type the folling in zsh shell: uninstall_oh_my_zsh 
+# To unistall type the folling in zsh shell: uninstall_oh_my_zsh
 
 ##### OH MY ZSH PLUGINS #####
 # ZSH-AUTOSUGGESTIONS
@@ -652,7 +653,7 @@ echo $pipFreeze | grep -qw powerline && printf '\n            powerline is alrea
 
 #   -------------------------------
 #   VIM
-#   ------------------------------- 
+#   -------------------------------
 
 # mkdir -p ~/.vim/colors/
 

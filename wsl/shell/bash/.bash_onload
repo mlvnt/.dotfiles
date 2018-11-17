@@ -110,9 +110,8 @@ tmux_workspace() {
 
 
     if [[ $(currentdevice) == pc ]]; then
-        echo ${tasks} | grep -qw 'MyBot.run' || tmux send-keys -t 3.0 'coc' Enter;
-        # tmux new-window -n 'inotify' \; split-window \; split-window \; split-window;
         tmux new-window -n 'todo' \; split-window \; split-window \;
+        echo ${tasks} | grep -qw 'MyBot.run' || tmux send-keys -t 3.0 'coc' Enter;
         tmux select-layout tiled;
         tmux send-keys -t 3.0 'lin' Enter;
         tmux send-keys -t 3.1 'radicalerun' Enter;
