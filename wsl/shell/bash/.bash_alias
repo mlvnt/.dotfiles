@@ -326,7 +326,7 @@ alias techlist="o '$(wslpath -w ${local})\pc\docs\lists\tech.xlsx'"
 alias clothlist="o '$(wslpath -w ${local})\pc\docs\lists\clothing\clothing.xlsx'"
 alias index="o '$(wslpath -w ${local})\pc\docs\lists\memory\index.xlsx'"
 alias linkbox="o '$(wslpath -w ${local})\mobile\notebook\net\links\linkbox.txt'"
-alias personal="o '$(wslpath -w ${local})\mobile\notebook\personal\personal.md'"
+alias me="o '$(wslpath -w ${local})\mobile\notebook\personal\me.md'"
 alias notes="o '$(wslpath -w ${local})\mobile\notebook\personal\todos.md'"
 
 # Launch Applications
@@ -420,6 +420,7 @@ alias bc="bc -l"
 alias adb="adb.exe"
 alias aapt="aapt.exe"
 alias aapt2="aapt2.exe"
+alias sdkmanager="cmdc sdkmanager.bat"
 alias arduino="${local}/pc/apps/development/editors/ides/arduino/arduino-1.8.7-win/arduino.exe"
 alias puredata="${local}/pc/apps/development/langs/puredata/Purr\ Data/Purr\ Data\ 2.6.0/bin/pd.exe"
 function jogl() { . "${local}/pc/~temp/com3503/setup.sh" file="$2" local="${local}" "$1"; }

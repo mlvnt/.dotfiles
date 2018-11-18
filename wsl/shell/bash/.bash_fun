@@ -1672,8 +1672,7 @@ win() {
         fi;
 
         # Variables
-        powershellScript="$(wslpath -w $local)\pc\projects\scripts\windows\PowerShell\quickaccess\Set-QuickAccess.ps1";
-        # cmd.exe /c "$(wslpath -w $local)\pc\projects\scripts\windows\PowerShell\quickaccess\Set-QuickAccess.cmd"
+        powershellScript="$(wslpath -w $local)\pc\projects\scripts\win\powershell\quickaccess\Set-QuickAccess.ps1";
         p='Pin';
         up='Unpin';
 
@@ -1711,13 +1710,13 @@ win() {
             1)
                 echo -e '\n Pinnig folders to Quick Access....\n'
                 for pin in "${pins[@]}"; do
-                    powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& $powershellScript ${p} ${pin}"
+                    powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& $powershellScript ${p} ${pin}";
                 done;
                 echo -e '\n    Folders pinned!\n'  ;;
             2)
                 echo -e '\n Unpinnig folders from Quick Access....\n'
                 for pin in "${pins[@]}"; do
-                    powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& $powershellScript ${up} ${pin}"
+                    powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& $powershellScript ${up} ${pin}";
                 done;
                 echo -e '\n    Folders unpinned!\n'  ;;
             b)  win ;;

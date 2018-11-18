@@ -19,7 +19,7 @@ else
 fi;
 
 path_dots=${local}/pc/projects/git/dotfiles/.dotfiles/wsl;
-python_scripts=${local}/pc/projects/scripts/Python;
+python_scripts=${local}/pc/projects/scripts/py;
 path_dots_local=~/.dotfiles/wsl;
 os=$(currentdevice -o);
 
