@@ -2006,6 +2006,16 @@ apkinstall() {
 
 #-------------------------------------------------------------------------------
 
+# removes old vscode extentions
+vscodeclean() {
+    local path="${python_scripts}/files";
+    pushd "${local}/pc/apps/development/editors/editors/vscode/data/extensions"
+    python3 $path/vscode.py;
+    popd
+}
+
+#-------------------------------------------------------------------------------
+
 memory() {
     case $1 in
         -r|run)  "${python_scripts}/files/memory.py" ;;
