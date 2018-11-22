@@ -227,11 +227,40 @@ alias msql='sudo mysql -p'
 # alias pilocal='ping raspberrypi.local'
 alias sshpi='ssh pi@192.168.137.2'
 alias pingpi='cmd.exe /c ping -4 raspberrypi.local'
+ydl() {
+    help() {
+        clear && echo && echo "DESCRIPTION";
+        echo "        ydl - youtube-dl video downloader" && echo;
+        echo "USAGE";
+        echo "        ydl" && echo;
+        echo "OPTIONS";
+        echo "        s   download en subs";
+        echo "        u   update" && echo;
+    }
 
-# youtube-dl
-alias ydl="youtube-dl -f '(bestvideo[ext=mp4])[fps!=60]+bestaudio[ext=m4a]/mp4' -o '%(title)s/%(title)s.%(ext)s' --write-description"
-alias ydlsub="youtube-dl -f '(bestvideo[ext=mp4])[fps!=60]+bestaudio[ext=m4a]/mp4' -o '%(title)s/%(title)s.%(ext)s' --write-description --write-sub --sub-format 'ass/srt/best' --sub-lang en"
-alias ydlupdate="sudo -H pip install --upgrade youtube-dl"
+    cmd() {
+        youtube-dl -f '(bestvideo[ext=mp4])[fps!=60]+bestaudio[ext=m4a]/mp4' -o '%(title)s/%(title)s.%(ext)s' --write-description "$@";
+    }
+
+    local re='https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/=]*)';
+
+    if [[ $1 =~ $re ]]; then
+        cmd "$1";
+    else
+        case "$1" in
+            s)  shift 1;
+                if [[ $1 =~ $re ]]; then
+                    cmd --write-sub --sub-format 'ass/srt/best' --sub-lang en "$1";
+                else
+                    echo "Invalid url" && echo;
+                fi; ;;
+            u)  sudo -H pip install --upgrade youtube-dl; ;;
+            *)  help ;;
+        esac;
+    fi;
+
+    unset help cmd;
+}
 
 # # Download Youtube playlist in a folder and indexing videos using youtube-dl
 # alias youtube-dl-playlist="youtube-dl --ignore-errors --output '%(playlist)s/%(playlist_index)s- %(title)s.%(ext)s'"
@@ -330,7 +359,7 @@ alias me="o '$(wslpath -w ${local})\mobile\notebook\personal\me.md'"
 alias notes="o '$(wslpath -w ${local})\mobile\notebook\personal\todos.md'"
 
 # Launch Applications
-alias cmd='cmd.exe'
+# alias cmd='cmd.exe'
 alias cmdc='cmd.exe /c'
 alias cmds='cmd.exe /c start /D'
 alias regedit="cmds 'C:\Windows' regedit.exe"
@@ -362,7 +391,7 @@ alias irc="cmds '${aps}\suites\portableapps.com\PortableApps\HexChatPortable' He
 alias sync="cmds '${synctrayzor_path}\SyncTrayzorPortable-x64' SyncTrayzor.exe"
 alias ftpstart="cmds '${aps}\suites\portableapps.com\PortableApps\FileZillaPortable' FileZillaPortable.exe"
 keepass() {
-    cat "$local/mobile/notebook/tech/tools/k.txt" | cmd.exe /c clip;
+    cat "$local/mobile/notebook/net/k.txt" | cmd.exe /c clip;
     cmds "${aps}\suites\portableapps.com\PortableApps\KeePassProPortable" KeePassProPortable.exe;
     sleep 10s;
     cmdc "echo off" | clip.exe;
