@@ -114,7 +114,7 @@ tmux_workspace() {
         echo ${tasks} | grep -qw 'MyBot.run' || tmux send-keys -t 3.0 'coc' Enter;
         tmux select-layout tiled;
         tmux send-keys -t 3.0 'lin' Enter;
-        tmux send-keys -t 3.1 'radicalerun' Enter;
+        tmux send-keys -t 3.1 'radicalle run' Enter;
         echo $process | grep -qw sshd || tmux send-keys -t 3.2 'sudo /usr/sbin/sshd' Enter;
         echo $process | grep -qw dbus || tmux send-keys -t 3.2 'sudo /etc/init.d/dbus start' Enter;
         tmux send-keys -t 3.2 'todo' Enter;

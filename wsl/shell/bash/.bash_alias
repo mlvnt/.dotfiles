@@ -36,8 +36,9 @@ alias temp="cd /mnt/d/~temp"
 alias temppc="cd ${local}/pc/~temp"
 alias tempmobile="cd ${local}/mobile/~temp"
 alias shared="cd ${local}"
-alias sharedpc="cd ${local}/pc"
-alias sharedmobile="cd ${local}/mobile"
+alias pc="cd ${local}/pc"
+alias mobile="cd ${local}/mobile"
+alias notebook="cd ${local}/mobile/notebook"
 alias workspace="cd /mnt/d/workspace"
 alias gitprojects="cd ${local}/pc/projects/git"
 alias dotfiles="cd ${local}/pc/projects/git/dotfiles/.dotfiles"
@@ -54,7 +55,7 @@ alias ownall="sudo chown -R $USER:$USER ~/.* &> /dev/null"
 alias uni="cd /mnt/d/workspace/uni/course"
 alias text="cd ${local}/pc/~temp/com3110"
 alias iot="cd ${local}/pc/~temp/com3505"
-alias sound="cd ${local}/pc/~temp/com3502"
+alias speech="cd ${local}/pc/~temp/com3502"
 alias graphics="cd ${local}/pc/~temp/com3503"
 alias law="cd ${local}/pc/~temp/mgt388"
 
@@ -201,7 +202,7 @@ alias wgeta="wget -r -l1 -A"
 
 # HTTP Requests. One of @janmoesen’s ProTip™s
 for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
-  alias "$method"="lwp-request -m '$method'"
+    alias "$method"="lwp-request -m '$method'"
 done
 
 # IPFS
@@ -211,11 +212,6 @@ alias ipfs="sudo ipfs daemon"
 alias heroku="sudo heroku"
 
 # Docker
-
-# Weather
-alias wr='curl http://wttr.in'
-alias wrsheff='curl http://wttr.in/sheffield'
-alias wrsof='curl http://wttr.in/sofia'
 
 # MySQL
 alias msqls='sudo service mysql start'
@@ -227,62 +223,21 @@ alias msql='sudo mysql -p'
 # alias pilocal='ping raspberrypi.local'
 alias sshpi='ssh pi@192.168.137.2'
 alias pingpi='cmd.exe /c ping -4 raspberrypi.local'
-ydl() {
-    help() {
-        clear && echo && echo "DESCRIPTION";
-        echo "        ydl - youtube-dl video downloader" && echo;
-        echo "USAGE";
-        echo "        ydl" && echo;
-        echo "OPTIONS";
-        echo "        s   download en subs";
-        echo "        u   update" && echo;
-    }
-
-    cmd() {
-        youtube-dl -f '(bestvideo[ext=mp4])[fps!=60]+bestaudio[ext=m4a]/mp4' -o '%(title)s/%(title)s.%(ext)s' --write-description "$@";
-    }
-
-    local re='https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/=]*)';
-
-    if [[ $1 =~ $re ]]; then
-        cmd "$1";
-    else
-        case "$1" in
-            s)  shift 1;
-                if [[ $1 =~ $re ]]; then
-                    cmd --write-sub --sub-format 'ass/srt/best' --sub-lang en "$1";
-                else
-                    echo "Invalid url" && echo;
-                fi; ;;
-            u)  sudo -H pip install --upgrade youtube-dl; ;;
-            *)  help ;;
-        esac;
-    fi;
-
-    unset help cmd;
-}
-
-# # Download Youtube playlist in a folder and indexing videos using youtube-dl
-# alias youtube-dl-playlist="youtube-dl --ignore-errors --output '%(playlist)s/%(playlist_index)s- %(title)s.%(ext)s'"
-
-# --config-location PATH
-# --write-info-json
-# --write-annotations
-
-# # the best .mp4 video with fps < 60
-# youtube-dl -f 'bestvideo[fps!=60]+bestaudio/best[ext=mp4]/best' -o '%(title)s.%(ext)s' https://youtu.be/5BBT7tmkBEA
-
-# # the best .mp4 video with fps < 60 with en subs
-# youtube-dl -f 'bestvideo[fps!=60]+bestaudio/best[ext=mp4]/best' -o '%(title)s.%(ext)s' -
-# -restrict-filenames --write-sub --sub-format 'ass/srt/best' --sub-lang en https://youtu.be/5BBT7tmkBEA
-
-# radicale
-# alias radicalerun="python3 -m radicale --config ~/.config/radicale/config"
-alias radicalerun="python3 -m radicale --config  ${path_dots}/.config/radicale/config"
 
 #   -------------------------------
 #   GIT
 #   -------------------------------
+
+# List Git Branches sorted by recent updates, adding a star to remote tracking branches
+glb() {
+    RED="\e[91m";
+    for branch in $(git branch | sed s/^..//); do
+    time_ago=$(git log -1 --pretty=format:"%Cgreen%ci %Cblue%cr%Creset" $branch --);
+    # Add a red star to mark branches that are tracking something upstream
+    tracks_upstream=$(if [ "$(git rev-parse $branch@{upstream} 2>/dev/null)" ]; then printf "$RED?"; fi);
+    printf "%-53s - %s %s\n" $time_ago $branch $tracks_upstream;
+    done | sort;
+}
 
 alias undopush="git push -f origin HEAD^:master"  # Undo a `git push`
 alias g="git"
@@ -299,7 +254,6 @@ alias gd='git diff'
 alias go='git checkout'
 alias gb='git branch'
 alias gbl='git blame'
-alias gbt=git_list_branches
 
 #   -------------------------------
 #   TMUX
@@ -343,21 +297,6 @@ alias tempwin="o '${winhw}\AppData\Local\Temp'"
 alias startmenu="o 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs'"
 alias autostart="o '${winhw}\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup'"
 
-# Edit Documents
-alias cv="o '$(wslpath -w ${local})\pc\docs\personal\professional\cv\latex\cv.tex'"
-alias music="o '$(wslpath -w ${local})\pc\docs\lists\music.xlsx'"
-alias pics="o '$(wslpath -w ${local})\pc\docs\lists\pics.xlsx'"
-alias quotes="o '$(wslpath -w ${local})\pc\docs\lists\quotes\quotes.xlsx'"
-alias habits="o '$(wslpath -w ${local})\pc\docs\personal\time\habits\list.xlsx'"
-alias packlist="o '$(wslpath -w ${local})\pc\docs\lists\packing.xlsx'"
-alias kitchen="o '$(wslpath -w ${local})\pc\docs\lists\kitchen.xlsx'"
-alias techlist="o '$(wslpath -w ${local})\pc\docs\lists\tech.xlsx'"
-alias clothlist="o '$(wslpath -w ${local})\pc\docs\lists\clothing\clothing.xlsx'"
-alias index="o '$(wslpath -w ${local})\pc\docs\lists\memory\index.xlsx'"
-alias linkbox="o '$(wslpath -w ${local})\mobile\notebook\net\links\linkbox.txt'"
-alias me="o '$(wslpath -w ${local})\mobile\notebook\personal\me.md'"
-alias notes="o '$(wslpath -w ${local})\mobile\notebook\personal\todos.md'"
-
 # Launch Applications
 # alias cmd='cmd.exe'
 alias cmdc='cmd.exe /c'
@@ -385,8 +324,10 @@ alias firefox="cmds 'D:\apps\suites\portableapps.com\PortableApps\FirefoxPortabl
 alias taiga="cmds 'D:\apps\net\social\Taiga' Taiga.exe"
 alias gnucash="cmds '${aps}\suites\portableapps.com\PortableApps\GnuCashPortable' GnuCashPortable.exe"
 alias sublime="cmds '${aps}\development\editors\editors\sublime' sublime_text.exe"
+alias subl="sublime"
 alias sublimemerge="cmds '${aps}\development\tools\sublime_merge' sublime_merge.exe"
-alias code="cmds '$(wslpath -w ${local})\pc\apps\development\editors\editors\vscode' Code.exe"
+alias code="cmdc '$(wslpath -w ${local})\pc\apps\development\editors\editors\vscode\bin\code'"
+alias vscode="code"
 alias irc="cmds '${aps}\suites\portableapps.com\PortableApps\HexChatPortable' HexChatPortable.exe"
 alias sync="cmds '${synctrayzor_path}\SyncTrayzorPortable-x64' SyncTrayzor.exe"
 alias ftpstart="cmds '${aps}\suites\portableapps.com\PortableApps\FileZillaPortable' FileZillaPortable.exe"
@@ -435,13 +376,10 @@ alias rss="cmds '${aps}\suites\portableapps.com\PortableApps\QuiteRSSPortable' Q
 alias unicode="cmds '$(wslpath -w ${local})\pc\apps\productivity\office\unicode\character-maps\BabelStone' BabelMap.exe"
 alias revo="cmds '${aps}\system\program management\uninstallers\RevoPortable64' RevoUninstallerPortable.exe"
 alias ditto="cmds '${aps}\suites\portableapps.com\PortableApps\DittoPortable' DittoPortable.exe"
+alias search="cmds '$(wslpath -w ${local})\pc\apps\suites\symenu\ProgramFiles\SPSSuite\SyMenuSuite\Everything_(x64)_sps' Everything.exe"
 alias remotes="cmds '${aps}\net\remote control\unified remote\server' RemoteServerWin.exe"
 alias texstudio="cmds '$(wslpath -w ${local})\pc\apps\productivity\office\TeX\texstudio' texstudio.exe"
 alias kdeconnect="cmds '$(wslpath -w ${local}/pc/apps/net/kdeconnect-kde-master-*/bin)' kdeconnect-indicator.exe"
-ahk() {
-    local p="$(wslpath -w $(pwd))"
-    cmds "$(wslpath -w ${local})\pc\apps\suites\symenu\ProgramFiles\SPSSuite\SyMenuSuite\AutoHotkey_Compiler_sps" AutoHotkeyU64.exe "$p"/"$1"
-}
 alias vnc="~/software/VNC-Viewer-6.17.1113-Linux-x64"
 # alias chromium-browser="sudo chromium-browser --no-sandbox"
 alias davmain="apps 3 4 4"
@@ -451,12 +389,27 @@ alias aapt="aapt.exe"
 alias aapt2="aapt2.exe"
 alias sdkmanager="cmdc sdkmanager.bat"
 alias arduino="${local}/pc/apps/development/editors/ides/arduino/arduino-1.8.7-win/arduino.exe"
-alias puredata="${local}/pc/apps/development/langs/puredata/Purr\ Data/Purr\ Data\ 2.6.0/bin/pd.exe"
+alias puredata="${local}/pc/apps/development/runtimes/puredata/Purr\ Data/Purr\ Data\ 2.6.0/bin/pd.exe"
 function jogl() { . "${local}/pc/~temp/com3503/setup.sh" file="$2" local="${local}" "$1"; }
 
 # Clipboard
 alias pbcopy="clip.exe"
 alias cpath="pwd && pwd | pbcopy"
+
+# Edit Documents
+alias cv="texstudio '$(wslpath -w ${local})\pc\docs\personal\professional\cv\latex\cv.tex'"
+alias music="o '$(wslpath -w ${local})\pc\docs\lists\music.xlsx'"
+alias pics="o '$(wslpath -w ${local})\pc\docs\lists\pics.xlsx'"
+alias quotes="o '$(wslpath -w ${local})\pc\docs\lists\quotes\quotes.xlsx'"
+alias habits="o '$(wslpath -w ${local})\pc\docs\personal\time\habits\list.xlsx'"
+alias packlist="o '$(wslpath -w ${local})\pc\docs\lists\packing.xlsx'"
+alias kitchen="o '$(wslpath -w ${local})\pc\docs\lists\kitchen.xlsx'"
+alias techlist="o '$(wslpath -w ${local})\pc\docs\lists\tech.xlsx'"
+alias clothlist="o '$(wslpath -w ${local})\pc\docs\lists\clothing\clothing.xlsx'"
+alias index="o '$(wslpath -w ${local})\pc\docs\lists\memory\index.xlsx'"
+alias linkbox="code '$(wslpath -w ${local})\mobile\notebook\net\links\linkbox.txt'"
+alias me="code '$(wslpath -w ${local})\mobile\notebook\personal\me.md'"
+alias notes="code $(wslpath -w ${local})\mobile\notebook\personal\todo.md"
 
 #   -------------------------------
 #   DESKTOP ENVIRONMENTS

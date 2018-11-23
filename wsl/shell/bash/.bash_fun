@@ -107,8 +107,7 @@ linx() {
         echo    "    2  | mkd                 | Create a New Directory and enter it"
         echo    "    3  | ssh_manage          | SSH Managemet"
         echo    "    4  | gpg_manage          | GPG Managemet"
-        echo    "    5  | dots                | Update .dotfiles"
-        echo -e "    6  | glb                 | List Git Branches\n"
+        echo -e "    5  | dots                | Update .dotfiles\n"
         read -e -p "  Enter Option: " input
         echo
     }
@@ -162,17 +161,6 @@ linx() {
             x)  : && clear ;;
             *)  xsession ;;
         esac
-    }
-
-    # List Git Branches sorted by recent updates, adding a star to remote tracking branches
-    glb() {
-      RED="\e[91m";
-      for branch in $(git branch | sed s/^..//); do
-        time_ago=$(git log -1 --pretty=format:"%Cgreen%ci %Cblue%cr%Creset" $branch --);
-        # Add a red star to mark branches that are tracking something upstream
-        tracks_upstream=$(if [ "$(git rev-parse $branch@{upstream} 2>/dev/null)" ]; then printf "$RED★"; fi);
-        printf "%-53s - %s %s\n" $time_ago $branch $tracks_upstream;
-      done | sort;
     }
 
     ssh_manage() {
@@ -462,7 +450,6 @@ linx() {
         3|ssh_manage)  ssh_manage ;;
         4|gpg_manage)  gpg_manage ;;
         5|dots)        dots ;;
-        6|glb)         glb ;;
         b)  master ;;
         x)  : && clear ;;
         *)  linx ;;
@@ -2025,6 +2012,200 @@ memory() {
 
 #-------------------------------------------------------------------------------
 
+regex() {
+    help() {
+        clear && echo && echo "DESCRIPTION";
+        echo "        regex - test regex" && echo;
+        echo "USAGE";
+        echo "        regex [OPTION]" && echo;
+        echo "OPTIONS";
+        echo "        kill      kill web server";
+        echo "    reference";
+        echo "        r1        www.regular-expressions.info";
+        echo "        r2        www.rexegg.com";
+        echo "    tools";
+        echo "        t1        regex101.com";
+        echo "        t2        regexr.com" && echo;
+    }
+
+    run() {
+        pushd "${local}${@}";
+        caddy &
+        chrome "http://localhost:2015";
+        popd;
+    }
+
+    local path="/pc/apps/development/tools/regex"
+
+    case "$1" in
+        kill)               pkill caddy; ;;
+        -h|--help|help)     help; ;;
+        r1)                 run ${path}/www.regular-expressions.info; ;;
+        r2)                 run ${path}/www.rexegg.com; ;;
+        t1)                 run ${path}/regex101.com; ;;
+        t2)                 run ${path}/regexr.com; ;;
+        "")                 run ${path}/regex101.com; ;;
+        *)                  help; ;;
+    esac;
+
+    unset help run;
+}
+
+#-------------------------------------------------------------------------------
+
+weather() {
+    help() {
+        clear && echo && echo "DESCRIPTION";
+        echo "        weather - display weather information" && echo;
+        echo "USAGE";
+        echo "        weather CITY";
+        echo "        weather [OPTION] [c CITY]" && echo;
+        echo "OPTIONS";
+        echo "        a         automatically determine city";
+        echo "        so        sofia";
+        echo "        sf        sheffield";
+        echo "        c CITY    custom city" && echo;
+    }
+
+    cmd() {
+        curl http://wttr.in/"$@";
+    }
+
+    local re='[a-zA-Z]{3,}';
+    local input="$1";
+    shift 1;
+
+    if [[ ${input} =~ $re ]]; then
+        cmd "${input}";
+    else
+        case "${input}" in
+            so) cmd "sofia"; ;;
+            sf) cmd "sheffield"; ;;
+            c)
+                if [[ $1 =~ $re ]]; then
+                    cmd "$1";
+                else
+                    echo "Invalid city" && echo;
+                fi; ;;
+            a)  cmd; ;;
+            *)  help; ;;
+        esac;
+    fi;
+
+    unset help cmd;
+}
+
+#-------------------------------------------------------------------------------
+
+ahk() {
+    local p="$(wslpath -w $(pwd))"
+    cmds "$(wslpath -w ${local})\pc\apps\suites\symenu\ProgramFiles\SPSSuite\SyMenuSuite\AutoHotkey_Compiler_sps" AutoHotkeyU64.exe "$p"/"$1"
+}
+
+#-------------------------------------------------------------------------------
+
+color() {
+    help() {
+        clear && echo && echo "DESCRIPTION";
+        echo "        color - color management" && echo;
+        echo "USAGE";
+        echo "        color [OPTION]" && echo;
+        echo "OPTIONS";
+        echo "    color picker";
+        echo "        1        Instant-eyedropper";
+        echo "        2        Just Color Picker";
+        echo "    color pallette";
+        echo "        3        AS-Hex Color";
+        echo "        4        ColorMania";
+        echo "        5        SE-ColorMaker";
+        echo "    mulitools";
+        echo "        6        PicPick";
+        echo "    validation";
+        echo "        7        Colour Contrast Analyzer" && echo;
+    }
+
+    case "$1" in
+        1)  cmds "$(wslpath -w ${local})\pc\apps\file management\media\images\Instant-eyedropper" instanteyedropper.exe; ;;
+        2)  cmds "$(wslpath -w ${local})\pc\apps\suites\symenu\ProgramFiles\SPSSuite\SyMenuSuite\Just_Color_Picker_sps" jcpicker.exe; ;;
+        3)  cmds "$(wslpath -w ${local})\pc\apps\suites\symenu\ProgramFiles\SPSSuite\SyMenuSuite\AS-Hex_Color_sps" AS-HEX-COLOR.EXE; ;;
+        4)  cmds "$(wslpath -w ${local})\pc\apps\suites\symenu\ProgramFiles\SPSSuite\SyMenuSuite\ColorMania_sps" ColorManiaPortable.exe; ;;
+        5)  cmds "$(wslpath -w ${local})\pc\apps\suites\symenu\ProgramFiles\SPSSuite\SyMenuSuite\SE-ColorMaker_sps" SE-ColorMaker.exe; ;;
+        6)  cmds "$(wslpath -w ${local})\pc\apps\suites\portableapps.com\PortableApps\PicPickPortable" PicPickPortable.exe; ;;
+        7)  cmds "$(wslpath -w ${local})\pc\apps\suites\portableapps.com\PortableApps\ColourContrastAnalyserPortable" ColourContrastAnalyserPortable.exe; ;;
+        "") cmds "$(wslpath -w ${local})\pc\apps\file management\media\images\Instant-eyedropper" instanteyedropper.exe; ;;
+        *)                  help; ;;
+    esac;
+
+    unset help;
+}
+
+#-------------------------------------------------------------------------------
+
+qrcode() {
+    cmds "$(wslpath -w ${local})\pc\apps\file management\conversion\qrcodegen" QRCodeGen.jar
+    # cat /mnt/d/~temp/test.txt | qrencode -o address.png -s 10 -l L -d 100
+}
+
+#-------------------------------------------------------------------------------
+
+ydl() {
+    # TODO: add audio only option
+    # TODO: add playlist option
+
+    # # Download Youtube playlist in a folder and indexing videos using youtube-dl
+    # alias youtube-dl-playlist="youtube-dl --ignore-errors --output '%(playlist)s/%(playlist_index)s- %(title)s.%(ext)s'"
+
+    # --config-location PATH
+    # --write-info-json
+    # --write-annotations
+
+    # # the best .mp4 video with fps < 60
+    # youtube-dl -f 'bestvideo[fps!=60]+bestaudio/best[ext=mp4]/best' -o '%(title)s.%(ext)s'
+
+    # # the best .mp4 video with fps < 60 with en subs
+    # youtube-dl -f 'bestvideo[fps!=60]+bestaudio/best[ext=mp4]/best' -o '%(title)s.%(ext)s' --restrict-filenames --write-sub --sub-format 'ass/srt/best' --sub-lang en
+
+    help() {
+        clear && echo && echo "DESCRIPTION";
+        echo "        ydl - youtube-dl video downloader" && echo;
+        echo "USAGE";
+        echo "        ydl URL";
+        echo "        ydl [OPTION] URL" && echo;
+        echo "OPTIONS";
+        echo "        s   download en subs";
+        echo "        l   List all available formats of requested videos";
+        echo "        u   update" && echo;
+    }
+
+    cmd() {
+        youtube-dl -f '(bestvideo[ext=mp4])[fps!=60]+bestaudio[ext=m4a]/mp4' -o '%(title)s/%(title)s.%(ext)s' --write-description "$@";
+    }
+
+    local re='https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/=]*)';
+    local input="$1";
+    shift 1;
+
+    if [[ ${input} =~ $re ]]; then
+        cmd "${input}";
+    else
+        case "${input}" in
+            s)
+                if [[ $1 =~ $re ]]; then
+                    cmd --write-sub --sub-format 'ass/srt/best' --sub-lang en "$1";
+                else
+                    echo "Invalid url" && echo;
+                fi; ;;
+            u)  sudo -H pip install --upgrade youtube-dl; ;;
+            l)  youtube-dl -F "$1"; ;;
+            *)  help; ;;
+        esac;
+    fi;
+
+    unset help cmd;
+}
+
+#-------------------------------------------------------------------------------
+
 stclean() {
     local dirs=(
         "${local}/pc/.stversions"
@@ -2036,7 +2217,7 @@ stclean() {
         clear && echo && echo "DESCRIPTION"
         echo "        stclean - clean syncthing file versions" && echo
         echo "USAGE"
-        echo "        stclean" && echo
+        echo "        stclean [OPTION]" && echo
         echo "OPTIONS"
         echo "        p   pc"
         echo "        p   moblie"
@@ -2964,7 +3145,7 @@ apps() {
             58) cmds "D:\apps\suites\symenu\ProgramFiles\SPSSuite\SyMenuSuite\MKVToolNix_(x64)_sps" gMKVExtractGUI.exe && clear ;;
             59) cmds "D:\apps\suites\symenu\ProgramFiles\SPSSuite\SyMenuSuite\MKVToolNix_(x64)_sps" mkvtoolnix-gui.exe && clear ;;
             60) cmds "D:\apps\suites\portableapps.com\PortableApps\OBSPortable" OBSPortable.exe && clear ;;
-            61) cmds "D:\apps\suites\symenu\ProgramFiles\SPSSuite\SyMenuSuite\Everything_(x64)_sps" Everything.exe && clear ;;
+            61) cmds "$(wslpath -w ${local})\pc\apps\suites\symenu\ProgramFiles\SPSSuite\SyMenuSuite\Everything_(x64)_sps" Everything.exe && clear ;;
             62) cmds "D:\apps\file management\file-managers\MultiCommander_x64_Portable" MultiCommander.exe && clear ;;
             63) cmds "D:\apps\suites\portableapps.com\PortableApps\ProcessExplorerPortable" ProcessExplorerPortable.exe && clear ;;
             64) cmds "D:\apps\suites\symenu\ProgramFiles\SPSSuite\SyMenuSuite\RegSeeker_sps" RegSeeker.exe && clear ;;
@@ -3296,7 +3477,6 @@ apps() {
 #   -------------------------------
 
 radicalle() {
-
     radicale_backup () {
         local old=(
             "collections"
@@ -3348,12 +3528,18 @@ radicalle() {
         cd "$currpath"
     }
 
+    run() {
+        # python3 -m radicale --config ~/.config/radicale/config
+        python3 -m radicale --config  ${path_dots}/.config/radicale/config
+    }
+
     help() {
         clear && echo && echo "DESCRIPTION"
         echo "        radicalle - calDAV / cardDAV management" && echo
         echo "USAGE"
         echo "        radicalle [option]" && echo
         echo "OPTIONS"
+        echo "     0 | run                 run radicale server"
         echo "     1 | radicale_backup     backup radicale config"
         echo "     2 | radicale_restore    restore radicale config"
         echo "     3 | delete_cache        delete .Radicale.cache"
@@ -3373,6 +3559,7 @@ radicalle() {
 
         shift 1
         case $input in
+            0|run)               run ;;
             1|radicale_backup)   radicale_backup ;;
             2|radicale_restore)  radicale_restore ;;
             3|delete_cache)      delete_cache ;;
@@ -3390,6 +3577,7 @@ radicalle() {
         "radicale_restore"
         "dav_main"
         "delete_cache"
+        "run"
     )
 
     variables=(
@@ -3625,6 +3813,7 @@ openfile() {
         echo "        openfile [command] [file]" && echo
         echo "OPTIONS"
         echo "     -s                open with sublime"
+        echo "     -v                open with vscode"
         echo "     -d                open with default program"
         echo "     -h | help         show help" && echo
     }
@@ -3654,6 +3843,7 @@ openfile() {
 
     case $cmd in
         -s)         sublime $(wslpath -w $(pwd)/$input) ;;
+        -v)         code $(wslpath -w $(pwd)/$input) ;;
         -d)         explorer.exe $(wslpath -w $(pwd)/$input) ;;
         -h|help)    help ;;
         *)          "$cmd" $(wslpath -w $(pwd)/$input) ;;
