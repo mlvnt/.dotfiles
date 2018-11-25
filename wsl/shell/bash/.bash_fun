@@ -718,13 +718,26 @@ watchingd() {
 }
 
 lin() {
+    help() {
+        clear && echo && echo "DESCRIPTION";
+        echo "        lin - manage linkbox" && echo;
+        echo "USAGE";
+        echo "        lin [OPTION]" && echo;
+        echo "OPTIONS";
+        echo "        run     run links.py";
+        echo "        w       watch linkbox.txt for changes" && echo;
+    }
+
     pushd "$local/mobile/notebook/net/links"
     case $1 in
-        -r|run)  "${python_scripts}/web/links.py"; ;;
-        *)       ls
-                 watchingd . linkbox.txt "${python_scripts}/web/links.py"; ;;
-    esac
+        run)   "${python_scripts}/web/links.py"; ;;
+        ""|w)  ls
+               watchingd . linkbox.txt "${python_scripts}/web/links.py"; ;;
+        *) help ;;
+    esac;
     popd
+
+    unset help;
 }
 
 #-------------------------------------------------------------------------------
@@ -1993,21 +2006,82 @@ apkinstall() {
 
 #-------------------------------------------------------------------------------
 
-# removes old vscode extentions
 vscodeclean() {
-    local path="${python_scripts}/files";
-    pushd "${local}/pc/apps/development/editors/editors/vscode/data/extensions"
-    python3 $path/vscode.py;
-    popd
+    help() {
+        clear && echo && echo "DESCRIPTION";
+        echo "        vscodeclean - clean vscode cache" && echo;
+        echo "USAGE";
+        echo "        vscodeclean [OPTION]" && echo;
+        echo "OPTIONS";
+        echo "        local     clean local installation";
+        echo "        e         remove old extention updates" && echo;
+    }
+
+    if [[ $(currentdevice) == pc ]]; then
+        local home="home";
+    else
+        local home="shared";
+    fi;
+
+    local path="${local}/pc/config/development/editors/vscode/${home}"
+    local dirs=(
+        "Backups"
+        "Cache"
+        "CachedData"
+        "CachedExtensions"
+        "GPUCache"
+        "logs"
+        "User/workspaceStorage"
+    );
+
+    local files=(
+        "Cookies"
+        "Cookies-journal"
+        "languagepacks.json"
+        "Preferences"
+        "storage.json"
+    );
+
+    case $1 in
+        local)
+            for f in "${files[@]}"; do
+                rm ${path}/user-data/${f};
+            done;
+            for d in "${dirs[@]}"; do
+                rm -rfv ${path}/user-data/${d}/*;
+            done;
+            rm -rfv ${path}/tmp/*; ;;
+        ""|e)
+            local path="${python_scripts}/files";
+            pushd "${local}/pc/apps/development/editors/editors/vscode/data/extensions"
+            python3 $path/vscode.py;
+            popd ;;
+        *) help ;;
+    esac;
+
+    unset help;
 }
 
 #-------------------------------------------------------------------------------
 
 memory() {
+    help() {
+        clear && echo && echo "DESCRIPTION";
+        echo "        memory - manage memory index" && echo;
+        echo "USAGE";
+        echo "        memory [OPTION]" && echo;
+        echo "OPTIONS";
+        echo "        run     generate index.html";
+        echo "        open    open index.html" && echo;
+    }
+
     case $1 in
-        -r|run)  "${python_scripts}/files/memory.py" ;;
-        *)       o "$(wslpath -w $local)\pc\docs\lists\memory\index.html" ;;
-    esac
+        run)      "${python_scripts}/files/memory.py" ;;
+        ""|open)  o "$(wslpath -w $local)\pc\docs\lists\memory\index.html" ;;
+        *) help ;;
+    esac;
+
+    unset help;
 }
 
 #-------------------------------------------------------------------------------
@@ -2087,7 +2161,7 @@ weather() {
                 else
                     echo "Invalid city" && echo;
                 fi; ;;
-            a)  cmd; ;;
+            a|"")  cmd; ;;
             *)  help; ;;
         esac;
     fi;
@@ -2098,8 +2172,8 @@ weather() {
 #-------------------------------------------------------------------------------
 
 ahk() {
-    local p="$(wslpath -w $(pwd))"
-    cmds "$(wslpath -w ${local})\pc\apps\suites\symenu\ProgramFiles\SPSSuite\SyMenuSuite\AutoHotkey_Compiler_sps" AutoHotkeyU64.exe "$p"/"$1"
+    local p="$(wslpath -w $(pwd))";
+    cmds "$(wslpath -w ${local})\pc\apps\suites\symenu\ProgramFiles\SPSSuite\SyMenuSuite\AutoHotkey_Compiler_sps" AutoHotkeyU64.exe "$p"/"$1";
 }
 
 #-------------------------------------------------------------------------------
@@ -2142,7 +2216,7 @@ color() {
 #-------------------------------------------------------------------------------
 
 qrcode() {
-    cmds "$(wslpath -w ${local})\pc\apps\file management\conversion\qrcodegen" QRCodeGen.jar
+    cmds "$(wslpath -w ${local})\pc\apps\file management\conversion\qrcodegen" QRCodeGen.jar;
     # cat /mnt/d/~temp/test.txt | qrencode -o address.png -s 10 -l L -d 100
 }
 
@@ -2207,12 +2281,6 @@ ydl() {
 #-------------------------------------------------------------------------------
 
 stclean() {
-    local dirs=(
-        "${local}/pc/.stversions"
-        "${local}/mobile/.stversions"
-        "${local}/ereader/.stversions"
-    );
-
     help() {
         clear && echo && echo "DESCRIPTION"
         echo "        stclean - clean syncthing file versions" && echo
@@ -2224,6 +2292,12 @@ stclean() {
         echo "        e   ereader"
         echo "        a   all" && echo
     }
+
+    local dirs=(
+        "${local}/pc/.stversions"
+        "${local}/mobile/.stversions"
+        "${local}/ereader/.stversions"
+    );
 
     case "$1" in
         p) rm -rfv "${dirs[0]}"/* && clear; ;;
@@ -2683,20 +2757,21 @@ blog() {
 
     case $input in
         1|goto)  cd "$blogpath" ;;
-        2|run)  cd "$blogpath" && hugos ;;
+        2|run)   cd "$blogpath" && chrome "http://localhost:1313";
+                 hugos ;;
         3|server)  rm -rfv "$bakedpath" && mkdir -p -v "$bakedpath"
-            cd "$blogpath" && hugo
-            cd "$bakedpath" && caddy ;;
+                   cd "$blogpath" && hugo
+                   cd "$bakedpath" && caddy ;;
         4|bake)  rm -rfv "$bakedpath" && mkdir -p -v "$bakedpath"
-            cd "$blogpath" && hugo
-            rm -rfv "$bakedpath/tags" "$bakedpath/categories";;
+                 cd "$blogpath" && hugo
+                 rm -rfv "$bakedpath/tags" "$bakedpath/categories";;
         5|new)  clear && echo
-            tpe
-            clear && echo "$t"
-            echo && tree "$content/$path" && echo
-            read -e -p "  post name? " post
-            cd "$blogpath" && echo && hugo new $path/$post$ext -k $t && echo
-            sublime "$contents/$path/$post$ext" ;;
+                tpe
+                clear && echo "$t"
+                echo && tree "$content/$path" && echo
+                read -e -p "  post name? " post
+                cd "$blogpath" && echo && hugo new $path/$post$ext -k $t && echo
+                sublime "$contents/$path/$post$ext" ;;
         6)  cd "$gamespath" ;;
         7)  cd "$gamespath" && caddy ;;
         8)  # rsync -a ~/testfile todorov@mlvnt.com:~/
