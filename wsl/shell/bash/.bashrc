@@ -19,6 +19,22 @@ echo $sessions | grep -qw wkse || tmux_workspace;
 #   TWEAKS
 #   -------------------------------
 
+# Fix dpkg update error
+# fix() {
+#     echo -e '#!/bin/sh\ncase "$1" in\n    udev|systemd-logind) exit 101;;\nesac' | sudo tee -a /usr/sbin/policy-rc.d 1>/dev/null;
+#     sudo chmod +x /usr/sbin/policy-rc.d;
+#     sudo dpkg-divert --local --rename --add /sbin/initctl;
+#     sudo ln -s /bin/true /sbin/initctl;
+# }
+# fix
+
+# Fix mkdir command has wrong permissions
+if grep -q Microsoft /proc/version; then
+    if [ "$(umask)" == '0000' ]; then
+        umask 0022
+    fi
+fi
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;

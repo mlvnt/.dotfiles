@@ -2688,7 +2688,7 @@ blog() {
     blogpath="$local/pc/projects/blog/mlvnt.com/mvlnt"
     content="$local/pc/projects/blog/mlvnt.com/mlvnt/content"
     contents="$(wslpath -w $local)\pc\projects\blog\mlvnt.com\mlvnt\content"
-    bakedpath="$local/pc/projects/blog/mlvnt.com/public_html"
+    buildpath="$local/pc/projects/blog/mlvnt.com/public_html"
     filezilladir="$aps\suites\portableapps.com\PortableApps\FileZillaPortable"
     ext=".md"
 
@@ -2701,7 +2701,7 @@ blog() {
         echo    '           1  | goto   | Go to'
         echo    '           2  | run    | Run'
         echo    '           3  | server | Run on Web Server'
-        echo    '           4  | bake   | Clean Bake'
+        echo    '           4  | build  | Clean build'
         echo    '           5  | new    | New Post'
         echo    '       Game Site:'
         echo    '           6  | Go to'
@@ -2759,21 +2759,25 @@ blog() {
         1|goto)  cd "$blogpath" ;;
         2|run)   cd "$blogpath" && chrome "http://localhost:1313";
                  hugos ;;
-        3|server)  rm -rfv "$bakedpath" && mkdir -p -v "$bakedpath"
-                   cd "$blogpath" && hugo
-                   cd "$bakedpath" && caddy ;;
-        4|bake)  rm -rfv "$bakedpath" && mkdir -p -v "$bakedpath"
-                 cd "$blogpath" && hugo
-                 rm -rfv "$bakedpath/tags" "$bakedpath/categories";;
+        3|server)  rm -rfv "$buildpath" && mkdir -p -v "$buildpath"
+                   pushd "$blogpath" && hugo && popd
+                   pushd "$buildpath" && chrome "http://localhost:2015";
+                   caddy && popd ;;
+        4|build)  rm -rfv "$buildpath" && mkdir -p -v "$buildpath"
+                  pushd "$blogpath" && hugo && popd
+                  rm -rfv "$buildpath/tags" "$buildpath/categories";;
         5|new)  clear && echo
                 tpe
                 clear && echo "$t"
                 echo && tree "$content/$path" && echo
                 read -e -p "  post name? " post
-                cd "$blogpath" && echo && hugo new $path/$post$ext -k $t && echo
-                sublime "$contents/$path/$post$ext" ;;
+                pushd "$blogpath" && echo && hugo new $path/$post$ext -k $t && echo
+                vscode "$contents/$path/$post$ext" && popd; ;;
         6)  cd "$gamespath" ;;
-        7)  cd "$gamespath" && caddy ;;
+        7)  pushd "$gamespath"
+            chrome "http://localhost:2015";
+            caddy
+            popd ;;
         8)  # rsync -a ~/testfile todorov@mlvnt.com:~/
             ;;
         9)  cmds "$filezilladir" FileZillaPortable.exe ;;
@@ -2794,7 +2798,7 @@ blog() {
         "blogpath"
         "content"
         "contents"
-        "bakedpath"
+        "buildpath"
         "filezilladir"
         "ext"
     )

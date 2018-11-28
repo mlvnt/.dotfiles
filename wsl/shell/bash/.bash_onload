@@ -108,7 +108,6 @@ tmux_workspace() {
     tmux split-window -v -p 50;
     tmux resize-pane -Z -t 2.0;
 
-
     if [[ $(currentdevice) == pc ]]; then
         tmux new-window -n 'todo' \; split-window \; split-window \;
         echo ${tasks} | grep -qw 'MyBot.run' || tmux send-keys -t 3.0 'coc' Enter;
@@ -127,6 +126,7 @@ tmux_workspace() {
     fi;
 
     tmux select-window -t 1;
+    tmux send-keys -t 1.1 'update' Enter;
     # tmux send-keys -t 1.0 'neofetch' Enter;
     # tmux send-keys -t 2.0 'fzf' Enter;
     # tmux select-pane -t 0;

@@ -130,6 +130,7 @@ appz=(
     "knockd"
     "vpnc"
     "keepalived"
+    # "hugo"
 # ------------- stats
     # "screenfetch"
     "inxi"
@@ -682,8 +683,9 @@ echo $pipFreeze | grep -qw powerline && printf '\n            powerline is alrea
 
 printf '\n      >>> Installing hugo....\n'
 hugoss() {
-    name='hugo_0.51_Linux-64bit.deb'
-    wget https://github.com/gohugoio/hugo/releases/download/v0.51/"$name"
+    version='0.51'
+    name="hugo_extended_${version}_Linux-64bit.deb"
+    wget https://github.com/gohugoio/hugo/releases/download/v"${version}"/"$name"
     sudo apt-get install ./"$name" && mv -v "$name" ~/software/
 }
 
@@ -693,8 +695,9 @@ hugoss() {
 
 printf '\n      >>> Installing caddy....\n'
 caddys() {
-    name='caddy_v0.11.1_linux_amd64.tar.gz'
-    wget https://github.com/mholt/caddy/releases/download/v0.11.1/"$name"
+    version='0.11.1'
+    name="caddy_v${version}_linux_amd64.tar.gz"
+    wget https://github.com/mholt/caddy/releases/download/v"${version}"/"$name"
     tar -xzvf "$name" caddy
     sudo mv -v ./caddy /usr/local/bin && mv -v "$name" ~/software/
 }

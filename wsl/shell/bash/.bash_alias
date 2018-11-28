@@ -140,7 +140,11 @@ alias e=exit
 alias sudo='sudo '
 alias htop='sudo htop'
 alias kill='kill -9'
-alias update='yes Y | sudo apt-get update && yes Y | sudo apt-get upgrade'
+update() {
+    yes Y | sudo apt-get update;
+    yes Y | sudo apt-get upgrade;
+    yes Y | sudo apt-get autoremove;
+}
 alias upgrade='sudo do-release-upgrade'
 alias fixinstall='sudo apt-get -f install'
 
