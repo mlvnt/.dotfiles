@@ -1,31 +1,39 @@
 #!/bin/bash
-#   -------------------------------
-#   DIRECTORIES
-#   -------------------------------
 
-# LS, DIR, Tree
+# ┏━┓╻  ╻┏━┓┏━┓┏━╸┏━┓
+# ┣━┫┃  ┃┣━┫┗━┓┣╸ ┗━┓
+# ╹ ╹┗━╸╹╹ ╹┗━┛┗━╸┗━┛
+
+#█▓▒░ directories - ls, dir, trer
+
 # default ls aliases
 # alias ll='ls -alF'
 # alias la='ls -A'
 # alias l='ls -CF'
-# alias ls='pwd && ls -GFshl --group-directories-first --color=auto'
 alias ls='ls -GFshl --group-directories-first --color=auto'
-alias ll='ls -GFAshlp'
-alias l='ls -GFACsh'
+alias ll='ls -GFAshlp --color=auto'
+alias l='ls -GFACsh --color=auto'
 alias dir='dir -A --color=auto'
 alias dirl='dir -AN1'
-alias tree='tree -aF'
-alias treei='tree -ahpuF'
+# Tree
+if [ ! -x "$(which tree 2>/dev/null)" ]; then
+    alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
+else
+    alias tree='tree -aF'
+    alias treei='tree -ahpuF'
+fi
+
 # alias path="pwd"
 
 # CD
-alias cd..='cd ../'                   # Go back 1 directory level
-alias ..='cd ../'                     # Go back 1 directory level
-alias ...='cd ../../'                 # Go back 2 directory levels
-alias .3='cd ../../../'               # Go back 3 directory levels
-alias .4='cd ../../../../'            # Go back 4 directory levels
-alias .5='cd ../../../../../'         # Go back 5 directory levels
-alias .6='cd ../../../../../../'      # Go back 6 directory levels
+alias up="cd ../"
+alias cd..='cd ../'
+alias ..='cd ../'
+alias ...='cd ../../'
+alias .3='cd ../../../'
+alias .4='cd ../../../../'
+alias .5='cd ../../../../../'
+alias .6='cd ../../../../../../'
 
 # SHORTCUTS
 alias d="cd /mnt/d"
@@ -46,7 +54,7 @@ alias down="cd ${winhl}/Downloads"
 alias docs="cd ${winhl}/Documents"
 # Print each PATH entry on a separate line
 alias pathenv='echo -e ${PATH//:/\\n}'
-alias mapsme="cd ${local}/mobile/config/travel/MAPS.\ ME"
+alias mapsme="cd ${local}/mobile/config/travel/maps.me"
 alias scripts="cd ${local}/pc/projects/scripts"
 alias symblinks="~/.dotfiles/wsl/symblinks.sh"
 alias ownall="sudo chown -R $USER:$USER ~/.* &> /dev/null"
@@ -73,8 +81,9 @@ alias tarbackup='tar -zcvf "backup-$(date "+%Y-%m-%d-%H-%M").tar.gz"'
 
 # RM, CP, MV, MKDIR, CHMOD
 alias rm="rm -v"
-alias cp='cp -iva'
-alias cpd='cp -ri'
+alias rmrf="rm -rf"
+alias cp='cp -rva'
+alias scp="scp -r"
 alias mv='mv -iv'
 alias mkdir='mkdir -pv'
 alias chmod='chmod -v'
@@ -134,11 +143,46 @@ alias logsc="rm ~/software/install_logs/*.txt"
 alias ram='free -ht'
 alias stats="echo '' && inxi -xxx && echo '' && free -ht && echo ''"
 alias distro="echo '' && uname -a && echo '' && lsb_release -a && echo ''"
-alias e=exit
+alias e="exit"
+alias q="exit"
+alias c='clear'
+alias k='clear'
+alias cls='clear'
 
-# Enable aliases to be sudo’ed
+disks() {
+    echo "╓───── m o u n t . p o i n t s";
+    echo "╙────────────────────────────────────── ─ ─ "; lsblk -a;
+    echo "";
+    echo "╓───── d i s k . u s a g e";
+    echo "╙────────────────────────────────────── ─ ─ "; df -h;
+}
+alias psef="ps -ef"
+alias record="ffmpeg -f x11grab -s 1366x768 -an -r 16 -loglevel quiet -i :0.0 -b:v 5M -y" #pass a filename
+
+# Ascii
+toiletlist() {
+    unalias toilet;
+    for i in ${TOILET_FONT_PATH:=/usr/share/figlet}/*.{t,f}lf; do
+        j=${i##*/};
+        echo "";
+        echo "╓───── "$j;
+        echo "╙────────────────────────────────────── ─ ─ ";
+        echo ""; toilet -d "${i%/*}" -f "$j" "${j%.*}";
+    done;
+    alias toilet="toilet -t -d ${ffont}"
+}
+alias figlet="figlet -t -d ${ffont}"
+alias toilet="toilet -t -d ${ffont}"
+alias ascii="toilet -f 3d"
+alias future="toilet -f future"
+alias rusto="toilet -f rusto"
+alias rustofat="toilet -f rustofat"
+alias matrix="cmatrix"
+alias lol="base64 </dev/urandom | lolcat"
+
+# Enable aliases to be sudo'ed
 alias sudo='sudo '
-alias htop='sudo htop'
+# alias htop='sudo htop'
 alias kill='kill -9'
 update() {
     yes Y | sudo apt-get update;
@@ -147,14 +191,21 @@ update() {
 }
 alias upgrade='sudo do-release-upgrade'
 alias fixinstall='sudo apt-get -f install'
+alias pacman="sudo pacman"
+alias update="pacman-colors && yaourt -Syua"
+alias systemctl="sudo systemctl"
+
+if which gshuf &> /dev/null; then
+  alias shuf=gshuf
+fi
 
 # EDITORS
 alias v='vim'
-alias c='clear'
 alias jupyter='sudo jupyter notebook --allow-root'
 alias edit='sudo subl'
 alias subl='sudo subl'
 alias vim='sudo vim'
+alias pager="$PAGER"
 
 # Get week number
 alias week='date +%V'
@@ -183,7 +234,11 @@ alias hostse='$EDITOR /etc/hosts'
 # BLOG
 alias server="ssh todorov@mlvnt.com"
 alias hugos="hugo server -w -v --disableFastRender --bind=0.0.0.0"
-alias caddy="ulimit -n 8192 && caddy -conf ~/.dotfiles/wsl/net/caddyfile"
+caddy() {
+    unset caddy
+    chrome "http://localhost:2015";
+    ulimit -n 8192 && caddy -conf ~/.dotfiles/wsl/net/caddyfile;
+}
 alias caddyconf="sudo nano /etc/caddy/caddyfile"
 
 # Copy my public key to the pasteboard
@@ -228,6 +283,16 @@ alias msql='sudo mysql -p'
 alias sshpi='ssh pi@192.168.137.2'
 alias pingpi='cmd.exe /c ping -4 raspberrypi.local'
 
+uuid() {
+    local id=$(python3 -c "import uuid; print(str(uuid.uuid4()))");
+    echo ${id};
+    echo ${id} | clip.exe;
+}
+alias urlencode='python3 -c "import sys; from urllib.parse import quote; \
+                    print(quote(sys.argv[1]))" | clip.exe'
+alias urldecode='python3 -c "import sys; from urllib.parse import unquote; \
+                    print(unquote(sys.argv[1]))" | clip.exe'
+
 #   -------------------------------
 #   GIT
 #   -------------------------------
@@ -263,6 +328,8 @@ alias gbl='git blame'
 #   TMUX
 #   -------------------------------
 
+# make sure that tmux is launched in 256 color mode
+alias tmux="TERM=xterm-256color tmux"
 alias tw='tmux new -s workspace'
 alias tn='tmux new -s'
 alias tk='tmux kill-session -t'
@@ -312,12 +379,12 @@ alias wslpath="~/bin/wslpath"
 
 alias vpn="cmds 'C:\Program Files (x86)\PureVPN' purevpn.exe"
 alias vm="cmds 'C:\Program Files\Oracle\VirtualBox' VirtualBox.exe"
-alias memu="cmds 'C:\Program Files\Microvirt\MEmu' MEmuConsole.exe MEmu"
+alias memu="explorer.exe 'C:\Program Files\Microvirt\MEmu\MEmu.exe'"
+# alias memu="cmds 'C:\Program Files\Microvirt\MEmu' MEmuConsole.exe MEmu"
 alias photoshop="cmds 'C:\Program Files\Adobe\Adobe Photoshop CC 2017' Photoshop.exe"
 alias aimp="cmds 'C:\Program Files (x86)\AIMP' AIMP.exe"
 alias vlc="cmds 'C:\Program Files\VideoLAN\VLC' vlc.exe"
 alias 4k="cmds 'C:\Program Files (x86)\4KDownload\4kvideodownloader' 4kvideodownloader.exe"
-alias chrome="cmds 'C:\Program Files (x86)\Google\Chrome\Application' /MAX chrome.exe"
 alias excel="cmds 'C:\Program Files\Microsoft Office\Office16' /MAX EXCEL.EXE /x"
 alias ppoint="cmds 'C:\Program Files (x86)\Microsoft Office\Root\Office16'  /MAX POWERPNT.EXE /B"
 
@@ -325,6 +392,9 @@ alias mail="cmds '${aps}\suites\portableapps.com\PortableApps\ThunderbirdPortabl
 alias torrent="cmds '${aps}\suites\portableapps.com\PortableApps\qBittorrentPortable' qBittorrentPortable.exe"
 alias enpass="cmds '${aps}\net\security\EnpassPortable_5_6_9\Windows' EnpassPortable.exe"
 alias firefox="cmds 'D:\apps\suites\portableapps.com\PortableApps\FirefoxPortable' FirefoxPortable.exe"
+alias chrome="cmds 'C:\Program Files (x86)\Google\Chrome\Application' /MAX chrome.exe"
+# alias chromium-browser="sudo chromium-browser --no-sandbox"
+alias chromium="chromium-browser"
 alias taiga="cmds 'D:\apps\net\social\Taiga' Taiga.exe"
 alias gnucash="cmds '${aps}\suites\portableapps.com\PortableApps\GnuCashPortable' GnuCashPortable.exe"
 alias sublime="cmds '${aps}\development\editors\editors\sublime' sublime_text.exe"
@@ -385,7 +455,6 @@ alias remotes="cmds '${aps}\net\remote control\unified remote\server' RemoteServ
 alias texstudio="cmds '$(wslpath -w ${local})\pc\apps\productivity\office\TeX\texstudio' texstudio.exe"
 alias kdeconnect="cmds '$(wslpath -w ${local}/pc/apps/net/kdeconnect-kde-master-*/bin)' kdeconnect-indicator.exe"
 alias vnc="~/software/VNC-Viewer-6.17.1113-Linux-x64"
-# alias chromium-browser="sudo chromium-browser --no-sandbox"
 alias davmain="apps 3 4 4"
 alias bc="bc -l"
 alias adb="adb.exe"

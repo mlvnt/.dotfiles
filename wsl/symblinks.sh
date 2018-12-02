@@ -1,8 +1,10 @@
 #!/bin/bash
+
+# ┏━┓╻ ╻┏┳┓┏┓ ╻  ╻┏┓╻╻┏ ┏━┓
+# ┗━┓┗┳┛┃┃┃┣┻┓┃  ┃┃┗┫┣┻┓┗━┓
+# ┗━┛ ╹ ╹ ╹┗━┛┗━╸╹╹ ╹╹ ╹┗━┛
+
 # Inspired by https://github.com/holman/dotfiles
-#-------------------------------------------------------------------------------
-#------------------------ SETUP ------------------------------------------------
-#-------------------------------------------------------------------------------
 
 IGNORE=(
     ".git"
@@ -40,7 +42,7 @@ link_file() {
     local overwrite= backup= skip=
     local action=
 
-    if [ -f "$dst" -o -d "$dst" -o -L "$dst" ]
+    if [ -f "${dst}" -o -d "${dst}" -o -L "${dst}" ]
     then
 
         if [ "$overwrite_all" == "false" ] && \
@@ -48,15 +50,15 @@ link_file() {
                [ "$skip_all" == "false" ]
         then
 
-            local currentSrc="$(readlink $dst)"
+            local currentSrc="$(readlink ${dst})"
 
-            if [ "$currentSrc" == "$src" ]
+            if [ "$currentSrc" == "${src}" ]
             then
 
                 skip=true;
 
             else
-                user "File already exists: $dst ($(basename "$src")), \
+                user "File already exists: ${dst} ($(basename "${src}")), \
 what do you want to do?\n\
         [s]kip, [S]kip all, [o]verwrite, \
 [O]verwrite all, [b]ackup, [B]ackup all?"
@@ -90,19 +92,19 @@ what do you want to do?\n\
 
         if [ "$overwrite" == "true" ]
         then
-            rm -rf "$dst"
-            success "removed $dst"
+            rm -rf "${dst}"
+            success "removed ${dst}"
         fi
 
         if [ "$backup" == "true" ]
         then
-            mv "$dst" "${dst}.backup"
-            success "moved $dst to ${dst}.backup"
+            mv "${dst}" "${dst}.backup"
+            success "moved ${dst} to ${dst}.backup"
         fi
 
         if [ "$skip" == "true" ]
         then
-            success "skipped $src"
+            success "skipped ${src}"
         fi
     fi
 
@@ -120,12 +122,12 @@ install_dotfiles() {
 
     for src in $(find "$DOTFILES_ROOT" -mindepth 1 -maxdepth 1)
     do
-        if [[ "${IGNORE[@]}" =~ "$(basename $src)" ]]
+        if [[ "${IGNORE[@]}" =~ "$(basename ${src})" ]]
         then
             continue
         fi
-        dst="$HOME/.$(basename "$src")"
-        link_file "$src" "$dst"
+        dst="$HOME/.$(basename "${src}")"
+        link_file "${src}" "${dst}"
     done
 }
 
@@ -137,61 +139,61 @@ install_bin() {
     info 'installing bin'
     local overwrite_all=true backup_all=false skip_all=false
     src="$DOTFILES_ROOT/bin"
-    dst="$HOME/$(basename "$src")"
-    link_file "$src" "$dst"
+    dst="$HOME/$(basename "${src}")"
+    link_file "${src}" "${dst}"
 }
 
 install_config() {
     info 'installing config'
     local overwrite_all=true backup_all=false skip_all=false
     src="$DOTFILES_ROOT/.config"
-    dst="$HOME/$(basename "$src")"
-    link_file "$src" "$dst"
+    dst="$HOME/$(basename "${src}")"
+    link_file "${src}" "${dst}"
 }
 
 install_dir_colors() {
     info 'installing dir_colors'
     local overwrite_all=true backup_all=false skip_all=false
     src="$DOTFILES_ROOT/theming/.dir_colors"
-    dst="$HOME/$(basename "$src")"
-    link_file "$src" "$dst"
+    dst="$HOME/$(basename "${src}")"
+    link_file "${src}" "${dst}"
 }
 
 install_fonts() {
     info 'installing fonts'
     local overwrite_all=true backup_all=false skip_all=false
     src="$DOTFILES_ROOT/theming/.fonts"
-    dst="$HOME/$(basename "$src")"
-    link_file "$src" "$dst"
+    dst="$HOME/$(basename "${src}")"
+    link_file "${src}" "${dst}"
 }
 
 install_local() {
     info 'installing local'
     local overwrite_all=true backup_all=false skip_all=false
     src="$DOTFILES_ROOT/.local"
-    dst="$HOME/$(basename "$src")"
-    link_file "$src" "$dst"
+    dst="$HOME/$(basename "${src}")"
+    link_file "${src}" "${dst}"
 }
 
 install_nano() {
     info 'installing nano'
     local overwrite_all=true backup_all=false skip_all=false
     src="$DOTFILES_ROOT/editors/.nano"
-    dst="$HOME/$(basename "$src")"
-    link_file "$src" "$dst"
+    dst="$HOME/$(basename "${src}")"
+    link_file "${src}" "${dst}"
 }
 
 install_vim() {
     info 'installing vim'
     local overwrite_all=true backup_all=false skip_all=false
 
-    src="$DOTFILES_ROOT/editors/.vim"
-    dst="$HOME/$(basename "$src")"
-    link_file "$src" "$dst"
+    src="$DOTFILES_ROOT/editors/vim/.vim"
+    dst="$HOME/$(basename "${src}")"
+    link_file "${src}" "${dst}"
 
-    src="$DOTFILES_ROOT/editors/.vimrc"
-    dst="$HOME/$(basename "$src")"
-    link_file "$src" "$dst"
+    src="$DOTFILES_ROOT/editors/vim/.vimrc"
+    dst="$HOME/$(basename "${src}")"
+    link_file "${src}" "${dst}"
 }
 
 install_bash() {
@@ -213,8 +215,8 @@ install_bash() {
 
     for i in "${source[@]}"; do
         src="$DOTFILES_ROOT/shell/bash/.$i";
-        dst="$HOME/$(basename "$src")";
-        link_file "$src" "$dst";
+        dst="$HOME/$(basename "${src}")";
+        link_file "${src}" "${dst}";
     done;
 }
 
@@ -223,33 +225,33 @@ install_zsh() {
     local overwrite_all=true backup_all=false skip_all=false
 
     src="$DOTFILES_ROOT/shell/zsh/.oh-my-zsh"
-    dst="$HOME/$(basename "$src")"
-    link_file "$src" "$dst"
+    dst="$HOME/$(basename "${src}")"
+    link_file "${src}" "${dst}"
 
     src="$DOTFILES_ROOT/shell/zsh/.oh-my-zsh-custom"
-    dst="$HOME/$(basename "$src")"
-    link_file "$src" "$dst"
+    dst="$HOME/$(basename "${src}")"
+    link_file "${src}" "${dst}"
 
     src="$DOTFILES_ROOT/shell/zsh/.zshrc"
-    dst="$HOME/$(basename "$src")"
-    link_file "$src" "$dst"
+    dst="$HOME/$(basename "${src}")"
+    link_file "${src}" "${dst}"
 }
 
 install_git() {
     info 'installing git'
     local overwrite_all=true backup_all=false skip_all=false
 
-    src="$DOTFILES_ROOT/git/.gitconfig"
-    dst="$HOME/$(basename "$src")"
-    link_file "$src" "$dst"
+    src="$DOTFILES_ROOT/files/git/.gitconfig"
+    dst="$HOME/$(basename "${src}")"
+    link_file "${src}" "${dst}"
 }
 
 # install_emacs() {
 #     info 'installing emacs'
 #     local overwrite_all=true backup_all=false skip_all=false
 #     src="$DOTFILES_ROOT/editors/.emacs"
-#     dst="$HOME/$(basename "$src")"
-#     link_file "$src" "$dst"
+#     dst="$HOME/$(basename "${src}")"
+#     link_file "${src}" "${dst}"
 # }
 
 install_tmux() {
@@ -257,28 +259,28 @@ install_tmux() {
     local overwrite_all=true backup_all=false skip_all=false
 
     src="$DOTFILES_ROOT/tmux/.tmux.conf"
-    dst="$HOME/$(basename "$src")"
-    link_file "$src" "$dst"
+    dst="$HOME/$(basename "${src}")"
+    link_file "${src}" "${dst}"
 
     src="$DOTFILES_ROOT/tmux/.tmuxcolors.conf"
-    dst="$HOME/$(basename "$src")"
-    link_file "$src" "$dst"
+    dst="$HOME/$(basename "${src}")"
+    link_file "${src}" "${dst}"
 }
 
 # install_curl() {
 #     info 'installing curl'
 #     local overwrite_all=true backup_all=false skip_all=false
 #     src="$DOTFILES_ROOT/net/.curlrc"
-#     dst="$HOME/$(basename "$src")"
-#     link_file "$src" "$dst"
+#     dst="$HOME/$(basename "${src}")"
+#     link_file "${src}" "${dst}"
 # }
 
 # install_wget() {
 #     info 'installing wget'
 #     local overwrite_all=true backup_all=false skip_all=false
 #     src="$DOTFILES_ROOT/net/.wgetrc"
-#     dst="$HOME/$(basename "$src")"
-#     link_file "$src" "$dst"
+#     dst="$HOME/$(basename "${src}")"
+#     link_file "${src}" "${dst}"
 # }
 
 install_fzf() {
@@ -286,54 +288,44 @@ install_fzf() {
     local overwrite_all=true backup_all=false skip_all=false
 
     src="$DOTFILES_ROOT/theming/fzf/.fzf.bash"
-    dst="$HOME/$(basename "$src")"
-    link_file "$src" "$dst"
+    dst="$HOME/$(basename "${src}")"
+    link_file "${src}" "${dst}"
 
     src="$DOTFILES_ROOT/theming/fzf/.fzf.zsh"
-    dst="$HOME/$(basename "$src")"
-    link_file "$src" "$dst"
+    dst="$HOME/$(basename "${src}")"
+    link_file "${src}" "${dst}"
 }
 
 printf "\n      Runtime: $(date) @ $(hostname)\n\n"
 printf '\n      Setting up symbolic links....\n\n'
 
-install_dotfiles
-echo ''
-install_bin
-echo ''
-install_dir_colors
-echo ''
-install_config
-echo ''
-install_zsh
-echo ''
-install_git
-echo ''
-install_local
-echo ''
-install_nano
-echo ''
-install_vim
-echo ''
-install_bash
-# echo ''
-# install_emacs
-echo ''
-install_tmux
-# echo ''
-# install_curl
-# echo ''
-# install_wget
-echo ''
-install_fzf
-
-echo ''
-echo '  All installed!'
+lst=(
+    "install_dotfiles"
+    "install_bin"
+    "install_dir_colors"
+    "install_fonts"
+    "install_config"
+    "install_zsh"
+    "install_git"
+    "install_local"
+    "install_nano"
+    "install_vim"
+    "install_bash"
+    # "install_emacs"
+    "install_tmux"
+    # "install_curl"
+    # "install_wget"
+    "install_fzf"
+);
 
 
-#   -------------------------------
-#   UNSET FUNCTONS & VARIABLES
-#   -------------------------------
+for l in "${lst[@]}"; do
+    l; echo '';
+done;
+
+echo '  All installed!';
+
+#█▓▒░ unset
 
 functions=(
     "info"
@@ -370,9 +362,8 @@ variables=(
     "skip_all"
     "src"
     "dst"
+    "lst"
 );
 
 unset -f "${functions[@]}";
 unset -v functions "${variables[@]}" variables;
-
-#-------------------------------------------------------------------------------

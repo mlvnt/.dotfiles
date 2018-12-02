@@ -97,13 +97,59 @@ filec() {
     unset -v functions "${variables[@]}" variables;
 }
 
+x() {
+    help() {
+        clear
+        echo -e '\n  Available Options:'
+        echo    '       x  | Exit'
+        echo -e '       b  | Go Back\n'
+        echo    '       1  | Launch xfce4 session'
+        echo    '       2  | Launch i3-wm session'
+        echo    '       3  | Load xserver in multi window mode'
+        echo -e '       4  | Create new xserver config\n'
+        read -e -p "  Enter Option: " input
+        echo
+    }
+
+    local path2="$(wslpath -w $HOME/.dotfiles/wsl/x11/vcxsrv)\\"
+    local path="C:\Program Files\VcXsrv"
+    local win32="C:\Windows\System32"
+
+    if [ -z ${input2} ]; then
+        help
+    else
+        local input=${input2}
+    fi
+
+    case ${input} in
+        1)
+            echo -e "\n Launching xfce4....\n----------------------------------"
+            cmds "${path}" /MAX "${path2}"configNormal.xlaunch
+            xfce4-session &>/dev/null & ;;
+            # cmds "$win32" bash.exe --login -c "sudo xfce4-session"
+            # sudo chown -v $USER ~/.ICEauthority
+        2)
+            echo -e "\n Launching i3-wm....\n----------------------------------"
+            cmds "${path}" /MAX "${path2}"configNormal.xlaunch
+            i3 &>/dev/null & ;;
+            # cmds "$win32" bash.exe --login -c "sudo i3"
+        3)
+            echo -e "\n Loading X Server in Multi Window mode....\n"
+            cmds "${path}" /MAX "${path2}"configMultiWindow.xlaunch ;;
+        4)  cmds "${path}" xlaunch.exe && clear  ;;
+        b)  linx ;;
+        x)  : && clear ;;
+        *)  x ;;
+    esac;
+}
+
 linx() {
     help() {
         clear
         echo -e '\n  Available Options:'
         echo    '       x  | Exit'
         echo -e '       b  | Go Back\n'
-        echo    "    1  | xsession            | Launch X Sessions"
+        echo    "    1  | x                   | Launch X Session"
         echo    "    2  | mkd                 | Create a New Directory and enter it"
         echo    "    3  | ssh_manage          | SSH Managemet"
         echo    "    4  | gpg_manage          | GPG Managemet"
@@ -118,50 +164,6 @@ linx() {
         input=$1
         input2=$2
     fi
-
-    xsession() {
-        help() {
-            clear
-            echo -e '\n  Available Options:'
-            echo    '       x  | Exit'
-            echo -e '       b  | Go Back\n'
-            echo    '       1  | Launch Xfce4 Session'
-            echo    '       2  | Launch i3-wm Session'
-            echo -e '       3  | Load X Server in Multi Window mode\n'
-            read -e -p "  Enter Option: " input
-            echo
-        }
-
-        path2="$(wslpath -w $HOME/.dotfiles/wsl/vcxsrv)\\"
-        path="C:\Program Files\VcXsrv"
-        win32="C:\Windows\System32"
-
-        if [ -z $input2 ]; then
-            help
-        else
-            input=$input2
-        fi
-
-        case $input in
-            1)
-                echo -e "\n Launching xfce4....\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-                cmds "$path" /MAX "$path2"configNormal.xlaunch
-                xfce4-session &>/dev/null & ;;
-                # cmds "$win32" bash.exe --login -c "sudo xfce4-session"
-                # sudo chown -v $USER ~/.ICEauthority
-            2)
-                echo -e "\n Launching i3-wm....\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-                cmds "$path" /MAX "$path2"configNormal.xlaunch
-                i3 &>/dev/null & ;;
-                # cmds "$win32" bash.exe --login -c "sudo i3"
-            3)
-                echo -e "\n Loading X Server in Multi Window mode....\n"
-                cmds "$path" /MAX "$path2"configMultiWindow.xlaunch ;;
-            b)  linx ;;
-            x)  : && clear ;;
-            *)  xsession ;;
-        esac
-    }
 
     ssh_manage() {
         help() {
@@ -445,7 +447,7 @@ linx() {
     }
 
     case $input in
-        1|xsession)    xsession ;;
+        1|x)           x ;;
         2|mkd)         mkd ;;
         3|ssh_manage)  ssh_manage ;;
         4|gpg_manage)  gpg_manage ;;
@@ -959,6 +961,10 @@ links() {
 #   MOVE, COPY
 #   -------------------------------
 
+backup() {
+
+}
+
 move() {
 
     # dotfilesdird="/mnt/d/shared/pc/projects/git/dotfiles/.dotfiles"
@@ -988,7 +994,7 @@ move() {
     # case $input in
     #     1)  main_backup
 
-    #         excludeddir="/mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/wsl/rsync/excluded"
+    #         excludeddir="/mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/wsl/files/rsync/excluded"
     #         drived="/mnt/d/"
     #         bakcupdire="/mnt/e/backup"
     #         logdir="/mnt/e/backup_logs/"
@@ -1000,7 +1006,7 @@ move() {
     #         ;;
     #     2)  mobile_backup
 
-    #         excludeddir="/mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/wsl/rsync/excluded_mobile"
+    #         excludeddir="/mnt/d/shared/pc/projects/git/dotfiles/.dotfiles/wsl/files/rsync/excluded_mobile"
     #         sdcard=""
     #         bakcupdire="/mnt/e/backup_mobile/"
     #         logdir="/mnt/e/backup_logs/"
@@ -1952,36 +1958,6 @@ mywork() {
 #-------------------------------------------------------------------------------
 
 #   -------------------------------
-#   MONEY BALANCE
-#   -------------------------------
-
-money() {
-    help() {
-        echo && echo "DESCRIPTION"
-        echo "        money - display bank balance" && echo
-        echo "USAGE"
-        echo "        money [OPTION]" && echo
-        echo "OPTIONS"
-        echo "     bg"
-        echo "     uk"
-        echo "     all"
-        echo "     h | help         show help" && echo
-    }
-
-    local path="${python_scripts}/personal/money";
-
-    case $1 in
-        bg)   clear && python3 $path/bg.py; ;;
-        uk)   clear && python3 $path/uk.py; ;;
-        all)  clear && python3 $path/bg.py && python3 $path/uk.py; ;;
-        *)   help; ;;
-    esac
-    unset -f help;
-}
-
-#-------------------------------------------------------------------------------
-
-#   -------------------------------
 #   SERIES
 #   -------------------------------
 
@@ -2002,6 +1978,24 @@ sortkml() {
 apkinstall() {
     local path="${python_scripts}/system/apkinstall";
     clear && python3 $path/apkinstall.py "$@";
+}
+
+#-------------------------------------------------------------------------------
+
+money() {
+    local path="${python_scripts}/personal/money";
+    for arg in "$@"; do
+        local x=${arg};
+        case ${x} in
+            -x) local r=True ;;
+        esac;
+    done;
+
+    if [[ -z $r ]]; then
+        clear && python3 ${path}/money.py "$@";
+    else
+        clear && xvfb-run --server-args='-screen 0 1280x1024x24' python3 ${path}/money.py "$@";
+    fi;
 }
 
 #-------------------------------------------------------------------------------
@@ -3625,6 +3619,7 @@ radicalle() {
         echo "     4 | dav_main            run DAV managemental"
         echo "     5 | local               goto local radicale"
         echo "     6 | remote              goto remote backup"
+        echo "     7 | update              update radicale"
         echo "     b                 go back"
         echo "     -h | help         show help" && echo
     }
@@ -3645,6 +3640,7 @@ radicalle() {
             4|davmain)           dav_main "$@"; ;;
             5|local)             cd $locl ;;
             6|remote)            cd $remote ;;
+            7|update)            sudo python3 -m pip install --upgrade radicale ;;
             b)  apps 3 ;;
             *)  help ;;
         esac
@@ -4192,7 +4188,7 @@ listall() {
     }
 
     case $1 in
-        -e)  env; ;;
+        -e)  env | sort; ;;
         -f)  declare -F; ;;
         -v)  declare -p | grep "declare -- " | sort; ;;
         -va) declare -p | sort; ;;

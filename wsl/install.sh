@@ -78,6 +78,15 @@ appz=(
     "djvulibre-bin"
     # "texlive-full"
     "ascii"
+    "asciio"
+    "figlet"
+    "toilet"
+    "fortune-mod"
+    "cowsay"
+    "jp2a"
+    "boxes"
+    "cmatrix"
+    "lolcat"
     "colordiff"
 # ------------- files
     "tar"
@@ -87,6 +96,8 @@ appz=(
     "luckybackup"
     "meld"
     "rsync"
+    "stow"
+    "jmtpfs"
 # ------------- net
     "curl"
     "wget"
@@ -94,6 +105,7 @@ appz=(
     "ipmiutil"
     "nmap"
     "sshpass"
+    "keychain"
     "scp"
     # "sshfs"
     "gpa"
@@ -131,6 +143,7 @@ appz=(
     "vpnc"
     "keepalived"
     # "hugo"
+    # "mutt"
 # ------------- stats
     # "screenfetch"
     "inxi"
@@ -163,6 +176,9 @@ appz=(
     "x11-apps"
     "xinit"
     "xdotool"
+    "xvfb"
+    "xserver-xorg-video-dummy"
+    "xpra"
     "most"
     "gnome-keyring"
     "lsof"
@@ -175,6 +191,8 @@ appz=(
     "zsh"
     "libnotify-bin"
     "dateutils"
+    "rlwrap"
+    # "uuid"
 # ---------------------------------------------------- gui
 # ------------- xfce4
     "xfce4"
@@ -188,7 +206,7 @@ appz=(
 # -------------
     "chromium-browser"
     "chromium-chromedriver"
-    # "firefox"
+    "firefox"
     # "filezilla"
     # "konsole"
     # "vlc"
@@ -241,6 +259,7 @@ modules=(
     "cryptography"
     "PyGnuplot"
     "pylint"
+    "mitmproxy"
 # ------------- SciPy
     "matplotlib"
     "numpy"
@@ -755,6 +774,12 @@ capyle() {
     # python3 ~/software/capyle/main.py
 }
 
+fishs() {
+    sudo apt-add-repository ppa:fish-shell/release-2
+    sudo apt-get update
+    sudo apt-get install fish
+}
+
 #   -------------------------------
 #   RUN FUNCTIONS
 #   -------------------------------
@@ -770,7 +795,7 @@ run_funct() {
     ls -al ~/ | grep -qw .fzf/ && printf '\n            It'\''s already installed.\n' || fzf_install
     ls ~/software | grep -qw ngrok && printf '\n            It'\''s already installed.\n' || ngrok_install
     ls ~/software | grep -qw $name_vnc && printf '\n            It'\''s already installed.\n' || realvnc_install
-    dpkg -l | grep -qw sublime-text && printf '\n            It'\''s already installed.\n' || sublime-texts
+    # dpkg -l | grep -qw sublime-text && printf '\n            It'\''s already installed.\n' || sublime-texts
     which trash | grep -qw trash && printf '\n            It'\''s already installed.\n' || trashs
     which heroku | grep -qw heroku && printf '\n            It'\''s already installed.\n' || heroku_install
     # vbox_install
@@ -780,6 +805,7 @@ run_funct() {
     # nusmv
     # isabelle
     # capyle
+    which fish | grep -qw fish && printf '\n            It'\''s already installed.\n' || fishs
 }
 run_funct
 

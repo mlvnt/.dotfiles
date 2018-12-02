@@ -35,7 +35,7 @@ install_prereq() {
 
     printf '\n      >>> Installing git....\n\n'
     dpkg -l | grep -qw git && printf '\n            It'\''s already installed.\n\n' || sudo apt-get install -yyq git
-    local gitdir=${local}/pc/projects/git/dotfiles/.dotfiles/wsl/git
+    local gitdir=${local}/pc/projects/git/dotfiles/.dotfiles/wsl/files/git
     sudo cp -v ${gitdir}/.git-credentials ${gitdir}/.gitconfig-local ${gitdir}/.gitconfig ~/
     sudo chown -Rv $USER:$USER ~/.git*
 }
