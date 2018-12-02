@@ -320,7 +320,7 @@ lst=(
 
 
 for l in "${lst[@]}"; do
-    l; echo '';
+    ${l}; echo '';
 done;
 
 echo '  All installed!';
