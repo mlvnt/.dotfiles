@@ -11,8 +11,8 @@
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
     # include .bashrc if it exists
-    if [ -f "~/.bashrc" ]; then
-	. "~/.bashrc"
+    if [ -f "$HOME/.bashrc" ]; then
+	. "$HOME/.bashrc"
     fi
-    . ~/.bash*
+    . $HOME/.bash*
 fi
