@@ -191,8 +191,8 @@ update() {
 }
 alias upgrade='sudo do-release-upgrade'
 alias fixinstall='sudo apt-get -f install'
-alias pacman="sudo pacman"
-alias update="pacman-colors && yaourt -Syua"
+# alias pacman="sudo pacman"
+# alias update="pacman-colors && yaourt -Syua"
 alias systemctl="sudo systemctl"
 
 if which gshuf &> /dev/null; then

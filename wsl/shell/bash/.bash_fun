@@ -961,9 +961,7 @@ links() {
 #   MOVE, COPY
 #   -------------------------------
 
-backup() {
-
-}
+backup() { echo "test" }
 
 move() {
 
