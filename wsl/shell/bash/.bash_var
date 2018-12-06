@@ -61,6 +61,9 @@ white="${esc}[38;2;255;255;255m";
 gray="${esc}[38;2;128;128;128m";
 light_gray="${esc}[38;2;211;211;211m";
 orange="${esc}[38;2;255;165;0m";
+light_blue="${esc}[38;2;38;139;210m";
+light_red="${esc}[38;2;211;54;130m";
+light_green="${esc}[38;2;0;195;0m";
 
 #█▓▒░ background color
 
@@ -77,6 +80,9 @@ white_bg="${esc}[48;2;255;255;255m";
 gray_bg="${esc}[48;2;128;128;128m";
 light_gray_bg="${esc}[48;2;211;211;211m";
 orange_bg="${esc}[48;2;255;165;0m";
+light_blue_bg="${esc}[48;2;38;139;210m";
+light_red_bg="${esc}[48;2;211;54;130m";
+light_green_bg="${esc}[48;2;0;195;0m";
 
 #█▓▒░ indicator
 

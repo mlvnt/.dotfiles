@@ -1,7 +1,11 @@
 #!/bin/bash
-#   -------------------------------
-#   SOURCE EXTERNAL FILES
-#   -------------------------------
+
+# ┳━┓┳━┓┓━┓┳ ┳┳━┓┏━┓
+# ┃━┃┃━┫┗━┓┃━┫┃┳┛┃
+# ┇━┛┛ ┇━━┛┇ ┻┇┗┛┗━┛
+
+
+#█▓▒░ Source config
 
 # Sorce all
 f=$HOME/.bash_onload
@@ -15,9 +19,7 @@ sca i;
 sessions=$(tmux ls 2>&1);
 echo $sessions | grep -qw wkse || tmux_workspace;
 
-#   -------------------------------
-#   TWEAKS
-#   -------------------------------
+#█▓▒░ Tweaks
 
 # Fix dpkg update error
 # fix() {
@@ -76,9 +78,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
-#   -------------------------------
-#   PROMPT
-#   -------------------------------
+#█▓▒░ Prompt
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
@@ -107,17 +107,12 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 # Prompt
-black=0
-blue=12
-red=13
-green=40
-
 if [ "$color_prompt" = yes ]; then
-    # PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-    # PS1='\[\e[1;32m/][\u@\h ]\[\e[35m\]\W\[\e[0m\] \$ '
-    # PS1="\[\e[1;34m/]\$(pwd)\n\[\e[1;31m/](\$(date '+%A %d %H:%M:%S'))\[\e[1;32m/][\u@\h]\[\e[35m\]\W\[\e[0m/] \$ "
-    # PS1="\[\e[1;34m/] \$(date '+%A %d %H:%M:%S') \[\e[35m\]\$(pwd)\n\[\e[1;32m\][\u@\h]\[\e[35m\]\W\[\e[0m\] \$ "
-    PS1="\[\033[1;38;5;$black;48;5;${blue}m\] \u@\h\[\033[0m\]\[\033[1;48;5;${blue}m\] \[\033[1;38;5;$blue;48;5;${green}m\]\[\033[0m\]\[\033[1;38;5;$black;48;5;${green}m\] \$(pwd)\[\033[0m\]\[\033[1;48;5;${green}m\] \[\033[1;38;5;$green;48;5;${black}m\] \[\033[0m\]\n \[\033[1;38;5;${red}m\]\W \[\033[0m\] "
+    # PS1='${debian_chroot:+($debian_chroot)}\033[01;32m\u@\h\033[00m:\033[01;34m\w\033[00m\$ '
+    # PS1='\e[1;32m[\u@\h]\e[35m\W\e[0m \$ '
+    # PS1="\e[1;34m\$(pwd)\n\e[1;31m(\$(date '+%A %d %H:%M:%S'))\e[1;32m[\u@\h]\e[35m\W\e[0m \$ "
+    # PS1="\e[1;34m \$(date '+%A %d %H:%M:%S') \e[35m\$(pwd)\n\e[1;32m[\u@\h]\e[35m\W\e[0m \$ "
+    PS1="${bold}${black}${light_blue_bg} \u@\h ${reset}${light_blue}${light_green_bg}${reset}${bold}${black}${light_green_bg} \$(pwd) ${reset}${light_green}${reset}\n ${bold}${light_red}\W ${reset} "
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -131,9 +126,7 @@ xterm*|rxvt*)
     ;;
 esac
 
-#   -------------------------------
-#   COLORS
-#   -------------------------------
+#█▓▒░ Colors
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -152,9 +145,7 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 LS_COLORS='rs=0:di=1;35:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lz=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.axv=01;35:*.anx=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.axa=00;36:*.oga=00;36:*.spx=00;36:*.xspf=00;36:';
 export LS_COLORS
 
-#   -------------------------------
-#   HISTORY
-#   -------------------------------
+#█▓▒░ History
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
@@ -170,9 +161,7 @@ export HISTSIZE=
 export HISTFILESIZE=
 export HISTCONTROL=erasedups
 
-#   -------------------------------
-#   UNSET VARIABLES
-#   -------------------------------
+#█▓▒░ Unset Variables
 
 variables=(
     "sessions"
@@ -182,5 +171,3 @@ variables=(
 )
 
 unset -v "${variables[@]}" variables;
-
-#-------------------------------------------------------------------------------
