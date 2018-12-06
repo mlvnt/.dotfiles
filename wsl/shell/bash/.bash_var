@@ -1,21 +1,26 @@
 #!/bin/bash
-#   -------------------------------
-#   DYNAMIC DIRECTORY DISPATCH
-#   -------------------------------
 
-winhw="$(cmd.exe /c echo %USERPROFILE% | tr -d '\r\n')";
+# ┓ ┳┳━┓┳━┓o┳━┓┳━┓┳  ┳━┓┓━┓
+# ┃┏┛┃━┫┃┳┛┃┃━┫┃━┃┃  ┣━ ┗━┓
+# ┗┛ ┛ ┇┇┗┛┇┛ ┇┇━┛┇━┛┻━┛━━┛
+
+#█▓▒░ directories
+
+winhw="$(path_converter '%USERPROFILE%')";
 winhl="$(wslpath -u "${winhw}")";
-winhwr="$(cmd.exe /c echo %HOMEDRIVE% | tr -d '\r\n')\\";
+winhwr="$(path_converter '%HOMEDRIVE%')\\";
 winhlr="$(wslpath -u "${winhwr}")";
 
 if [[ $(currentdevice) == pc ]]; then
     aps="D:\apps";
     local=/mnt/d/shared;
     synctrayzor_path="${aps}\net\file-sharing";
+    shared="home";
 else
     aps="${winhwr%?}\pc\apps";
     local=${winhlr%?};
     synctrayzor_path="${winhwr%?}";
+    shared="shared";
 fi;
 
 path_dots=${local}/pc/projects/git/dotfiles/.dotfiles/wsl;
@@ -24,4 +29,58 @@ path_dots_local=~/.dotfiles/wsl;
 os=$(currentdevice -o);
 ffont=~/.dotfiles/wsl/theming/.fonts/figlet-fonts;
 
-#-------------------------------------------------------------------------------
+#█▓▒░ ansi escapes
+
+esc=$(printf '\033');
+reset=$(printf "${esc}[0m");
+reset_fg=$(printf "${esc}[39m");
+reset_bg=$(printf "${esc}[49m");
+
+#█▓▒░ formatting
+
+bold=$(printf "${esc}[1m");
+faint=$(printf "${esc}[2m");
+standout=$(printf "${esc}[3m");
+underlined=$(printf "${esc}[4m");
+blink=$(printf "${esc}[5m");
+reverse=$(printf "${esc}[7m");
+hidden=$(printf "${esc}[8m");
+
+#█▓▒░ foreground color
+
+black=$(printf "${esc}[38;2;0;0;0m");
+red=$(printf "${esc}[38;2;255;0;0m");
+green=$(printf "${esc}[38;2;0;255;0m");
+brown=$(printf "${esc}[38;2;128;64;64m");
+blue=$(printf "${esc}[38;2;0;0;255m");
+purple=$(printf "${esc}[38;2;128;0;128m");
+pink=$(printf "${esc}[38;2;255;0;255m");
+cyan=$(printf "${esc}[38;2;0;255;255m");
+yellow=$(printf "${esc}[38;2;255;255;0m");
+white=$(printf "${esc}[38;2;255;255;255m");
+gray=$(printf "${esc}[38;2;128;128;128m");
+light_gray=$(printf "${esc}[38;2;211;211;211m");
+orange=$(printf "${esc}[38;2;255;165;0m");
+
+#█▓▒░ background color
+
+black_bg=$(printf "${esc}[48;2;0;0;0m");
+red_bg=$(printf "${esc}[48;2;255;0;0m");
+green_bg=$(printf "${esc}[48;2;0;255;0m");
+brown_bg=$(printf "${esc}[48;2;128;64;64m");
+blue_bg=$(printf "${esc}[48;2;0;0;255m");
+purple_bg=$(printf "${esc}[48;2;128;0;128m");
+pink_bg=$(printf "${esc}[48;2;255;0;255m");
+cyan_bg=$(printf "${esc}[48;2;0;255;255m");
+yellow_bg=$(printf "${esc}[48;2;255;255;0m");
+white_bg=$(printf "${esc}[48;2;255;255;255m");
+gray_bg=$(printf "${esc}[48;2;128;128;128m");
+light_gray_bg=$(printf "${esc}[48;2;211;211;211m");
+orange_bg=$(printf "${esc}[48;2;255;165;0m");
+
+#█▓▒░ indicator
+
+nfo="${green}[info]${reset}";
+error="${red}[error]${reset}";
+warn="${orange}[warn]${reset}";
+debug="${cyan}[debug]${reset}";

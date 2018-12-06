@@ -48,10 +48,10 @@ A self-contained, versioned framework managing my Linux configuration stored in 
 
 Coming soon...
 
-## Inspiration
-
+## Inspiration / Credits
 
 * [the unofficial dotfiles guide project][1]
+* [figlet / toilet fonts](https://github.com/xero/figlet-fonts)
 * many kind people that shared their dotfiles (Coming soon...)
 
 ## License

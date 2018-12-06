@@ -106,7 +106,8 @@ x() {
         echo    '       1  | Launch xfce4 session'
         echo    '       2  | Launch i3-wm session'
         echo    '       3  | Load xserver in multi window mode'
-        echo -e '       4  | Create new xserver config\n'
+        echo    '       4  | Load xserver in windowed mode'
+        echo -e '       5  | Create new xserver config\n'
         read -e -p "  Enter Option: " input
         echo
     }
@@ -124,19 +125,22 @@ x() {
     case ${input} in
         1)
             echo -e "\n Launching xfce4....\n----------------------------------"
-            cmds "${path}" /MAX "${path2}"configNormal.xlaunch
+            cmds "${path}" /MAX "${path2}"configWindowed.xlaunch
             xfce4-session &>/dev/null & ;;
             # cmds "$win32" bash.exe --login -c "sudo xfce4-session"
             # sudo chown -v $USER ~/.ICEauthority
         2)
             echo -e "\n Launching i3-wm....\n----------------------------------"
-            cmds "${path}" /MAX "${path2}"configNormal.xlaunch
+            cmds "${path}" /MAX "${path2}"configWindowed.xlaunch
             i3 &>/dev/null & ;;
             # cmds "$win32" bash.exe --login -c "sudo i3"
         3)
             echo -e "\n Loading X Server in Multi Window mode....\n"
             cmds "${path}" /MAX "${path2}"configMultiWindow.xlaunch ;;
-        4)  cmds "${path}" xlaunch.exe && clear  ;;
+        4)
+            echo -e "\n Loading X Server in Windowed mode....\n"
+            cmds "${path}" /MAX "${path2}"configWindowed.xlaunch ;;
+        5)  cmds "${path}" xlaunch.exe && clear  ;;
         b)  linx ;;
         x)  : && clear ;;
         *)  x ;;
@@ -1492,7 +1496,7 @@ dots() {
         import_other
         echo -e '\n -------------- Converting .dotfiles to LF endings....\n'
         pushd ~/.dotfiles/wsl
-        sudo dos2unix ./*.* ./shell/zsh/.* ./shell/zsh/.oh-my-zsh-custom/.* ./shell/bash/.* ./editors/.* ./git/.* ./git/*.* ./bin/*
+        find . -type d \( -name ".config" -o -name ".local" \) -prune -o -type f -print0 | xargs -0 -n 1 -P 4 dos2unix
         echo -e '\n -------------- Sourcing .dotfiles....\n'
         sudo chmod -Rv +x ./*
         sudo chown -Rv $USER:$USER ./* && popd
@@ -1556,7 +1560,7 @@ dots() {
 #   -------------------------------
 
 handles() {
-    pushd $(wslpath $aps)/suites/symenu/ProgramFiles/SPSSuite/SysinternalsSuite/Handle_sps;
+    pushd ${local}/pc/apps/suites/symenu/ProgramFiles/SPSSuite/SysinternalsSuite/Handle_sps;
     help() {
         clear
         echo -e '\n  Available Options:\n'
@@ -1596,7 +1600,7 @@ handles() {
             echo -e '\n ~~~~~~~~~~~~~~ Showing All Process PIDs.... ~~~~~~~~~~~~~~\n'
             cmd.exe /c 'handle.exe' | grep 'pid'
             echo -e '\n ~~~~~~~~~~~~~~ Query Completed! ~~~~~~~~~~~~~~\n' ;;
-        4)  cmds "$aps\suites\portableapps.com\PortableApps\ProcessExplorerPortable" ProcessExplorerPortable.exe && clear ;;
+        4)  cmds "$(wslpath -w ${local})\pc\apps\suites\symenu\ProgramFiles\SPSSuite\SysinternalsSuite\Process_Explorer_sps" procexp64.exe && clear ;;
         5)  cmd.exe /c handle.exe /? ;;
         6)  clear
             echo -e "\n     The number of all open descriptors is: $(lsof | wc -l)\n" ;;
@@ -1714,13 +1718,13 @@ win() {
             1)
                 echo -e '\n Pinnig folders to Quick Access....\n'
                 for pin in "${pins[@]}"; do
-                    powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& $powershellScript ${p} ${pin}";
+                    powershell -NoProfile -ExecutionPolicy Bypass -Command "& $powershellScript ${p} ${pin}";
                 done;
                 echo -e '\n    Folders pinned!\n'  ;;
             2)
                 echo -e '\n Unpinnig folders from Quick Access....\n'
                 for pin in "${pins[@]}"; do
-                    powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& $powershellScript ${up} ${pin}";
+                    powershell -NoProfile -ExecutionPolicy Bypass -Command "& $powershellScript ${up} ${pin}";
                 done;
                 echo -e '\n    Folders unpinned!\n'  ;;
             b)  win ;;
@@ -1755,11 +1759,6 @@ win() {
         sunpin=c:51394;
         patht="$(wslpath -w $local)\pc\config\system\shortcuts\taskbar";
         paths="$(wslpath -w $local)\pc\config\system\shortcuts\start menu\windows";
-        if [[ $(currentdevice) == pc ]]; then
-            local shared="home";
-        else
-            local shared="shared";
-        fi;
         taskbar=(
             "File Explorer.lnk"
             "${shared}\ConEmu.lnk"
@@ -1967,15 +1966,19 @@ series() {
 #-------------------------------------------------------------------------------
 
 sortkml() {
+    pushd ${local}/mobile/config/travel/maps.me
     local path="${python_scripts}/files";
     clear && python3 $path/sortkml.py "$@";
+    popd
 }
 
 #-------------------------------------------------------------------------------
 
 apkinstall() {
+    pushd ${local}/mobile/apps
     local path="${python_scripts}/system/apkinstall";
     clear && python3 $path/apkinstall.py "$@";
+    popd
 }
 
 #-------------------------------------------------------------------------------
@@ -3218,7 +3221,7 @@ apps() {
             60) cmds "D:\apps\suites\portableapps.com\PortableApps\OBSPortable" OBSPortable.exe && clear ;;
             61) cmds "$(wslpath -w ${local})\pc\apps\suites\symenu\ProgramFiles\SPSSuite\SyMenuSuite\Everything_(x64)_sps" Everything.exe && clear ;;
             62) cmds "D:\apps\file management\file-managers\MultiCommander_x64_Portable" MultiCommander.exe && clear ;;
-            63) cmds "D:\apps\suites\portableapps.com\PortableApps\ProcessExplorerPortable" ProcessExplorerPortable.exe && clear ;;
+            63) cmds "$(wslpath -w ${local})\pc\apps\suites\symenu\ProgramFiles\SPSSuite\SysinternalsSuite\Process_Explorer_sps" procexp64.exe && clear ;;
             64) cmds "D:\apps\suites\symenu\ProgramFiles\SPSSuite\SyMenuSuite\RegSeeker_sps" RegSeeker.exe && clear ;;
             65) cmds "${aps}\system\program management\uninstallers\RevoPortable64" RevoUninstallerPortable.exe && clear ;;
             66) cmds "${aps}\suites\portableapps.com\PortableApps\RufusPortable" RufusPortable.exe && clear ;;

@@ -88,6 +88,8 @@ appz=(
     "cmatrix"
     "lolcat"
     "colordiff"
+    "source-highlight"
+    # "zathura"
 # ------------- files
     "tar"
     "zip"
@@ -98,6 +100,7 @@ appz=(
     "rsync"
     "stow"
     "jmtpfs"
+    "libbz2-dev"
 # ------------- net
     "curl"
     "wget"
@@ -193,6 +196,7 @@ appz=(
     "dateutils"
     "rlwrap"
     # "uuid"
+    "bats"
 # ---------------------------------------------------- gui
 # ------------- xfce4
     "xfce4"
@@ -260,6 +264,8 @@ modules=(
     "PyGnuplot"
     "pylint"
     "mitmproxy"
+    # "google"
+    "protobuf
 # ------------- SciPy
     "matplotlib"
     "numpy"

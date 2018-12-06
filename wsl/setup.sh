@@ -55,7 +55,7 @@ get_dots() {
 
     printf '\n      >>> Converting files to linux linebreaks....\n\n'
     pushd ~/.dotfiles/wsl/
-    sudo dos2unix ./*.* ./shell/zsh/.* ./shell/zsh/.oh-my-zsh-custom/.* ./shell/bash/.* ./editors/.* ./git/.* ./bin/*
+    find . -type d \( -name ".config" -o -name ".local" \) -prune -o -type f -print0 | xargs -0 -n 1 -P 4 dos2unix
 
     printf '\n      >>> Making files executable....\n\n'
     sudo chmod -Rv +x ./*

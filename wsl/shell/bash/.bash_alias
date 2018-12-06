@@ -171,12 +171,8 @@ toiletlist() {
     done;
     alias toilet="toilet -t -d ${ffont}"
 }
-alias figlet="figlet -t -d ${ffont}"
-alias toilet="toilet -t -d ${ffont}"
-alias ascii="toilet -f 3d"
-alias future="toilet -f future"
-alias rusto="toilet -f rusto"
-alias rustofat="toilet -f rustofat"
+alias figlet="figlet -t -d ${ffont} -f"
+alias toilet="toilet -t -d ${ffont} -f"
 alias matrix="cmatrix"
 alias lol="base64 </dev/urandom | lolcat"
 
@@ -283,15 +279,45 @@ alias msql='sudo mysql -p'
 alias sshpi='ssh pi@192.168.137.2'
 alias pingpi='cmd.exe /c ping -4 raspberrypi.local'
 
-uuid() {
-    local id=$(python3 -c "import uuid; print(str(uuid.uuid4()))");
-    echo ${id};
-    echo ${id} | clip.exe;
+to_clip() {
+    local als="$1"
+    shift 1
+
+    if [[ -z $1 ]]; then
+        echo "${error} No argument supplied"
+    else
+        case "$als" in
+            1)
+                alias cmd='python3 -c "import sys; from urllib.parse import quote; \
+                        print(quote(sys.argv[1]))"'; ;;
+            2)
+                alias cmd='python3 -c "import sys; from urllib.parse import unquote; \
+                        print(unquote(sys.argv[1]))"'; ;;
+            3)  alias cmd='python3 -c "import uuid; print(str(uuid.uuid4()))"'; ;;
+            4)  local 3d='3d'; alias cmd='toilet ${3d}'; ;;
+            5)  local rusto='rusto'; alias cmd='toilet ${rusto}'; ;;
+            6)  local rustofat='rustofat'; alias cmd='toilet ${rustofat}'; ;;
+            7)  local future='future'; alias cmd='toilet ${future}'; ;;
+        esac
+
+        local rslt=$(cmd "$@");
+        echo "${rslt}";
+        echo "${rslt}" | clip.exe;
+        unalias cmd
+    fi
 }
-alias urlencode='python3 -c "import sys; from urllib.parse import quote; \
-                    print(quote(sys.argv[1]))" | clip.exe'
-alias urldecode='python3 -c "import sys; from urllib.parse import unquote; \
-                    print(unquote(sys.argv[1]))" | clip.exe'
+alias urlencode='to_clip 1'
+alias urldecode='to_clip 2'
+alias uuid='to_clip 3'
+alias 3d='to_clip 4'
+alias rusto='to_clip 5'
+alias rustofat='to_clip 6'
+alias future='to_clip 7'
+
+fixwifi() {
+    cmdc netsh interface set interface name="Wi-Fi" disabled
+    cmdc netsh interface set interface name="Wi-Fi" enabled
+}
 
 #   -------------------------------
 #   GIT
@@ -311,11 +337,12 @@ glb() {
 alias undopush="git push -f origin HEAD^:master"  # Undo a `git push`
 alias g="git"
 alias gf="git fetch && git pull"
-alias gac='git add -A && git commit && git push'
+alias gac='git add -A && git commit -a && git push'
 alias ga='git add -A'
-alias gp='git push'
-alias gl='git pull'
-alias glg='git log'
+alias gph='git push'
+alias gpl='git pull'
+alias gl='git log'
+alias gg='git graph'
 alias gs='git status'
 alias gc='git commit'
 alias gcl='git clone'
@@ -370,6 +397,11 @@ alias autostart="o '${winhw}\AppData\Roaming\Microsoft\Windows\Start Menu\Progra
 
 # Launch Applications
 # alias cmd='cmd.exe'
+alias powershell='powershell.exe'
+# alias pss='powershell.exe Start'
+alias winversion='winver.exe'
+# alias winversion='cmdc ver'
+alias wslconfig='wslconfig.exe'
 alias cmdc='cmd.exe /c'
 alias cmds='cmd.exe /c start /D'
 alias regedit="cmds 'C:\Windows' regedit.exe"
@@ -406,10 +438,9 @@ alias irc="cmds '${aps}\suites\portableapps.com\PortableApps\HexChatPortable' He
 alias sync="cmds '${synctrayzor_path}\SyncTrayzorPortable-x64' SyncTrayzor.exe"
 alias ftpstart="cmds '${aps}\suites\portableapps.com\PortableApps\FileZillaPortable' FileZillaPortable.exe"
 keepass() {
-    cat "$local/mobile/notebook/net/k.txt" | cmd.exe /c clip;
+    cat "${local}/mobile/notebook/net/k.txt" | clip.exe;
     cmds "${aps}\suites\portableapps.com\PortableApps\KeePassProPortable" KeePassProPortable.exe;
-    sleep 10s;
-    cmdc "echo off" | clip.exe;
+    sleep 10s; cmdc "echo off" | clip.exe;
 }
 alias calibre="cmds 'D:\apps\suites\portableapps.com\PortableApps\calibrePortable' calibrePortable.exe"
 alias kodi="cmds 'D:\apps\file-management\media\media-centers\Kodi\Server' kodi.exe -p"
@@ -417,10 +448,10 @@ alias plex="cmdc 'D:\apps\file-management\media\media-centers\Plex\Server\Plex M
 alias npp="cmds 'D:\apps\development\editors\editors\notepad++\Notepad++ 7.5.1' /MAX notepad++.exe"
 alias flash="cmds '${aps}\suites\portableapps.com\PortableApps\RufusPortable' RufusPortable.exe"
 crossrun() {
-    local path="$1"
-    local name="$2"
-    local exe="$3"
-    shift 3
+    local path="$1";
+    local name="$2";
+    local exe="$3";
+    shift 3;
 
     help() {
         clear && echo && echo "DESCRIPTION"
@@ -458,12 +489,15 @@ alias vnc="~/software/VNC-Viewer-6.17.1113-Linux-x64"
 alias davmain="apps 3 4 4"
 alias bc="bc -l"
 alias adb="adb.exe"
+alias fastboot="fastboot.exe"
 alias aapt="aapt.exe"
 alias aapt2="aapt2.exe"
 alias sdkmanager="cmdc sdkmanager.bat"
 alias arduino="${local}/pc/apps/development/editors/ides/arduino/arduino-1.8.7-win/arduino.exe"
 alias puredata="${local}/pc/apps/development/runtimes/puredata/Purr\ Data/Purr\ Data\ 2.6.0/bin/pd.exe"
 function jogl() { . "${local}/pc/~temp/com3503/setup.sh" file="$2" local="${local}" "$1"; }
+# alias npm-win='npm.exe'
+# alias node-win='node.exe'
 
 # Clipboard
 alias pbcopy="clip.exe"
@@ -482,7 +516,7 @@ alias clothlist="o '$(wslpath -w ${local})\pc\docs\lists\clothing\clothing.xlsx'
 alias index="o '$(wslpath -w ${local})\pc\docs\lists\memory\index.xlsx'"
 alias linkbox="code '$(wslpath -w ${local})\mobile\notebook\net\links\linkbox.txt'"
 alias me="code '$(wslpath -w ${local})\mobile\notebook\personal\me.md'"
-alias notes="code $(wslpath -w ${local})\mobile\notebook\personal\todo.md"
+alias notes="code '$(wslpath -w ${local})\mobile\notebook\personal\todo.md'"
 
 #   -------------------------------
 #   DESKTOP ENVIRONMENTS
@@ -493,5 +527,3 @@ alias xfce="xfce4-session &"
 # I3-WM
 alias i3="i3 &"
 alias xterm="xfce4-terminal &"
-
-#-------------------------------------------------------------------------------
