@@ -125,21 +125,21 @@ x() {
     case ${input} in
         1)
             echo -e "\n Launching xfce4....\n----------------------------------"
-            cmds "${path}" /MAX "${path2}"configWindowed.xlaunch
+            cmds "${path}" "${path2}"configWindowed.xlaunch
             xfce4-session &>/dev/null & ;;
             # cmds "$win32" bash.exe --login -c "sudo xfce4-session"
             # sudo chown -v $USER ~/.ICEauthority
         2)
             echo -e "\n Launching i3-wm....\n----------------------------------"
-            cmds "${path}" /MAX "${path2}"configWindowed.xlaunch
+            cmds "${path}" "${path2}"configWindowed.xlaunch
             i3 &>/dev/null & ;;
             # cmds "$win32" bash.exe --login -c "sudo i3"
         3)
             echo -e "\n Loading X Server in Multi Window mode....\n"
-            cmds "${path}" /MAX "${path2}"configMultiWindow.xlaunch ;;
+            cmds "${path}" "${path2}"configMultiWindow.xlaunch ;;
         4)
             echo -e "\n Loading X Server in Windowed mode....\n"
-            cmds "${path}" /MAX "${path2}"configWindowed.xlaunch ;;
+            cmds "${path}" "${path2}"configWindowed.xlaunch ;;
         5)  cmds "${path}" xlaunch.exe && clear  ;;
         b)  linx ;;
         x)  : && clear ;;
@@ -3689,10 +3689,10 @@ word() {
         for (( i=1; i<=$input; i++ )); do
            # echo "   Opening word document $i...."
            if [[ $orientation == l ]] ; then
-               cmds 'C:\Program Files\Microsoft Office\Office16' /MAX WINWORD.EXE /t"$path"
+               cmds 'C:\Program Files\Microsoft Office\Office16' WINWORD.EXE /t"$path"
                sleep 0.2s
             else
-               cmds 'C:\Program Files\Microsoft Office\Office16' /MAX WINWORD.EXE /w
+               cmds 'C:\Program Files\Microsoft Office\Office16' WINWORD.EXE /w
                sleep 0.2s
             fi;
         done;

@@ -90,6 +90,7 @@ appz=(
     "colordiff"
     "source-highlight"
     # "zathura"
+    "woff2"
 # ------------- files
     "tar"
     "zip"
@@ -147,6 +148,8 @@ appz=(
     "keepalived"
     # "hugo"
     # "mutt"
+    "certbot"
+    "macchanger"
 # ------------- stats
     # "screenfetch"
     "inxi"
@@ -265,7 +268,8 @@ modules=(
     "pylint"
     "mitmproxy"
     # "google"
-    "protobuf
+    "protobuf"
+    "bleach"
 # ------------- SciPy
     "matplotlib"
     "numpy"
