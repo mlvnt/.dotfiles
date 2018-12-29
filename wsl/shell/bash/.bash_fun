@@ -1763,7 +1763,7 @@ win() {
             "File Explorer.lnk"
             "${shared}\ConEmu.lnk"
             "Microsoft Edge.lnk"
-            "Google Chrome.lnk"
+            "Brave.lnk"
             "${shared}\Sublime.lnk"
             "${shared}\Code.lnk"
         );

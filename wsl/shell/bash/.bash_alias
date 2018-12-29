@@ -422,9 +422,10 @@ alias ppoint="cmds 'C:\Program Files (x86)\Microsoft Office\Root\Office16'  POWE
 
 alias mail="cmds '${aps}\suites\portableapps.com\PortableApps\ThunderbirdPortable' ThunderbirdPortable.exe"
 alias torrent="cmds '${aps}\suites\portableapps.com\PortableApps\qBittorrentPortable' qBittorrentPortable.exe"
-alias enpass="cmds '${aps}\net\security\EnpassPortable_5_6_9\Windows' EnpassPortable.exe"
+alias enpass="cmds '$(wslpath -w ${local})\pc\apps\net\security\Enpass' Enpass.exe"
 alias firefox="cmds 'D:\apps\suites\portableapps.com\PortableApps\FirefoxPortable' FirefoxPortable.exe"
-alias chrome="cmds 'C:\Program Files (x86)\Google\Chrome\Application' chrome.exe"
+# alias chrome="cmds 'C:\Program Files (x86)\Google\Chrome\Application' chrome.exe"
+alias chrome="cmds 'C:\Program Files (x86)\BraveSoftware\Brave-Browser\Application' brave.exe --disable-webtorrent-extension"
 # alias chromium-browser="sudo chromium-browser --no-sandbox"
 alias chromium="chromium-browser"
 alias taiga="cmds 'D:\apps\net\social\Taiga' Taiga.exe"

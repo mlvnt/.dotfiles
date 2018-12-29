@@ -1,7 +1,10 @@
 #!/bin/bash
-#   -------------------------------
-#   ONLOAD FUNCTIONS
-#   -------------------------------
+
+# ┏━┓┏┓┓┳  ┏━┓┳━┓┳━┓  ┳━┓┳ ┓┏┓┓┏━┓┏┓┓o┏━┓┏┓┓┓━┓
+# ┃ ┃┃┃┃┃  ┃ ┃┃━┫┃ ┃  ┣━ ┃ ┃┃┃┃┃   ┃ ┃┃ ┃┃┃┃┗━┓
+# ┛━┛┇┗┛┇━┛┛━┛┛ ┇┇━┛  ┇  ┇━┛┇┗┛┗━┛ ┇ ┇┛━┛┇┗┛━━┛
+
+#█▓▒░ sca - source all
 
 sca() {
     # Shell dotfiles
@@ -50,7 +53,7 @@ sca() {
     unset files f printing;
 }
 
-#-------------------------------------------------------------------------------
+#█▓▒░ currentdevice - get stats about the current device
 
 currentdevice() {
     help() {
@@ -94,14 +97,14 @@ currentdevice() {
 }
 
 
-#-------------------------------------------------------------------------------
+#█▓▒░ path_converter - get windows paths
 
 path_converter() {
     new_path=$(cmd.exe /c "echo $@" 2>&1 | tr -d "\r\n");
     echo "$new_path";
 }
 
-#-------------------------------------------------------------------------------
+#█▓▒░ tmux_workspace - tmux default workspace
 
 tmux_workspace() {
     local SESSION_NAME="wkse";
@@ -118,7 +121,7 @@ tmux_workspace() {
 
     if [[ $(currentdevice) == pc ]]; then
         tmux new-window -n 'todo' \; split-window \; split-window \;
-        echo ${tasks} | grep -qw 'MyBot.run' || tmux send-keys -t 3.0 'coc' Enter;
+        echo ${tasks} | grep -qw 'MyBot.run' || tmux send-keys -t 2.0 'coc' Enter;
         tmux select-layout tiled;
         tmux send-keys -t 3.0 'lin' Enter;
         tmux send-keys -t 3.1 'radicalle run' Enter;
@@ -140,5 +143,3 @@ tmux_workspace() {
     # tmux select-pane -t 0;
     tmux attach -t ${SESSION_NAME};
 }
-
-#-------------------------------------------------------------------------------
