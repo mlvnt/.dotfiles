@@ -1709,6 +1709,7 @@ win() {
                     "'${winhwr%?}\pc\~temp'"
                     "'${winhwr%?}\pc'"
                     "'${winhwr%?}\pc\projects\git'"
+                    "'C:\pc\config\net\browsers\chrome\bookmarks'"
                     "'${winhw}\Pictures\My Screen Shots'"
                     "'${winhw}\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs\home\todorov'"
                 );
@@ -3464,7 +3465,9 @@ apps() {
             echo    "    2  | m3u                  | Create m3u Playlists"
             echo    "    3  | sysmenu_clean        | Clean SysMenu Trash"
             echo    "    4  | radicalle            | Manage calDAV / cardDAV"
-            echo -e "    5  | qbittorrent          | Delete qBittorrent Config\n"
+            echo    "    5  | qbittorrent          | Delete qBittorrent Config"
+            echo    "    6  | enpass_setup         | Setup enpass config"
+            echo -e "    7  | vscode_setup         | Setup vscode config\n"
             read -e -p "  Enter Option: " input
             echo
         }
@@ -3482,6 +3485,8 @@ apps() {
             3|sysmenu_clean)     sysmenu_clean ;;
             4|radicalle)         radicalle "$@"; ;;
             5|qbittorrent)       qbittorrent ;;
+            6|enpass_setup)       enpass_setup ;;
+            7|vscode_setup)       vscode_setup ;;
             b)  apps ;;
             x)  : && clear ;;
             *)  program_management ;;
@@ -3542,6 +3547,24 @@ apps() {
 
     unset -f "${functions[@]}";
     unset -v functions "${variables[@]}" variables;
+}
+
+enpass_setup(){
+    pushd ${winhl}/AppData/Local
+    links 3 -d -m r -r '4'
+    popd
+    pushd ${winhl}/AppData/Roaming
+    links 3 -d -m r -r '5'
+    popd
+}
+
+vscode_setup(){
+    pushd ${winhl}
+    links 3 -d -m r -r '0:2' -v
+    popd
+    pushd ${local}/pc/apps/development/editors/editors/vscode/data
+    links 3 -d -m r -r '2:4' -v
+    popd
 }
 
 #-------------------------------------------------------------------------------
