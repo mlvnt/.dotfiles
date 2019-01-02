@@ -2681,10 +2681,10 @@ coc() {
 
 blog() {
     gamespath="$local/pc/projects/blog/bgrebbels.mlvnt.com/public_html"
-    blogpath="$local/pc/projects/blog/mlvnt.com/mvlnt"
-    content="$local/pc/projects/blog/mlvnt.com/mlvnt/content"
-    contents="$(wslpath -w $local)\pc\projects\blog\mlvnt.com\mlvnt\content"
-    buildpath="$local/pc/projects/blog/mlvnt.com/mlvnt/public_html"
+    blogpath="$local/pc/projects/blog/mlvnt.com"
+    content="$local/pc/projects/blog/mlvnt.com/content"
+    contents="$(wslpath -w $local)\pc\projects\blog\mlvnt.com\content"
+    buildpath="$local/pc/projects/blog/mlvnt.com/public_html"
     filezilladir="$aps\suites\portableapps.com\PortableApps\FileZillaPortable"
     ext=".md"
 
