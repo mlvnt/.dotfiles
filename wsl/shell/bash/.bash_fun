@@ -2684,7 +2684,7 @@ blog() {
     blogpath="$local/pc/projects/blog/mlvnt.com/mvlnt"
     content="$local/pc/projects/blog/mlvnt.com/mlvnt/content"
     contents="$(wslpath -w $local)\pc\projects\blog\mlvnt.com\mlvnt\content"
-    buildpath="$local/pc/projects/blog/mlvnt.com/public_html"
+    buildpath="$local/pc/projects/blog/mlvnt.com/mlvnt/public_html"
     filezilladir="$aps\suites\portableapps.com\PortableApps\FileZillaPortable"
     ext=".md"
 
