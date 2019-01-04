@@ -712,7 +712,7 @@ echo $pipFreeze | grep -qw powerline && printf '\n            powerline is alrea
 
 printf '\n      >>> Installing hugo....\n'
 hugoss() {
-    version='0.51'
+    version='0.53'
     name="hugo_extended_${version}_Linux-64bit.deb"
     wget https://github.com/gohugoio/hugo/releases/download/v"${version}"/"$name"
     sudo apt-get install ./"$name" && mv -v "$name" ~/software/

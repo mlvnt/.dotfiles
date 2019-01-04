@@ -2608,47 +2608,46 @@ coc() {
 
     coc_run() {
         pushd "$winhl/Downloads";
-        name=$(dir -AN1 | grep MyBot);
-        path="$winhw\Downloads\\$name\MyBot.run.exe";
+        local name=$(dir -AN1 | grep MyBot);
+        local path="$winhw\Downloads\\$name\MyBot.run.exe";
         timeout 6s cmd.exe /c $path MyVillage MEmu MEmu;
         echo -e '\n [opening] mybotrun - Clash of Clans Bot\n';
-        unset -v name path;
         popd
     }
 
     coc_update() {
         rm -rfv $winhl/Downloads/MyBot-MBR_v*;
-        path="$local/pc/apps/net/mybotrun/MyBot-MBR_v*";
-        des="$winhl/Downloads"
-        base=$(basename $path);
-        source=$(wslpath -w "$path");
-        dest=$(wslpath -w "$des/$base");
+        local path="$local/pc/apps/net/mybotrun/MyBot-MBR_v*";
+        local des="$winhl/Downloads";
+        local base=$(basename $path);
+        local source=$(wslpath -w "$path");
+        local dest=$(wslpath -w "$des/$base");
         cmdc robocopy $source $dest /E /SL /MT:20 /XO /A-:HS /COPY:DAT /DCOPY:DAT /W:0 /R:1;
         # cp -rfv $path $dest
     }
 
     coc_upgrade() {
         # cd "$local/pc/apps/mybotrun"
-        old=$(dir -AN1 | grep -v '.zip' | grep MyBot); # exclude zips
-        new=$(dir -AN1 | grep MyBot-MBR_v*.zip);
-        unziped=$(echo "$new" | sed 's/.zip//g');
+        local old=$(dir -AN1 | grep -v '.zip' | grep MyBot); # exclude zips
+        local new=$(dir -AN1 | grep MyBot-MBR_v*.zip);
+        local unziped=$(echo "$new" | sed 's/.zip//g');
         # unzip "$new"
-        7z.exe x "$new"
-        cp -rv "$old/Profiles" "$unziped"
-        cp -v "$old/CSV/Attack/TH 10 2Hound26Loon10Wb15Min11Haste.csv" "$unziped/CSV/Attack"
-        rm -rfv "$old"
-        mv -v "$new" "/mnt/d/~temp"
+        7z.exe x "$new";
+        cp -rv "$old/Profiles" "$unziped";
+        cp -v "$old/CSV/Attack/TH 10 2Hound26Loon10Wb15Min11Haste.csv" "$unziped/CSV/Attack";
+        rm -rfv "$old";
+        mv -v "$new" "/mnt/d/~temp";
     }
 
     if [[ -z $1 ]]; then
-        coc_run
-    fi
+        coc_run;
+    fi;
 
     case $1 in
         -u|u|update)     coc_update ;;
         -ug|ug|upgrade)  coc_upgrade ;;
         -h|help)         help ;;
-    esac
+    esac;
 
     functions=(
         "help"
@@ -2657,20 +2656,8 @@ coc() {
         "coc_upgrade"
     )
 
-    variables=(
-        "name"
-        "path"
-        "old"
-        "new"
-        "unziped"
-        "des"
-        "base"
-        "source"
-        "dest"
-    )
-
     unset -f "${functions[@]}";
-    unset -v functions "${variables[@]}" variables;
+    unset -v functions;
 }
 
 #-------------------------------------------------------------------------------
@@ -2756,11 +2743,11 @@ blog() {
         2|run)   cd "$blogpath" && chrome "http://localhost:1313";
                  hugos ;;
         3|server)  rm -rfv "$buildpath" && mkdir -p -v "$buildpath"
-                   pushd "$blogpath" && hugo && popd
+                   pushd "$blogpath" && hugo --minify && popd
                    pushd "$buildpath" && chrome "http://localhost:2015";
                    caddy && popd ;;
         4|build)  rm -rfv "$buildpath" && mkdir -p -v "$buildpath"
-                  pushd "$blogpath" && hugo && popd
+                  pushd "$blogpath" && hugo --minify && popd
                   rm -rfv "$buildpath/tags" "$buildpath/categories";;
         5|new)  clear && echo
                 tpe

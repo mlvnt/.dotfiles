@@ -120,8 +120,8 @@ tmux_workspace() {
     tmux resize-pane -Z -t 2.0;
 
     if [[ $(currentdevice) == pc ]]; then
-        tmux new-window -n 'todo' \; split-window \; split-window \;
         echo ${tasks} | grep -qw 'MyBot.run' || tmux send-keys -t 2.0 'coc' Enter;
+        tmux new-window -n 'todo' \; split-window \; split-window \;
         tmux select-layout tiled;
         tmux send-keys -t 3.0 'lin' Enter;
         tmux send-keys -t 3.1 'radicalle run' Enter;
