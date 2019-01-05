@@ -229,7 +229,8 @@ alias hostse='$EDITOR /etc/hosts'
 
 # BLOG
 alias server="ssh todorov@mlvnt.com"
-alias hugos="hugo server -w -v --disableFastRender --bind=0.0.0.0 --minify"
+# alias hugos="hugo server -w -v --disableFastRender --bind=0.0.0.0 --minify"
+alias hugos="hugo server -w -v --disableFastRender --bind=0.0.0.0"
 caddy() {
     unset caddy
     chrome "http://localhost:2015";

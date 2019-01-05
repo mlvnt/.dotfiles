@@ -2743,11 +2743,11 @@ blog() {
         2|run)   cd "$blogpath" && chrome "http://localhost:1313";
                  hugos ;;
         3|server)  rm -rfv "$buildpath" && mkdir -p -v "$buildpath"
-                   pushd "$blogpath" && hugo --minify && popd
+                   pushd "$blogpath" && hugo && popd
                    pushd "$buildpath" && chrome "http://localhost:2015";
                    caddy && popd ;;
         4|build)  rm -rfv "$buildpath" && mkdir -p -v "$buildpath"
-                  pushd "$blogpath" && hugo --minify && popd
+                  pushd "$blogpath" && hugo && popd
                   rm -rfv "$buildpath/tags" "$buildpath/categories";;
         5|new)  clear && echo
                 tpe
