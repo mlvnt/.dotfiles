@@ -270,6 +270,8 @@ modules=(
     # "google"
     "protobuf"
     "bleach"
+    "segno"
+    "graphene"
 # ------------- SciPy
     "matplotlib"
     "numpy"
@@ -302,6 +304,7 @@ gems=(
     "saas"
     "compass"
     "haml"
+    "graphql"
     )
 
 for a in "${appz[@]}"

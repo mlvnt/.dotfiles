@@ -31,58 +31,69 @@ ffont=~/.dotfiles/wsl/theming/.fonts/figlet-fonts;
 
 #█▓▒░ ansi escapes
 
-esc=$(printf '\033');
-reset="${esc}[0m";
-reset_fg="${esc}[39m";
-reset_bg="${esc}[49m";
+terminal_colors() {
+    BASH_PS1="${1:-false}";
+    if [[ ${BASH_PS1} == true ]]; then
+        open="\[";
+        close="\]";
+    else
+        open="";
+        close="";
+    fi;
 
-#█▓▒░ formatting
+    esc=$(printf '\033');
+    reset="${open}${esc}[0m${close}";
+    reset_fg="${open}${esc}[39m${close}";
+    reset_bg="${open}${esc}[49m${close}";
 
-bold="${esc}[1m";
-faint="${esc}[2m";
-standout="${esc}[3m";
-underlined="${esc}[4m";
-blink="${esc}[5m";
-reverse="${esc}[7m";
-hidden="${esc}[8m";
+    #█▓▒░ formatting
 
-#█▓▒░ foreground color
+    bold="${open}${esc}[1m${close}";
+    faint="${open}${esc}[2m${close}";
+    standout="${open}${esc}[3m${close}";
+    underlined="${open}${esc}[4m${close}";
+    blink="${open}${esc}[5m${close}";
+    reverse="${open}${esc}[7m${close}";
+    hidden="${open}${esc}[8m${close}";
 
-black="${esc}[38;2;0;0;0m";
-red="${esc}[38;2;255;0;0m";
-green="${esc}[38;2;0;255;0m";
-brown="${esc}[38;2;128;64;64m";
-blue="${esc}[38;2;0;0;255m";
-purple="${esc}[38;2;128;0;128m";
-pink="${esc}[38;2;255;0;255m";
-cyan="${esc}[38;2;0;255;255m";
-yellow="${esc}[38;2;255;255;0m";
-white="${esc}[38;2;255;255;255m";
-gray="${esc}[38;2;128;128;128m";
-light_gray="${esc}[38;2;211;211;211m";
-orange="${esc}[38;2;255;165;0m";
-light_blue="${esc}[38;2;38;139;210m";
-light_red="${esc}[38;2;211;54;130m";
-light_green="${esc}[38;2;0;195;0m";
+    #█▓▒░ foreground color
 
-#█▓▒░ background color
+    black="${open}${esc}[38;2;0;0;0m${close}";
+    red="${open}${esc}[38;2;255;0;0m${close}";
+    green="${open}${esc}[38;2;0;255;0m${close}";
+    brown="${open}${esc}[38;2;128;64;64m${close}";
+    blue="${open}${esc}[38;2;0;0;255m${close}";
+    purple="${open}${esc}[38;2;128;0;128m${close}";
+    pink="${open}${esc}[38;2;255;0;255m${close}";
+    cyan="${open}${esc}[38;2;0;255;255m${close}";
+    yellow="${open}${esc}[38;2;255;255;0m${close}";
+    white="${open}${esc}[38;2;255;255;255m${close}";
+    gray="${open}${esc}[38;2;128;128;128m${close}";
+    light_gray="${open}${esc}[38;2;211;211;211m${close}";
+    orange="${open}${esc}[38;2;255;165;0m${close}";
+    light_blue="${open}${esc}[38;2;38;139;210m${close}";
+    light_red="${open}${esc}[38;2;211;54;130m${close}";
+    light_green="${open}${esc}[38;2;0;195;0m${close}";
 
-black_bg="${esc}[48;2;0;0;0m";
-red_bg="${esc}[48;2;255;0;0m";
-green_bg="${esc}[48;2;0;255;0m";
-brown_bg="${esc}[48;2;128;64;64m";
-blue_bg="${esc}[48;2;0;0;255m";
-purple_bg="${esc}[48;2;128;0;128m";
-pink_bg="${esc}[48;2;255;0;255m";
-cyan_bg="${esc}[48;2;0;255;255m";
-yellow_bg="${esc}[48;2;255;255;0m";
-white_bg="${esc}[48;2;255;255;255m";
-gray_bg="${esc}[48;2;128;128;128m";
-light_gray_bg="${esc}[48;2;211;211;211m";
-orange_bg="${esc}[48;2;255;165;0m";
-light_blue_bg="${esc}[48;2;38;139;210m";
-light_red_bg="${esc}[48;2;211;54;130m";
-light_green_bg="${esc}[48;2;0;195;0m";
+    #█▓▒░ background color
+
+    black_bg="${open}${esc}[48;2;0;0;0m${close}";
+    red_bg="${open}${esc}[48;2;255;0;0m${close}";
+    green_bg="${open}${esc}[48;2;0;255;0m${close}";
+    brown_bg="${open}${esc}[48;2;128;64;64m${close}";
+    blue_bg="${open}${esc}[48;2;0;0;255m${close}";
+    purple_bg="${open}${esc}[48;2;128;0;128m${close}";
+    pink_bg="${open}${esc}[48;2;255;0;255m${close}";
+    cyan_bg="${open}${esc}[48;2;0;255;255m${close}";
+    yellow_bg="${open}${esc}[48;2;255;255;0m${close}";
+    white_bg="${open}${esc}[48;2;255;255;255m${close}";
+    gray_bg="${open}${esc}[48;2;128;128;128m${close}";
+    light_gray_bg="${open}${esc}[48;2;211;211;211m${close}";
+    orange_bg="${open}${esc}[48;2;255;165;0m${close}";
+    light_blue_bg="${open}${esc}[48;2;38;139;210m${close}";
+    light_red_bg="${open}${esc}[48;2;211;54;130m${close}";
+    light_green_bg="${open}${esc}[48;2;0;195;0m${close}";
+}
 
 #█▓▒░ indicator
 

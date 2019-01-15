@@ -108,11 +108,14 @@ fi
 
 # Prompt
 if [ "$color_prompt" = yes ]; then
-    # PS1='${debian_chroot:+($debian_chroot)}\033[01;32m\u@\h\033[00m:\033[01;34m\w\033[00m\$ '
-    # PS1='\e[1;32m[\u@\h]\e[35m\W\e[0m \$ '
-    # PS1="\e[1;34m\$(pwd)\n\e[1;31m(\$(date '+%A %d %H:%M:%S'))\e[1;32m[\u@\h]\e[35m\W\e[0m \$ "
-    # PS1="\e[1;34m \$(date '+%A %d %H:%M:%S') \e[35m\$(pwd)\n\e[1;32m[\u@\h]\e[35m\W\e[0m \$ "
-    PS1="${bold}${black}${light_blue_bg} \u@\h ${reset}${light_blue}${light_green_bg}${reset}${bold}${black}${light_green_bg} \$(pwd) ${reset}${light_green}${reset}\n ${bold}${light_red}\W ${reset} "
+    terminal_colors true # escape predefined colors
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    PS1='\[\e[1;32m\][\u@\h]\[\e[35m\]\W\[\e[0m\] \$ '
+    PS1="\[\e[1;34m\]\$(pwd)\n\[\e[1;31m\](\$(date '+%A %d %H:%M:%S'))\[\e[1;32m\][\u@\h]\[\e[35m\]\W\[\e[0m\] \$ "
+    PS1="\[\e[1;34m\] \$(date '+%A %d %H:%M:%S') \[\e[35m\]\$(pwd)\n\[\e[1;32m\][\u@\h]\[\e[35m\]\W\[\e[0m\] \$ "
+
+    PS1="${bold}${black}${light_blue_bg} \u@\h ${reset}${light_blue}${light_green_bg}${reset}${bold}${black}${light_green_bg} \$(pwd) ${reset}${light_green}${reset}\n ${bold}${light_red}\W  ${reset}"
+    terminal_colors # define colors
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi

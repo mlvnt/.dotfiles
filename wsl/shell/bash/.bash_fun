@@ -1,7 +1,15 @@
 #!/bin/bash
-#-------------------------------------------------------------------------------
-#------------------------ FUNCTIONS --------------------------------------------
-#-------------------------------------------------------------------------------
+
+# ┳━┓┳ ┓┏┓┓┏━┓┏┓┓o┏━┓┏┓┓┓━┓
+# ┣━ ┃ ┃┃┃┃┃   ┃ ┃┃ ┃┃┃┃┗━┓
+# ┇  ┇━┛┇┗┛┗━┛ ┇ ┇┛━┛┇┗┛━━┛
+
+f=$HOME/.dotfiles/wsl/shell/bash/func/files.sh
+if [ -r "$f" ] && [ -f "$f" ]; then
+    source "$f";
+else
+    printf "404: $f not found.\n";
+fi;
 
 #   -------------------------------
 #   MASTER FUNCTION
@@ -2058,7 +2066,7 @@ vscodeclean() {
     unset help;
 }
 
-#-------------------------------------------------------------------------------
+#█▓▒░ memory - manage memory index ---------------------------------------------
 
 memory() {
     help() {
@@ -3221,7 +3229,7 @@ apps() {
             72) cmds "D:\apps\net\remote control\vnc\RealVNC" VNC-Viewer-6.17.1113-Windows-64bit.exe && clear ;;
             73) cmds "D:\apps\net\remote control\vnc" TigerVNC-VncViewer-1.8.0.jar && clear ;;
             74) cmds "$(wslpath -w ${local})\pc\apps\productivity\office\TeX\TikzEdt" TikzEdt.exe && clear ;;
-            75) cmds "D:\apps\file management\recovery\R-StudioPortable 8.5.Build 170117" R-StudioPortable.exe && clear ;;
+            75) cmds "D:\apps\file management\recovery\r-studio" R-StudioPortable.exe && clear ;;
             76) cmds "$(wslpath -w ${local})\pc\apps\productivity\office\TeX\MikTEX\texmfs\install\miktex\bin" miktex-console.exe && clear ;;
             77) cmds "D:\apps\file management\media\media-centers\Kodi\Server" kodi.exe -p && clear ;;
             78) cmd.exe /c "D:\apps\file management\media\media-centers\Plex\Server\Plex Media Server.exe" && clear ;;
