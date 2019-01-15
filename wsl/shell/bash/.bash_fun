@@ -2615,10 +2615,12 @@ coc() {
     }
 
     coc_run() {
-        pushd "$winhl/Downloads";
+        pushd "${winhl}/Downloads";
         local name=$(dir -AN1 | grep MyBot);
-        local path="$winhw\Downloads\\$name\MyBot.run.exe";
-        timeout 6s cmd.exe /c $path MyVillage MEmu MEmu;
+        local path="${winhw}\Downloads\\${name}";
+        # local path="${winhw}\Downloads\\${name}\MyBot.run.exe";
+        # timeout 6s cmd.exe /c ${path} MyVillage MEmu MEmu;
+        cmds "${path}" MyBot.run.exe MyVillage MEmu MEmu;
         echo -e '\n [opening] mybotrun - Clash of Clans Bot\n';
         popd
     }
