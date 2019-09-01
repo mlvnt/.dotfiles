@@ -1,0 +1,1887 @@
+#!/bin/bash
+
+# ┳━┓┳ ┓┏┓┓┏━┓┏┓┓o┏━┓┏┓┓┓━┓
+# ┣━ ┃ ┃┃┃┃┃   ┃ ┃┃ ┃┃┃┃┗━┓
+# ┇  ┇━┛┇┗┛┗━┛ ┇ ┇┛━┛┇┗┛━━┛
+
+funct="$(dashboard -s)";
+for val in ${funct}; do
+    echo "[sourcing] ${val}";
+    source "${val}";
+done;
+
+# f=$HOME/.dotfiles/wsl/shell/bash/func/files.sh
+# if [ -r "$f" ] && [ -f "$f" ]; then
+#     source "$f";
+# else
+#     printf "404: $f not found.\n";
+# fi;
+
+#   -------------------------------
+#   MASTER FUNCTION
+#   -------------------------------
+
+master() {
+    help() {
+        clear && echo
+        echo "    x  | exit              | Exit"
+        echo "    1  | linx              | Linux Managemet"
+        echo "    2  | win               | Windows Managemet"
+        echo "    3  | manage            | System Management"
+        echo "    4  | mywork            | Daily Work"
+        echo "    5  | apps              | My Programs"
+        echo
+    }
+
+    helper() {
+        read -e -p "Function? (№/name) : " input
+        case $input in
+            1|linx)     linx ;;
+            2|win)      win ;;
+            3|manage)   manage ;;
+            4|mywork)   mywork ;;
+            5|apps)     apps ;;
+            x|exit)     : && clear ;;
+            *)          helper ;;
+        esac
+    }
+
+    help
+    read -p "Press enter to continue"
+    helper
+
+    functions=(
+        "help"
+        "helper"
+    )
+
+    variables=(
+        "input"
+    )
+
+    unset -f "${functions[@]}";
+    unset -v functions "${variables[@]}" variables;
+}
+
+#-------------------------------------------------------------------------------
+
+#   -------------------------------
+#   LINUX MANAGEMET
+#   -------------------------------
+
+linx() {
+    help() {
+        clear
+        echo -e '\n  Available Options:'
+        echo    '       x  | Exit'
+        echo -e '       b  | Go Back\n'
+        echo    "    1  | x                   | Launch X Session"
+        echo    "    2  | mkd                 | Create a New Directory and enter it"
+        echo    "    3  | ssh_manage          | SSH Managemet"
+        echo    "    4  | gpg_manage          | GPG Managemet"
+        echo -e "    5  | dots                | Update .dotfiles\n"
+        read -e -p "  Enter Option: " input
+        echo
+    }
+
+    if [ -z $1 ] ; then
+        help
+    else
+        input=$1
+        input2=$2
+    fi
+
+    ssh_manage() {
+        help() {
+            clear
+            echo -e '\n  Available Options:\n'
+            echo    '       x  | Exit'
+            echo -e '       b  | Go Back\n'
+            echo    '       1  | Generate a Key'
+            echo    '       2  | Manage Permissions'
+            echo    '       3  | Copy Public Key (Windows)'
+            echo    '       4  | Copy Public Key (Linux)'
+            echo    '       5  | Copy Public Key to Remote'
+            echo    '       6  | Edit User Config'
+            echo    '       7  | Edit OpenSSH Config'
+            echo    '       8  | Backup'
+            echo -e '       9  | Update\n'
+            read -e -p "  Enter Option: " input
+            echo
+        }
+        help
+
+        ssh_permissons() {
+            sudo chmod -v 600 ~/.ssh/*
+            sudo chmod -v 700 ~/.ssh
+            sudo chown -Rv $USER ~/.ssh
+        }
+
+        local backup_path=${local}/mobile/config/net/security/.ssh
+
+        case $input in
+            1)  read -e -p "  Enter Comment (Mail): " comment
+                read -e -p "  Enter File Name: " output_file
+                ssh-keygen -b 4096 -t rsa -C "${comment}" -f "${output_file}" ;;
+            2)  ssh_permissons ;;
+            3)  ls ~/.ssh/ | grep .pub && echo
+                read -e -p "  Enter Public Key to Copy: " pub_key
+                echo && cat ~/.ssh/"$pub_key" && echo
+                cat ~/.ssh/"$pub_key" | cmd.exe /c clip ;;
+            4)  ls ~/.ssh/ | grep .pub && echo
+                read -e -p "  Enter Public Key to Copy: " pub_key
+                echo && cat ~/.ssh/"$pub_key" && echo
+                xclip -sel clip < ~/.ssh/"$pub_key" ;;
+            5)  ls ~/.ssh/ | grep .pub && echo
+                read -e -p "  Enter Remote Server: " remote
+                read -e -p "  Enter Public Key to Copy: " pub_key
+                echo && cat ~/.ssh/"$pub_key" && echo
+                cat ~/.ssh/"$pub_key" | ssh "$remote" "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys";;
+            6)  sudo vim ~/.ssh/config ;;
+            7)  sudo vim /etc/ssh/sshd_config
+                sudo service ssh restart ;;
+            8)  yes y | sudo cp -r ~/.ssh/* ${backup_path} ;;
+            9)  yes y | sudo cp -r ${backup_path}/* ~/.ssh
+                ssh_permissons ;;
+            b)  linx ;;
+            x)  : && clear ;;
+            *)  ssh_manage ;;
+        esac
+    }
+
+    gpg_manage() {
+        help() {
+            clear
+            echo -e '\n  Available Options:\n'
+            echo    '       x   | Exit'
+            echo -e '       b   | Go Back\n'
+            echo    '       1   | Generate a Key'
+            echo    '       2   | Import'
+            echo    '       3   | Export'
+            echo    '       4   | Revoke'
+            echo    '       5   | List'
+            echo    '       6   | Delete'
+            echo    '       7   | Edit'
+            echo    '       8   | Sign'
+            echo    '       9   | Encrypt'
+            echo -e '       10  | Decrypt\n'
+            read -e -p "  Enter Option: " input
+            echo
+        }
+        help
+
+        list() {
+            clear && echo -e '\n   >>> Public Key Ring\n'
+            sudo gpg --list-keys --with-fingerprint
+            sudo gpg --list-keys --with-colons --with-fingerprint
+            echo -e '\n   >>> Secret Key Ring\n'
+            sudo gpg --list-secret-keys --with-fingerprint
+            sudo gpg --list-secret-keys --with-colons --with-fingerprint
+            echo
+        }
+
+        import_key() {
+            help() {
+                clear
+                echo -e '\n  Available Options:\n'
+                echo    '       x  | Exit'
+                echo -e '       b  | Go Back\n'
+                echo    '       1  | Import Key Pair'
+                echo    '       2  | Import Public Key'
+                echo -e '       3  | Import Private Key\n'
+                read -e -p "  Enter Option: " input
+                echo
+            }
+            help
+
+            case $input in
+                1)
+                    clear
+                    read -e -p "  Enter Path to Key: " path
+                    read -e -p "  Enter Key Name (Filename): " key
+                    sudo gpg --import "$path$key.pub.asc"
+                    sudo gpg --import "$path$key.sec.asc" ;;
+                2)
+                    clear
+                    read -e -p "  Enter Path to Key: " path
+                    read -e -p "  Enter Key Name (Filename): " key
+                    sudo gpg --import "$path$key.pub.asc" ;;
+                3)
+                    clear
+                    read -e -p "  Enter Path to Key: " path
+                    read -e -p "  Enter Key Name (Filename): " key
+                    sudo gpg --import "$path$key.sec.asc" ;;
+                b)
+                    gpg_manage ;;
+                x)
+                    : && clear ;;
+                *)
+                    import_key ;;
+            esac
+            # # import form keybase
+            # curl https://keybase.io/mlvnt/pgp_keys.asc | gpg --import
+        }
+
+        export_key() {
+            help() {
+                clear
+                echo -e '\n  Available Options:\n'
+                echo    '       x  | Exit'
+                echo -e '       b  | Go Back\n'
+                echo -e '    Export To a File\n'
+                echo    '       1  | Key Pair'
+                echo    '       2  | Public Key'
+                echo    '       3  | Private Key'
+                echo -e '    Export To the Clipbard\n'
+                echo    '       4  | Public Key'
+                echo -e '       5  | Private Key\n'
+                read -e -p "  Enter Option: " input
+                echo
+            }
+            help
+
+            case $input in
+                1)
+                    clear && list
+                    read -e -p "  Enter Path to Save: " path
+                    read -e -p "  Enter Key Name (Filename): " key
+                    read -e -p "  Enter Key UID (User Name): " uid
+                    sudo gpg -o "$path$key.pub.asc" --export -a "$uid"
+                    sudo gpg -o "$path$key.sec.asc" --export-secret-key -a "$uid" ;;
+                2)
+                    clear && list
+                    read -e -p "  Enter Path to Save: " path
+                    read -e -p "  Enter Key Name (Filename): " key
+                    read -e -p "  Enter Key UID (User Name): " uid
+                    sudo gpg -o "$path$key.pub.asc" --export -a "$uid" ;;
+                3)
+                    clear && list
+                    read -e -p "  Enter Path to Save: " path
+                    read -e -p "  Enter Key Name (Filename): " key
+                    read -e -p "  Enter Key UID (User Name): " uid
+                    sudo gpg -o "$path$key.sec.asc" --export-secret-key -a "$uid" ;;
+                4)
+                    clear && list
+                    read -e -p "  Enter Key UID (User Name): " uid
+                    sudo gpg --export -a "$uid"
+                    sudo gpg --export -a "$uid" | cmd.exe /c clip ;;
+                5)
+                    clear && list
+                    read -e -p "  Enter Key UID (User Name): " uid
+                    sudo gpg --export-secret-key -a "$uid"
+                    sudo gpg --export-secret-key -a "$uid" | cmd.exe /c clip ;;
+                b)
+                    gpg_manage ;;
+                x)
+                    : && clear ;;
+                *)
+                    export_key ;;
+            esac
+            # # export using fingerprint
+            # gpg --export -a A4AA3A5BDBD40EA549CABAF9FBC07D6A97016CB3
+        }
+
+        delete_key() {
+            help() {
+                clear
+                echo -e '\n  Available Options:\n'
+                echo    '       x  | Exit'
+                echo -e '       b  | Go Back\n'
+                echo    '       1  | Delete Key Pair'
+                echo    '       2  | Delete Public Key'
+                echo -e '       3  | Delete Private Key\n'
+                read -e -p "  Enter Option: " input
+                echo
+            }
+            help
+
+            case $input in
+                1)
+                    clear
+                    read -e -p "  Enter Key UID (User Name): " uid
+                    sudo gpg --delete-key "$uid"
+                    sudo gpg --delete-secret-key "$uid" ;;
+                2)
+                    clear
+                    read -e -p "  Enter Key UID (User Name): " uid
+                    sudo gpg --delete-key "$uid" ;;
+                3)
+                    clear
+                    read -e -p "  Enter Key UID (User Name): " uid
+                    sudo gpg --delete-secret-key "$uid" ;;
+                b)
+                    gpg_manage ;;
+                x)
+                    : && clear ;;
+                *)
+                    delete_key ;;
+            esac
+        }
+
+        revoke_key() {
+            help() {
+                clear
+                echo -e '\n  Available Options:\n'
+                echo    '       x  | Exit'
+                echo -e '       b  | Go Back\n'
+                echo    '       1  | Generate'
+                echo    '       2  | Import'
+                echo -e '       3  | Revoke Key Pair\n'
+                read -e -p "  Enter Option: " input
+                echo
+            }
+            help
+
+            case $input in
+                1)
+                    clear
+                    read -e -p "  Enter Path to Save: " path
+                    read -e -p "  Enter Key Name (Filename): " key
+                    read -e -p "  Enter Key UID (User Name): " uid
+                    sudo gpg --output "$path$key.rev.asc" --gen-revoke "$uid"
+                    echo && cat "$path$key.rev.asc" && echo ;;
+                2)
+                    clear
+                    read -e -p "  Enter Path to Save: " path
+                    read -e -p "  Enter Key Name (Filename): " key
+                    sudo gpg --import "$path$key.rev.asc" ;;
+                3)
+                    clear
+                    read -e -p "  Enter Key UID (User Name): " uid
+                    sudo gpg --keyserver keyserver.ubuntu.com --send-key "$uid"
+                    sudo gpg --keyserver keyserver.mozilla.org --send-key "$uid" ;;
+                b)
+                    gpg_manage ;;
+                x)
+                    : && clear ;;
+                *)
+                    revoke_key ;;
+            esac
+        }
+
+        case $input in
+            1)  sudo gpg --gen-key ;;
+            2)  import_key ;;
+            3)  export_key ;;
+            4)  revoke_key ;;
+            5)  list ;;
+            6)  delete_key ;;
+            b)  linx ;;
+            x)  : && clear ;;
+            *)  gpg_manage ;;
+        esac
+    }
+
+    case $input in
+        1|x)           x ;;
+        2|mkd)         mkd ;;
+        3|ssh_manage)  ssh_manage ;;
+        4|gpg_manage)  gpg_manage ;;
+        5|dots)        dots ;;
+        b)  master ;;
+        x)  : && clear ;;
+        *)  linx ;;
+    esac
+
+    functions=(
+        "help"
+        "ssh_permissons"
+        "import_key"
+        "export_key"
+        "revoke_key"
+        "list"
+        "delete_key"
+        "ssh_manage"
+        "gpg_manage"
+    )
+
+    variables=(
+        "input"
+        "input2"
+        "path2"
+        "path"
+        "win32"
+    )
+
+    unset -f "${functions[@]}";
+    unset -v functions "${variables[@]}" variables;
+}
+
+#   -------------------------------
+#   SYSTEM MANAGEMENT
+#   -------------------------------
+
+manage() {
+    help() {
+        clear
+        echo -e '\n  Available Options:'
+        echo    '       x  | Exit'
+        echo -e '       b  | Go Back\n'
+        echo    "    1  | bin                 | Manage the Trash"
+        echo    "    2  | move                | Move, Copy"
+        echo    "    3  | links               | Manage Links"
+        echo    "    4  | handles             | Manage File Handles / Descriptors"
+        echo -e "    5  | net                 | Manage Network\n"
+        read -e -p "  Enter Option: " input
+        echo
+    }
+    help
+
+    case $input in
+        1|bin)      bin ;;
+        2|move)     move ;;
+        3|links)    links ;;
+        4|handles)  handles ;;
+        5|net)      met ;;
+        b)  master ;;
+        x) : && clear ;;
+        *) manage ;;
+    esac
+
+    functions=(
+        "help"
+    )
+
+    variables=(
+        "input"
+    )
+
+    unset -f "${functions[@]}";
+    unset -v functions "${variables[@]}" variables;
+}
+
+#   -------------------------------
+#   INOTIFY
+#   -------------------------------
+
+watchings() {
+    dirs="$1"
+    files="$2"
+    shift 2
+    echo
+    echo "[watching] { $dirs } for changes of { $files }"
+    echo "[executing] " "{ $@ }" " in case of matching event"
+    echo
+
+    when-changed -vr "$dirs/$files" echo "MODIFY" |
+    while read -r events; do
+        echo "[when-changed] " $events $files
+        echo
+        echo "[executing] " "$@"
+        "$@"
+        echo
+    done
+
+    echo "loop reading from { when-changed } finished with status $?"
+    unset -v dirs files events;
+}
+
+watchingd() {
+    dirs="$1"
+    files="$2"
+    shift 2
+    echo
+    echo "[watching] { $dirs } for changes of { $files }"
+    echo "[executing] " "{ $@ }" " in case of matching event"
+    echo
+
+    when-changed -vr "$dirs/$files" echo "MODIFY" | sed -u '1~2d' |
+    while read -r events; do
+        echo "[when-changed] " $events $files
+        echo
+        echo "[executing] " "$@"
+        "$@"
+        echo
+    done
+
+    echo "loop reading from { when-changed } finished with status $?"
+    unset -v dirs files events;
+}
+
+lin() {
+    help() {
+        clear && echo && echo "DESCRIPTION";
+        echo "        lin - manage linkbox" && echo;
+        echo "USAGE";
+        echo "        lin [OPTION]" && echo;
+        echo "OPTIONS";
+        echo "        run     run links.py";
+        echo "        w       watch linkbox.txt for changes" && echo;
+    }
+
+    pushd "$local/mobile/notebook/net/links"
+    case $1 in
+        run)   python3 -c "exec(\"from scripts import links\nlinks.main()\")"; ;;
+        ""|w)  ls
+               watchingd . linkbox.txt python3 -c "exec(\"from scripts import links\nlinks.main()\")" ; ;;
+        *) help ;;
+    esac;
+    popd
+
+    unset help;
+}
+
+#   -------------------------------
+#   UPDATE .DOTFILES
+#   -------------------------------
+
+dots() {
+    help() {
+        clear && echo && echo "DESCRIPTION"
+        echo "        dots - update dotfiles" && echo
+        echo "USAGE"
+        echo "        dots [option]" && echo
+        echo "OPTIONS"
+        echo "     push              push to remote"
+        echo "     pushlocal         push to local"
+        echo "     pullclean         remove old and pull from local"
+        echo "     pull              pull from remote"
+        echo "     pulllocal         pull from local"
+        echo "     b                 go back"
+        echo "     -h | help         show help" && echo
+    }
+
+    push() {
+        pushd $p && gac
+        pushd ~/.dotfiles && git stash && gf && popd
+        pushd ~/.dotfiles/shell
+        sudo chmod -Rv +x ./*
+        sudo chown -Rv $USER:$USER ./* && popd
+        sudo chown -Rv $USER:$USER ~/.git*
+        sca && clear && popd
+    }
+
+    pushlocal() {
+        pushd $p
+        git add -A && git commit && git push $p
+        git push
+        pushd ~/.dotfiles && git stash && git fetch $p
+        git pull $p && popd
+        pushd ~/.dotfiles/shell
+        sudo chmod -Rv +x ./*
+        sudo chown -Rv $USER:$USER ./* && popd
+        sudo chown -Rv $USER:$USER ~/.git*
+        sca && clear && popd
+    }
+
+    pullclean() {
+        echo -e '\n -------------- Removing old .dotfiles....\n'
+        sudo rm -rfv ~/.dotfiles
+        echo -e '\n -------------- Cloning new .dotfiles....\n'
+        git clone $p ~/.dotfiles
+        import_other() {
+            yes yes | sudo cp -rv "${dots}"/.config/radicale "${dots_local}"/.config
+            yes yes | sudo cp -rv "${dots}"/.local/share/tldr "${dots_local}"/.local/share
+            yes yes | sudo cp -rv "${dots}"/net/mac.txt "${dots_local}"/net
+        }
+        import_other
+        echo -e '\n -------------- Converting .dotfiles to LF endings....\n'
+        pushd ~/.dotfiles/shell
+        find . -type d \( -name ".config" -o -name ".local" \) -prune -o -type f -print0 | xargs -0 -n 1 -P 4 dos2unix
+        echo -e '\n -------------- Sourcing .dotfiles....\n'
+        sudo chmod -Rv +x ./*
+        sudo chown -Rv $USER:$USER ./* && popd
+        sudo chown -Rv $USER:$USER ~/.git*
+        sca && clear && popd
+        echo -e '\n -------------- Dotfiles Updated!\n'
+    }
+
+    pulllocal() {
+        pushd ~/.dotfiles && git stash && git fetch $p
+        git pull $p
+        pushd ~/.dotfiles/shell
+        sudo chmod -Rv +x ./*
+        sudo chown -Rv $USER:$USER ./* && popd
+        sudo chown -Rv $USER:$USER ~/.git*
+        sca && clear && popd
+    }
+
+    pull() {
+        pushd ~/.dotfiles && git stash && gf
+        pushd ~/.dotfiles/shell
+        sudo chmod -Rv +x ./*
+        sudo chown -Rv $USER:$USER ./* && popd
+        sudo chown -Rv $USER:$USER ~/.git*
+        sca && clear && popd
+    }
+
+    local p=${local}/pc/projects/dotfiles/dotfiles
+
+    if [ -z $1 ]; then
+        help
+    else
+        case $1 in
+            push)         push ;;
+            pushlocal)    pushlocal ;;
+            pullclean)    pullclean ;;
+            pull)         pull ;;
+            pulllocal)    pulllocal ;;
+            b)  linx ;;
+            *)  help ;;
+        esac
+    fi
+
+    functions=(
+        "help"
+        "push"
+        "pushlocal"
+        "pullclean"
+        "pull"
+        "import_other"
+    )
+
+    unset -f "${functions[@]}";
+    unset -v functions;
+}
+
+#   -------------------------------
+#   WINDOWS MANAGEMET
+#   -------------------------------
+
+win() {
+    help() {
+        clear
+        echo -e '\n  Available Options:\n'
+        echo    '           x  | Exit'
+        echo    '           b  | Go Back'
+        echo    '    Fixing NFTS:'
+        echo    '        1  | Dry-Run'
+        echo    '        2  | Fix'
+        echo    '        3  | Help'
+        echo    '    Repairing Windows System Files'
+        echo    '        4  | Repair'
+        echo    '        5  | Help'
+        echo    '    Delete Services'
+        echo    '        6  | Delete a Service'
+        echo    '    Shotcuts'
+        echo    '        7  | qaccess           | Quick Access'
+        echo -e '        8  | icons             | Start Menu & Taskbar Icons\n'
+        read -e -p "  Enter Option: " input
+        echo
+    }
+
+    if [ -z $1 ] ; then
+        help;
+    else
+        input=$1;
+    fi;
+
+    qaccess() {
+        help() {
+            clear
+            echo -e '\n  Available Options:'
+            echo    '       x  | Exit'
+            echo    '       b  | Go Back'
+            echo    '       1  | Pin Folders to Quick Access'
+            echo -e '       2  | Unpin Folders from Quick Access\n'
+            read -e -p "  Enter Option: " input
+            echo
+        }
+
+        if [ -z $1 ] ; then
+            help;
+        else
+            input=$1;
+        fi;
+
+        # Variables
+        powershellScript="$(wslpath -w ${local})\pc\projects\scripts\win\powershell\quickaccess\Set-QuickAccess.ps1";
+        p='Pin';
+        up='Unpin';
+
+        if [[ $(currentdevice) == pc ]]; then
+            pins=(
+                    # "'shell:::{645FF040-5081-101B-9F08-00AA002F954E}'"
+                    "'D:\'"
+                    "'D:\~temp'"
+                    "'D:\apps'"
+                    "'D:\shared\pc'"
+                    "'D:\shared\mobile'"
+                    "'D:\shared\work'"
+                    "'D:\workspace'"
+                    "'D:\shared\pc\docs\lists'"
+                    "'D:\workspace\uni'"
+                    "'D:\media\anime'"
+                    "'D:\media\movies'"
+                    "'D:\media\series'"
+                    "'D:\shared\pc\config\net\browsers\chromium\bookmarks'"
+                    "'D:\shared\work\screenshots'"
+                    "'D:\workspace\media\pictures\art\screenshots media'"
+                    "'${winhw}\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs\home\mlvnt'"
+                );
+        else
+            pins=(
+                    "'${winhwr%?}\shared\mobile\~temp'"
+                    "'${winhwr%?}\shared\mobile'"
+                    "'${winhwr%?}\shared\pc\~temp'"
+                    "'${winhwr%?}\shared\pc'"
+                    "'${winhwr%?}\shared\work'"
+                    "'${winhwr%?}\shared\pc\projects\git'"
+                    "'C:\shared\pc\config\net\browsers\chrome\bookmarks'"
+                    "'${winhwr%?}\shared\work\screenshots'"
+                    "'${winhw}\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs\home\mlvnt'"
+                );
+        fi;
+
+        case $input in
+            1)
+                echo -e '\n Pinnig folders to Quick Access....\n'
+                for pin in "${pins[@]}"; do
+                    powershell -NoProfile -ExecutionPolicy Bypass -Command "& $powershellScript ${p} ${pin}";
+                done;
+                echo -e '\n    Folders pinned!\n'  ;;
+            2)
+                echo -e '\n Unpinnig folders from Quick Access....\n'
+                for pin in "${pins[@]}"; do
+                    powershell -NoProfile -ExecutionPolicy Bypass -Command "& $powershellScript ${up} ${pin}";
+                done;
+                echo -e '\n    Folders unpinned!\n'  ;;
+            b)  win ;;
+            x)  : && clear ;;
+            *)  qaccess
+        esac
+    }
+
+    icons() {
+        help() {
+            clear
+            echo -e '\n  Available Options:'
+            echo    '       x  | Exit'
+            echo    '       b  | Go Back'
+            echo    '       1  | Pin icons to Taskbar'
+            echo    '       2  | Pin icons to Start Menu'
+            echo    '       3  | Unpin icons from Taskbar'
+            echo -e '       4  | Unpin icons from Start Menu\n'
+            read -e -p "  Enter Option: " input
+            echo
+        }
+
+        if [ -z $1 ] ; then
+            help;
+        else
+            input=$1;
+        fi;
+
+        tpin=c:5386;
+        tunpin=c:5387;
+        spin=c:51201;
+        sunpin=c:51394;
+        patht="$(wslpath -w $local)\pc\config\system\shortcuts\taskbar";
+        paths="$(wslpath -w $local)\pc\config\system\shortcuts\start menu\windows";
+        taskbar=(
+            "File Explorer.lnk"
+            "${shared}\Code.lnk"
+            "${shared}\ConEmu.lnk"
+            "Brave.lnk"
+        );
+        startmenu=(
+            "Microsoft Store.lnk"
+            "Control Panel.lnk"
+            "Internet Explorer.lnk"
+            "Task Manager.lnk"
+            "Services.lnk"
+            "Disk Cleanup.lnk"
+            "Paint 3D.lnk"
+            "Calculator.lnk"
+            "Camera.lnk"
+            "Maps.lnk"
+            "Run.lnk"
+            "Windows Mobility Center.lnk"
+            "Registry Editor.lnk"
+            "Command Prompt.lnk"
+            "Windows PowerShell ISE.lnk"
+            "On-Screen Keyboard.lnk"
+            "Windows Defender Firewall with Advanced Security.lnk"
+            "System Properties Protection.lnk"
+            "Computer Management.lnk"
+            "System Information.lnk"
+            "System Configuration.lnk"
+        );
+        pushd ${local}/pc/apps/system/Syspin;
+
+        case $input in
+            1)
+                echo -e '\n Pinnig icons to Taskbar....\n'
+                for pin in "${taskbar[@]}"; do
+                    cmd.exe /c syspin.exe "${patht}\\${pin}" ${tpin}
+                    sleep 0.3s
+                done;
+                echo -e '\n    Icons pinned!\n'  ;;
+            2)
+                echo -e '\n Pinnig icons to Start Menu....\n'
+                for pin in "${startmenu[@]}"; do
+                    cmd.exe /c syspin.exe "${paths}\\${pin}" ${spin}
+                    sleep 0.3s
+                done;
+                echo -e '\n    Icons pinned!\n'  ;;
+            3)
+                echo -e '\n Unpinnig icons from Taskbar....\n'
+                cmd.exe /c reg delete "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" /f
+                rm $winhl/AppData/Roaming/Microsoft/Internet\ Explorer/Quick\ Launch/User\ Pinned/TaskBar/*.lnk
+                echo -e '\n    Icons unpinned!\n'  ;;
+            4)
+                echo -e '\n Unpinnig icons from Start Menu....\n'
+                for pin in "${startmenu[@]}"; do
+                    cmd.exe /c syspin.exe "${paths}\\${pin}" ${sunpin}
+                    sleep 0.2s
+                done;
+                echo -e '\n    Icons unpinned!\n'  ;;
+            b)  win ;;
+            x)  : && clear ;;
+            *)  icons ;;
+        esac
+        popd;
+    }
+
+    case $input in
+        1)
+            read -e -p "    Enter Drive Letter: " ipt
+            echo -e '\n Fixing NFTS for Drive '${ipt}':....\n'
+            cmd.exe /c chkdsk ''${ipt}':'
+            echo -e '\n     Query Completed!\n' ;;
+        2)
+            read -e -p "    Enter Drive Letter: " ipt
+            echo -e '\n Fixing NFTS for Drive '${ipt}':....\n'
+            cmd.exe /c chkdsk /f ''${ipt}':'
+            echo -e '\n     Query Completed!\n' ;;
+        3)
+            cmd.exe /c chkdsk /?
+            echo -e '\n     Query Completed!\n' ;;
+        4)
+            echo -e '\n Repairing Windows System Files....\n'
+            cmd.exe /c sfc /SCANNOW
+            echo -e '\n     Query Completed!\n' ;;
+        5)
+            cmd.exe /c sfc /?
+            echo -e '\n     Query Completed!\n' ;;
+        6)
+            read -e -p "    Enter Process to Delete: " ipt
+            echo -e '\n Deleting '${ipt}'....\n'
+            cmd.exe /c sc delete ''${ipt}''
+            echo -e '\n     Query Completed!\n' ;;
+        7|qaccess)  qaccess $2 ;;
+        8|icons)    icons $2 ;;
+        b)  master ;;
+        x)  : && clear ;;
+        *)  win ;;
+    esac
+
+    functions=(
+        "help"
+        "qaccess"
+        "icons"
+    )
+
+    variables=(
+        "input"
+        "powershellScript"
+        "p"
+        "up"
+        "pins"
+        "tpin"
+        "tunpin"
+        "spin"
+        "sunpin"
+        "patht"
+        "paths"
+        "taskbar"
+        "startmenu"
+    )
+
+    unset -f "${functions[@]}";
+    unset -v functions "${variables[@]}" variables;
+}
+
+#-------------------------------------------------------------------------------
+
+#   -------------------------------
+#   DAILY WORK
+#   -------------------------------
+
+mywork() {
+    help() {
+        clear
+        echo -e '\n  Available Options:'
+        echo    '       x  | Exit'
+        echo -e '       b  | Go Back\n'
+        echo    "    1  | todo                | TODOs"
+        echo    "    2  | blog                | Blog"
+        echo    "    3  | money               | Money"
+        echo    "    4  | series              | Series"
+        echo    "    5  | coc                 | Start Clash of Clans Bot"
+        echo    "    6  | social              | Open social media sites"
+        echo    "    7  | food                | Open food docs"
+        echo -e "    8  | sport               | Open sport docs\n"
+        read -e -p "  Enter Option: " input
+        echo
+    }
+
+    if [ -z $1 ] ; then
+        help
+    else
+        input=$1
+        input2=$2
+        input3=$3
+        input4=$4
+    fi
+
+    case $input in
+        1|todo)        todo ;;
+        2|blog)        blog $input2 $input3 ;;
+        3|money)       money ;;
+        4|series)      series ;;
+        5|coc)         coc ;;
+        6|social)      social $input2 $input3 $input4 ;;
+        7|food)        food $input2 $input3 $input4 ;;
+        8|sport)       sport $input2 ;;
+        b)             master ;;
+        x)             : && clear ;;
+        *)             mywork ;;
+    esac
+
+    functions=(
+        "help"
+    )
+
+    variables=(
+        "input"
+        "input2"
+        "input3"
+        "input4"
+    )
+
+    unset -f "${functions[@]}";
+    unset -v functions "${variables[@]}" variables;
+}
+
+#█▓▒░ memory - manage memory index ---------------------------------------------
+
+memory() {
+    help() {
+        clear && echo && echo "DESCRIPTION";
+        echo "        memory - manage memory index" && echo;
+        echo "USAGE";
+        echo "        memory [OPTION]" && echo;
+        echo "OPTIONS";
+        echo "        run     generate index.html";
+        echo "        open    open index.html" && echo;
+    }
+
+    case $1 in
+        run)      python3 -c "exec(\"from scripts import memory\nmemory.main()\")"; ;;
+        ""|open)  o "$(wslpath -w $local)\pc\docs\lists\memory\index.html" ;;
+        *) help ;;
+    esac;
+
+    unset help;
+}
+
+#-------------------------------------------------------------------------------
+
+regex() {
+    help() {
+        clear && echo && echo "DESCRIPTION";
+        echo "        regex - test regex" && echo;
+        echo "USAGE";
+        echo "        regex [OPTION]" && echo;
+        echo "OPTIONS";
+        echo "        kill      kill web server";
+        echo "    reference";
+        echo "        r1        www.regular-expressions.info";
+        echo "        r2        www.rexegg.com";
+        echo "    tools";
+        echo "        t1        regex101.com";
+        echo "        t2        regexr.com" && echo;
+    }
+
+    run() {
+        pushd "${local}${@}";
+        caddy &
+        chrome "http://localhost:2015";
+        popd;
+    }
+
+    local path="/pc/apps/development/tools/regex"
+
+    case "$1" in
+        kill)               pkill caddy; ;;
+        -h|--help|help)     help; ;;
+        r1)                 run ${path}/www.regular-expressions.info; ;;
+        r2)                 run ${path}/www.rexegg.com; ;;
+        t1)                 run ${path}/regex101.com; ;;
+        t2)                 run ${path}/regexr.com; ;;
+        "")                 run ${path}/regex101.com; ;;
+        *)                  help; ;;
+    esac;
+
+    unset help run;
+}
+
+#-------------------------------------------------------------------------------
+
+weather() {
+    help() {
+        clear && echo && echo "DESCRIPTION";
+        echo "        weather - display weather information" && echo;
+        echo "USAGE";
+        echo "        weather CITY";
+        echo "        weather [OPTION] [c CITY]" && echo;
+        echo "OPTIONS";
+        echo "        a         automatically determine city";
+        echo "        so        sofia";
+        echo "        sf        sheffield";
+        echo "        c CITY    custom city" && echo;
+    }
+
+    cmd() {
+        curl http://wttr.in/"$@";
+    }
+
+    local re='[a-zA-Z]{3,}';
+    local input="$1";
+    shift 1;
+
+    if [[ ${input} =~ $re ]]; then
+        cmd "${input}";
+    else
+        case "${input}" in
+            so) cmd "sofia"; ;;
+            sf) cmd "sheffield"; ;;
+            c)
+                if [[ $1 =~ $re ]]; then
+                    cmd "$1";
+                else
+                    echo "Invalid city" && echo;
+                fi; ;;
+            a|"")  cmd; ;;
+            *)  help; ;;
+        esac;
+    fi;
+
+    unset help cmd;
+}
+
+#-------------------------------------------------------------------------------
+
+color() {
+    help() {
+        clear && echo && echo "DESCRIPTION";
+        echo "        color - color management" && echo;
+        echo "USAGE";
+        echo "        color [OPTION]" && echo;
+        echo "OPTIONS";
+        echo "    color picker";
+        echo "        1        Instant-eyedropper";
+        echo "        2        Just Color Picker";
+        echo "    color pallette";
+        echo "        3        AS-Hex Color";
+        echo "        4        ColorMania";
+        echo "        5        SE-ColorMaker";
+        echo "    mulitools";
+        echo "        6        PicPick";
+        echo "    validation";
+        echo "        7        Colour Contrast Analyzer" && echo;
+    }
+
+    case "$1" in
+        1)  cmds "$(wslpath -w ${local})\pc\apps\file management\media\images\Instant-eyedropper" instanteyedropper.exe; ;;
+        2)  cmds "$(wslpath -w ${local})\pc\apps\suites\symenu\ProgramFiles\SPSSuite\SyMenuSuite\Just_Color_Picker_sps" jcpicker.exe; ;;
+        3)  cmds "$(wslpath -w ${local})\pc\apps\suites\symenu\ProgramFiles\SPSSuite\SyMenuSuite\AS-Hex_Color_sps" AS-HEX-COLOR.EXE; ;;
+        4)  cmds "$(wslpath -w ${local})\pc\apps\suites\symenu\ProgramFiles\SPSSuite\SyMenuSuite\ColorMania_sps" ColorManiaPortable.exe; ;;
+        5)  cmds "$(wslpath -w ${local})\pc\apps\suites\symenu\ProgramFiles\SPSSuite\SyMenuSuite\SE-ColorMaker_sps" SE-ColorMaker.exe; ;;
+        6)  cmds "$(wslpath -w ${local})\pc\apps\suites\portableapps.com\PortableApps\PicPickPortable" PicPickPortable.exe; ;;
+        7)  cmds "$(wslpath -w ${local})\pc\apps\suites\portableapps.com\PortableApps\ColourContrastAnalyserPortable" ColourContrastAnalyserPortable.exe; ;;
+        "") cmds "$(wslpath -w ${local})\pc\apps\file management\media\images\Instant-eyedropper" instanteyedropper.exe; ;;
+        *)                  help; ;;
+    esac;
+
+    unset help;
+}
+
+#   -------------------------------
+#   SOCIAL
+#   -------------------------------
+
+social() {
+    # set -x
+    path="${local}/pc/projects/dotfiles/dotfiles/wsl/net/social"
+    path2="$(wslpath -w ${local})\pc\projects\dotfiles\dotfiles\wsl\net\social"
+    sites=$(cat ~/.dotfiles/wsl/net/social);
+    files="$HOME/.dotfiles/wsl/net/social"
+
+    help() {
+        clear && echo && echo "DESCRIPTION"
+        echo "        social - manage social network usage" && echo
+        echo "USAGE"
+        echo "        social [nt (new-tab, new-window is default)]"
+        echo "        social [OPTION]"
+        echo "        social [OPTION] [nt] [f(firefox) | c(chrome - default)]"
+        echo "        social one [ site-number | range-beginning-number,range-end-number ]" && echo
+        echo "OPTIONS"
+        echo "        all [nt]        Open all"
+        echo "        one № [nt]      Open one" && echo
+        echo "                            1   Facebook"
+        echo "                            2   MAL Profile"
+        echo "                            3   MAL Anime List"
+        echo "                            4   WhatsApp"
+        echo "                            5   LinkedIn"
+        echo "                            6   GitHub"
+        echo "                            7   Twitter"
+        echo "                            8   Reddit"
+        echo "                            9   lobste.rs"
+        echo "                            10  Hacker News" && echo
+        echo "        update     Update sites"
+        echo "        edit       Edit sites" && echo
+    }
+
+    show_all() {
+        browser="chrome"
+        window="--new-window"
+
+        case $1 in
+            nt) window="" ;;
+            c)  browser="chrome" ;;
+            f)  browser="firefox" ;;
+        esac
+
+        case $2 in
+            nt) window="" ;;
+            c)  browser="chrome" ;;
+            f)  browser="firefox" ;;
+        esac
+
+        case $browser in
+            chrome)  chrome ${window} --start-maximized ${sites} ;;
+            firefox) if [ "$1" == "nt" ] || [ "$2" == "nt" ]; then
+                        while IFS= read -r line ; do
+                            firefox ${window} "${line}"
+                        done < "${files}"
+                        # cat $HOME/.dotfiles/wsl/net/social | xargs -I % cmds 'D:\apps\suites\portableapps.com\PortableApps\FirefoxPortable' FirefoxPortable.exe %
+                        # xargs -a $HOME/.dotfiles/wsl/net/social cmds 'D:\apps\suites\portableapps.com\PortableApps\FirefoxPortable' FirefoxPortable.exe "$line"
+                     else
+                        window="-new-window"
+                        firefox ${window} ${sites}
+                     fi ;;
+        esac
+    }
+
+    show_one() {
+        site=$(sed -n "$1"p $path);
+        browser="chrome"
+        window="--new-window"
+
+        case $2 in
+            nt) window="" ;;
+            c)  browser="chrome" ;;
+            f)  browser="firefox" ;;
+        esac
+
+        case $3 in
+            nt) window="" ;;
+            c)  browser="chrome" ;;
+            f)  browser="firefox" ;;
+        esac
+
+        case $browser in
+            chrome) chrome ${window} --start-maximized ${site} ;;
+            firefox)
+                      if [ "$2" != "nt" ] && [ "$3" != "nt" ]; then
+                          window="-new-window"
+                          firefox ${window} ${site}
+                      else
+                          re='^[0-9]+,[0-9]+$';
+                          if [[ $1 =~ $re ]] ; then
+                              # printf '%s\n' "$site"
+                              while IFS= read -r line ; do
+                                  firefox ${window} "${line}"
+                              done <<< "$site"
+                          else
+                              firefox ${window} ${site}
+                          fi;
+                      fi; ;;
+        esac;
+    }
+
+    social_import() {
+        cp ${path} ~/.dotfiles/wsl/net
+    }
+
+    edit_site() {
+        sublime ${path2} && social update
+    }
+
+    local input=$1
+    shift 1
+    if [[ -z $input ]]; then
+        show_all
+    else
+        case $input in
+            nt)        show_all "nt" ;;
+            0)         show_all "$@" ;;
+            1|all)     mail && show_all "$@" ;;
+            2|one)     show_one "$@" ;;
+            3|update)  social_import ;;
+            4|edit)    edit_site ;;
+            b)         mywork ;;
+            x)         : && clear ;;
+            *)         help ;;
+        esac
+    fi
+
+    functions=(
+        "help"
+        "show_all"
+        "show_one"
+        "social_import"
+        "edit_site"
+    )
+
+    variables=(
+        "path"
+        "path2"
+        "files"
+        "window"
+        "browser"
+        "sites"
+        "site"
+    )
+
+    unset -f "${functions[@]}";
+    unset -v functions "${variables[@]}" variables;
+}
+
+#-------------------------------------------------------------------------------
+
+#   -------------------------------
+#   FOOD
+#   -------------------------------
+
+food() {
+    path="$(wslpath -w ${local})\pc\docs\lists\food"
+    doc1=${path}"\products.xlsx"
+    doc2=${path}"\recipes.xlsx"
+    doc3=${path}"\shoppping list.xlsx"
+    doc4=${path}"\terms.docx"
+    doc5=${path}"\weekly menu.docx"
+    doc6=${path}"\weekly meals.xlsx"
+    re='^[0-9]+$'
+
+    help() {
+        clear && echo && echo "DESCRIPTION"
+        echo "        food - open food related files" && echo
+        echo "USAGE"
+        echo "        food [OPTION]" && echo
+        echo "OPTIONS"
+        echo "        1   Products"
+        echo "        2   Recipes - Table"
+        echo "        3   Shoppping List - Table"
+        echo "        4   Terms"
+        echo "        5   Weekly Meals"
+        echo "        6   Weekly Menu - Table" && echo
+    }
+
+    open_docs() {
+        case "$1" in
+            1)  o "${doc1}" ;;
+            2)  o "${doc2}" ;;
+            3)  o "${doc3}" ;;
+            4)  o "${doc4}" ;;
+            5)  o "${doc5}" ;;
+            6)  o "${doc6}" ;;
+        esac
+    }
+
+    if [[ ! -z $1 ]]; then
+        while test $# -gt 0 ; do
+            if [[ $1 =~ $re ]]; then
+                    open_docs "$1"
+            fi;
+            shift;
+        done;
+    elif [[ $1 == b ]]; then
+        mywork
+    elif [[ $1 == x ]]; then
+        : && clear
+    else
+        help
+    fi
+
+    functions=(
+        "help"
+        "open_docs"
+    )
+
+    variables=(
+        "path"
+        "doc1"
+        "doc2"
+        "doc3"
+        "doc4"
+        "doc5"
+        "doc6"
+        "re"
+    )
+
+    unset -f "${functions[@]}";
+    unset -v functions "${variables[@]}" variables;
+}
+
+#   -------------------------------
+#   SPORT
+#   -------------------------------
+
+sport() {
+    path="$(wslpath -w ${local})\mobile\docs\health\sport"
+    doc1=${path}"\program.xlsx"
+    doc2=${path}"\exercises.xlsx"
+
+    help() {
+        clear && echo && echo "DESCRIPTION"
+        echo "        sport - open sport related files" && echo
+        echo "SYNTAX"
+        echo "        sport [OPTION]" && echo
+        echo "OPTIONS"
+        echo "        1   Program"
+        echo "        2   Exercises" && echo
+    }
+
+    case $1 in
+        1)  o "${doc1}" ;;
+        2)  o "${doc2}" ;;
+        b)  mywork ;;
+        x)  : && clear ;;
+        *)  help ;;
+    esac
+
+    functions=(
+        "help"
+    )
+
+    variables=(
+        "path"
+        "doc1"
+        "doc2"
+        "doc3"
+    )
+
+    unset -f "${functions[@]}";
+    unset -v functions "${variables[@]}" variables;
+}
+
+#   -------------------------------
+#   MY PROGRAMS
+#   -------------------------------
+
+apps() {
+    portable_apps() {
+        help() {
+            clear
+            echo -e '\n  Available Options:'
+            echo    '           x   Exit'
+            echo    '           b   Go Back'
+            echo -e '\n   >>> Portable Apps Suites\n'
+            echo    '           1   Apps by Category'
+            echo    '           2   PortableApps Client'
+            echo    '           3   PortableApps Apps'
+            echo    '           4   SyMenu'
+            echo    '           5   SyMenu Apps'
+            echo    '           6   GeGeek ToolKit'
+            echo    '           7   LiberKey'
+            echo -e '\n   >>> Net\n'
+            echo    '           8   MyBotRun'
+            echo    '           9   AnyDesk'
+            echo    '           10  aTubeCatcher'
+            echo    '           11  FileZilla'
+            echo    '           12  HexChat'
+            echo    '           13  JDownloader'
+            echo    '           14  Mozilla Firefox'
+            echo    '           15  Mozilla Thunderbird'
+            echo    '           16  Opera'
+            echo    '           17  Popcorn-Time'
+            echo    '           18  qBittorrent'
+            echo    '           19  QuiteRSS'
+            echo    '           20  Skype'
+            echo    '           21  SyncTrayzor'
+            echo    '           22  Taiga'
+            echo    '           23  Tor Browser'
+            echo    '           24  Torrents Open Regisration'
+            echo    '           25  Wireshark'
+            echo    '           26  XAMPP'
+            echo -e '\n   >>> Development\n'
+            echo    '           27  CodeBlocks'
+            echo    '           28  Eclipse'
+            echo    '           29  Java Decompiler'
+            echo    '           30  Matlab'
+            echo    '           31  Meld'
+            echo    '           32  NetBeans'
+            echo    '           33  Notepad++'
+            echo    '           34  '
+            echo    '           35  RegexBuddy4'
+            echo    '           36  RegExr'
+            echo    '           37  Sublime Text'
+            echo    '           38  Visual Studio Code'
+            echo -e '\n   >>> Productivity & Office\n'
+            echo    '           39  KeePass'
+            echo    '           40  Calibre'
+            echo    '           41  draw.io'
+            echo    '           42  GnuCash'
+            echo    '           43  jdotxt'
+            echo    '           44  LibreOffice'
+            echo    '           45  MikTex Options'
+            echo    '           46  MikTex Update'
+            echo    '           76  MikTex Console'
+            echo    '           47  TeXstudio'
+            echo    '           74  TikzEdt'
+            echo    '           48  SA Dictionary'
+            echo    '           49  Vym'
+            echo    '           50  yEd'
+            echo    '           51  Zim'
+            echo -e '\n   >>> Media\n'
+            echo    '           52  Audacity'
+            echo    '           53  Bino'
+            echo    '           54  Blender'
+            echo    '           55  GIMP'
+            echo    '           56  Inkscape'
+            echo    '           57  Instant Eyedropper'
+            echo    '           58  gMKVExtractGUI'
+            echo    '           59  MKVExtractGUI2'
+            echo    '           60  OBS Studio'
+            echo    '           77  Kodi'
+            echo    '           78  Plex'
+            echo -e '\n   >>> OS Management\n'
+            echo    '           61  Everything'
+            echo    '           62  MultiCommander'
+            echo    '           63  ProcessExplorer'
+            echo    '           64  RegSeeker'
+            echo    '           65  Revo Uninstaller'
+            echo    '           66  Rufus'
+            echo    '           67  Etcher'
+            echo    '           68  Snap2HTML'
+            echo    '           69  Spybot Anit-Beacon'
+            echo    '           70  Spyglass'
+            echo    '           71  WinDirStat'
+            echo    '           72  RealVNC'
+            echo    '           73  TigerVNC'
+            echo    '           75  R-Studio'
+            echo -e '           79  Ditto\n'
+            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+            echo -e '\n   >>> Main\n'
+            echo    '           13  JDownloader'
+            echo    '           61  Everything'
+            echo    '           39  KeePass'
+            echo    '           42  GnuCash'
+            echo    '           14  Mozilla Firefox'
+            echo    '           15  Mozilla Thunderbird'
+            echo    '           65  Revo Uninstaller'
+            echo    '           66  Rufus'
+            echo    '           56  Inkscape'
+            echo    '           41  draw.io'
+            echo    '           18  qBittorrent'
+            echo    '           21  SyncTrayzor'
+            echo    '           11  FileZilla'
+            echo    '           19  QuiteRSS'
+            echo    '           22  Taiga'
+            echo    '           12  HexChat'
+            echo    '           2   PortableApps Client'
+            echo    '           3   PortableApps Apps'
+            echo    '           4   SyMenu'
+            echo -e '           5   SyMenu Apps\n'
+            read -e -p "  Enter Option: " input
+            echo
+        }
+
+        if [ -z $input2 ] ; then
+            help
+        else
+            input=$input2
+        fi
+
+        case $input in
+            1) o "${aps}" && clear ;;
+            2) cmds "${aps}\suites\portableapps.com" Start.exe && clear ;;
+            3) o "${aps}\suites\portableapps.com\PortableApps" && clear ;;
+            4) cmds "${aps}\suites\symenu" SyMenu.exe && clear ;;
+            5) o "${aps}\suites\symenu\ProgramFiles\SPSSuite\SyMenuSuite" && clear ;;
+            6) cmds "D:\apps\suites\gegeek_toolkit" SyMenu.exe && clear ;;
+            7) cmds "D:\apps\suites\liberkey" LiberKey.exe && clear ;;
+            8) o "$(wslpath -w $local)\pc\apps\net\mybotrun" && clear ;;
+            9) cmds "D:\apps\suites\symenu\ProgramFiles\SPSSuite\SyMenuSuite\AnyDesk_sps" AnyDesk.exe && clear ;;
+            10) cmds "D:\apps\net\file-sharing\Downloading\aTube Catcher 2.0" yct.exe && clear ;;
+            11) cmds "${aps}\suites\portableapps.com\PortableApps\FileZillaPortable" FileZillaPortable.exe && clear ;;
+            12) cmds "${aps}\suites\portableapps.com\PortableApps\HexChatPortable" HexChatPortable.exe && clear ;;
+            13) cmds "D:\apps\suites\symenu\ProgramFiles\SPSSuite\SyMenuSuite\JDownloader_2_sps" JDownloader.jar && clear ;;
+            14) cmds "D:\apps\suites\portableapps.com\PortableApps\FirefoxPortable" FirefoxPortable.exe && clear ;;
+            15) cmds "${aps}\suites\portableapps.com\PortableApps\ThunderbirdPortable" ThunderbirdPortable.exe && clear ;;
+            16) cmds "D:\apps\suites\portableapps.com\PortableApps\OperaPortable" OperaPortable.exe && clear ;;
+            17) cmds "D:\apps\net\file-sharing\Popcorn Time\Popcorn-Time" Popcorn-Time.exe && clear ;;
+            18) cmds "${aps}\suites\portableapps.com\PortableApps\qBittorrentPortable" qBittorrentPortable.exe && clear ;;
+            19) cmds "${aps}\suites\portableapps.com\PortableApps\QuiteRSSPortable" QuiteRSSPortable.exe && clear ;;
+            20) cmds "D:\apps\suites\portableapps.com\PortableApps\sPortable\App\Skype\Phone" Skype.exe && clear ;;
+            21) cmds "D:\apps\net\file-sharing\SyncTrayzorPortable-x64" SyncTrayzor.exe && clear ;;
+            22) cmds "D:\apps\net\social\Taiga" Taiga.exe && clear ;;
+            23) cmds "D:\apps\net\browsers\Tor Browser 7.0.6\Browser" firefox.exe && clear ;;
+            24) cmd.exe /c "D:\apps\net\file-sharing\Torrents Open Registrations Checker\Torrents Open Registrations Checker.exe" && clear ;;
+            25) cmds "D:\apps\net\tools\WiresharkPortable" WiresharkPortable.exe && clear ;;
+            26) cmds "D:\apps\suites\portableapps.com\PortableApps\XAMPP" XAMPPLauncher.exe && clear ;;
+            27) cmds "D:\apps\development\editors\ides\CodeBlocks\CodeBlocks-16.01mingw-nosetup" codeblocks.exe && clear ;;
+            28) cmds "D:\apps\development\editors\ides\Eclipse" eclipse.exe && clear ;;
+            29) cmds "D:\apps\development\tools\decompilers\java_decompiler-gui-1.4.0" jd-gui.exe && clear ;;
+            30) cmds "D:\apps\development\editors\ides\matlab-R2017a\bin" matlab.exe && clear ;;
+            31) cmds "D:\apps\file management\compare\Meld" Meld.exe && clear ;;
+            32) cmds "D:\apps\development\editors\ides\NetBeans 8.2\bin" netbeans64.exe && clear ;;
+            33) cmds "D:\apps\development\editors\editors\notepad++\Notepad++ 7.5.1" notepad++.exe && clear ;;
+            34)  ;;
+            35) cmds "D:\apps\development\tools\regex\RegexBuddy4" RegexBuddy4.exe && clear ;;
+            36) cmds "D:\apps\development\tools\regex\RegExr" RegExr.exe && clear ;;
+            37) cmds "${aps}\development\editors\editors\sublime" sublime_text.exe && clear ;;
+            38) cmds "${aps}\development\editors\editors\vscode" Code.exe && clear ;;
+            39) cmds "D:\apps\suites\symenu\ProgramFiles\SPSSuite\SyMenuSuite\KeePass_Professional_sps" KeePass.exe && clear ;;
+            40) cmds "D:\apps\suites\portableapps.com\PortableApps\calibrePortable" calibrePortable.exe && clear ;;
+            41) cmds "$(wslpath -w ${local})\pc\apps\productivity\office\diagrams\draw.io" draw.io.exe && clear ;;
+            42) cmds "D:\apps\suites\portableapps.com\PortableApps\GnuCashPortable" GnuCashPortable.exe && clear ;;
+            43) cmds "${aps}\productivity\notes\jdotxt" jdotxt-0.4.8.jar && clear ;;
+            44) cmds "D:\apps\suites\portableapps.com\PortableApps\LibreOfficePortable" LibreOfficePortable.exe && clear ;;
+            45) cmds "$(wslpath -w ${local})\pc\apps\productivity\office\TeX\MikTEX\texmfs\install\miktex\bin" mo.exe && clear ;;
+            46) cmds "$(wslpath -w ${local})\pc\apps\productivity\office\TeX\MikTEX\texmfs\install\miktex\bin" miktex-update.exe && clear ;;
+            47) cmds "$(wslpath -w ${local})\pc\apps\productivity\office\TeX\texstudio" texstudio.exe && clear ;;
+            48) cmds "D:\apps\productivity\dictionaries\SA Dictionary 2013" Diction.exe && clear ;;
+            49) cmds "$(wslpath -w ${local})\pc\apps\productivity\office\diagrams\Mind Mapping\vym" vym.exe && clear ;;
+            50) cmds "$(wslpath -w ${local})\pc\apps\productivity\office\diagrams\yEd-3.17.2" yed.jar && clear ;;
+            51) cmds "D:\apps\productivity\notes\Zim Desktop Wiki Portable" zim.exe && clear ;;
+            52) cmds "D:\apps\suites\portableapps.com\PortableApps\AudacityPortable" AudacityPortable.exe && clear ;;
+            53) cmds "D:\apps\file management\media\video\Bino\bin" bino.exe && clear ;;
+            54) cmds "D:\apps\suites\portableapps.com\PortableApps\BlenderPortable" BlenderPortable.exe && clear ;;
+            55) cmds "D:\apps\suites\portableapps.com\PortableApps\GIMPPortable" GIMPPortable.exe && clear ;;
+            56) cmds "D:\apps\suites\portableapps.com\PortableApps\InkscapePortable" InkscapePortable.exe && clear ;;
+            57) cmds "$(wslpath -w ${local})\pc\apps\file management\media\images\Instant-eyedropper" instanteyedropper.exe && clear ;;
+            58) cmds "D:\apps\suites\symenu\ProgramFiles\SPSSuite\SyMenuSuite\MKVToolNix_(x64)_sps" gMKVExtractGUI.exe && clear ;;
+            59) cmds "D:\apps\suites\symenu\ProgramFiles\SPSSuite\SyMenuSuite\MKVToolNix_(x64)_sps" mkvtoolnix-gui.exe && clear ;;
+            60) cmds "D:\apps\suites\portableapps.com\PortableApps\OBSPortable" OBSPortable.exe && clear ;;
+            61) cmds "$(wslpath -w ${local})\pc\apps\suites\symenu\ProgramFiles\SPSSuite\SyMenuSuite\Everything_(x64)_sps" Everything.exe && clear ;;
+            62) cmds "D:\apps\file management\file-managers\MultiCommander_x64_Portable" MultiCommander.exe && clear ;;
+            63) cmds "$(wslpath -w ${local})\pc\apps\suites\symenu\ProgramFiles\SPSSuite\SysinternalsSuite\Process_Explorer_sps" procexp64.exe && clear ;;
+            64) cmds "D:\apps\suites\symenu\ProgramFiles\SPSSuite\SyMenuSuite\RegSeeker_sps" RegSeeker.exe && clear ;;
+            65) cmds "${aps}\system\program management\uninstallers\RevoPortable64" RevoUninstallerPortable.exe && clear ;;
+            66) cmds "${aps}\suites\portableapps.com\PortableApps\RufusPortable" RufusPortable.exe && clear ;;
+            67) cmds "D:\apps\file management\flashing\Etcher" Etcher-Portable-1.3.1-x64.exe && clear ;;
+            68) cmds "D:\apps\suites\symenu\ProgramFiles\SPSSuite\SyMenuSuite\Snap2HTML_sps" Snap2HTML.exe && clear ;;
+            69) cmds "D:\apps\suites\symenu\ProgramFiles\SPSSuite\SyMenuSuite\Spybot_Anti-Beacon_sps" SDAntiBeacon.exe && clear ;;
+            70) cmds "D:\apps\file management\stats\Spyglass" Spyglass.exe && clear ;;
+            71) cmds "D:\apps\suites\portableapps.com\PortableApps\WinDirStatPortable" WinDirStatPortable.exe && clear ;;
+            72) cmds "D:\apps\net\remote control\vnc\RealVNC" VNC-Viewer-6.17.1113-Windows-64bit.exe && clear ;;
+            73) cmds "D:\apps\net\remote control\vnc" TigerVNC-VncViewer-1.8.0.jar && clear ;;
+            74) cmds "$(wslpath -w ${local})\pc\apps\productivity\office\TeX\TikzEdt" TikzEdt.exe && clear ;;
+            75) cmds "D:\apps\file management\recovery\r-studio" R-StudioPortable.exe && clear ;;
+            76) cmds "$(wslpath -w ${local})\pc\apps\productivity\office\TeX\MikTEX\texmfs\install\miktex\bin" miktex-console.exe && clear ;;
+            77) cmds "D:\apps\file management\media\media-centers\Kodi\Server" kodi.exe -p && clear ;;
+            78) cmd.exe /c "D:\apps\file management\media\media-centers\Plex\Server\Plex Media Server.exe" && clear ;;
+            79) cmds "${aps}\suites\portableapps.com\PortableApps\DittoPortable" DittoPortable.exe && clear ;;
+            b) apps ;;
+            x) : && clear ;;
+            *) portable_apps ;;
+        esac
+    }
+
+    msoffice() {
+        help() {
+            clear
+            echo -e '\n  Available Options:\n'
+            echo    '       x  | Exit'
+            echo    '       b  | Go Back'
+            echo    '       1  | Word'
+            echo    '       2  | Excel'
+            echo    '       3  | PowerPoint'
+            echo    '       4  | Access'
+            echo    '       5  | OneNote'
+            echo    '       6  | Publisher'
+            echo -e '       7  | Outlook\n'
+            read -e -p "  Enter Option: " input
+            echo
+        }
+
+        if [ -z $input2 ] ; then
+            help
+        else
+            input=$input2
+        fi
+
+        path="C:\Program Files\Microsoft Office\Office16"
+        options='cmd.exe /c start'
+
+        case $input in
+            1) $options "$path" WINWORD.EXE && clear ;;
+            2) $options "$path" EXCEL.EXE && clear ;;
+            3) $options "$path" POWERPNT.EXE && clear ;;
+            4) $options "$path" MSACCESS.EXE && clear ;;
+            5) $options "$path" ONENOTE.EXE && clear ;;
+            6) $options "$path" MSPUB.EXE && clear ;;
+            7) $options "$path" OUTLOOK.EXE && clear ;;
+            b) apps ;;
+            x) : && clear ;;
+            *) msoffice ;;
+        esac
+    }
+
+    adobe() {
+        help() {
+            clear
+            echo -e '\n  Available Options:\n'
+            echo    '       x  | Exit'
+            echo    '       b  | Go Back'
+            echo    '       1  | Acrobat DC'
+            echo    '       2  | Photoshop CC'
+            echo    '       3  | Illustrator CC'
+            echo    '       4  | After Effects CC'
+            echo    '       5  | Audition CC'
+            echo    '       6  | Premiere Pro CC'
+            echo -e '       7  | Media Encoder CC\n'
+            read -e -p "  Enter Option: " input
+            echo
+        }
+
+        if [ -z $input2 ] ; then
+            help
+        else
+            input=$input2
+        fi
+
+        options='cmd.exe /c start'
+        path_acrobat="C:\Program Files (x86)\Adobe\Acrobat DC\Acrobat"
+        path_photo="C:\Program Files\Adobe\Adobe Photoshop CC 2017"
+        path_illust="C:\Program Files\Adobe\Adobe Illustrator CC 2017\Support Files\Contents\Windows"
+        path_after="C:\Program Files\Adobe\Adobe After Effects CC 2017\Support Files"
+        path_audition="C:\Program Files\Adobe\Adobe Audition CC 2017"
+        path_premiere="C:\Program Files\Adobe\Adobe Premiere Pro CC 2017"
+        path_encoder="C:\Program Files\Adobe\Adobe Media Encoder CC 2017"
+
+        case $input in
+            1) $options "$path_acrobat" Acrobat.exe && clear ;;
+            2) $options "$path_photo" Photoshop.exe && clear ;;
+            3) $options "$path_illust" Illustrator.exe && clear ;;
+            4) $options "$path_after" AfterFX.exe && clear ;;
+            5) $options "$path_audition" 'Adobe Audition CC.exe' && clear ;;
+            6) $options "$path_premiere" 'Adobe Premiere Pro.exe' && clear ;;
+            7) $options "$path_encoder" 'Adobe Media Encoder.exe' && clear ;;
+            b) apps ;;
+            x) : && clear ;;
+            *) adobe ;;
+        esac
+    }
+
+    installed_apps() {
+        help() {
+            clear
+            echo -e '\n  Available Options:'
+            echo    '           x   Exit'
+            echo    '           b   Go Back'
+            echo -e '\n   >>> Apps Suites\n'
+            echo    '           1   Microsoft Office'
+            echo    '           2   Adobe Creative Cloud'
+            echo -e '\n   >>> Basic Utilities\n'
+            echo    '           3   4K Video Downloader'
+            echo    '           4   PureVPN'
+            echo    '           5   VirtualBox'
+            echo    '           6   MEmu-Multi'
+            echo    '           7   MEmu'
+            echo    '           8   Wondershare Streaming Audio Recorder'
+            echo    '           9   IsoBuster'
+            echo    '           10  MagicISO'
+            echo    '           11  TechSmith Camtasia'
+            echo    '           12  Acronis True Image'
+            echo    '           13  Keybase'
+            echo    '           14  iTunes'
+            echo    '           15  KeepVID'
+            echo    '           16  IObit Advanced SystemCare'
+            echo    '           17  IDM UltraCompare'
+            echo    '           18  DVDFab'
+            echo    '           19  Google Chrome'
+            echo -e '\n   >>> Utilities\n'
+            echo    '           20  7zip'
+            echo    '           21  Gadwin PrintScreen'
+            echo    '           22  Windows10 DPI Fix'
+            echo    '           23  VLC Media Player'
+            echo    '           24  AIMP'
+            echo    '           25  Stardock Fences'
+            echo    '           26  Windows 10 Upgrade Assistant'
+            echo    '           27  Sandboxie Web Browser'
+            echo    '           28  Sandboxie Any Program'
+            echo    '           29  EssentialPIM'
+            echo    '           30  SolidWorks'
+            echo    '           36  TightVNC'
+            echo -e '\n   >>> Development\n'
+            echo    '           31  VcXsrv'
+            echo    '           32  '
+            echo    '           33  Android Studio'
+            echo    '           34  Unity'
+            echo -e '\n   >>> Games\n'
+            echo -e '           35  Steam\n'
+            echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+            echo -e '\n   >>> Main\n'
+            echo    '           1   Microsoft Office'
+            echo    '           2   Adobe Creative Cloud'
+            echo    '           3   4K Video Downloader'
+            echo    '           4   PureVPN'
+            echo    '           6   MEmu-Multi'
+            echo    '           7   MEmu'
+            echo    '           26  Windows 10 Upgrade Assistant'
+            echo    '           15  KeepVID'
+            echo -e '           16  IObit Advanced SystemCare\n'
+            read -e -p "  Enter Option: " input
+            echo
+        }
+
+        if [ -z $input2 ] ; then
+            help
+        else
+            input=$input2
+        fi
+
+        shift 1
+        case $input in
+            1) msoffice "$@" && clear ;;
+            2) adobe "$@" && clear ;;
+            3) cmds "C:\Program Files (x86)\4KDownload\4kvideodownloader" 4kvideodownloader.exe && clear ;;
+            4) cmds "C:\Program Files (x86)\PureVPN" purevpn.exe && clear ;;
+            5) cmds "C:\Program Files\Oracle\VirtualBox" VirtualBox.exe && clear ;;
+            6) cmds "C:\Program Files\Microvirt\MEmu" MEmuConsole.exe && clear ;;
+            7) cmds "C:\Program Files\Microvirt\MEmu" MEmu.exe && clear ;;
+            8) cmds "C:\Program Files (x86)\Wondershare\Streaming Audio Recorder" StreamingAudioRecorder.exe && clear ;;
+            9) cmds "C:\Program Files (x86)\Smart Projects\IsoBuster" IsoBuster.exe && clear ;;
+            10) cmds "C:\Program Files (x86)\MagicISO" MagicISO.exe && clear ;;
+            11) cmds "C:\Program Files\TechSmith\Camtasia 9" CamtasiaStudio.exe && clear ;;
+            12) cmds ""  && clear ;;
+            13) cmds "$winhw\AppData\Local\Keybase\Gui" Keybase.exe && clear ;;
+            14) cmds "C:\Program Files\iTunes" iTunes.exe && clear ;;
+            15) cmds "C:\Program Files (x86)\KeepVid\KeepVid Pro" KeepVidPro.exe && clear ;;
+            16) cmds "C:\Program Files (x86)\IObit\Advanced SystemCare" ASC.exe && clear ;;
+            17) cmds "C:\Program Files\IDM Computer Solutions\UltraCompare" uc.exe && clear ;;
+            18) cmds ""  && clear ;;
+            19) cmds "C:\Program Files (x86)\Google\Chrome\Application" chrome.exe && clear ;;
+            20) cmds "C:\Program Files\7-Zip" 7zFM.exe && clear ;;
+            21) cmds "C:\Program Files\Gadwin\Gadwin PrintScreen" PrintScreen64.exe && clear ;;
+            22) cmds "C:\Program Files (x86)\XPE Windows 10 DPI Fix" XPEWindows10_DPI_FIX.exe && clear ;;
+            23) cmds "C:\Program Files\VideoLAN\VLC" vlc.exe && clear ;;
+            24) cmds "C:\Program Files (x86)\AIMP" AIMP.exe && clear ;;
+            25) cmds "C:\Program Files (x86)\Stardock\Fences" Fences.exe && clear ;;
+            26) cmds "C:\Windows10Upgrade" Windows10UpgraderApp.exe && clear ;;
+            27) cmds ""  && clear ;;
+            28) cmds ""  && clear ;;
+            29) cmds ""  && clear ;;
+            30) cmds ""  && clear ;;
+            31) cmds "C:\Program Files\VcXsrv" xlaunch.exe && clear ;;
+            32) cmds ""  && clear ;;
+            33) cmds ""  && clear ;;
+            34) cmds ""  && clear ;;
+            35) cmds "C:\Program Files (x86)\Steam" Steam.exe && clear ;;
+            36) cmds "C:\Program Files\TightVNC" tvnserver.exe && clear ;;
+            b) apps ;;
+            x) : && clear ;;
+            *) installed_apps ;;
+        esac
+    }
+
+    sysmenu_clean() {
+        rm -rfv $(wslpath $aps)/suites/symenu/ProgramFiles/SPSSuite/SyMenuSuite/_Trash/*;
+        rm -rfv $(wslpath $aps)/suites/symenu/ProgramFiles/SPSSuite/NirSoftSuite/_Trash/*;
+        rm -rfv $(wslpath $aps)/suites/symenu/ProgramFiles/SPSSuite/SysinternalsSuite/_Trash/*;
+        clear
+    }
+
+    qbittorrent() {
+        rm -rfv $winhl/AppData/Local/qBittorrent;
+        rm -rfv $winhl/AppData/Roaming/qBittorrent;
+    }
+
+    program_management() {
+        help() {
+            clear
+            echo -e '\n  Available Options:'
+            echo    '       x  | Exit'
+            echo -e '       b  | Go Back\n'
+            echo    "    1  | word                 | Open Word Documets"
+            echo    "    2  | m3u                  | Create m3u Playlists"
+            echo    "    3  | sysmenu_clean        | Clean SysMenu Trash"
+            echo    "    4  | radicalle            | Manage calDAV / cardDAV"
+            echo    "    5  | qbittorrent          | Delete qBittorrent Config"
+            echo    "    6  | enpass_setup         | Setup enpass config"
+            echo -e "    7  | vscode_setup         | Setup vscode config\n"
+            read -e -p "  Enter Option: " input
+            echo
+        }
+
+        if [ -z $input2 ] ; then
+            help
+        else
+            input=$input2
+        fi
+
+        shift 1
+        case $input in
+            1|word)              word "$@"; ;;
+            2|m3u)               m3u "$@"; ;;
+            3|sysmenu_clean)     sysmenu_clean ;;
+            4|radicalle)         radicalle "$@"; ;;
+            5|qbittorrent)       qbittorrent ;;
+            6|enpass_setup)       enpass_setup ;;
+            7|vscode_setup)       vscode_setup ;;
+            b)  apps ;;
+            x)  : && clear ;;
+            *)  program_management ;;
+        esac
+    }
+
+    help() {
+        clear
+        echo -e '\n  Available Options:'
+        echo    '       x  | Exit'
+        echo -e '       b  | Go Back\n'
+        echo    "    1  | portable_apps        | Portable"
+        echo    "    2  | installed_apps       | Installed"
+        echo -e "    3  | program_management   | Program Management\n"
+        read -e -p "  Enter Option: " input
+        echo
+    }
+
+    if [ -z $1 ] ; then
+        help
+    else
+        input=$1
+        input2=$2
+    fi
+
+    shift 1
+    case $input in
+        1|portable_apps)       portable_apps "$@" ;;
+        2|installed_apps)      installed_apps "$@" ;;
+        3|program_management)  program_management "$@" ;;
+        b)  master ;;
+        x)  : && clear ;;
+        *)  apps ;;
+    esac
+
+    functions=(
+        "help"
+        "portable_apps"
+        "installed_apps"
+        "program_management"
+        "sysmenu_clean"
+        "qbittorrent"
+    )
+
+    variables=(
+        "input"
+        "input2"
+        "path"
+        "options"
+        "path_acrobat"
+        "path_photo"
+        "path_illust"
+        "path_after"
+        "path_audition"
+        "path_premiere"
+        "path_encoder"
+    )
+
+    unset -f "${functions[@]}";
+    unset -v functions "${variables[@]}" variables;
+}

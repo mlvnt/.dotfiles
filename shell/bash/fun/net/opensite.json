@@ -1,0 +1,59 @@
+{
+    "name": "opensite",
+    "alias": "",
+    "id": 205582,
+    "category": "net",
+    "tag": "",
+    "version": 0.1,
+    "description_short": "open urls",
+    "description_long": "",
+    "dependencies": [
+        948825
+    ],
+    "enabled": true,
+    "help": {
+        "usage": [
+            {
+                "form": "[options] (URLS...)"
+            }
+        ],
+        "options": {
+            "required": [],
+            "optional": [
+                {
+                    "option": "firefox",
+                    "alias": "f",
+                    "description": "use firefox instead of chrome",
+                    "params": "",
+                    "default": "",
+                    "choices": []
+                },
+                {
+                    "option": "tab",
+                    "alias": "t",
+                    "description": "open links in the current window as new tabs instead in a new window",
+                    "params": "",
+                    "default": "",
+                    "choices": []
+                },
+                {
+                    "option": "help",
+                    "alias": "h",
+                    "description": "show help",
+                    "params": "",
+                    "default": "",
+                    "choices": []
+                },
+                {
+                    "option": "version",
+                    "alias": "v",
+                    "description": "show version",
+                    "params": "",
+                    "default": "",
+                    "choices": []
+                }
+            ]
+        },
+        "examples": []
+    }
+}

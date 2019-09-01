@@ -1,0 +1,26 @@
+# Monokai
+
+# special
+rgb(255,255,255) #FFFFFF # foreground
+rgb(39,40,34)    #272822 # background
+rgb(255,255,255) #FFFFFF # cursorColor
+
+# normal
+rgb(39,40,34)    #272822 # black 1
+rgb(167,3,52)    #A70334 # red 2
+rgb(116,170,4)   #74AA04 # green 3
+rgb(182,182,73)  #B6B649 # yellow 4
+rgb(1,84,158)    #01549E # blue 5
+rgb(137,86,156)  #89569C # magenta 6
+rgb(26,131,166)  #1A83A6 # cyan 7
+rgb(202,202,202) #CACACA # white 8
+
+# light
+rgb(124,124,124) #7C7C7C # black 9
+rgb(243,4,75)    #F3044B # red 10
+rgb(141,208,6)   #8DD006 # green 11
+rgb(204,204,129) #CCCC81 # yellow 12
+rgb(3,131,245)   #0383F5 # blue 13
+rgb(168,125,184) #A87DB8 # magenta 14
+rgb(88,194,229)  #58C2E5 # cyan 15
+rgb(255,255,255) #FFFFFF # white 16

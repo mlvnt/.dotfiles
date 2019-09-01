@@ -1,0 +1,26 @@
+# Pure
+
+# special
+rgb(214,229,251) #d6e5fb # foreground
+rgb(18,21,26)    #12151a # background
+rgb(214,229,251) #d6e5fb # cursorColor
+
+# normal
+rgb(34,35,51)    #222333 # black 0
+rgb(240,24,90)   #f0185a # red 1
+rgb(18,230,137)  #12e689 # green 2
+rgb(255,164,99)  #ffa463 # yellow 3
+rgb(2,164,252)   #02a4fc # blue 4
+rgb(192,14,239)  #c00eef # magenta 5
+rgb(38,197,255)  #26c5ff # cyan 6
+rgb(112,119,130) #707782 # white 7
+
+# light
+rgb(61,64,91)    #3d405b # black 8
+rgb(255,69,81)   #ff4551 # red 9
+rgb(58,255,147)  #3aff93 # green 10
+rgb(255,221,116) #ffdd74 # yellow 11
+rgb(52,176,253)  #34b0fd # blue 12
+rgb(239,90,234)  #ef5aea # magenta 13
+rgb(38,197,255)  #26c5ff # cyan 14
+rgb(214,229,251) #d6e5fb # white 15

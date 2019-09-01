@@ -1,0 +1,365 @@
+# ---------------------------------------------------- non-gui
+# ------------- runtimes
+# -- python
+# spyder
+ipython3
+python
+python-pip
+python3
+python3-pip
+# -- perl
+perl-doc # perldoc
+perlbrew
+# -- ruby
+# ruby
+# ruby-dev
+# -- java
+openjdk-8-jdk-headless
+openjdk-8-jre-headless
+openjdk-9-jdk-headless
+openjdk-9-jre-headless
+# -- sql
+postgresql-9.5
+sqlite3
+# mysql-client
+# mysql-server
+# mysql-workbench
+# dbeaver # arch only
+# -- json
+jq
+# -- c
+clang
+cmake
+gcc
+# -- haskell
+cabal-install
+ghc
+# -- android
+# adb
+# android-tools-adb
+# -- other
+# puredata
+bf # brainfuck
+erlang
+ghostscript
+lua5.3
+php7.0-cli
+# ------------- media
+# cava
+bsdgames
+eyed3
+ffmpeg
+gifsicle
+id3tool
+id3v2
+imagemagick
+jpegoptim
+libid3-tools
+libimage-exiftool-perl
+lltag
+mediainfo
+melt
+mp3info
+optipng
+qrencode
+ttyrec
+# ------------- docs
+ascii
+asciio
+djvulibre-bin
+graphviz
+groff
+jp2a
+pandoc
+source-highlight
+spell
+tex-common
+texlive-base
+texlive-binaries
+texlive-extra-utils
+texlive-font-utils
+texlive-fonts-recommended
+texlive-fonts-recommended-doc
+texlive-full
+texlive-latex-base
+texlive-latex-base-doc
+texlive-latex-extra
+texlive-latex-extra-doc
+texlive-latex-recommended
+texlive-latex-recommended-doc
+texlive-pictures
+texlive-pictures-doc
+texlive-plain-generic
+texlive-pstricks
+woff2
+# --- pdf
+mupdf
+pdf2svg
+xpdf
+zathura
+zathura-cb
+zathura-djvu
+zathura-ps
+# ---- fun
+boxes
+cmatrix
+cowsay
+figlet
+fortune-mod
+fortune-zh
+toilet
+uni2ascii
+# ---- ocr
+ocrmypdf
+tesseract-ocr
+# ---- diff
+colordiff
+diffutils
+wdiff
+# ---- editors
+ed
+emacs
+nano
+vim
+vim-gui-common
+vis # A vi-like editor based on Plan 9's structural regular expressions
+# ------------- files
+jmtpfs
+luckybackup
+meld
+radare2 # reverse engineering
+rsync
+stow
+# ----- archive
+libbz2-dev
+p7zip
+tar
+unzip
+zip
+# -- Lempel-Ziv/Markov-chain Algorithm
+lzma
+xz-utils
+xzdec
+# ------------- net
+# apache2
+# gufw
+# hugo
+# mutt
+# netcat-traditional
+# nginx
+# sshfs
+# wireshark
+aircrack-ng # an 802.11a/b/g WEP/WPA cracking program
+arping
+avahi-daemon
+certbot
+curl
+dsniff
+gnupg2
+gpa
+hping3
+httpie
+hydra # brute force tool
+ipmiutil
+iproute2
+iptables
+irssi
+keepalived
+keychain
+knockd
+libnss3
+libnss3-dbg
+libnss3-dev
+libnss3-tools
+libwww-perl
+macchanger
+net-tools
+netcat-openbsd
+network-manager
+nmap # network scanner
+openssh-client
+openssh-server
+openssl
+p0f
+python-gnuplot
+scp
+sox
+sshpass
+tcpdump
+traceroute
+ufw
+vpnc
+weechat
+wget
+whois
+wireless-tools
+# nc # netcat
+# ---- gnu inetuitls
+inetutils-ftp # File Transfer Protocol client
+inetutils-ftpd # File Transfer Protocol server
+inetutils-inetd # internet super server
+inetutils-ping # ICMP echo tool
+inetutils-syslogd # system logging daemon
+inetutils-talk # talk to another user
+inetutils-talkd # remote user communication server
+inetutils-telnet # telnet client
+inetutils-telnetd # telnet server
+inetutils-tools # base networking utilities (experimental package)
+inetutils-traceroute # trace the IPv4 route to another host
+# ------------- stats
+# screenfetch
+conky
+inxi
+lm-sensors
+lsb-release
+pv
+vnstat
+# ------------- system
+# bd # backdir
+# binutils # gnu binutils
+# coreutils # icludes tee
+# florence
+# procps
+# uuid
+bats
+build-essential
+dateutils
+e4defrag
+entr
+espeak
+findutils
+fontconfig
+fonts-liberation
+gnome-keyring
+gparted
+gpm
+grok # parse logs, handle events, and make your unstructured text structured
+htop
+inotify-tools
+libnotify-bin
+lsof
+make
+mhddfs # file system for unifying several mount points into one
+moreutils
+most
+ncdu
+psutils
+rlwrap
+shellcheck
+speech-dispatcher
+stress
+suckless-tools # includes dmenu
+tmux
+tree
+util-linux
+zsh
+# ------- help
+info
+man
+# ------- productivity
+calcurse # a calendar and scheduling application for the command line
+# ------- file mangers
+autojump
+mc
+nnn
+ranger
+pcmanfm
+# pcmanfm --destop-pref # color picker
+# -------------math
+bc
+gnuplot
+octave
+pari-gp
+# -------------x11
+x11-apps
+xclip
+xdotool
+xinit
+xpra
+xserver-xorg-video-dummy
+xvfb
+# -------------grep
+ngrep
+pcregrep
+ripgrep
+# ---------------------------------------------------- gui
+# ------------- window managers
+2bwm
+awesome
+bspwm
+chunkwm
+dwm
+i3-wm
+i3status
+i3status-rust
+kwin-x11
+sway
+spectrwm # spectrum
+# ------------- compositor / compositing manager
+compton
+compiz
+xcompmgr
+# ------------- application launchers
+rofi
+dmenu
+# ------------- ncurses
+dialog
+# ------------- taskbars
+lemonbar
+polybar
+tint2
+waybar
+# ------------- desktop environments
+xfce4
+xfce4-goodies
+# ------------- drawing tools
+inkscape
+xfig
+# ------------- image viewer
+feh
+viewnior
+caca-utils
+# ------------- notification-daemons
+dunst
+mako
+# ------------- login managers
+sddm
+# ------------- screen recorder
+simplescreenrecorder
+# ------------- terminal emulators
+kitty
+konsole
+lxterminal
+rxvt-unicode
+st
+terminology
+tilix
+urxvt
+uxterm
+xfce4-terminal
+xterm
+# -------------
+fcitx # input method
+redshift #  color temperature
+gpick # color picker
+tty-clock
+# filezilla
+# kamerka
+# krita
+# zim
+# ------------- players
+# --------- audio
+clementine
+cli-visualizer # terminal audio visualizer
+cmus # media player for terminal
+moc
+mpd
+ncmpcpp
+# --------- video
+mpv
+vlc
+# ------------- browsers
+chromium-browser
+chromium-chromedriver
+firefox
+w3m

@@ -1,0 +1,10 @@
+#!/bin/bash
+repos=(
+    "/example-repo.git"
+)
+
+for repo in "${repos[@]}"
+do :
+    path=$(echo "$repo" | sed -e 's/\///g' -e 's/\.git/\//g')
+    cd $path && git pull && cd ..
+done

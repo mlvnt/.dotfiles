@@ -1,0 +1,10 @@
+{
+    "name": "test",
+    "id": 390975,
+    "category": "net",
+    "description": "f",
+    "dependencies": [
+        974480
+    ],
+    "enabled": true
+}

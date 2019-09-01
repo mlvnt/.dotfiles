@@ -1,0 +1,4 @@
+libnewt # gui toolkit
+gopherus # gopher client
+alacritty # terminal emulator
+perl-rename

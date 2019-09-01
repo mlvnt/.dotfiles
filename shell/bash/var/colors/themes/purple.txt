@@ -1,0 +1,26 @@
+# Purple
+
+# special
+rgb(248,248,242) #F8F8F2 # foreground
+rgb(27,29,30)    #1B1D1E # background
+rgb(248,248,242) #F8F8F2 # cursorColor
+
+# normal
+rgb(19,15,34)    #130F22 # black 1
+rgb(104,95,173)  #685FAD # red 2
+rgb(108,113,205) #6C71CD # green 3
+rgb(149,103,168) #9567A8 # yellow 4
+rgb(207,115,183) #CF73B7 # blue 5
+rgb(147,118,201) #9376C9 # magenta 6
+rgb(103,143,223) #678FDF # cyan 7
+rgb(188,175,211) #BCAFD3 # white 8
+
+# light
+rgb(19,15,34)    #130F22 # black 9
+rgb(104,95,173)  #685FAD # red 10
+rgb(108,113,205) #6C71CD # green 11
+rgb(149,103,168) #9567A8 # yellow 12
+rgb(207,115,183) #CF73B7 # blue 13
+rgb(147,118,201) #9376C9 # magenta 14
+rgb(103,143,223) #678FDF # cyan 15
+rgb(188,175,211) #BCAFD3 # white 16

@@ -1,0 +1,26 @@
+# Ubuntu
+
+# special
+rgb(238,238,236) #EEEEEC # foreground
+rgb(46,52,54)    #2E3436 # background
+rgb(238,238,236) #EEEEEC # cursorColor
+
+# normal
+rgb(46,52,54)    #2E3436 # black 1
+rgb(204,0,0)     #CC0000 # red 2
+rgb(78,154,6)    #4E9A06 # green 3
+rgb(196,160,0)   #C4A000 # yellow 4
+rgb(52,101,164)  #3465A4 # blue 5
+rgb(117,80,123)  #75507B # magenta 6
+rgb(6,152,154)   #06989A # cyan 7
+rgb(211,215,207) #D3D7CF # white 8
+
+# light
+rgb(85,87,83)    #555753 # black 9
+rgb(239,41,41)   #EF2929 # red 10
+rgb(138,226,52)  #8AE234 # green 11
+rgb(252,233,79)  #FCE94F # yellow 12
+rgb(114,159,207) #729FCF # blue 13
+rgb(173,127,168) #AD7FA8 # magenta 14
+rgb(52,226,226)  #34E2E2 # cyan 15
+rgb(238,238,236) #EEEEEC # white 16

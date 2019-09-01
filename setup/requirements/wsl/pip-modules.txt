@@ -1,0 +1,203 @@
+# node
+# powerline-status
+# py
+adb
+appdirs
+asciinema
+astroid
+atomicwrites
+attrs
+chardet
+emoji
+execnet
+gitpython
+graphene
+howdoi
+keyring
+m2r
+minidb
+ordered-set
+pinggraph
+pluggy
+psutil
+ptpython
+pygments
+pygnuplot
+pymsgbox
+pyscreeze
+python-dateutil
+pytz
+seaborn
+segno
+six
+statsmodels
+tqdm
+ubelt
+vpython
+wrapt
+lib3to6
+# ------------- Sytem
+# ranger-fm
+butterfly
+daemonize
+dbus-python
+docopt
+libusb1
+mpris2
+pygobject
+pythondialog
+s-tui
+urwid
+future
+# ----- theming
+colorthief
+colorz
+haishoku
+pywal
+themer
+# ----- watching
+rerun
+watchdog
+when-changed
+# -------tmux
+libtmux
+tmuxp
+# ------------- Media
+ffmpeg-python
+imagesize
+imutils
+opencv-python
+pyscreenshot
+# PIL
+pillow
+pymediainfo
+pytesseract
+# ------------- Automation
+autokey
+pyautogui
+# ------------- Packaging
+apipkg
+devpi-client
+devpi-server
+devpi-web
+mkinit
+packaging
+pkginfo
+requirements-parser
+setuptools
+twine
+wheel
+# ------------- Net
+bleach
+bottle
+bs4
+certifi
+cssselect
+# google
+flask
+idna
+isort
+livereload
+mitmproxy
+pelican
+protobuf
+requests
+requests-cache
+requests-toolbelt
+sanic
+scapy
+selenium
+selenium-requests
+urllib3
+urlwatch
+# ------- youtube
+mps-youtube
+pafy
+youtube_dl
+# ------- security
+bcrypt
+cryptography
+passlib
+secretstorage
+# ------------- Parsing
+configparser
+csvkit
+iniconfig
+lxml
+pyquery
+remarshal
+# pyld
+# rdflib-jsonld
+# pyopengraph
+# ------------argument
+click
+# ------------markdown
+markdown
+recommonmark
+# ------------yaml
+pyyaml
+ruamel.yaml
+# ------------toml
+# qtoml
+toml
+tomlkit
+# ------------- Testing
+coverage
+nose2
+pyflakes
+# pyhamcrest
+pylint
+pytest
+pytest-benchmark
+pytest-cache
+pytest-codecheckers
+pytest-concurrent
+pytest-cov
+pytest-echo
+pytest-env
+pytest-flask
+pytest-forked
+pytest-leaks
+pytest-localserver
+pytest-parallel
+pytest-print
+pytest-runner
+pytest-watch
+pytest-xdist
+tox
+xdoctest
+# -----style
+autopep8
+flake8
+pep8
+pycodestyle
+pydocstyle
+# ------------- SciPy
+h5py
+ipython
+jupyter
+matplotlib
+nose
+numpy
+numpydoc
+pandas
+scikit-image
+scikit-learn
+scipy
+sympy
+# ------------- Documentation
+docutils
+pyx
+topydo
+# --- uml
+gaphor
+# --- Templating
+cookiecutter
+jinja2
+pystache
+# --- Sphinx
+sphinx
+sphinx_gallery
+sphinx_rtd_theme
+sphinx_rtd_theme
+sphinx-autobuild

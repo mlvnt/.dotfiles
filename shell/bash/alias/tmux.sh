@@ -1,0 +1,21 @@
+# make sure that tmux is launched in 256 color mode
+alias tmux="TERM=xterm-256color tmux"
+alias tw='tmux new -s workspace'
+alias tn='tmux new -s'
+# alias tk='tmux kill-session -t' # conflict with tk toolkit
+alias tka='tmux kill-server'
+alias tkw='tmux kill-window -t'
+alias td='tmux detach'
+alias ta='tmux attach'
+alias tat='tmux attach -t'
+alias ts='tmux switch -t'
+alias tl='tmux list-sessions'
+alias tlk='tmux list-keys'
+alias tlc='tmux list-commands'
+alias ti='tmux info'
+alias tsc='tmux source-file ~/.tmux.conf'
+alias tb='tmux break -t'
+alias tj='tmux join -t'
+alias trz='tmux resize'
+alias trnw='tmux rename-window -t'
+alias trns='tmux rename-session -t'

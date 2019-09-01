@@ -1,5 +1,0 @@
-    cd uploads/
-    mlvnt/*
-    rmdir mlvnt
-    mkdir mlvnt
-    put -rp mlvnt/

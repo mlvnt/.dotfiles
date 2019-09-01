@@ -1,0 +1,37 @@
+{
+    "name": "currentdevice",
+    "alias": "",
+    "id": 948825,
+    "category": "onload",
+    "tag": "",
+    "version": 0.1,
+    "description_short": "get stats about the current device",
+    "description_long": "",
+    "dependencies": [],
+    "enabled": true,
+    "help": {
+        "usage": [],
+        "options": {
+            "required": [],
+            "optional": [
+                {
+                    "option": "help",
+                    "alias": "h",
+                    "description": "show help",
+                    "params": "",
+                    "default": "",
+                    "choices": []
+                },
+                {
+                    "option": "version",
+                    "alias": "v",
+                    "description": "show version",
+                    "params": "",
+                    "default": "",
+                    "choices": []
+                }
+            ]
+        },
+        "examples": []
+    }
+}
