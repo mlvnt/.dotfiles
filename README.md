@@ -19,7 +19,7 @@ A self-contained, versioned framework managing my multi-os configuration stored 
 - create a modular system where each component is as minimal as possible thus enabling it to become extensible and scalable on-demand
 - be a system you understand, and be as user-friendly as possible - suitable for both developers and casual users
   - this can be achieved by having a variety of intuitive user interfaces ([CLI][3], [TUI][4], [GUI][5]) and a good documentation
-- not reinvent wheel
+- not reinvent the wheel
 
 None of these aims are set in stone and will be updated accordingly. When a component is mature enough it will be moved to a separate repository.
 
