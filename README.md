@@ -11,10 +11,10 @@
 ░░  ░░░░░░  ░░░░░░     ░░    ░░   ░░ ░░░  ░░░░░░ ░░░░░░
 ```
 
-A self-contained, versioned framework managing my multi-os configuration stored in `~/.dotfiles` (Linux). It aims to:
+A self-contained framework for managing multi-os configuration. Named after a common place for storing Linux application configuration (`~/.dotfiles`) until a better name is given. It aims to:
 
 - simplify and automate the setup and usage of multiple devices by tracking changes using git and introducing shared data model
-- create an open environment for managing all life activities by employing the shared data model
+- create an open environment for managing all life activities by utilizing the shared data model
 - make a true cross-platform experience where all data belongs to you and you understand where and how it is used
 - create a modular system where each component is as minimal as possible thus enabling it to become extensible and scalable on-demand
 - be a system you understand, and be as user-friendly as possible - suitable for both developers and casual users
