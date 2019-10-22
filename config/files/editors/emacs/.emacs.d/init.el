@@ -1,6 +1,0 @@
-(setq-default indent-tabs-mode nil)
-(setq tab-width 4)
-(ido-mode 1)
-(global-set-key (kbd "M-+") 'next-buffer)
-(global-set-key (kbd "M--") 'previous-buffer)
-(global-set-key (kbd "C-t") 'ido-switch-buffer)

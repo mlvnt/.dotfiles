@@ -29,7 +29,7 @@ yes 2 | sudo update-alternatives --config python
 install_pip_packages() {
     printf '\n      >>> Installing python modules....\n'
     # local pipFreeze=$(pip3 freeze)
-    pip3 install $(cat requirements/wsl/pip-modules.txt)
+    pip3 install --user $(cat requirements/wsl/pip-modules.txt)
 }
 install_pip_packages
 

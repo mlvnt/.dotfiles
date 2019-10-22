@@ -1,8 +1,1 @@
 .vscode/
-config/files/git/.git-credentials
-config/files/git/.gitconfig-local
-config/net/mac.txt
-config/net/radicale
-config/net/social
-config/system/.config/kdeconnect/privateKey.pem
-config/system/.local/share/tldr

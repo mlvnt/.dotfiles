@@ -36,6 +36,9 @@ ubelt
 vpython
 wrapt
 lib3to6
+platformio
+virtualenv
+todoman
 # ------------- Sytem
 # ranger-fm
 butterfly
@@ -137,6 +140,12 @@ recommonmark
 # ------------yaml
 pyyaml
 ruamel.yaml
+# ------------ caldav/cardav
+icalendar
+icalevents
+radicale
+vcard
+vobject
 # ------------toml
 # qtoml
 toml

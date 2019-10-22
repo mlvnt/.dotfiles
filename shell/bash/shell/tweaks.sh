@@ -34,6 +34,8 @@ enable_opts(){
     for option in "${bashopt[@]}"; do
         shopt -s "${option}" 2>/dev/null;
     done;
+    # enable vim mode
+    set -o vi
 }
 enable_opts
 unset enable_opts

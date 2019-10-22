@@ -32,11 +32,11 @@ ydl() {
     }
 
     cmd_video() {
-        youtube-dl -f '(bestvideo[ext=mp4])[fps!=60]+bestaudio[ext=m4a]/mp4' -o '%(title)s/%(title)s.%(ext)s' --write-description "$@";
+        youtube-dl --write-info-json -f '(bestvideo[ext=mp4])[fps!=60]+bestaudio[ext=m4a]/mp4' -o '%(title)s/%(title)s.%(ext)s' --write-description "$@";
     }
 
     cmd_audio() {
-        youtube-dl -o '%(title)s.%(ext)s' "$@";
+        youtube-dl --write-info-json -o '%(title)s.%(ext)s' "$@";
     }
 
     local re='https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/=]*)';

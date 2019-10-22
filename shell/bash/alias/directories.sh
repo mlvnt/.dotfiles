@@ -1,4 +1,4 @@
-#█▓▒░ directories - ls, dir, trer
+#█▓▒░ directories - ls, dir, tree
 
 # default ls aliases
 # alias ll='ls -alF'
