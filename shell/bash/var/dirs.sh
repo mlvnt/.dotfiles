@@ -10,7 +10,7 @@ winhlr="$(wslpath -u "${winhwr}")";
 
 if [[ $(currentdevice) == pc ]]; then
     aps="D:\apps";
-    local="/mnt/d/shared";
+    local="/mnt/d/sync";
     synctrayzor="${aps}\net\file-sharing";
     shared="home";
 else

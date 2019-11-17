@@ -134,5 +134,5 @@ notebook-backup() {
     pushd ${local}/mobile/notebook
     tree -aF >> structure-$(date "+%Y-%m-%d-%H-%M").txt
     popd
-    mv ${local}/mobile/notebook/structure-* /mnt/d/shared/pc/projects/scripts/Bash/notebook-backup
+    mv ${local}/mobile/notebook/structure-* /mnt/d/sync/pc/projects/scripts/Bash/notebook-backup
 }

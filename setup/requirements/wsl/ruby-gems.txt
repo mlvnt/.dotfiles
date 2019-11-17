@@ -75,6 +75,7 @@ selenium-webdriver
 simplecov
 sinatra
 sinatra
+solargraph
 test-unit
 tilt
 toml-rb

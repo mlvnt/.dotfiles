@@ -4,7 +4,7 @@ backup() { echo "test"; }
 
 move() {
 
-    # dotfilesdird="/mnt/d/shared/pc/projects/dotfiles/dotfiles"
+    # dotfilesdird="/mnt/d/sync/pc/projects/dotfiles/dotfiles"
     # dotfilesdire="/mnt/e/backup/shared/pc/projects/dotfiles/dotfiles"
     # animemain="/mnt/e/backup/media/anime/seasonal/~main/"
 
@@ -31,7 +31,7 @@ move() {
     # case $input in
     #     1)  main_backup
 
-    #         excludeddir="/mnt/d/shared/pc/projects/dotfiles/dotfiles/wsl/files/rsync/excluded"
+    #         excludeddir="/mnt/d/sync/pc/projects/dotfiles/dotfiles/wsl/files/rsync/excluded"
     #         drived="/mnt/d/"
     #         bakcupdire="/mnt/e/backup"
     #         logdir="/mnt/e/backup_logs/"
@@ -43,7 +43,7 @@ move() {
     #         ;;
     #     2)  mobile_backup
 
-    #         excludeddir="/mnt/d/shared/pc/projects/dotfiles/dotfiles/wsl/files/rsync/excluded_mobile"
+    #         excludeddir="/mnt/d/sync/pc/projects/dotfiles/dotfiles/wsl/files/rsync/excluded_mobile"
     #         sdcard=""
     #         bakcupdire="/mnt/e/backup_mobile/"
     #         logdir="/mnt/e/backup_logs/"
@@ -70,7 +70,7 @@ move() {
     #         workspacedird="D:\workspace"
     #         workspacedire="E:\backup\workspace"
     #         link_dir_1="/mnt/d/workspace"
-    #         link_dir_2="/mnt/d/shared"
+    #         link_dir_2="/mnt/d/sync"
     #         ;;
     #     4)  mobile_restore
 
@@ -81,7 +81,7 @@ move() {
     #         workspacedird="D:\workspace"
     #         workspacedire="E:\backup\workspace"
     #         link_dir_1="/mnt/d/workspace"
-    #         link_dir_2="/mnt/d/shared"
+    #         link_dir_2="/mnt/d/sync"
 
     #         case $input in
     #             1|3) robonorm="/E" && rsyncnorm='' ;;
@@ -97,7 +97,7 @@ move() {
 
     #             echo
     #             read -e -p "  Enter Drive Letter/Path [c]:" backdir
-    #             dotfilesdird="/mnt/d/shared/pc/projects/dotfiles/dotfiles/"
+    #             dotfilesdird="/mnt/d/sync/pc/projects/dotfiles/dotfiles/"
     #             dotfilesdire="/mnt/"$backdir"/workspace/tech/programing/dotfiles/dotfiles"
     #             drived="/mnt/d/"
     #             drivedwin="D:\\"
@@ -109,7 +109,7 @@ move() {
 
     #             echo
     #             read -e -p "  Enter Drive Letter/Path [c]:" backdir
-    #             dotfilesdird="/mnt/d/shared/pc/projects/dotfiles/dotfiles/"
+    #             dotfilesdird="/mnt/d/sync/pc/projects/dotfiles/dotfiles/"
     #             dotfilesdire="/mnt/"$backdir"/workspace/tech/programing/git/dotfiles"
     #             drived="/mnt/e/backup_mobile/"
     #             drivedwin="E:\\backup_mobile"

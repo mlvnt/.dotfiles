@@ -116,7 +116,7 @@ alias matrix="cmatrix"
 alias lol="base64 </dev/urandom | lolcat"
 
 alias tlmgr="sudo /usr/local/texlive/2019/bin/x86_64-linux/tlmgr"
-alias texdir="cd /mnt/d/shared/mobile/notebook/dev/languages/markup/tex/packages"
+alias texdir="cd /mnt/d/sync/mobile/notebook/dev/languages/markup/tex/packages"
 alias texkill="sudo pkill pdflatex*"
 texclean() {
     local ext=(*.aux *.bbl *.blg *.idx *.ind *.lof *.lot *.out *.toc *.acn *.acr *.alg *.glg *.glo *.gls *.ist *.fls *.log *.fdb_latexmk *.synctex.gz _minted-report *.pdf *.dvi *.ps  *.nav *.snm);

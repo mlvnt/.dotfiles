@@ -7,6 +7,8 @@ promptinit
 prompt adam1
 
 setopt histignorealldups sharehistory
+# activate the bash-style comments
+setopt interactivecomments
 
 # Use emacs keybindings even if our EDITOR is set to vi
 # bindkey -e

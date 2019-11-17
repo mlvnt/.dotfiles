@@ -1,16 +1,24 @@
 ```text
 
-         ██            ██     ████ ██  ██
-        ░██           ░██    ░██░ ░░  ░██
-        ░██  ██████  ██████ ██████ ██ ░██  █████   ██████
-     ██████ ██░░░░██░░░██░ ░░░██░ ░██ ░██ ██░░░██ ██░░░░
-    ██░░░██░██   ░██  ░██    ░██  ░██ ░██░███████░░█████
- ██░██  ░██░██   ░██  ░██    ░██  ░██ ░██░██░░░░  ░░░░░██
-░██░░██████░░██████   ░░██   ░██  ░██ ███░░██████ ██████
-░░  ░░░░░░  ░░░░░░     ░░    ░░   ░░ ░░░  ░░░░░░ ░░░░░░
+                                              ██            ██
+                                             ░██           ░██
+                             ██████████      ░██  ██████  ██████  ██████
+                            ░░██░░██░░██  ██████ ██░░░░██░░░██░  ██░░░░
+                             ░██ ░██ ░██ ██░░░██░██   ░██  ░██  ░░█████
+                             ░██ ░██ ░██░██  ░██░██   ░██  ░██   ░░░░░██
+                             ███ ░██ ░██░░██████░░██████   ░░██  ██████
+                            ░░░  ░░  ░░  ░░░░░░  ░░░░░░     ░░  ░░░░░░
 ```
 
-A self-contained framework for managing multi-os configuration. Named after a common place for storing linux application configuration (`~/.dotfiles`) until a better name is given. It aims to:
+<p align="center">
+    <a href="http://unmaintained.tech/"><img alt="status: alpha" src="assets/badges/status-alpha-red.svg"></a>
+    <a href="https://www.python.org/"><img alt="python: 3.7" src="assets/badges/python-3.7-green.svg"></a>
+    <a href="https://www.gnu.org/software/bash/"><img alt="bash: 5.0.11" src="assets/badges/bash-5.0.11-green.svg"></a>
+    <a href="https://www.zsh.org/"><img alt="zsh: 5.7.1" src="assets/badges/zsh-5.7.1-green.svg"></a>
+    <a href="https://www.gnu.org/licenses/agpl-3.0.html"><img alt="license: agpl" src="assets/badges/license-agpl-green.svg"></a>
+</p>
+
+A self-contained framework for managing multi-os configuration. Named after a common place for storing linux configuration files (`~/.dotfiles`). It aims to:
 
 - simplify and automate the setup and usage of multiple devices and introducing shared data model
   - easy and reliable way to share files (`syncthing`)
@@ -26,8 +34,6 @@ A self-contained framework for managing multi-os configuration. Named after a co
 - not reinvent the wheel
 
 None of these aims are set in stone and will be updated accordingly. When a component is mature enough it will be moved to a separate repository.
-
-**development status**: alpha, frequently changes, unstable
 
 # contents
 
@@ -125,22 +131,25 @@ Coming soon...
 
 ### projects
 
+- badges
+  - [shields.io](https://shields.io/)
 - dotfiles
   - [archwiki][2]
   - [the unofficial dotfiles guide project][1]
   - many kind people that shared their dotfiles (Coming soon...)
-- bash frameworks
+- bash and bash frameworks
+  - [awesome-lists/awesome-bash](https://github.com/awesome-lists/awesome-bash)
   - [bash-it](https://github.com/Bash-it/bash-it)
-- zsh frameworks
-  - [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
 - theming
   - [figlet/toilet fonts](https://github.com/xero/figlet-fonts)
+- zsh frameworks
+  - [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
 
 ## license
 
 Copyright &copy; 2017–2019 Malvin Todorov
 
-Distributed under The GNU Affero General Public License (GNU AGPL).
+Distributed under The GNU Affero General Public License v3 (GNU AGPL)
 
 [1]: http://dotfiles.github.io/ "dotfiles.github.io"
 [2]: https://wiki.archlinux.org/index.php/Dotfiles
